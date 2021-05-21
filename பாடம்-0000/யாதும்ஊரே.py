@@ -1,5 +1,5 @@
 #
-# Example file for HelloWorld
+# யாதும் ஊரே எடுத்துக்காட்டு கோப்பு 
 #
 def முதன்மை():
     print("வணக்கம் வருக ")
