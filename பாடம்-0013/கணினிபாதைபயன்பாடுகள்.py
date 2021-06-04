@@ -2,7 +2,7 @@
 # os.path தொகுதிடன் பணியாற்றுவதற்கான எடுத்துக்காட்டு கோப்பு
 #
 
-import os
+import os as முறைமை
 from os import path as பாதை
 
 import datetime as திகதி
@@ -17,7 +17,7 @@ import time as நேரம்
 
 def   முதன்மை():
   # இயக்க முறைமையின் பெயரை அச்சிடுக
-  print (os.name)
+  print (முறைமை.name)
   
   # உருப்படி இருப்பதையும் சரிபார்க்கவும் மற்றும் வகை அறிதல்
   print ("உருப்படி உள்ளதா? " + str(பாதை.exists("உரைகோப்பு.உரை")))
