@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<person>
+  <firstname>அனிஷ் பிரபு</firstname>
+  <lastname>திருப்பதி</lastname>
+  <home>தமிழ்நாடு</home>
+  <skill name="பைத்தான்"/>
+  <skill name="ஆய்வு"/>
+  <skill name="சோதனைநிறுத்தம்"/>
+  <skill name="தமிழ்"/>
+  <skill name="ஆங்கிலம்"/>
+  <skill name="உயர்உரை குறியீட்டு மொழி"/>
+</person>
