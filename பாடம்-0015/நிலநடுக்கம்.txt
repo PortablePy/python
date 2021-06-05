@@ -1,0 +1,75 @@
+USGS Magnitude 2.5+ Earthquakes, Past Day
+38 நிகழ்வுகள் பதிவு செய்யப்பட்டன
+74 km N of Chickaloon, Alaska
+79 km SE of Katsuren-haebaru, Japan
+39 km ENE of Kodiak, Alaska
+south of the Kermadec Islands
+12 km NNW of Sabana, Puerto Rico
+5 km WSW of Guánica, Puerto Rico
+135km W of Petrolia, CA
+65 km NNW of Solomon, Alaska
+4 km WSW of Fuig, Puerto Rico
+193 km SSW of Waingapu, Indonesia
+238 km ESE of Vakhrushev, Russia
+159 km WNW of Constitución, Chile
+east of the North Island of New Zealand
+Reykjanes Ridge
+150 km WSW of Port Orford, Oregon
+63 km NW of Yonakuni, Japan
+Fox Islands, Aleutian Islands, Alaska
+9 km ENE of Anoka, Nebraska
+27 km W of Cantwell, Alaska
+3 km ENE of Pāhala, Hawaii
+Dodecanese Islands, Greece
+39 km NNW of Glacier View, Alaska
+152 km W of Gold Beach, Oregon
+164 km W of Gold Beach, Oregon
+3 km E of Pāhala, Hawaii
+47 km NNW of Pucallpa, Peru
+Volcano Islands, Japan region
+8 km SW of La Parguera, Puerto Rico
+67 km NW of Yonakuni, Japan
+37 km N of Isabela, Puerto Rico
+10 km NE of Anoka, Nebraska
+136 km WSW of Ternate, Indonesia
+126 km WSW of Ternate, Indonesia
+85 km NNW of Tocopilla, Chile
+122 km WSW of Ternate, Indonesia
+125 km WSW of Ternate, Indonesia
+4 km SSE of Pāhala, Hawaii
+23km NNE of Indio, CA
+--------------
+
+4.8, 79 km SE of Katsuren-haebaru, Japan
+4.4, south of the Kermadec Islands
+4.3, 193 km SSW of Waingapu, Indonesia
+4.2, 238 km ESE of Vakhrushev, Russia
+5.4, 159 km WNW of Constitución, Chile
+4.7, east of the North Island of New Zealand
+4.9, Reykjanes Ridge
+4.4, 63 km NW of Yonakuni, Japan
+4.2, Dodecanese Islands, Greece
+4.7, 152 km W of Gold Beach, Oregon
+4.4, 47 km NNW of Pucallpa, Peru
+4.8, Volcano Islands, Japan region
+4.3, 67 km NW of Yonakuni, Japan
+5.0, 136 km WSW of Ternate, Indonesia
+4.9, 126 km WSW of Ternate, Indonesia
+4.9, 85 km NNW of Tocopilla, Chile
+4.8, 122 km WSW of Ternate, Indonesia
+5.2, 125 km WSW of Ternate, Indonesia
+--------------
+
+
+
+உணரப்பட்ட நிகழ்வுகள்:
+4.8, 79 km SE of Katsuren-haebaru, Japan,  அறிக்கை 2 முறை
+3.2, 135km W of Petrolia, CA,  அறிக்கை 1 முறை
+5.4, 159 km WNW of Constitución, Chile,  அறிக்கை 1 முறை
+3.1, 150 km WSW of Port Orford, Oregon,  அறிக்கை 1 முறை
+3.1, 9 km ENE of Anoka, Nebraska,  அறிக்கை 16 முறை
+3.1, 3 km E of Pāhala, Hawaii,  அறிக்கை 1 முறை
+4.8, Volcano Islands, Japan region,  அறிக்கை 1 முறை
+3.7, 10 km NE of Anoka, Nebraska,  அறிக்கை 64 முறை
+4.9, 85 km NNW of Tocopilla, Chile,  அறிக்கை 8 முறை
+2.5, 23km NNE of Indio, CA,  அறிக்கை 2 முறை
