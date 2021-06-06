@@ -1,75 +1,204 @@
 USGS Magnitude 2.5+ Earthquakes, Past Day
-38 நிகழ்வுகள் பதிவு செய்யப்பட்டன
-74 km N of Chickaloon, Alaska
-79 km SE of Katsuren-haebaru, Japan
-39 km ENE of Kodiak, Alaska
-south of the Kermadec Islands
-12 km NNW of Sabana, Puerto Rico
-5 km WSW of Guánica, Puerto Rico
-135km W of Petrolia, CA
-65 km NNW of Solomon, Alaska
-4 km WSW of Fuig, Puerto Rico
-193 km SSW of Waingapu, Indonesia
-238 km ESE of Vakhrushev, Russia
-159 km WNW of Constitución, Chile
-east of the North Island of New Zealand
-Reykjanes Ridge
-150 km WSW of Port Orford, Oregon
-63 km NW of Yonakuni, Japan
-Fox Islands, Aleutian Islands, Alaska
-9 km ENE of Anoka, Nebraska
-27 km W of Cantwell, Alaska
-3 km ENE of Pāhala, Hawaii
-Dodecanese Islands, Greece
-39 km NNW of Glacier View, Alaska
-152 km W of Gold Beach, Oregon
-164 km W of Gold Beach, Oregon
+133 நிகழ்வுகள் பதிவு செய்யப்பட்டன
+13km WSW of Niland, CA
+23km NNW of Ocotillo, CA
+5km NNE of Westmorland, CA
+12km WNW of Calipatria, CA
+8km W of Salton City, CA
+23 km NE of Santa Monica, Philippines
+214 km NW of Tobelo, Indonesia
+12km WSW of Niland, CA
+12km WNW of Calipatria, CA
+12km WNW of Calipatria, CA
+13km WSW of Niland, CA
+31 km ENE of Santa Monica, Philippines
+12km E of North Shore, CA
+153 km W of Gold Beach, Oregon
+10km WNW of Calipatria, CA
+13km WNW of Calipatria, CA
+34 km NW of San Antonio, Puerto Rico
+157 km W of Gold Beach, Oregon
+12km WSW of Niland, CA
+13km WNW of Calipatria, CA
+13km WNW of Calipatria, CA
+29 km SW of Īlām, Iran
+13km WSW of Niland, CA
+11km W of Calipatria, CA
+26 km WSW of Manta, Ecuador
+6 km NE of Government Camp, Oregon
+10 km NNE of Quinlan, Oklahoma
+42 km NE of Santa Monica, Philippines
+12km WSW of Niland, CA
+11km WNW of Calipatria, CA
+34 km ENE of Santa Monica, Philippines
+13km WSW of Niland, CA
+13km WSW of Niland, CA
+34 km SSE of Cruz Bay, U.S. Virgin Islands
 3 km E of Pāhala, Hawaii
-47 km NNW of Pucallpa, Peru
-Volcano Islands, Japan region
-8 km SW of La Parguera, Puerto Rico
-67 km NW of Yonakuni, Japan
-37 km N of Isabela, Puerto Rico
-10 km NE of Anoka, Nebraska
-136 km WSW of Ternate, Indonesia
-126 km WSW of Ternate, Indonesia
-85 km NNW of Tocopilla, Chile
-122 km WSW of Ternate, Indonesia
-125 km WSW of Ternate, Indonesia
-4 km SSE of Pāhala, Hawaii
-23km NNE of Indio, CA
+north of Ascension Island
+2 km S of Pāhala, Hawaii
+Kermadec Islands region
+54 km ESE of Pope-Vannoy Landing, Alaska
+12km WNW of Calipatria, CA
+104 km WSW of Akhiok, Alaska
+13km WNW of Calipatria, CA
+7km WNW of Calipatria, CA
+166 km ESE of Iwaki, Japan
+32 km ENE of Calama, Chile
+Molucca Sea
+123 km WSW of Ternate, Indonesia
+130 km N of Calama, Chile
+25km NNE of Trona, CA
+105 km ENE of Chignik, Alaska
+9km WNW of Calipatria, CA
+10km W of Calipatria, CA
+12km WNW of Calipatria, CA
+10km N of Westmorland, CA
+12km N of Westmorland, CA
+121 km WSW of Ternate, Indonesia
+off the west coast of the South Island of New Zealand
+Fiji region
+40 km ENE of Hinatuan, Philippines
+6 km SE of La Parguera, Puerto Rico
+10km W of Calipatria, CA
+108 km SSE of Sarangani, Philippines
+11km N of Westmorland, CA
+12km W of Calipatria, CA
+11km WNW of Calipatria, CA
+8km WNW of Calipatria, CA
+10km WNW of Calipatria, CA
+10km WNW of Calipatria, CA
+11km WNW of Calipatria, CA
+9km WNW of Calipatria, CA
+10km WNW of Calipatria, CA
+10km WNW of Calipatria, CA
+11km N of Westmorland, CA
+10km WNW of Calipatria, CA
+10km WNW of Calipatria, CA
+12km WNW of Calipatria, CA
+9km WNW of Calipatria, CA
+10km WNW of Calipatria, CA
+38 km SSW of Banjar, Indonesia
+11km W of Calipatria, CA
+11km W of Calipatria, CA
+10km WNW of Calipatria, CA
+12km WNW of Calipatria, CA
+10km WNW of Calipatria, CA
+12km WNW of Calipatria, CA
+11km WNW of Calipatria, CA
+11km W of Calipatria, CA
+10km WNW of Calipatria, CA
+10km WNW of Calipatria, CA
+11km W of Calipatria, CA
+10km WNW of Calipatria, CA
+10km WNW of Calipatria, CA
+11km WNW of Calipatria, CA
+14km NNW of Westmorland, CA
+12km WNW of Calipatria, CA
+11km W of Calipatria, CA
+10km WNW of Calipatria, CA
+11km W of Calipatria, CA
+11km W of Calipatria, CA
+11km WNW of Calipatria, CA
+11km W of Calipatria, CA
+11km WNW of Calipatria, CA
+13km WSW of Toms Place, CA
+10km WNW of Calipatria, CA
+10km WNW of Calipatria, CA
+12km WNW of Calipatria, CA
+10km W of Calipatria, CA
+10km N of Westmorland, CA
+12km NNW of Westmorland, CA
+12km N of Westmorland, CA
+11km W of Calipatria, CA
+11km WNW of Calipatria, CA
+11km N of Westmorland, CA
+12km W of Calipatria, CA
+11km N of Westmorland, CA
+24 km ENE of Sterling, Alaska
+12km NNW of Westmorland, CA
+12km NNW of Westmorland, CA
+11km N of Westmorland, CA
+11km N of Westmorland, CA
+11km N of Westmorland, CA
+11km N of Westmorland, CA
+9km SE of Dollar Point, CA
+12km W of Calipatria, CA
+West Chile Rise
+42 km NW of Toyah, Texas
+125 km SE of Perryville, Alaska
+11km N of Westmorland, CA
+off the coast of Oregon
+11km W of Calipatria, CA
+10km N of Westmorland, CA
+South Shetland Islands
+265 km S of Sinabang, Indonesia
 --------------
 
-4.8, 79 km SE of Katsuren-haebaru, Japan
-4.4, south of the Kermadec Islands
-4.3, 193 km SSW of Waingapu, Indonesia
-4.2, 238 km ESE of Vakhrushev, Russia
-5.4, 159 km WNW of Constitución, Chile
-4.7, east of the North Island of New Zealand
-4.9, Reykjanes Ridge
-4.4, 63 km NW of Yonakuni, Japan
-4.2, Dodecanese Islands, Greece
-4.7, 152 km W of Gold Beach, Oregon
-4.4, 47 km NNW of Pucallpa, Peru
-4.8, Volcano Islands, Japan region
-4.3, 67 km NW of Yonakuni, Japan
-5.0, 136 km WSW of Ternate, Indonesia
-4.9, 126 km WSW of Ternate, Indonesia
-4.9, 85 km NNW of Tocopilla, Chile
-4.8, 122 km WSW of Ternate, Indonesia
-5.2, 125 km WSW of Ternate, Indonesia
+4.5, 23 km NE of Santa Monica, Philippines
+5.2, 214 km NW of Tobelo, Indonesia
+4.9, 31 km ENE of Santa Monica, Philippines
+5.3, 29 km SW of Īlām, Iran
+4.5, 26 km WSW of Manta, Ecuador
+4.9, 42 km NE of Santa Monica, Philippines
+5.0, 34 km ENE of Santa Monica, Philippines
+5.3, north of Ascension Island
+4.8, Kermadec Islands region
+4.3, 166 km ESE of Iwaki, Japan
+4.0, 32 km ENE of Calama, Chile
+4.7, Molucca Sea
+5.3, 123 km WSW of Ternate, Indonesia
+4.1, 130 km N of Calama, Chile
+4.8, 121 km WSW of Ternate, Indonesia
+4.2, off the west coast of the South Island of New Zealand
+4.5, Fiji region
+4.8, 40 km ENE of Hinatuan, Philippines
+4.4, 108 km SSE of Sarangani, Philippines
+4.2, 10km WNW of Calipatria, CA
+4.6, 38 km SSW of Banjar, Indonesia
+4.3, 10km WNW of Calipatria, CA
+5.2, 11km W of Calipatria, CA
+4.3, 11km N of Westmorland, CA
+4.8, West Chile Rise
+5.0, South Shetland Islands
+4.4, 265 km S of Sinabang, Indonesia
 --------------
 
 
 
 உணரப்பட்ட நிகழ்வுகள்:
-4.8, 79 km SE of Katsuren-haebaru, Japan,  அறிக்கை 2 முறை
-3.2, 135km W of Petrolia, CA,  அறிக்கை 1 முறை
-5.4, 159 km WNW of Constitución, Chile,  அறிக்கை 1 முறை
-3.1, 150 km WSW of Port Orford, Oregon,  அறிக்கை 1 முறை
-3.1, 9 km ENE of Anoka, Nebraska,  அறிக்கை 16 முறை
-3.1, 3 km E of Pāhala, Hawaii,  அறிக்கை 1 முறை
-4.8, Volcano Islands, Japan region,  அறிக்கை 1 முறை
-3.7, 10 km NE of Anoka, Nebraska,  அறிக்கை 64 முறை
-4.9, 85 km NNW of Tocopilla, Chile,  அறிக்கை 8 முறை
-2.5, 23km NNE of Indio, CA,  அறிக்கை 2 முறை
+3.2, 8km W of Salton City, CA,  அறிக்கை 1 முறை
+3.8, 13km WSW of Niland, CA,  அறிக்கை 5 முறை
+4.9, 31 km ENE of Santa Monica, Philippines,  அறிக்கை 1 முறை
+2.5, 12km E of North Shore, CA,  அறிக்கை 4 முறை
+3.1, 13km WNW of Calipatria, CA,  அறிக்கை 1 முறை
+5.3, 29 km SW of Īlām, Iran,  அறிக்கை 2 முறை
+4.5, 26 km WSW of Manta, Ecuador,  அறிக்கை 2 முறை
+3.9, 6 km NE of Government Camp, Oregon,  அறிக்கை 230 முறை
+2.5, 12km WSW of Niland, CA,  அறிக்கை 1 முறை
+3.6, 11km WNW of Calipatria, CA,  அறிக்கை 5 முறை
+3.6, 34 km SSE of Cruz Bay, U.S. Virgin Islands,  அறிக்கை 1 முறை
+2.5, 25km NNE of Trona, CA,  அறிக்கை 3 முறை
+3.4, 105 km ENE of Chignik, Alaska,  அறிக்கை 1 முறை
+3.1, 12km WNW of Calipatria, CA,  அறிக்கை 2 முறை
+2.8, 10km W of Calipatria, CA,  அறிக்கை 2 முறை
+3.0, 11km N of Westmorland, CA,  அறிக்கை 2 முறை
+3.0, 11km WNW of Calipatria, CA,  அறிக்கை 1 முறை
+3.0, 11km WNW of Calipatria, CA,  அறிக்கை 11 முறை
+2.7, 10km WNW of Calipatria, CA,  அறிக்கை 1 முறை
+4.2, 10km WNW of Calipatria, CA,  அறிக்கை 34 முறை
+3.2, 11km W of Calipatria, CA,  அறிக்கை 4 முறை
+3.5, 10km WNW of Calipatria, CA,  அறிக்கை 7 முறை
+3.5, 11km WNW of Calipatria, CA,  அறிக்கை 1 முறை
+3.3, 12km WNW of Calipatria, CA,  அறிக்கை 1 முறை
+3.4, 11km W of Calipatria, CA,  அறிக்கை 5 முறை
+4.3, 10km WNW of Calipatria, CA,  அறிக்கை 9 முறை
+5.2, 11km W of Calipatria, CA,  அறிக்கை 1171 முறை
+4.0, 12km WNW of Calipatria, CA,  அறிக்கை 3 முறை
+3.9, 11km W of Calipatria, CA,  அறிக்கை 3 முறை
+3.8, 11km N of Westmorland, CA,  அறிக்கை 4 முறை
+4.3, 11km N of Westmorland, CA,  அறிக்கை 13 முறை
+3.5, 12km NNW of Westmorland, CA,  அறிக்கை 1 முறை
+2.5, 9km SE of Dollar Point, CA,  அறிக்கை 4 முறை
+3.0, 12km W of Calipatria, CA,  அறிக்கை 1 முறை
+4.8, West Chile Rise,  அறிக்கை 1 முறை
