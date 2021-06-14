@@ -10,41 +10,41 @@ def உள்ளீடு(*வாதங்கள்):
 
 import sqlite3
 
-def main():
-    print('connect')
+def முதன்மை ():
+    அச்சிடு('connect')
     db = sqlite3.connect('db-api.db')
     cur = db.cursor()
-    print('create')
+    அச்சிடு('create')
     cur.execute("DROP TABLE IF EXISTS test")
     cur.execute("""
         CREATE TABLE test (
             id INTEGER PRIMARY KEY, string TEXT, number INTEGER
         )
         """)
-    print('insert row')
+    அச்சிடு('insert row')
     cur.execute("""
         INSERT INTO test (string, number) VALUES ('one', 1)
         """)
-    print('insert row')
+    அச்சிடு('insert row')
     cur.execute("""
         INSERT INTO test (string, number) VALUES ('two', 2)
         """)
-    print('insert row')
+    அச்சிடு('insert row')
     cur.execute("""
         INSERT INTO test (string, number) VALUES ('three', 3)
         """)
-    print('commit')
+    அச்சிடு('commit')
     db.commit()
-    print('count')
+    அச்சிடு('count')
     cur.execute("SELECT COUNT(*) FROM test")
     count = cur.fetchone()[0]
-    print(f'there are {count} rows in the table.')
-    print('read')
+    அச்சிடு(f'there are {count} rows in the table.')
+    அச்சிடு('read')
     for row in cur.execute("SELECT * FROM test"):
-        print(row)
-    print('drop')
+        அச்சிடு(row)
+    அச்சிடு('drop')
     cur.execute("DROP TABLE test")
-    print('close')
+    அச்சிடு('close')
     db.close()
 
-if __name__ == '__main__': main()
+if __name__ == '__main__': முதன்மை ()

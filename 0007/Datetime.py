@@ -9,20 +9,20 @@ def உள்ளீடு(*வாதங்கள்):
     அ = input (*வாதங்கள்)
     return அ
 
-from datetime import datetime
+from  datetime import datetime as நாள்நேரம்
 
-now = datetime.now()
+now = நாள்நேரம்.now()
 
-print(now.date())
+அச்சிடு(now.date())
 
-print(now.year)
+அச்சிடு(now.year)
 
-print(now.month)
+அச்சிடு(now.month)
 
-print(now.hour)
+அச்சிடு(now.hour)
 
-print(now.minute)
+அச்சிடு(now.minute)
 
-print(now.second)
+அச்சிடு(now.second)
 
-print(now.time())
+அச்சிடு(now.time())

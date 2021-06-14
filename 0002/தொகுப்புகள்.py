@@ -10,15 +10,15 @@ def உள்ளீடு(*வாதங்கள்):
     return அ
 
 
-def main():
-    a = set("We're gonna need a bigger boat.")
-    b = set("I'm sorry, Dave. I'm afraid I can't do that.")
-    print_set(a)
-    print_set(b)
+def முதன்மை ():
+    அ = set("We're gonna need a bigger boat.")
+    ஆ = set("I'm sorry, Dave. I'm afraid I can't do that.")
+    அச்சிடு_தொகுப்பு(அ)
+    அச்சிடு_தொகுப்பு(ஆ)
 
-def print_set(o):
-    print('{', end = '')
-    for x in o: print(x, end = '')
-    print('}')
+def அச்சிடு_தொகுப்பு(தொகுப்பு):
+    அச்சிடு('{',  முடி  = '')
+    for ஐ in தொகுப்பு: அச்சிடு(ஐ, முடி = '')
+    அச்சிடு('}')
 
-if __name__ == '__main__': main()
+if __name__ == '__main__': முதன்மை ()

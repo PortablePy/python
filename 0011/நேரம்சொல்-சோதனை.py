@@ -9,10 +9,10 @@ def உள்ளீடு(*வாதங்கள்):
     அ = input (*வாதங்கள்)
     return அ
 
-import saytime
+import நேரம்சொல்
 
 def main():
-    st = saytime.saytime()
+    st = நேரம்சொல்.நேரம்சொல்()
     print('\nnumbers test:')
     list = (
         0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 19, 20, 30, 

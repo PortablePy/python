@@ -14,21 +14,21 @@ import sqlite3
 __version__ = '1.2.0'
 
 class bwDB:
-    def __init__(self, **kwargs):
+    def __init__(சுய, **kwargs):
         """
-            db = bwDB( [ table = ''] [, filename = ''] )
-            constructor method
-                table is for CRUD methods 
-                filename is for connecting to the database file
+            db = bwDB ([அட்டவணை = ''] [, கோப்புபெயர் = ''])
+             கட்டமைப்பாளர் முறை
+                 அட்டவணை CRUD முறைகளுக்கானது
+                 கோப்புபெயர் தரவுத்தள கோப்புடன் இணைப்பதாகும்
         """
         # see filename @property decorators below
-        self._filename = kwargs.get('filename')
-        self._table = kwargs.get('table', '')
+        சுய._filename = kwargs.get('filename')
+        சுய._table = kwargs.get('table', '')
 
-    def set_table(self, tablename):
-        self._table = tablename
+    def set_table(சுய, tablename):
+        சுய._table = tablename
 
-    def sql_do(self, sql, params=()):
+    def sql_do(சுய, sql, params=()):
         """
             db.sql_do( sql[, params] )
             method for non-select queries
@@ -36,10 +36,10 @@ class bwDB:
                 params is list containing parameters
             returns nothing
         """
-        self._db.execute(sql, params)
-        self._db.commit()
+        சுய._db.execute(sql, params)
+        சுய._db.commit()
 
-    def sql_do_nocommit(self, sql, params=()):
+    def sql_do_nocommit(சுய, sql, params=()):
         """
             sql_do_nocommit( sql[, params] )
             method for non-select queries *without commit*
@@ -47,9 +47,9 @@ class bwDB:
                 params is list containing parameters
             returns nothing
         """
-        self._db.execute(sql, params)
+        சுய._db.execute(sql, params)
 
-    def sql_query(self, sql, params=()):
+    def sql_query(சுய, sql, params=()):
         """
             db.sql_query( sql[, params] )
             generator method for queries
@@ -58,11 +58,11 @@ class bwDB:
             returns a generator with one row per iteration
             each row is a Row factory
         """
-        c = self._db.execute(sql, params)
+        c = சுய._db.execute(sql, params)
         for r in c:
             yield r
 
-    def sql_query_row(self, sql, params=()):
+    def sql_query_row(சுய, sql, params=()):
         """
             db.sql_query_row( sql[, params] )
             query for a single row
@@ -70,10 +70,10 @@ class bwDB:
                 params is list containing parameters
             returns a single row as a Row factory
         """
-        c = self._db.execute(sql, params)
+        c = சுய._db.execute(sql, params)
         return c.fetchone()
 
-    def sql_query_value(self, sql, params=()):
+    def sql_query_value(சுய, sql, params=()):
         """
             db.sql_query_row( sql[, params] )
             query for a single value
@@ -81,32 +81,32 @@ class bwDB:
                 params is list containing parameters
             returns a single value
         """
-        c = self._db.execute(sql, params)
+        c = சுய._db.execute(sql, params)
         return c.fetchone()[0]
 
-    def commit(self):
-        self._db.commit()
+    def commit(சுய):
+        சுய._db.commit()
 
-    def getrec(self, recid):
+    def getrec(சுய, recid):
         """
             db.getrec(recid)
             get a single row, by id
         """
-        query = f'SELECT * FROM {self._table} WHERE id = ?'
-        c = self._db.execute(query, (recid,))
+        query = f'SELECT * FROM {சுய._table} WHERE id = ?'
+        c = சுய._db.execute(query, (recid,))
         return c.fetchone()
 
-    def getrecs(self):
+    def getrecs(சுய):
         """
             db.getrecs()
             get all rows, returns a generator of Row factories
         """
-        query = f'SELECT * FROM {self._table}'
-        c = self._db.execute(query)
+        query = f'SELECT * FROM {சுய._table}'
+        c = சுய._db.execute(query)
         for r in c:
             yield r
 
-    def insert_nocommit(self, rec):
+    def insert_nocommit(சுய, rec):
         """
             db.insert(rec)
             insert a single record into the table
@@ -116,19 +116,19 @@ class bwDB:
         klist = sorted(rec.keys())
         values = [rec[v] for v in klist]  # a list of values ordered by key
         q = 'INSERT INTO {} ({}) VALUES ({})'.format(
-            self._table,
+            சுய._table,
             ', '.join(klist),
             ', '.join('?' * len(values))
         )
-        c = self._db.execute(q, values)
+        c = சுய._db.execute(q, values)
         return c.lastrowid
 
-    def insert(self, rec):
-        lastrowid = self.insert_nocommit(rec)
-        self._db.commit()
+    def insert(சுய, rec):
+        lastrowid = சுய.insert_nocommit(rec)
+        சுய._db.commit()
         return lastrowid
 
-    def update_nocommit(self, recid, rec):
+    def update_nocommit(சுய, recid, rec):
         """
             db.update(id, rec)
             update a row in the table
@@ -144,55 +144,55 @@ class bwDB:
                 del values[i]
 
         q = 'UPDATE {} SET {} WHERE id = ?'.format(
-            self._table,
+            சுய._table,
             ',  '.join(map(lambda s: '{} = ?'.format(s), klist))
         )
-        self._db.execute(q, values + [recid])
+        சுய._db.execute(q, values + [recid])
 
-    def update(self, recid, rec):
-        self.update_nocommit(recid, rec)
-        self._db.commit()
+    def update(சுய, recid, rec):
+        சுய.update_nocommit(recid, rec)
+        சுய._db.commit()
 
-    def delete_nocommit(self, recid):
+    def delete_nocommit(சுய, recid):
         """
             db.delete(recid)
             delete a row from the table, by recid
         """
-        query = f'DELETE FROM {self._table} WHERE id = ?'
-        self._db.execute(query, [recid])
+        query = f'DELETE FROM {சுய._table} WHERE id = ?'
+        சுய._db.execute(query, [recid])
 
-    def delete(self, recid):
-        self.delete_nocommit(recid)
-        self._db.commit()
+    def delete(சுய, recid):
+        சுய.delete_nocommit(recid)
+        சுய._db.commit()
 
-    def countrecs(self):
+    def countrecs(சுய):
         """
             db.countrecs()
             count the records in the table
             returns a single integer value
         """
-        query = f'SELECT COUNT(*) FROM {self._table}'
-        c = self._db.execute(query)
+        query = f'SELECT COUNT(*) FROM {சுய._table}'
+        c = சுய._db.execute(query)
         return c.fetchone()[0]
 
     # filename property
     @property
-    def _filename(self):
-        return self._dbfilename
+    def _filename(சுய):
+        return சுய._dbfilename
 
     @_filename.setter
-    def _filename(self, fn):
-        self._dbfilename = fn
-        self._db = sqlite3.connect(fn)
-        self._db.row_factory = sqlite3.Row
+    def _filename(சுய, fn):
+        சுய._dbfilename = fn
+        சுய._db = sqlite3.connect(fn)
+        சுய._db.row_factory = sqlite3.Row
 
     @_filename.deleter
-    def _filename(self):
-        self.close()
+    def _filename(சுய):
+        சுய.close()
 
-    def close(self):
-        self._db.close()
-        del self._dbfilename
+    def close(சுய):
+        சுய._db.close()
+        del சுய._dbfilename
 
 
 def test():
@@ -209,47 +209,47 @@ def test():
     # try: os.stat(fn)
     # except: pass
     # else: 
-    #     print('Delete', fn)
+    #     அச்சிடு('Delete', fn)
     #     os.unlink(fn)
 
-    print('bwDB version', __version__)
+    அச்சிடு('bwDB version', __version__)
 
-    print(f'Create database file {fn} ...', end='')
+    அச்சிடு(f'Create database file {fn} ...', முடி='')
     db = bwDB(filename=fn, table=t)
-    print('Done.')
+    அச்சிடு('Done.')
 
-    print('Create table ... ', end='')
+    அச்சிடு('Create table ... ', முடி='')
     db.sql_do(f' DROP TABLE IF EXISTS {t} ')
     db.sql_do(f' CREATE TABLE {t} ( id INTEGER PRIMARY KEY, string TEXT, number INTEGER ) ')
-    print('Done.')
+    அச்சிடு('Done.')
 
-    print('Insert into table ... ', end='')
+    அச்சிடு('Insert into table ... ', முடி='')
     for r in recs:
         db.insert(r)
-    print('Done.')
+    அச்சிடு('Done.')
 
-    print(f'There are {db.countrecs()} rows')
+    அச்சிடு(f'There are {db.countrecs()} rows')
 
-    print('Read from table')
+    அச்சிடு('Read from table')
     for r in db.getrecs():
-        print(dict(r))
+        அச்சிடு(dict(r))
 
-    print('Update table')
+    அச்சிடு('Update table')
     db.update(2, dict(string='TWO'))
-    print(dict(db.getrec(2)))
+    அச்சிடு(dict(db.getrec(2)))
 
-    print('Insert an extra row ... ', end='')
+    அச்சிடு('Insert an extra row ... ', முடி='')
     newid = db.insert({'string': 'extra', 'number': 512})
-    print(f'(id is {newid})')
-    print(dict(db.getrec(newid)))
-    print(f'There are {db.countrecs()} rows')
-    print('Now delete it')
+    அச்சிடு(f'(id is {newid})')
+    அச்சிடு(dict(db.getrec(newid)))
+    அச்சிடு(f'There are {db.countrecs()} rows')
+    அச்சிடு('Now delete it')
     db.delete(newid)
-    print(f'There are {db.countrecs()} rows')
+    அச்சிடு(f'There are {db.countrecs()} rows')
     for r in db.getrecs():
-        print(dict(r))
+        அச்சிடு(dict(r))
     for r in db.sql_query(f"select * from {t}"):
-        print(r)
+        அச்சிடு(r)
     db.close()
 
 
