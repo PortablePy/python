@@ -2,9 +2,14 @@
 # நாள்காட்டிகளுடன் பணியாற்றுவதற்கான எடுத்துக்காட்டு கோப்பு
 #
 
-# அச்சிடு வரையறு - பின் வரும் நிரல்களில் அச்சிடு பயன்படுத்தலாம்.
-def அச்சிடு(*வாதங்கள்):
-    print(*வாதங்கள்)
+#அச்சிடு வரையறு - பின் வரும் நிரல்களில் அச்சிடு பயன்படுத்தலாம்.
+def அச்சிடு(*வாதங்கள்,பிரி=" ",முடி='\n',கோப்பு=None,பறிப்பு=False):
+    print(*வாதங்கள், sep=பிரி,end=முடி, file=கோப்பு,flush=பறிப்பு)
+    
+# உள்ளீடு வரையறு - பின் வரும் நிரல்களில் அச்சிடு பயன்படுத்தலாம்.    
+def உள்ளீடு(*வாதங்கள்):
+    அ = input (*வாதங்கள்)
+    return அ
 
 # நாள்காட்டி தொகுதியை இறக்குமதி செய்க
 import calendar as நாட்காட்டி
@@ -54,3 +59,29 @@ for ம in range(1,13):
         # முதல் வெள்ளிக்கிழமை முதல் வாரத்தில் இல்லை என்றால், அது இரண்டாவது வாரத்தில் இருக்க வேண்டும்
         சந்திப்புநாள் = இரண்டாம்வாரம் [நாட்காட்டி.FRIDAY]
     அச்சிடு ("%10s %2d"% (நாட்காட்டி. month_name[ம], சந்திப்புநாள்))
+
+
+
+# Calendar Module
+from datetime import datetime, timedelta
+import calendar
+
+now = datetime.now()
+
+testDate = now + timedelta(days=2)
+myFirstLinkedInCourse = now - timedelta(weeks=3)
+
+print(testDate.date())
+print(myFirstLinkedInCourse.date())
+
+if testDate > myFirstLinkedInCourse:
+    print("Comparison works")
+
+cal = calendar.month(2001, 10)
+print(cal)
+
+cal2 = calendar.weekday(2001, 10, 11)
+print(cal2)
+
+print(calendar.isleap(1999))
+print(calendar.isleap(2000))

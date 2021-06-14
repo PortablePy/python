@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
-# cgi-test.py by Bill Weinman [http://bw.org/]
-# Python versoin of CGI testing script
-# Copyright 1995-2010 The BearHeart Group, LLC
+#அச்சிடு வரையறு - பின் வரும் நிரல்களில் அச்சிடு பயன்படுத்தலாம்.
+def அச்சிடு(*வாதங்கள்,பிரி=" ",முடி='\n',கோப்பு=None,பறிப்பு=False):
+    print(*வாதங்கள், sep=பிரி,end=முடி, file=கோப்பு,flush=பறிப்பு)
+    
+# உள்ளீடு வரையறு - பின் வரும் நிரல்களில் அச்சிடு பயன்படுத்தலாம்.    
+def உள்ளீடு(*வாதங்கள்):
+    அ = input (*வாதங்கள்)
+    return அ
 
 import sys, os, cgi
 version = "5.3.1py cgi/{}".format(cgi.__version__)
