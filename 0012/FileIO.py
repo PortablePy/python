@@ -11,10 +11,6 @@ def உள்ளீடு(*வாதங்கள்):
 # Open a file
 myFile = open("scores.txt", "w")
 
-# w --> write
-# r --> read
-# r+ --> read and write
-# a --> append
 # Show attributes and properties of that file
 print("Name " + myFile.name)
 print("Mode " + myFile.mode)
@@ -25,5 +21,25 @@ myFile.close()
 
 # Read the file
 myFile = open("scores.txt", "r")
-print("Reading..." + myFile.read(10))
-print("Reading again" + myFile.read(10))
+print("Reading... : " + myFile.read(10))
+print("Reading again : " + myFile.read(10))
+myFile.close()
+myFile = open("scores.txt", "r")
+print("Reading... : " + myFile.read(10))
+myFile.seek(0)
+print("Reading again : " + myFile.read(10))
+myFile.close()
+
+# Iterative Files
+myFile = open("scores.txt", "r")
+
+# Read one line at a time
+print("My one line: " + myFile.readline())
+myFile.seek(0)
+
+# Iterate through each line of a file
+for line in myFile:
+    newHighScorer = line.replace("BBB", "PDJ")
+    print(newHighScorer)
+
+myFile.close()

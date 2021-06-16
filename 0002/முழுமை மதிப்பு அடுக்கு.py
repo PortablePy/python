@@ -1,4 +1,4 @@
-# Command Line Arguments
+# Python Rounding, Absolute Value, and Exponents
 
 #அச்சிடு வரையறு - பின் வரும் நிரல்களில் அச்சிடு பயன்படுத்தலாம்.
 def அச்சிடு(*வாதங்கள்,பிரி=" ",முடி='\n',கோப்பு=None,பறிப்பு=False):
@@ -9,25 +9,28 @@ def உள்ளீடு(*வாதங்கள்):
     அ = input (*வாதங்கள்)
     return அ
 
-import sys
+# round()
+myGPA = 3.6
+அச்சிடு(round(myGPA))
+amountOfSalt = 1.4
+அச்சிடு(round(amountOfSalt))
 
-# Print Arguments
-print("Number of arguments: ", len(sys.argv), ' arguments.')
-print("Arguments ", sys.argv)
+apple = -1.2
+அச்சிடு(round(apple))
+google = -1.6
+அச்சிடு(round(google))
 
-# Remove Arguments
-sys.argv.remove(sys.argv[0])
+# abs()
+distanceAway = -13
+அச்சிடு(abs(distanceAway))
+lengthOfRootInGround = -2.5
+அச்சிடு(abs(lengthOfRootInGround))
 
-print("Arguments", sys.argv)
+# pow()
+chanceOfTails = 0.5
+inARowTails = 3
+அச்சிடு(pow(chanceOfTails, inARowTails))
 
-# Sum up the Arguments
-arguments = sys.argv
-sum = 0
-for arg in arguments:
-    try:
-        number = int(arg)
-        sum = sum + number
-    except Exception:
-        print("Bad input")
-
-print(sum)
+chanceOfOne = .167
+inARowOne = 2
+அச்சிடு(pow(chanceOfOne, inARowOne))

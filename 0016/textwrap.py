@@ -11,25 +11,26 @@ def உள்ளீடு(*வாதங்கள்):
 # Text Wrap Module
 import textwrap
 
-websiteText = """   Learning can happen anywhere with our apps on your computer,
-mobile device, and TV, featuring enhanced navigation and faster streaming
-for anytime learning. Limitless learning, limitless possibilities."""
+websiteText = """   உங்கள் கணினி, மொபைல் சாதனம் மற்றும் தொலைக்காட்சியில் உள்ள
+எங்கள் பயன்பாடுகளுடன் கற்றல் எங்கும் நிகழலாம், இதில் மேம்பட்ட வழிசெலுத்தல்
+மற்றும் எந்த நேரத்திலும் கற்றலுக்கான வேகமான ஓடை இடம்பெறும்.
+வரம்பற்ற கற்றல், வரம்பற்ற சாத்தியங்கள்."""
 
-print("No Dedent:")
-print(textwrap.fill(websiteText))
+அச்சிடு("No Dedent:")
+அச்சிடு(textwrap.fill(websiteText))
 
-print("Dedent")
+அச்சிடு("Dedent")
 dedent_text = textwrap.dedent(websiteText).strip()
-print(dedent_text)
+அச்சிடு(dedent_text)
 
-print("Fill")
-print()
-print(textwrap.fill(dedent_text, width=50))
-print(textwrap.fill(dedent_text, width=100))
+அச்சிடு("Fill")
+அச்சிடு()
+அச்சிடு(textwrap.fill(dedent_text, width=50))
+அச்சிடு(textwrap.fill(dedent_text, width=100))
 
-print("Controlling Indent")
-print(textwrap.fill(dedent_text, initial_indent="   ", subsequent_indent="          "))
+அச்சிடு("Controlling Indent")
+அச்சிடு(textwrap.fill(dedent_text, initial_indent="   ", subsequent_indent="          "))
 
-print("Shortening Text")
+அச்சிடு("Shortening Text")
 short = textwrap.shorten("LinkedIn.com is great!", width=15, placeholder="...")
-print(short)
+அச்சிடு(short)

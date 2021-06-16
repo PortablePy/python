@@ -11,13 +11,13 @@ def உள்ளீடு(*வாதங்கள்):
 
 playerOneScore = 10
 playerTwoScore = 4
-print(min(playerOneScore, playerTwoScore))
-print(min(0, 12, -19))
+அச்சிடு(min(playerOneScore, playerTwoScore))
+அச்சிடு(min(0, 12, -19))
 
-print(min("Kathryn", "Katie"))
-print(min("Angela", "Bob"))
+அச்சிடு(min("Kathryn", "Katie"))
+அச்சிடு(min("Angela", "Bob"))
 
-print(max(playerOneScore, playerTwoScore))
+அச்சிடு(max(playerOneScore, playerTwoScore))
 playerThreeScore = 14
-print(max(playerThreeScore, playerTwoScore, playerOneScore))
-print(max("Kathryn", "Katie"))
+அச்சிடு(max(playerThreeScore, playerTwoScore, playerOneScore))
+அச்சிடு(max("Kathryn", "Katie"))
