@@ -7,7 +7,6 @@ def உள்ளீடு(*வாதங்கள்):
     அ = input (*வாதங்கள்)
     return அ
 
-
 ச = 'இன்பத்தமிழில் பைத்தான் '
 க='கற்பது எளிது '
 கசடற = ச+க
@@ -27,50 +26,55 @@ def உள்ளீடு(*வாதங்கள்):
 அச்சிடு (ச)
 அச்சிடு (ச[0:3])
 
-அற = r'raw\nstring\t-எந்த சிறப்பு பொருளும் கிடையாது' # R'\n\t etc' -இப்படியும் எழுதலாம் 
-அச்சிடு (அற)
+சரம் = r'raw\nstring\t-எந்த சிறப்பு பொருளும் கிடையாது'
+# R'\n\t etc' -இப்படியும் எழுதலாம்
+சரம் = 'raw\nstring\t-எந்த சிறப்பு பொருளும் கிடையாது'
+அச்சிடு (சரம்,'சரம்.expandtabs()', சரம்.expandtabs())
+அச்சிடு (சரம்)
+சரம் = 'தமிழ் ஒரு மொழி'
 அச்சிடு ('%%')
-# Builtin string functions. சரம்.செயல்பாடு()
-அச்சிடு (அற.capitalize())
-அச்சிடு (அற.center(80, '*'))
-அச்சிடு (அற.count('த'))
-#encode('UTF-16')
-#decode('UTF-16')
-#
-அச்சிடு (அற.endswith('து'))
+# பொதிந்த சரம் செயல்பாடுகளை. சரம்.செயல்பாடு()
+அச்சிடு (சரம்,'சரம்.capitalize()', சரம்.capitalize())
+அச்சிடு (சரம்,'சரம்.center(80, "*")', சரம்.center(80, '*'))
+அச்சிடு (சரம்,'சரம்.index("த")', சரம்.index('த'))
+அச்சிடு (சரம்,'சரம்.isalnum()', சரம்.isalnum())
+அச்சிடு (சரம்,'சரம்.isalpha()', சரம்.isalpha())
+அச்சிடு (சரம்,'சரம்.isdigit()', சரம்.isdigit())
+அச்சிடு (சரம்,'சரம்.isdecimal()', சரம்.isdecimal())
+அச்சிடு (சரம்,'சரம்.islower()', சரம்.islower())
+அச்சிடு (சரம்,'சரம்.isnumeric()', சரம்.isnumeric())
+அச்சிடு (சரம்,'சரம்.isspace()', சரம்.isspace())
+அச்சிடு (சரம்,'சரம்.istitle()', சரம்.istitle())
+அச்சிடு (சரம்,'சரம்.isupper()', சரம்.isupper())
+அச்சிடு (சரம்,'சரம்.count("த")', சரம்.count('த'))
+அச்சிடு (சரம்,'சரம்.isupper()', சரம்.isupper())
+அச்சிடு (சரம்,'சரம்.rindex("த")', சரம்.rindex('த'))
+அச்சிடு (சரம்,'சரம்.rjust(50)', சரம்.rjust(50))
+அச்சிடு (சரம்,'சரம்.ljust(50)', சரம்.ljust(50))
+அச்சிடு (சரம்,'சரம்.find("ழ்")', சரம்.find('ழ்'))
+அச்சிடு (சரம்,'சரம்.rfind("ழ்")', சரம்.rfind('ழ்'))
+அச்சிடு (சரம்,'சரம்.endswith("ழ்")', சரம்.endswith('ழ்'))
+அச்சிடு (சரம்,'சரம்.startswith("த")', சரம்.startswith('த'))
+அச்சிடு (சரம்,'சரம்.replace("தமி","புக")', சரம்.replace('தமி','புக'))
+அச்சிடு (சரம்,'சரம்.zfill(20)', சரம்.zfill(20))
+அச்சிடு (சரம்,'சரம்.upper()', சரம்.upper())
+அச்சிடு (சரம்,'சரம்.encode("UTF-16")', சரம்.encode('UTF-16'))
+அச்சிடு (b'\xff\xfe\xa4\x0b\xae\x0b\xbf\x0b\xb4\x0b\xcd\x0b','சரம்.decode()', b'\xff\xfe\xa4\x0b\xae\x0b\xbf\x0b\xb4\x0b\xcd\x0b'.decode("UTF-16"))
+அச்சிடு (சரம்,'சரம்.split()', சரம்.split())
 
-#expandtabs()
+#அச்சிடு (சரம்,'சரம்.max()', சரம்.max())
+#அச்சிடு (சரம்,'சரம்.min()', சரம்.min())
+
+
 #find
-#index
-#isalnum
-#isalpha
-#isdigit
-#isdecimal
-#islower
-#isnumeric
-#isspace
-#istitle
-#isupper
 #join(seq)
 #len(string)
-#ljust(10)
 #lower
 #lstrip
-#maketrans
-#max
-#min
-#replace
-#rfind
-#rindex
-#rjust
-#rstrip
-#split
-#splitlines
-#startswith
 #strip
+#rstrip
+#splitlines
 #swapcase()
 #title
 #translate()
-#upper
-#zfill
-
+##maketrans

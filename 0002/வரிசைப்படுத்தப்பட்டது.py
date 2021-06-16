@@ -9,26 +9,26 @@ def உள்ளீடு(*வாதங்கள்):
     அ = input (*வாதங்கள்)
     return அ
 
-# Least to Greatest
-pointsInaGame = [0, -10, 15, -2, 1, 12]
-sortedGame = sorted(pointsInaGame)
-அச்சிடு(sortedGame)
+# சிறியது முதல் பெரியது 
+புள்ளிகள் = [0, -10, 15, -2, 1, 12]
+வரிசைப்புள்ளிகள் = sorted(புள்ளிகள்)
+அச்சிடு(வரிசைப்புள்ளிகள்)
 
-# Alphabetically
-children = ["Sue", "Jerry", "Linda"]
-அச்சிடு(sorted(children))
-அச்சிடு(sorted(["Sue", "jerry", "linda"]))
+# அகர வரிசைப்படி 
+குழந்தைகள் = ["தேன்", "புகழ்","அருள்"]
+அச்சிடு(sorted(குழந்தைகள்))
+அச்சிடு(sorted(["அருள்", "புகழ்","தேன்"]))
 
-# Key Parameters
-அச்சிடு(sorted("My favorite child is புகழ்".split(), key=str.upper))
-அச்சிடு(sorted(pointsInaGame, reverse=True))
+# முக்கிய வாதங்கள்
+அச்சிடு(sorted("எனக்கு பிடித்த குழந்தை புகழ்".split(), key=str.upper))
+அச்சிடு(sorted(புள்ளிகள், reverse=True))
 
-leaderBoard = {231: "வர்மன்", 123:"அருள்", 432:"மொழி"}
-அச்சிடு(sorted(leaderBoard, reverse=True))
-அச்சிடு(leaderBoard.get(432))
+முன்னிலை = {231: "வர்மன்", 123:"அருள்", 432:"மொழி"}
+அச்சிடு(sorted(முன்னிலை, reverse=True))
+அச்சிடு(முன்னிலை.get(432))
 
 மாணவர்கள் = [ ('தேன்', 'ஆ', 12), ('புகழ்', 'அ', 16), ('அருள்', 'இ', 15)]
-அச்சிடு(sorted(மாணவர்கள், key=lambda student:student[0]))
-அச்சிடு(sorted(மாணவர்கள், key=lambda student:student[1]))
-அச்சிடு(sorted(மாணவர்கள், key=lambda student:student[2]))
+அச்சிடு(sorted(மாணவர்கள், key=lambda மாணவர்:மாணவர்[0]))
+அச்சிடு(sorted(மாணவர்கள், key=lambda மாணவர்:மாணவர்[1]))
+அச்சிடு(sorted(மாணவர்கள், key=lambda மாணவர்:மாணவர்[2]))
 

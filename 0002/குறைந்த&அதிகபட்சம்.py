@@ -1,4 +1,4 @@
-# Minimum and Maximum
+# குறைந்தபட்ச மற்றும் அதிகபட்சம் 
 
 #அச்சிடு வரையறு - பின் வரும் நிரல்களில் அச்சிடு பயன்படுத்தலாம்.
 def அச்சிடு(*வாதங்கள்,பிரி=" ",முடி='\n',கோப்பு=None,பறிப்பு=False):
@@ -9,15 +9,15 @@ def உள்ளீடு(*வாதங்கள்):
     அ = input (*வாதங்கள்)
     return அ
 
-playerOneScore = 10
-playerTwoScore = 4
-அச்சிடு(min(playerOneScore, playerTwoScore))
+முதல் = 10
+இரண்டு = 4
+அச்சிடு(min(முதல் , இரண்டு))
 அச்சிடு(min(0, 12, -19))
 
-அச்சிடு(min("Kathryn", "Katie"))
-அச்சிடு(min("Angela", "Bob"))
+அச்சிடு(min("தமிழ்", "புகழ்"))
+அச்சிடு(min("அழகு", "எழில்"))
 
-அச்சிடு(max(playerOneScore, playerTwoScore))
-playerThreeScore = 14
-அச்சிடு(max(playerThreeScore, playerTwoScore, playerOneScore))
-அச்சிடு(max("Kathryn", "Katie"))
+அச்சிடு(max(இரண்டு, முதல் ))
+முன்று = 14
+அச்சிடு(max(இரண்டு, முன்று, முதல் ))
+அச்சிடு(max("அழகு", "எழில்"))
