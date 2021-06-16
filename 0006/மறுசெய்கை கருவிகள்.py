@@ -1,4 +1,4 @@
-# Itertools
+# மறு செய்கை கருவிகள் 
 
 #அச்சிடு வரையறு - பின் வரும் நிரல்களில் அச்சிடு பயன்படுத்தலாம்.
 def அச்சிடு(*வாதங்கள்,பிரி=" ",முடி='\n',கோப்பு=None,பறிப்பு=False):
@@ -9,25 +9,26 @@ def உள்ளீடு(*வாதங்கள்):
     அ = input (*வாதங்கள்)
     return அ
 
-import itertools
+import itertools as மறுசெய்கருவிகள் 
 
-# Infinite Counting
-for x in itertools.count(50, 5):
-    print(x)
-    if x == 80:
+#எல்லையற்ற எண்ணுதல்
+for ஔ in மறுசெய்கருவிகள்.count(50, 5):
+    அச்சிடு(ஔ)
+    if ஔ == 80:
         break;
 
-x = 0;
-# Infinite Cycling
-for c in itertools.cycle([1, 2, 3, 4]):
-    print(c)
-    x = x + 1
-    if x > 50:
+ஔ = 0;
+# எல்லையற்ற பட்டியல் மறுபடி செய்கைகள் 
+for அ in மறுசெய்கருவிகள்.cycle([1, 2, 3, 4]):
+    அச்சிடு(அ)
+    ஔ = ஔ + 1
+    if ஔ > 50:
         break;
 
-# Infinite Repeating
-for r in itertools.repeat(True):
-    print(r)
-    x = x + 1
-    if x > 100:
+# எல்லையற்ற மறுபடி செய்கைகள் 
+for ஆ in மறுசெய்கருவிகள்.repeat(True):
+    அச்சிடு(ஆ)
+    ஔ = ஔ + 1
+    if ஔ > 100:
         break;
+
