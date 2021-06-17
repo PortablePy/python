@@ -1,5 +1,4 @@
-# Statistics Module
-#புள்ளிவிவரங்கள்
+#புள்ளிவிவரங்கள் தொகுப்பு
 
 #அச்சிடு வரையறு - பின் வரும் நிரல்களில் அச்சிடு பயன்படுத்தலாம்.
 def அச்சிடு(*வாதங்கள்,பிரி=" ",முடி='\n',கோப்பு=None,பறிப்பு=False):
@@ -12,15 +11,15 @@ def உள்ளீடு(*வாதங்கள்):
 
 
 import statistics as புள்ளிவிவரங்கள்
-import math
+import math as கணக்கு
 
-agesData = [10, 13, 14, 12, 11, 10, 11, 10, 15]
+தரவு = [10, 13, 14, 12, 11, 10, 11, 10, 15]
 
-print(statistics.mean(agesData))
-print(statistics.mode(agesData))
-print(statistics.median(agesData))
-print(sorted(agesData))
+அச்சிடு(புள்ளிவிவரங்கள்.mean(தரவு))
+அச்சிடு(புள்ளிவிவரங்கள்.mode(தரவு))
+அச்சிடு(புள்ளிவிவரங்கள்.median(தரவு))
+அச்சிடு(sorted(தரவு))
 
-print(statistics.variance(agesData))
-print(statistics.stdev(agesData))
-print(math.sqrt(statistics.variance(agesData)))
+அச்சிடு(புள்ளிவிவரங்கள்.variance(தரவு))
+அச்சிடு(புள்ளிவிவரங்கள்.stdev(தரவு))
+அச்சிடு(கணக்கு.sqrt(புள்ளிவிவரங்கள்.variance(தரவு)))

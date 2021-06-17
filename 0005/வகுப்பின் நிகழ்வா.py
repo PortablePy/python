@@ -9,28 +9,28 @@ def உள்ளீடு(*வாதங்கள்):
     return அ
 
 
-r = range(0, 30)
-print(type(r))
-print(type(10))
-print(type('a'))
-print(type("Hi there"))
+ர = range(0, 30)
+அச்சிடு(type(ர))
+அச்சிடு(type(10))
+அச்சிடு(type('அ'))
+அச்சிடு(type("வணக்கம்"))
 
-class Car:
+class சிற்றுந்து:
     pass
 
-class Truck():
+class பாரவண்டி():
     pass
 
-c = Car()
-convert = Car()
-t = Truck()
-print(type(c))
-print(type(t))
-print(type(c) == type(t))
-print(type(c) == type(convert))
+ச = சிற்றுந்து()
+மாற்று = சிற்றுந்து()
+ப = பாரவண்டி()
+அச்சிடு(type(ச))
+அச்சிடு(type(ப))
+அச்சிடு(type(ச) == type(ப))
+அச்சிடு(type(ச) == type(மாற்று))
 
-print(isinstance(c, Car))
-print(isinstance(t, Car))
+அச்சிடு(isinstance(ச, சிற்றுந்து))
+அச்சிடு(isinstance(ப, சிற்றுந்து))
 
-if isinstance(r, range):
-    print(list(r))
+if isinstance(ர, range):
+    அச்சிடு(list(ர))

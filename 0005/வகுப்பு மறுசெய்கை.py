@@ -9,38 +9,38 @@ def உள்ளீடு(*வாதங்கள்):
     அ = input (*வாதங்கள்)
     return அ
 
-class inclusive_range:
-    def __init__(self, *args):
-        numargs = len(args)
-        self._start = 0
-        self._step = 1
+class வரம்பு:
+    def __init__(சுயம், *வாதங்கள்):
+        வாதஎண்ணிகை = len(வாதங்கள்)
+        சுயம்._தொடங்கு = 0
+        சுயம்._படி = 1
         
-        if numargs < 1:
-            raise TypeError(f'expected at least 1 argument, got {numargs}')
-        elif numargs == 1:
-            self._stop = args[0]
-        elif numargs == 2:
-            (self._start, self._stop) = args
-        elif numargs == 3:
-            (self._start, self._stop, self._step) = args
-        else: raise TypeError(f'expected at most 3 arguments, got {numargs}')
+        if வாதஎண்ணிகை < 1:
+            raise TypeError(f'குறைந்தது 1 வாதம் எதிர்பார்க்கப்படுகிறது, கிடைத்தது {வாதஎண்ணிகை}')
+        elif வாதஎண்ணிகை == 1:
+            சுயம்._நிறுத்து = வாதங்கள்[0]
+        elif வாதஎண்ணிகை == 2:
+            (சுயம்._தொடங்கு, சுயம்._நிறுத்து) = வாதங்கள்
+        elif வாதஎண்ணிகை == 3:
+            (சுயம்._தொடங்கு, சுயம்._நிறுத்து, சுயம்._படி) = வாதங்கள்
+        else: raise TypeError(f'அதிகபட்சம் 3 வாதங்கள் எதிர்பார்க்கப்படுகிறது, கிடைத்தது {வாதஎண்ணிகை}')
 
-        self._next = self._start
+        சுயம்._அடுத்தது = சுயம்._தொடங்கு
     
-    def __iter__(self):
-        return self
+    def __iter__(சுயம்):
+        return சுயம்
 
-    def __next__(self):
-        if self._next > self._stop:
+    def __next__(சுயம்):
+        if சுயம்._அடுத்தது > சுயம்._நிறுத்து:
             raise StopIteration
         else:
-            _r = self._next
-            self._next += self._step
-            return _r
+            _ர = சுயம்._அடுத்தது
+            சுயம்._அடுத்தது += சுயம்._படி
+            return _ர
 
-def main():
-    for n in inclusive_range(25):
-        print(n, end=' ')
-    print()
+def முதன்மை():
+    for ந in வரம்பு(25):
+        அச்சிடு(ந, முடி=' ')
+    அச்சிடு()
 
-if __name__ == '__main__': main()
+if __name__ == '__main__': முதன்மை()

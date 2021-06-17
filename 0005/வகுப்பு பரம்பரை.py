@@ -9,48 +9,48 @@ def உள்ளீடு(*வாதங்கள்):
     அ = input (*வாதங்கள்)
     return அ
 
-class Animal:
-    def __init__(self, **kwargs):
-        if 'type' in kwargs: self._type = kwargs['type']
-        if 'name' in kwargs: self._name = kwargs['name']
-        if 'sound' in kwargs: self._sound = kwargs['sound']
+class  விலங்கு:
+    def __init__(சுயம், **சொல்வாதங்கள்):
+        சுயம்._வகை = சொல்வாதங்கள்['வகை'] if 'வகை' in சொல்வாதங்கள் else 'பூனைக்குட்டி'
+        சுயம்._பெயர்  = சொல்வாதங்கள்['பெயர்'] if 'பெயர்' in சொல்வாதங்கள் else 'பஞ்சு'
+        சுயம்._ஒலி = சொல்வாதங்கள்['ஒலி'] if 'ஒலி' in சொல்வாதங்கள் else 'மியாவ்'
 
-    def type(self, t = None):
-        if t: self._type = t
-        try: return self._type
+    def வகை(சுயம், வ = None):
+        if வ: சுயம்._வகை = வ
+        try: return சுயம்._வகை
         except AttributeError: return None
 
-    def name(self, n = None):
-        if n: self._name = n
-        try: return self._name
+    def பெயர்(சுயம், பெ = None):
+        if பெ: சுயம்._பெயர் = பெ
+        try: return சுயம்._பெயர்
         except AttributeError: return None
 
-    def sound(self, s = None):
-        if s: self._sound = s
-        try: return self._sound
+    def ஒலி(சுயம், ஒ = None):
+        if ஒ: சுயம்._ஒலி = ஒ
+        try: return சுயம்._ஒலி
         except AttributeError: return None
 
-class Duck(Animal):
-    def __init__(self, **kwargs):
-        self._type = 'duck'
-        if 'type' in kwargs: del kwargs['type']
-        super().__init__(**kwargs)
+class வாத்து(விலங்கு):
+    def __init__(சுயம், **சொல்வாதங்கள்):
+        சுயம்._வகை = 'வாத்து'
+        if 'வகை' in சொல்வாதங்கள்: del சொல்வாதங்கள்['வகை']
+        super().__init__(**சொல்வாதங்கள்)
 
-class Kitten(Animal):
-    def __init__(self, **kwargs):
-        self._type = 'kitten'
-        if 'type' in kwargs: del kwargs['type']
-        super().__init__(**kwargs)
+class பூனைக்குட்டி(விலங்கு):
+    def __init__(சுயம், **சொல்வாதங்கள்):
+        சுயம்._வகை = 'பூனைக்குட்டி'
+        if 'வகை' in சொல்வாதங்கள்: del சொல்வாதங்கள்['வகை']
+        super().__init__(**சொல்வாதங்கள்)
 
-def print_animal(o):
-    if not isinstance(o, Animal):
-        raise TypeError('print_animal(): requires an Animal')
-    print(f'The {o.type()} is named "{o.name()}" and says "{o.sound()}".')
+def அச்சிடு_விலங்கு(வி):
+    if not isinstance(வி, விலங்கு):
+        raise TypeError('அச்சிடு_விலங்கு(): தேவை ஒரு விலங்கு')
+    print(f'அந்த {வி.வகை()} பெயர் "{வி.பெயர்()}" மற்றும் "{வி.ஒலி()}" என்று கூறுகிறது .')
 
-def main():
-    a0 = Kitten(name = 'fluffy', sound = 'rwar')
-    a1 = Duck(name = 'donald', sound = 'quack')
-    print_animal(a0)
-    print_animal(a1)
+def முதன்மை():
+    வி = பூனைக்குட்டி(பெயர் = 'பஞ்சு', ஒலி = 'மியாவ்')
+    வில = வாத்து(பெயர் = 'டொனால்ட்', ஒலி = 'குவாக் ')
+    அச்சிடு_விலங்கு(வி)
+    அச்சிடு_விலங்கு(வில)
 
-if __name__ == '__main__': main()
+if __name__ == '__main__': முதன்மை()

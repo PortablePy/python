@@ -9,25 +9,25 @@ def உள்ளீடு(*வாதங்கள்):
     அ = input (*வாதங்கள்)
     return அ
 
-import sys
+import sys as முறைமை
 
-# அச்சிடு Arguments
-அச்சிடு("Number of arguments: ", len(sys.argv), ' arguments.')
-அச்சிடு("Arguments ", sys.argv)
+# அச்சிடு வாதங்கள்
+அச்சிடு("வாதஎண்ணிக்கை: ", len(முறைமை.argv), ' வாதங்கள்.')
+அச்சிடு("வாதங்கள் ", முறைமை.argv)
 
-# Remove Arguments
-sys.argv.remove(sys.argv[0])
+# நீக்கு வாதங்கள்
+முறைமை.argv.remove(முறைமை.argv[0])
 
-அச்சிடு("Arguments", sys.argv)
+அச்சிடு("வாதங்கள்", முறைமை.argv)
 
-# Sum up the Arguments
-arguments = sys.argv
-sum = 0
-for arg in arguments:
+# வாதங்களை கூட்டு
+வாதங்கள் = முறைமை.argv
+கூட்டு = 0
+for வாதம் in வாதங்கள்:
     try:
-        number = int(arg)
-        sum = sum + number
+        எண் = int(வாதம்)
+        கூட்டு = கூட்டு + எண்
     except Exception:
-        அச்சிடு("Bad input")
+        அச்சிடு("தவறான உள்ளீடு ")
 
-அச்சிடு(sum)
+அச்சிடு(கூட்டு)

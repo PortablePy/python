@@ -64,24 +64,23 @@ for ம in range(1,13):
 
 # Calendar Module
 from datetime import datetime, timedelta
-import calendar
 
 now = datetime.now()
 
 testDate = now + timedelta(days=2)
 myFirstLinkedInCourse = now - timedelta(weeks=3)
 
-print(testDate.date())
-print(myFirstLinkedInCourse.date())
+அச்சிடு(testDate.date())
+அச்சிடு(myFirstLinkedInCourse.date())
 
 if testDate > myFirstLinkedInCourse:
-    print("Comparison works")
+    அச்சிடு("ஒப்பீடு வேலை செய்கிறது ")
 
-cal = calendar.month(2001, 10)
-print(cal)
+cal = நாட்காட்டி.month(2001, 10)
+அச்சிடு(cal)
 
-cal2 = calendar.weekday(2001, 10, 11)
-print(cal2)
+cal2 = நாட்காட்டி.weekday(2001, 10, 11)
+அச்சிடு(cal2)
 
-print(calendar.isleap(1999))
-print(calendar.isleap(2000))
+அச்சிடு(நாட்காட்டி.isleap(1999))
+அச்சிடு(நாட்காட்டி.isleap(2000))
