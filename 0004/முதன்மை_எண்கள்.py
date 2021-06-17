@@ -10,18 +10,18 @@ def உள்ளீடு(*வாதங்கள்):
     அ = input (*வாதங்கள்)
     return அ
 
-def isprime(n):
-    if n <= 1:
+def முதன்மை_எண்(எ):
+    if எ <= 1:
         return False
-    for x in range(2, n):
-        if n % x == 0:
+    for ஐ in range(2, எ):
+        if எ % ஐ == 0:
             return False
     else:
         return True
 
-n = 5
-if isprime(n):
-    print(f'{n} முதன்மை எண்')
+எ = 5
+if முதன்மை_எண்(எ):
+    print(f'{எ} முதன்மை எண்')
 else:
-    print(f'{n} முதன்மை எண் அல்ல')
+    print(f'{எ} முதன்மை எண் அல்ல')
 
