@@ -11,9 +11,9 @@ def உள்ளீடு(*வாதங்கள்):
 from tkinter import *
 from tkinter import ttk        
     
-root = Tk()
+வேர் = Tk()
 
-progressbar = ttk.Progressbar(root, orient = HORIZONTAL, length = 200)
+progressbar = ttk.Progressbar(வேர், orient = HORIZONTAL, length = 200)
 progressbar.pack()
 
 progressbar.config(mode = 'indeterminate')
@@ -28,11 +28,11 @@ progressbar.step(5)
 value = DoubleVar()
 progressbar.config(variable = value)
 
-scale = ttk.Scale(root, orient = HORIZONTAL,
+scale = ttk.Scale(வேர், orient = HORIZONTAL,
 		  length = 400, variable = value,
 		  from_ = 0.0, to = 11.0)
 scale.pack()
 scale.set(4.2)
 print(scale.get())
 
-root.mainloop()
+வேர்.mainloop()

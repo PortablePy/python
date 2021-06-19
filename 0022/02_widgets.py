@@ -11,9 +11,9 @@ def உள்ளீடு(*வாதங்கள்):
 from tkinter import *
 from tkinter import ttk
 
-root = Tk()
+வேர் = Tk()
 
-button = ttk.Button(root, text = 'Click Me')
+button = ttk.Button(வேர், text = 'Click Me')
 button.pack()
 
 அச்சிடு(button['text'])
@@ -22,9 +22,9 @@ button.config(text = 'Push Me')
 அச்சிடு(button.config())
 
 அச்சிடு(str(button))
-அச்சிடு(str(root))
+அச்சிடு(str(வேர்))
 
-ttk.Label(root, text ='Hello, Tkinter!').pack()
+ttk.Label(வேர், text ='Hello, Tkinter!').pack()
 
 # mainloop() add
-root.mainloop()
+வேர்.mainloop()

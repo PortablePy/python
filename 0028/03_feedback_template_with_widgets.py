@@ -38,8 +38,8 @@ class Feedback:
 
 def main():            
     
-    root = Tk()
-    feedback = Feedback(root)
-    root.mainloop()
+    வேர் = Tk()
+    feedback = Feedback(வேர்)
+    வேர்.mainloop()
     
 if __name__ == "__main__": main()

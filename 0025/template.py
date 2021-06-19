@@ -5,8 +5,8 @@
 from tkinter import *
 from tkinter import ttk        
     
-root = Tk()
+வேர் = Tk()
 
 # code goes here
 
-root.mainloop()
+வேர்.mainloop()

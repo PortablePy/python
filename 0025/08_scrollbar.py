@@ -5,11 +5,11 @@
 from tkinter import *
 from tkinter import ttk        
     
-root = Tk()
+வேர் = Tk()
 
-canvas = Canvas(root, scrollregion = (0, 0, 640, 480), bg = 'white')
-xscroll = ttk.Scrollbar(root, orient = HORIZONTAL, command = canvas.xview)
-yscroll = ttk.Scrollbar(root, orient = VERTICAL, command = canvas.yview)
+canvas = Canvas(வேர், scrollregion = (0, 0, 640, 480), bg = 'white')
+xscroll = ttk.Scrollbar(வேர், orient = HORIZONTAL, command = canvas.xview)
+yscroll = ttk.Scrollbar(வேர், orient = VERTICAL, command = canvas.yview)
 canvas.config(xscrollcommand = xscroll.set, yscrollcommand = yscroll.set)
 
 canvas.grid(row = 1, column = 0)
@@ -23,4 +23,4 @@ def canvas_click(event):
 
 canvas.bind('<1>', canvas_click)
 
-root.mainloop()
+வேர்.mainloop()

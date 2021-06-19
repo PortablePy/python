@@ -10,13 +10,13 @@ def உள்ளீடு(*வாதங்கள்):
 
 from tkinter import *      
     
-root = Tk()
+வேர் = Tk()
 
-window = Toplevel(root)
+window = Toplevel(வேர்)
 window.title('New Window')
 
 window.lower()
-window.lift(root)
+window.lift(வேர்)
 
 window.state('zoomed')
 window.state('withdrawn')
@@ -35,6 +35,6 @@ window.maxsize(640, 480)
 window.minsize(200, 200)
 window.resizable(True, True)
 
-root.destroy()
+வேர்.destroy()
 
-root.mainloop()
+வேர்.mainloop()

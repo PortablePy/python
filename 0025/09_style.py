@@ -5,10 +5,10 @@
 from tkinter import *
 from tkinter import ttk        
     
-root = Tk()
+வேர் = Tk()
 
-button1 = ttk.Button(root, text = 'Button 1')
-button2 = ttk.Button(root, text = 'Button 2')      
+button1 = ttk.Button(வேர், text = 'Button 1')
+button2 = ttk.Button(வேர், text = 'Button 2')      
 button1.pack()
 button2.pack()
 
@@ -32,4 +32,4 @@ print(style.layout('TButton'))
 print(style.element_options('Button.label'))
 print(style.lookup('TButton', 'foreground'))
 
-root.mainloop()
+வேர்.mainloop()

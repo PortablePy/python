@@ -21,9 +21,9 @@ def key_press(event):
 def shortcut(action):
     print(action)
     
-root = Tk()
+வேர் = Tk()
 
-root.bind('<Control-c>', lambda e: shortcut('Copy'))
-root.bind('<Control-v>', lambda e: shortcut('Paste'))
+வேர்.bind('<Control-c>', lambda e: shortcut('Copy'))
+வேர்.bind('<Control-v>', lambda e: shortcut('Paste'))
 
-root.mainloop()
+வேர்.mainloop()

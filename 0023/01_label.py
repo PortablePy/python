@@ -11,9 +11,9 @@ def உள்ளீடு(*வாதங்கள்):
 from tkinter import *
 from tkinter import ttk        
     
-root = Tk()
+வேர் = Tk()
 
-label = ttk.Label(root, text = "Hello, Tkinter!")
+label = ttk.Label(வேர், text = "Hello, Tkinter!")
 label.pack()
 label.config(text = 'Howdy, Tkinter!')
 label.config(text = 'Howdy, Tkinter! It\'s been a really long time since we last met.  Great to see you again!')
@@ -32,4 +32,4 @@ label.config(compound = 'left')
 label.img = logo
 label.config(image = label.img)
 
-root.mainloop()
+வேர்.mainloop()

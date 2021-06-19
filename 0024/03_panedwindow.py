@@ -11,9 +11,9 @@ def உள்ளீடு(*வாதங்கள்):
 from tkinter import *
 from tkinter import ttk        
     
-root = Tk()
+வேர் = Tk()
 
-panedwindow = ttk.Panedwindow(root, orient = HORIZONTAL)
+panedwindow = ttk.Panedwindow(வேர், orient = HORIZONTAL)
 panedwindow.pack(fill = BOTH, expand = True)
 
 frame1 = ttk.Frame(panedwindow, width = 100, height = 300, relief = SUNKEN)
@@ -25,4 +25,4 @@ frame3 = ttk.Frame(panedwindow, width = 50, height = 50, relief = SUNKEN)
 panedwindow.insert(1, frame3)
 panedwindow.forget(1)
 
-root.mainloop()
+வேர்.mainloop()

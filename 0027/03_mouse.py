@@ -18,8 +18,8 @@ def mouse_press(event):
     print('num: {}'.format(event.num)) 
     print('x: {}'.format(event.x))
     print('y: {}'.format(event.y))
-    print('x_root: {}'.format(event.x_root))
-    print('y_root: {}\n'.format(event.y_root))
+    print('x_வேர்: {}'.format(event.x_வேர்))
+    print('y_வேர்: {}\n'.format(event.y_வேர்))
     prev = event
 
 def draw(event):
@@ -27,12 +27,12 @@ def draw(event):
     canvas.create_line(prev.x, prev.y, event.x, event.y, width = 5)
     prev = event
     
-root = Tk()
+வேர் = Tk()
 
-canvas = Canvas(root, width = 640, height = 480, 
+canvas = Canvas(வேர், width = 640, height = 480, 
                 background = 'white')
 canvas.pack()
 canvas.bind('<ButtonPress>', mouse_press)
 canvas.bind('<B1-Motion>', draw)
 
-root.mainloop()
+வேர்.mainloop()

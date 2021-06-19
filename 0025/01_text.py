@@ -4,9 +4,9 @@
 
 from tkinter import *      
     
-root = Tk()
+வேர் = Tk()
 
-text = Text(root, width = 40, height = 10)
+text = Text(வேர், width = 40, height = 10)
 text.pack()
 text.config(wrap = 'word')
 
@@ -44,4 +44,4 @@ text.image_create('insert', image = image)
 button = Button(text, text = 'Click Me')
 text.window_create('insert', window = button)
 
-root.mainloop()
+வேர்.mainloop()

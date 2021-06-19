@@ -5,9 +5,9 @@
 from tkinter import *
 from tkinter import ttk        
     
-root = Tk()
+வேர் = Tk()
 
-canvas = Canvas(root)
+canvas = Canvas(வேர்)
 canvas.pack()
 canvas.config(width = 640, height = 480)
 
@@ -44,4 +44,4 @@ canvas.itemconfigure(oval, tags = ('shape', 'round'))
 canvas.itemconfigure('shape', fill = 'grey')
 print(canvas.gettags(oval))
 
-root.mainloop()
+வேர்.mainloop()

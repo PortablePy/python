@@ -11,9 +11,9 @@ def உள்ளீடு(*வாதங்கள்):
 from tkinter import *
 from tkinter import ttk        
     
-root = Tk()
+வேர் = Tk()
 
-entry = ttk.Entry(root, width = 30)
+entry = ttk.Entry(வேர், width = 30)
 entry.pack()
 
 entry.get()
@@ -26,4 +26,4 @@ entry.state(['disabled'])
 entry.state(['readonly'])
 entry.state(['!disabled'])
 
-root.mainloop()
+வேர்.mainloop()

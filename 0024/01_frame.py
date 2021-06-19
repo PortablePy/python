@@ -11,14 +11,14 @@ def உள்ளீடு(*வாதங்கள்):
 from tkinter import *
 from tkinter import ttk        
     
-root = Tk()
+வேர் = Tk()
 
-frame = ttk.Frame(root)
+frame = ttk.Frame(வேர்)
 frame.pack()
 frame.config(height = 100, width = 200)
 frame.config(relief = RIDGE)
 ttk.Button(frame, text = 'Click Me').pack()
 frame.config(padding = (30, 15))
-ttk.LabelFrame(root, height = 100, width = 200, text = 'My Frame').pack()
+ttk.LabelFrame(வேர், height = 100, width = 200, text = 'My Frame').pack()
 
-root.mainloop()
+வேர்.mainloop()

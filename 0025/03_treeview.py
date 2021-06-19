@@ -5,9 +5,9 @@
 from tkinter import *
 from tkinter import ttk        
     
-root = Tk()
+வேர் = Tk()
 
-treeview = ttk.Treeview(root)
+treeview = ttk.Treeview(வேர்)
 treeview.pack()
 treeview.insert('', '0', 'item1', text = 'First Item')
 treeview.insert('', '1', 'item2', text = 'Second Item')
@@ -45,4 +45,4 @@ print(treeview.selection_add('python'))
 print(treeview.selection_remove('python'))
 print(treeview.selection_toggle('python'))
 
-root.mainloop()
+வேர்.mainloop()

@@ -11,9 +11,9 @@ def உள்ளீடு(*வாதங்கள்):
 from tkinter import *
 from tkinter import ttk        
     
-root = Tk()
+வேர் = Tk()
 
-button = ttk.Button(root, text = "Click Me")
+button = ttk.Button(வேர், text = "Click Me")
 button.pack()
 
 def callback():
@@ -32,4 +32,4 @@ button.config(image = logo, compound = LEFT)
 small_logo = logo.subsample(5, 5)
 button.config(image = small_logo)
 
-root.mainloop()
+வேர்.mainloop()

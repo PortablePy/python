@@ -11,21 +11,21 @@ def உள்ளீடு(*வாதங்கள்):
 from tkinter import *
 from tkinter import ttk        
     
-root = Tk()
+வேர் = Tk()
 
-ttk.Label(root, text = 'Hello, Tkinter!',
+ttk.Label(வேர், text = 'Hello, Tkinter!',
           background = 'yellow').pack(side = LEFT, anchor = 'nw')
-ttk.Label(root, text = 'Hello, Tkinter!',
+ttk.Label(வேர், text = 'Hello, Tkinter!',
           background = 'blue').pack(side = LEFT, padx = 10, pady = 10)
-label = ttk.Label(root, text = 'Hello, Tkinter!',
+label = ttk.Label(வேர், text = 'Hello, Tkinter!',
           background = 'green')
 label.pack(side = LEFT, ipadx = 10, ipady = 10)
 print(label)
 
-for widget in root.pack_slaves():
+for widget in வேர்.pack_slaves():
     widget.pack_configure(fill = BOTH, expand = True)
     print(widget.pack_info())
 
 label.pack_forget()
 
-root.mainloop()
+வேர்.mainloop()

@@ -11,9 +11,9 @@ def உள்ளீடு(*வாதங்கள்):
 from tkinter import *
 from tkinter import ttk        
     
-root = Tk()
+வேர் = Tk()
 
-notebook = ttk.Notebook(root)
+notebook = ttk.Notebook(வேர்)
 notebook.pack()
 
 frame1 = ttk.Frame(notebook)
@@ -37,4 +37,4 @@ notebook.tab(1, state = 'normal')
 notebook.tab(1, 'text')
 notebook.tab(1)
 
-root.mainloop()
+வேர்.mainloop()

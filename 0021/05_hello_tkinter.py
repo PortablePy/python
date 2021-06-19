@@ -10,6 +10,6 @@ def உள்ளீடு(*வாதங்கள்):
 
 from tkinter import *
 
-root = Tk()
-Label(root, text="Hello, Tkinter!").pack()
-root.mainloop()
+வேர் = Tk()
+Label(வேர், text="Hello, Tkinter!").pack()
+வேர்.mainloop()

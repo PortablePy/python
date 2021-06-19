@@ -11,21 +11,21 @@ def உள்ளீடு(*வாதங்கள்):
 from tkinter import *
 from tkinter import ttk        
     
-root = Tk()
+வேர் = Tk()
 
-label1 = ttk.Label(root, text = 'Label 1')
-label2 = ttk.Label(root, text = 'Label 2')
+label1 = ttk.Label(வேர், text = 'Label 1')
+label2 = ttk.Label(வேர், text = 'Label 2')
 label1.pack()
 label2.pack()
 
 label1.bind('<ButtonPress>', lambda e: print('<BP> Label'))
 label1.bind('<1>', lambda e: print('<1> Label'))
 
-root.bind('<1>', lambda e: print('<1> Root'))
+வேர்.bind('<1>', lambda e: print('<1> வேர்'))
 
 label1.unbind('<1>')
 label1.unbind('<ButtonPress>')
 
-root.bind_all('<Escape>', lambda e: print('Escape!'))
+வேர்.bind_all('<Escape>', lambda e: print('Escape!'))
 
-root.mainloop()
+வேர்.mainloop()

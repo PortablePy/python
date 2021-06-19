@@ -33,8 +33,8 @@ class HelloApp:
             
 def main():            
     
-    root = Tk()
-    app = HelloApp(root)
-    root.mainloop()
+    வேர் = Tk()
+    app = HelloApp(வேர்)
+    வேர்.mainloop()
     
 if __name__ == "__main__": main()
