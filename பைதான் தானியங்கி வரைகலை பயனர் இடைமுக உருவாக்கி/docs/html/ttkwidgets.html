@@ -1,0 +1,160 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>The ttkwidgets Package &#8212; PAGE 5.0 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="Rework" href="rework.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="the-ttkwidgets-package">
+<span id="ttkwidget"></span><h1>The ttkwidgets Package<a class="headerlink" href="#the-ttkwidgets-package" title="Permalink to this headline">¶</a></h1>
+<p>I recently learned of this widget package which contains a number of
+widgets including:</p>
+<ul class="simple">
+<li>AutoHideScrollbar:    Scrollbar that automatically hides when not needed.</li>
+<li>Calendar      ttk Widget that enables a calender within a frame, allowing the user to select dates.</li>
+<li>CheckboxTreeview:     ttk.Treeview widget with checkboxes left of each item.</li>
+<li>DebugWindow:  A Toplevel that shows sys.stdout and sys.stderr for Tkinter applications</li>
+<li>ItemsCanvas:  A ttk.Frame containing a Canvas upon which text items can be placed with a coloured background.</li>
+<li>LinkLabel:    A ttk.Label that can be clicked to open a link with a default blue color, a purple color when clicked and a bright blue color when hovering over the Label.</li>
+<li>ScaleEntry:   A simple combination of a Scale and an Entry widget suitable for use with int ranges.</li>
+<li>ScrolledListbox:      Simple tk.Listbox with an added scrollbar.</li>
+<li>Table:        Table widget displays a table with options to drag rows and columns and to sort columns.</li>
+<li>TickScale:    A ttk.Scale that can display the current value next to the slider and supports ticks.</li>
+<li>TimeLine:     A Frame containing a Canvas and various buttons to
+manage a timeline that can be marked with certain events, allowing
+the binding of commands to hovering over certain elements and
+creating texts inside the elements.</li>
+</ul>
+<p>The package documentation can be found at <a class="reference external" href="https://ttkwidgets.readthedocs.io/en/latest/index.html">ttkwidget Documentation</a>.
+The widgets themselves can be found at <a class="reference external" href="https://github.com/TkinterEP/ttkwidgets">ttkwidgets</a>.  The documentation
+includes installation and examples. I am just familiarizing myself
+with these widgets, so I am not in a position to recommend or
+disparage them.</p>
+<p>The big disadvantage with ttkwidgets or any widget package is that to use
+them, the packages have to be installed on all systems on which your
+application is run. That means that if you distribute your application
+using them, then all the users have to also install the ttkwidgets
+package.</p>
+<p>The widgets in this package can be used as Custom widgets within
+PAGE. I created an example, see <a class="reference internal" href="examples.html#cal2"><span class="std std-ref">Calendar_2</span></a> using the Calendar widget
+from the package but ran into a problem passing into the widget the
+initial month and year because there I didn’t find attributes I could
+set in the init function of the support module. But looking at the
+example code for the Calendar widget, I saw that Calendar is
+instantiated with the following statement:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ttkwidgets</span> <span class="kn">import</span> <span class="n">Calendar</span>
+<span class="n">calendar</span> <span class="o">=</span> <span class="n">Calendar</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2015</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">selectforeground</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>
+            <span class="n">selectbackground</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>So I used the following code in the support module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ttkwidgets</span> <span class="kn">import</span> <span class="n">Calendar</span>
+<span class="k">class</span> <span class="nc">Cal</span><span class="p">(</span><span class="n">Calendar</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="n">Calendar</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+                      <span class="n">selectforeground</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">selectbackground</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">Custom</span> <span class="o">=</span> <span class="n">Cal</span>
+</pre></div>
+</div>
+<p>And the calendar widget showed September 2019 and behaved as I hoped.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">PAGE</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interface.html">The PAGE Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preferences.html">Defaults and Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Module Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="themes.html">Styles and Themes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use.html">Using PAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="menu.html">Menus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rework.html">Rework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rework.html#reuse">Reuse</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The ttkwidgets Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="final.html">Epilogue</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="rework.html" title="previous chapter">Rework</a></li>
+      <li>Next: <a href="examples.html" title="next chapter">Examples</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2008 - 2020 Donald Rozenberg.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/ttkwidgets.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

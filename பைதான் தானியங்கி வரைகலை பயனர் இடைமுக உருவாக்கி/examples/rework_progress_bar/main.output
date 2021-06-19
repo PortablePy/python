@@ -1,0 +1,7 @@
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "C:\Program Files\Python37\lib\tkinter\__init__.py", line 1705, in __call__
+    return self.func(*args)
+  File "F:\page-dev\examples\rework_progress_bar\main_support.py", line 47, in advance
+    bar = progress_bar.create_Progress_Bar(root)
+AttributeError: module 'progress_bar' has no attribute 'create_Progress_Bar'

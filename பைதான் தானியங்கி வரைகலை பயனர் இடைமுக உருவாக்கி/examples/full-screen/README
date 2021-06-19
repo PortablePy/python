@@ -1,0 +1,8 @@
+
+This example has a simple GUI. When the generated Python is executed
+the toplevel window expands to fill the entire screen. F11 and Escape
+keys control whether the GUI occupies the full screen or not as does
+the Screen submenu.
+
+Because the GUI is in Relative mode, the size of the text widget and
+the widget placement also change correspondingly.

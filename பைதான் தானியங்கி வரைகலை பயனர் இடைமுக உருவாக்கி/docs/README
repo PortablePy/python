@@ -1,0 +1,36 @@
+
+PAGE is a drop and drag tool which helps to create Tkinter GUI interfaces for use within Python programs.  It is a fork of the program Visual Tcl which now produces Python code. PAGE builds a single GUI window and generates a working skeletal Python program using tk and ttk widgets. As other windows are required, they are designed with PAGE and can be easily incorporated into the application. 
+
+It is aimed at a user who wants to rapidly construct a GUI and is willing to compromise generality for ease and speed of construction. It is a helper tool. It does not build an entire application but rather is aimed at building a single GUI window.  It is not a Python Interactive Design Environment(IDE). Stated in other words, PAGE generates a Python class which implements a single GUI window and also supplies all of the boiler-plate code for execution or instantiating the GUI object. If, like me, you have difficulty remembering all the little tricks of getting a GUI to actually appear on the screen, PAGE can show you code that will work.
+
+PAGE is written in Tcl/Tk but invoked within a Python wrapper. This means that PAGE will run on any system which has Python installed. Separate installation of Tcl/Tk is not required.
+
+The generated output is pure Python and will run on any system supporting Python with Tkinter and is compatible with both Python 2.7 and Python 3.
+
+The 6.2 release is primarily a bug fix release.
+
+The 6.1 release introduces an autosave feature, accepts a nonexistance project file at invocation, and fixes a several bugs.
+
+The 6.0 release utilizes a Python wrapper which improves and simplifies PAGE installation, particularly on Windows.
+
+The 5.6 release fixes a problem with code generation for notebook widgets, fixes a problem with the presentation of the Attribute Editor in Windows, revises the command options.
+
+The 5.5 release fixes a problem with aliases in copy-and-paste operations, adds the capability to revert to default geometries for the principle PAGE windows, fixes problems with opening and saving projects, fixes a problem the Absolute/Relative code, makes minor improvement in the handling of fonts, reworks some of the examples for better presentation across OS's.
+
+The 5.4 release changes the Menu Editor to more closely align with Tk menu capabilities, fixes a problem with font preferences, adds the Scrolledspinbox widget.  
+
+
+The 5.3 release fixes the use of arrow keys and extends their usage to changing sashes in paned windows, corrects some problems with paned windows, simplifies the specification of command attributes with arguments by generating lambda functions in some simple cases, and includes minor changes to the menu editor.
+
+The 5.2 release fixes the saving of font specification for scrolled widgets, modifies the tooltip support, expands the multiple selection facility, and improves undo.
+
+The 5.1 release extends functions available in multiple selection, provides an experimental undo capability for certain operations, handles Windows device letters better, and improves the resizing of panes in paned windows.
+
+The 5.0.3 release fixes bugs with relative placement and multiple selection.
+
+The 5.0.2 release fixes a busy cursor bug.
+
+The 5.0.1 release repairs a blooper in the release of 5.0 documentation.
+
+The 5.0 release contains rewrite of the support module update code, provides limited functionality for multiple widget selection, adds the Scrolledwindow widget based on the canvas widget, adds New command to File menu in main menu, extends relative placement to the design phase of GUI development providing a WYSIWYG improvement, and fixes a number of bugs. 
+

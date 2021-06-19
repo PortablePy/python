@@ -1,0 +1,21 @@
+
+This directory contains an exeample of a GUI with two different custom
+widgets, ScrolledCheckedListBox and ScrolledFrame, which were written
+externally from PAGE. The variants are "_d" and "_g" which give rise
+to class names "Custom_d" and "Custom_g" in the GUI module and which
+are renamed ScrolledFrame and ScrolledCheckedListBox in the support
+module.
+
+The ScrolledCheckedListBox was written by Greg Walters and is
+borrowed from his ScrolledCheckedListBox example picked up and stuffed
+into new "dual" toplevel widget along with a rehash of my lib_demo custom
+widget. My original ScrolledFrame proved to have some problem with the
+scroll bars, so I modified it along lines which I borrowed from the
+ScrolledCheckedListBox widget. The toplevel also has a menubar
+borrowed from lib_demo so the entries apply to the ScrolledFrame.
+
+There is a Tsizegrip widget to facilitate resizing the GUI. The event
+'<ButtonRelease-1>' is bound to the Tsizegrip so that when Button1 as
+released  at the end of a resize, the Custom widget on the right is
+refreshed. 
+

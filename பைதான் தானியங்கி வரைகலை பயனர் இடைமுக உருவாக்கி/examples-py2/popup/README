@@ -1,0 +1,17 @@
+These examples demonstrates popup menus attach to buttons and activated 
+with Button-3.
+
+This directory contains a main example, 'popup" which merely
+activates a popup menu which then activates callback functions passing
+no arguments to the callback functions.  The main example has a top
+level window with two buttons and a different context menu attached to
+each.  To see the popup menus right click on the buttons.  You will
+note that the two menus have different colors.
+
+Another example is 'positional' which augments the popup example with an
+additional command and an additional callback routine and passes that
+callback function the parameter 1 via the variable parameter list
+using the only positional parameter.  Finally, the 'keyword' example, does
+a similar thing passing the parameter 1 by means of a keyword parameter.
+
+
