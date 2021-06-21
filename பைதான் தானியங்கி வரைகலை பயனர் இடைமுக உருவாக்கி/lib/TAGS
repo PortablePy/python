@@ -1,4 +1,5 @@
-
+
+
 ../page.tcl,1742
   proc tkTextInsert {w s} {tkTextInsert46,1682
 proc vTcl:log {msg} {vTcl:log65,2126
@@ -33,13 +34,15 @@ proc touch {filename} {touch1176,41342
 proc autosave_filename {fname} {autosave_filename1183,41621
 proc autosave {varname args} {autosave1202,42265
 proc remove_autosave_files {} {remove_autosave_files1244,43883
-
+
+
 about.tcl,264
 proc vTclWindow.vTcl.about {args} {vTclWindow.vTcl.about25,1018
 proc vTcl:open_help_in_browser { } {vTcl:open_help_in_browser113,3788
 proc vTcl:fill_credits {} {vTcl:fill_credits154,5302
 proc vTclWindow.vTcl.credits {base} {vTclWindow.vTcl.credits169,5709
-
+
+
 apply.tcl,787
 proc vTcl:stash_config {} {vTcl:stash_config26,1065
 proc vTcl:apply_config {widget} {vTcl:apply_config34,1282
@@ -53,21 +56,25 @@ proc wheelEvent { x y delta canvas {os ""}} {wheelEvent450,16024
 proc vTcl:bind_mousewheel {widget} {vTcl:bind_mousewheel478,16921
 proc vTcl:unbind_mousewheel {widget} {vTcl:unbind_mousewheel489,17334
 proc vTcl:show_apply {} {vTcl:show_apply499,17567
-
+
+
 attrbar.tcl,0
-
+
+
 balloon.tcl,193
 proc vTcl:set_balloon {target message} {vTcl:set_balloon106,3207
 proc vTcl:setTooltip {widget text} {vTcl:setTooltip145,4494
 proc vTcl:showTooltip {widget text} {vTcl:showTooltip156,5061
-
+
+
 bgerror.tcl,265
 proc vTclWindow.vTcl.bgerror {base} {vTclWindow.vTcl.bgerror28,1104
 proc bgerror {error} {bgerror119,4453
 proc bgerror {error} {bgerror152,5408
 proc vTcl:save_err_msg {} {vTcl:save_err_msg168,5752
 proc vTcl:display_error {msg} {vTcl:display_error177,5960
-
+
+
 bind.tcl,3347
 proc vTcl:get_bind {target} {vTcl:get_bind32,1318
 proc vTclWindow.vTcl.bind {args} {vTclWindow.vTcl.bind49,1874
@@ -103,10 +110,12 @@ proc vTclWindow.vTcl.newtag {base} {vTclWindow.vTcl.newtag640,25716
     proc {::widgets_bindings::show_binding} {tag event} {{::widgets_bindings::show_binding}1406,50255
     proc {::widgets_bindings::find_event_in_sequence} \{::widgets_bindings::find_event_in_sequence}1437,51279
     proc {::widgets_bindings::get_standard_bindtags} {target} {{::widgets_bindings::get_standard_bindtags}1480,52435
-
+
+
 busy_cursor.tcl,61
 proc vTcl:withBusyCursor {body} {vTcl:withBusyCursor23,854
-
+
+
 callback.tcl,712
 proc vTcl:show_all_callbacks {} {vTcl:show_all_callbacks30,1137
 proc vTcl:show_callbacks {} {vTcl:show_callbacks109,3781
@@ -119,7 +128,8 @@ proc vTcl:search_callback {} {vTcl:search_callback276,9697
 proc vTcl:display_selection {} {vTcl:display_selection295,10389
 proc vTclWindow.vTcl.callback {args} {vTclWindow.vTcl.callback307,10818
 proc vTcl:show_callback {} {vTcl:show_callback430,15498
-
+
+
 choosefont.tcl,413
  proc ::ChooseFont::ChooseFont {{defaultFont ""}} {::ChooseFont::ChooseFont31,884
  proc ::ChooseFont::Done {ok} {::ChooseFont::Done109,4270
@@ -127,23 +137,27 @@ choosefont.tcl,413
  proc ::ChooseFont::Click {who} {::ChooseFont::Click142,5183
  proc ::ChooseFont::Tracer {var1 var2 op} {::ChooseFont::Tracer154,5560
  proc ::ChooseFont::Show {} {::ChooseFont::Show184,6575
-
+
+
 close_color.tcl,223
 proc ColorNameCompare {a b} {ColorNameCompare512,10860
 proc setup_arrays {} {setup_arrays543,11922
 proc ColorDistance {x y} {ColorDistance551,12135
 proc FindClosestNamedColor {color} {FindClosestNamedColor562,12424
-
+
+
 cmp_files.tcl,130
 proc vTcl:read_split_file {file} {vTcl:read_split_file5,137
 proc vTcl:diff_two_files {file1 file2} {vTcl:diff_two_files16,359
-
+
+
 color.tcl,286
 proc vTcl:get_color {color w {t {Choose a color}}} {vTcl:get_color24,997
 proc vTcl:show_color {widget option variable w} {vTcl:show_color80,3100
 proc vTcl:set_actuals { } {vTcl:set_actuals106,4008
 proc vTcl:set_GUI_color_defaults { fileID } {vTcl:set_GUI_color_defaults153,6301
-
+
+
 colorDlg.tcl,2494
 proc ::colorDlg::lng_en {} {::colorDlg::lng_en59,1847
 proc ::colorDlg::lng_fr {} {::colorDlg::lng_fr73,2260
@@ -181,17 +195,20 @@ proc ::colorDlg::colorToHex {color} {::colorDlg::colorToHex963,34825
 proc ::colorDlg::compare_colors {color1 color2} {::colorDlg::compare_colors969,35027
     proc ::tk_chooseColor {args} {::tk_chooseColor988,35636
     proc run {} {run992,35715
-
+
+
 color_array.tcl,48
 proc convert_color {args} {convert_color4,116
-
+
+
 command.tcl,389
 proc vTcl:set_command {target {option -command} {variable vTcl(w,opt,-command)}} {vTcl:set_command25,1009
 proc vTcl:get_command {title initial base} {vTcl:get_command60,2311
 proc vTcl:command:save_geom {base} {vTcl:command:save_geom124,4412
 proc vTcl:command:edit_save {base} {vTcl:command:edit_save129,4518
 proc vTcl:command:edit_cancel {base} {vTcl:command:edit_cancel144,4978
-
+
+
 compound.tcl,2513
 proc vTcl:save_compounds {} {vTcl:save_compounds38,1547
 proc vTcl:load_compounds {{file ""}} {vTcl:load_compounds55,2048
@@ -227,7 +244,8 @@ proc insertCompound {target type compoundName {gmgr pack} {gopt ""}} {insertCom
     proc getFonts {type compoundName} {getFonts1118,40826
     proc getProcs {type compoundName} {getProcs1133,41244
     proc deleteCompound {type compoundName} {deleteCompound1138,41377
-
+
+
 convert.tcl,534
 proc vTcl:convert_project {} {vTcl:convert_project28,1046
 proc vTcl:convert_widget {target {creation 0} } {vTcl:convert_widget52,1771
@@ -237,13 +255,15 @@ proc vTcl:initial_design_mode {} {vTcl:initial_design_mode266,9568
 proc vTcl:at_0_0 {target} {vTcl:at_0_0286,10351
 proc vTcl:apply_size {target} {vTcl:apply_size304,10841
 proc vTcl:convert_for_geom_option {target option} {vTcl:convert_for_geom_option337,12015
-
+
+
 do.tcl,236
 proc vTcl:passive_push_action {do undo} {vTcl:passive_push_action25,1020
 proc vTcl:push_action {do undo} {vTcl:push_action35,1330
 proc vTcl:pop_action {} {vTcl:pop_action41,1441
 proc vTcl:redo_action {} {vTcl:redo_action56,1874
-
+
+
 dragsize.tcl,2517
 proc vTcl:store_cursor {target} {vTcl:store_cursor40,1385
 proc vTcl:restore_cursor {target} {vTcl:restore_cursor50,1646
@@ -280,7 +300,8 @@ proc vTcl:relative_place {target} {vTcl:relative_place1003,34436
 proc vTcl:widget_delta {widget x y w h} {vTcl:widget_delta1067,36806
 proc vTcl:actual_resize {widget newX newY newW newH handle} {vTcl:actual_resize1202,41702
 proc vTcl:sash_info {widget handle} {vTcl:sash_info1297,45382
-
+
+
 dump.tcl,2986
 proc vTcl:dump_namespace {context} {vTcl:dump_namespace35,1338
 proc vTcl:dump_proc {i {type ""}} {vTcl:dump_proc74,2260
@@ -322,14 +343,16 @@ proc vTcl:dump:project_info {basedir project} {vTcl:dump:project_info1302,4721
 proc vTcl:dump:sourcing_header {varName} {vTcl:dump:sourcing_header1387,50011
 proc vTcl:dump:not_sourcing_header {varName} {vTcl:dump:not_sourcing_header1392,50142
 proc vTcl:dump:sourcing_footer {varName} {vTcl:dump:sourcing_footer1397,50278
-
+
+
 edit.tcl,263
 proc vTcl:entry_or_text {w} {vTcl:entry_or_text24,1023
 proc vTcl:copy {{w ""}} {vTcl:copy31,1241
 proc vTcl:cut {{w ""}} {vTcl:cut61,2416
 proc vTcl:delete {recipient {w ""}} {vTcl:delete72,2654
 proc vTcl:paste {{fromMouse ""} {w ""}} {vTcl:paste198,7192
-
+
+
 file.tcl,1664
 proc vTcl:new {} {vTcl:new76,2665
 proc vTcl:file_source {} {vTcl:file_source94,3218
@@ -360,7 +383,8 @@ proc vTcl:get_file {mode {title File} {ext .tcl}} {vTcl:get_file899,31276
     proc closeCompounds {moduleName} {closeCompounds1172,41854
     proc closeCompound {compound} {closeCompound1181,42076
     proc setLibrariesToLoad {libs} {setLibrariesToLoad1206,42937
-
+
+
 font.tcl,2606
 proc vTcl:font:prompt_user_font.no {target option} {vTcl:font:prompt_user_font.no26,1034
 proc vTcl:font:prompt_user_font {target option} {vTcl:font:prompt_user_font46,1606
@@ -395,11 +419,13 @@ proc vTcl:font:refresh_manager {{position 0.0}} {vTcl:font:refresh_manager774,
 proc vTcl:font:get_manager_position {} {vTcl:font:get_manager_position785,26767
 proc vTcl:font:translate {value} {vTcl:font:translate799,27217
 proc vTcl:font:noencase_when {value} {vTcl:font:noencase_when810,27556
-
+
+
 globals.tcl,144
 proc vTcl:syntax:iskeyword {candidate} {vTcl:syntax:iskeyword713,28890
 proc vTcl:syntax:iscommand {command} {vTcl:syntax:iscommand725,29118
-
+
+
 gui_python_gen.tcl,8251
 proc lambda {{p1 ""} {p2 ""} {p3 ""} {p4 ""} {p5 ""} {p6 ""} {p7 ""} {p8 ""}} {lambda68,2322
 proc vTcl:generate_python_UI {} {vTcl:generate_python_UI77,2743
@@ -509,7 +535,8 @@ proc printenv { args } {printenv4867,183400
 proc vTcl:calc_relative_geometry {target} {vTcl:calc_relative_geometry4884,183761
 proc vTcl:parent_geometry {target} {vTcl:parent_geometry4943,186061
 proc vTcl:add_lambda {cmd} {vTcl:add_lambda4972,187146
-
+
+
 handle.tcl,498
 proc vTcl:destroy_handles {} {vTcl:destroy_handles26,1061
 proc vTcl:create_handles {target} {vTcl:create_handles41,1545
@@ -518,7 +545,8 @@ proc vTcl:multi_destroy_handles {{w {}}} {vTcl:multi_destroy_handles141,5355
 proc vTcl:replace_all_multi_handles {} {vTcl:replace_all_multi_handles164,6193
 proc vTcl:multi_create_handles {target} {vTcl:multi_create_handles175,6488
 proc vTcl:multi_place_handles {target} {vTcl:multi_place_handles215,7839
-
+
+
 help.tcl,744
 proc vTclWindow.vTcl.help {args} {vTclWindow.vTcl.help27,1022
 proc vTcl:Help {helpName} {vTcl:Help74,2477
@@ -531,7 +559,8 @@ proc vTclWindow.vTcl.tip {base} {vTclWindow.vTcl.tip112,3286
     proc ::vTcl::news::display_news {token} {::vTcl::news::display_news302,8984
     proc ::vTcl::news::parse_news {base string} {::vTcl::news::parse_news361,10656
 proc vTclWindow.vTcl.infolibs {{base ""}} {vTclWindow.vTcl.infolibs395,11711
-
+
+
 images.tcl,2707
 proc vTcl:image:get_creation_type {filename} {vTcl:image:get_creation_type55,1940
 proc {vTcl:image:create_new_image} {filename{vTcl:image:create_new_image}71,2478
@@ -567,7 +596,8 @@ proc vTcl:image:get_manager_position {} {vTcl:image:get_manager_position782,25
 proc vTcl:image:external_editor {imageListbox} {vTcl:image:external_editor786,25885
 proc vTcl:create_project_images {image_list} {vTcl:create_project_images796,26247
 proc vTcl:remove_image {target} {vTcl:remove_image825,27418
-
+
+
 input.tcl,1027
 proc vTcl:get_string {title target {value ""}} {vTcl:get_string25,1033
 proc vTcl:set_string {base str} {vTcl:set_string34,1284
@@ -585,7 +615,8 @@ proc vTcl:load_text_box {box target option} {vTcl:load_text_box380,13725
 proc getLine {title description legend args} {getLine393,14099
 proc updateSelection {top} {updateSelection477,16966
 proc select {contents title {selectMode single} args} {select494,17388
-
+
+
 lib_bwidget.tcl,446
 proc vTcl:lib_bwidget:init {} {vTcl:lib_bwidget:init26,987
 proc vTcl:widget:lib:lib_bwidget {args} {vTcl:widget:lib:lib_bwidget39,1384
@@ -594,7 +625,8 @@ proc vTcl:widget:lib:lib_bwidget {args} {vTcl:widget:lib:lib_bwidget39,1384
     proc get_pages {target} {get_pages118,3432
     proc select_page {target index} {select_page121,3472
     proc dump_subwidgets {subwidget {sitebasename {}}} {dump_subwidgets130,3950
-
+
+
 lib_core.tcl,3064
 proc vTcl:lib_core:init {} {vTcl:lib_core:init29,1010
 proc vTcl:widget:lib:lib_core {args} {vTcl:widget:lib:lib_core36,1128
@@ -642,7 +674,8 @@ proc vTcl:fudge_compound_attribute {suffix} {vTcl:fudge_compound_attribute700,
     proc moveUpOrDown {top direction} {moveUpOrDown1069,36098
     proc enableMenus {top} {enableMenus1085,36708
     proc listboxSelect {args} {listboxSelect1098,37207
-
+
+
 lib_scrolled.tcl,447
 proc vTcl:lib_scrolled:init {} {vTcl:lib_scrolled:init34,1363
 proc vTcl:widget:lib:lib_scrolled {args} {vTcl:widget:lib:lib_scrolled38,1416
@@ -651,7 +684,8 @@ proc vTcl:widget:lib:lib_scrolled {args} {vTcl:widget:lib:lib_scrolled38,1416
     proc get_pages {target} {get_pages85,2791
     proc select_page {target index} {select_page88,2831
     proc dump_subwidgets {subwidget {sitebasename {}}} {dump_subwidgets98,3341
-
+
+
 lib_ttk.tcl,427
 proc vTcl:lib_ttk:init {} {vTcl:lib_ttk:init27,1224
 proc vTcl:widget:lib:lib_ttk {args} {vTcl:widget:lib:lib_ttk31,1272
@@ -660,7 +694,8 @@ proc vTcl:widget:lib:lib_ttk {args} {vTcl:widget:lib:lib_ttk31,1272
     proc get_pages {target} {get_pages83,2703
     proc select_page {target index} {select_page86,2743
     proc dump_subwidgets {subwidget {sitebasename {}}} {dump_subwidgets96,3253
-
+
+
 loadwidg.tcl,2831
 proc vTcl:LoadWidgets {dir} {vTcl:LoadWidgets29,1180
 proc vTcl:LoadWidget {lib file} {vTcl:LoadWidget43,1594
@@ -721,9 +756,10 @@ proc QueryInsertOptionsCmd {val} {QueryInsertOptionsCmd460,11643
 proc VirtualEvents {args} {VirtualEvents464,11741
 proc TtkOptions {args} {TtkOptions472,11960
 proc TtkWidget {val} {TtkWidget479,12132
-
+
+
 menu.tcl,497
-proc vTcl:menu:insert {menu name {root ""}} {vTcl:menu:insert188,7981
+proc vTcl:menu:insert {menu name {வேர் ""}} {vTcl:menu:insert188,7981
 proc vTcl:initRcFileMenu {} {vTcl:initRcFileMenu236,9714
 proc vTcl:addRcFile {file} {vTcl:addRcFile248,10011
 proc vTcl:updateRcFileMenu {} {vTcl:updateRcFileMenu258,10279
@@ -731,7 +767,8 @@ proc vTcl:initBcFileMenu {} {vTcl:initBcFileMenu289,11246
 proc vTcl:addBcFile {file} {vTcl:addBcFile301,11543
 proc vTcl:updateBcFileMenu {} {vTcl:updateBcFileMenu311,11811
 proc vTcl:enable_entries {menu state} {vTcl:enable_entries336,12568
-
+
+
 menus.tcl,3196
     proc {::menu_edit::delete_item} {top} {{::menu_edit::delete_item}68,2495
     proc {::menu_edit::delete_menu_recurse} {menu} {{::menu_edit::delete_menu_recurse}104,3476
@@ -772,7 +809,8 @@ proc configCmd {top option variable} {configCmd861,32850
     proc {::menu_edit::kill_existing_editor} { } {{::menu_edit::kill_existing_editor}1078,40203
     proc {::menu_edit::find_root_menu} {m} {{::menu_edit::find_root_menu}1135,41975
 proc vTclWindow.vTclMenuEdit {base menu} {vTclWindow.vTclMenuEdit1152,42421
-
+
+
 misc.tcl,7065
 proc vTcl:toolbar_button {args} {vTcl:toolbar_button26,1044
 proc vTcl:toolbar_menubutton {args} {vTcl:toolbar_menubutton39,1416
@@ -822,7 +860,7 @@ proc vTcl:split_geom {geom} {vTcl:split_geom1043,31580
 proc vTcl:get_win_position {w} {vTcl:get_win_position1051,31824
 proc ::vTcl::lremove {varName args} {::vTcl::lremove1056,31949
 proc lempty {list} {lempty1070,32283
-proc vTcl:namespace_tree {{root "::"}} {vTcl:namespace_tree1084,32652
+proc vTcl:namespace_tree {{வேர் "::"}} {vTcl:namespace_tree1084,32652
 proc vTcl:copy_widgetname {} {vTcl:copy_widgetname1099,32959
 proc echo {args} {echo1103,33040
 proc incr0 {varName {num 1}} {incr01107,33087
@@ -885,7 +923,8 @@ proc vTcl:is_geom_fluid {widget} {vTcl:is_geom_fluid2244,72214
 proc isin {needle haystack} {isin2262,72747
 proc vTcl:BindHelp {w help} {vTcl:BindHelp2274,72993
 proc substr {neddle hay_stack} {substr2284,73382
-
+
+
 multiselect.tcl,969
 proc vTcl:remove_multi_selections {} {vTcl:remove_multi_selections32,1155
 proc vTcl:bind_top_multi {target X Y x y} {vTcl:bind_top_multi63,2231
@@ -902,18 +941,21 @@ proc vTcl:compare_y_pos {a b} {vTcl:compare_y_pos313,10627
 proc vTcl:sort_by_y {w_list} {vTcl:sort_by_y323,10795
 proc vTcl:center_horizontal {} {vTcl:center_horizontal330,10998
 proc vTcl:center_vertical {} {vTcl:center_vertical360,12017
-
+
+
 name.tcl,170
 proc vTcl:get_name {type} {vTcl:get_name25,1022
 proc vTcl:ok_new_widget {} {vTcl:ok_new_widget41,1403
 proc vTclWindow.vTcl.name {args} {vTclWindow.vTcl.name48,1548
-
+
+
 new.tcl,186
 proc GetFolder {} {GetFolder32,1231
 proc Raise1 {} {Raise146,1571
 proc Done {} {Done57,1832
 proc vTclWindow.vTcl.newProjectWizard {args} {vTclWindow.vTcl.newProjectWizard87,2745
-
+
+
 prefs.tcl,1542
 proc vTcl:prefs:uninit {base} {vTcl:prefs:uninit41,1723
 proc vTcl:prefs:init {base width height} {vTcl:prefs:init45,1791
@@ -936,7 +978,8 @@ proc vTcl:prefs:color_pref {w text variable} {vTcl:prefs:color_pref1207,48664
 proc {vTcl:prefs:bgcolor} {tab} {{vTcl:prefs:bgcolor}1234,49964
 proc {vTcl:prefs:project} {tab} {{vTcl:prefs:project}1309,52903
 proc vTcl:prefs:grid {tab} {vTcl:prefs:grid1358,54896
-
+
+
 proc.tcl,1173
 proc vTcl:delete_proc {name} {vTcl:delete_proc26,1073
 proc vTcl:find_new_procs {} {vTcl:find_new_procs43,1463
@@ -957,7 +1000,8 @@ proc vTclWindow.vTcl.proc {args} {vTclWindow.vTcl.proc296,9965
     proc edit_reset {base} {edit_reset474,16596
     proc edit_change {w k} {edit_change481,16767
     proc add_procs {procs} {add_procs510,17397
-
+
+
 propmgr.tcl,3187
 proc vTcl:show_propmgr {} {vTcl:show_propmgr47,1751
 proc vTcl:grid:height {parent {col 0}} {vTcl:grid:height54,1922
@@ -1000,10 +1044,12 @@ proc vTcl:prop:save_or_unsave_opt {w opt varName save_or_not} {vTcl:prop:save_o
 proc vTcl:prop:apply_opt {w opt varName extent action {user_param {}}} {vTcl:prop:apply_opt1650,60164
 proc vTcl:propmgr:scrollWheelMouse {delta label} {vTcl:propmgr:scrollWheelMouse1719,62516
     proc setAlias {target aliasVar entryWidget} {setAlias1729,62724
-
+
+
 relative_path.tcl,60
 proc vTcl:relTo {targetfile currentpath} {vTcl:relTo4,130
-
+
+
 support_python_gen.tcl,2368
 proc vTcl:generate_python_support {} {vTcl:generate_python_support84,3259
 proc vTcl:replace_support_module {window} {vTcl:replace_support_module211,7782
@@ -1036,17 +1082,20 @@ proc  vTcl:python_inspect_menu_config {target} {vTcl:python_inspect_menu_config
 proc vTcl:python_menu_support {opts} {vTcl:python_menu_support1148,39621
 proc vTcl:python_inspect_bind {target} {vTcl:python_inspect_bind1205,41872
 proc vTcl:save_support_file {} {vTcl:save_support_file1245,43384
-
+
+
 tclet.tcl,314
 proc vTcl:create_tclet {target} {vTcl:create_tclet32,1439
 proc vTcl:tclet:translate_options {opts} {vTcl:tclet:translate_options85,3524
 proc vTcl:tclet_from_cmpd {base name compound {level 0}} {vTcl:tclet_from_cmpd117,4301
 proc vTcl:gen_compound {target {name ""} {cmpdname ""}} {vTcl:gen_compound216,7991
-
+
+
 template.tcl,149
 proc vTcl:transform_option {target option value} {vTcl:transform_option29,1065
 proc vTcl:font_compare {font_a font_b} {vTcl:font_compare143,5319
-
+
+
 toolbar.tcl,633
 proc vTcl:show_toolbar {} {vTcl:show_toolbar24,1008
 proc vTcl:toolbar_create {args} {vTcl:toolbar_create30,1148
@@ -1057,11 +1106,13 @@ proc vTcl:toolbar_add {band_name class name image cmd_add } {vTcl:toolbar_add1
 proc vTclWindow.vTcl.toolbar {args} {vTclWindow.vTcl.toolbar185,6741
 proc vTcl:toolbar_reflow {{base .vTcl.toolbar}} {vTcl:toolbar_reflow189,6810
 proc vTcl:config_toolbar_canvas {} {vTcl:config_toolbar_canvas202,7201
-
+
+
 tooltip.tcl,129
 proc vTcl:create_tooltip_helper {} {vTcl:create_tooltip_helper20,822
 class ToolTip(tk.Toplevel):ToolTip(tk.Toplevel):37,1442
-
+
+
 tops.tcl,331
 proc vTcl:wm_take_focus {target} {vTcl:wm_take_focus24,951
 proc vTcl:destroy_top {target} {vTcl:destroy_top33,1152
@@ -1069,7 +1120,8 @@ proc vTcl:show_top {target} {vTcl:show_top42,1315
 proc vTcl:hide_top {target} {vTcl:hide_top63,1890
 proc vTcl:update_top_list {} {vTcl:update_top_list74,2124
 proc vTcl:bind_tops {} {vTcl:bind_tops93,2670
-
+
+
 tree.tcl,1060
 proc vTcl:show_selection_in_tree {widget_path} {vTcl:show_selection_in_tree32,1195
 proc vTcl:show_selection {button_path target} {vTcl:show_selection41,1481
@@ -1087,7 +1139,8 @@ proc vTcl:save_wtree {} {vTcl:save_wtree250,7843
 proc vTcl:init_wtree {{wants_destroy_handles 1}} {vTcl:init_wtree317,10031
 proc vTcl:canvas_top {canvas} {vTcl:canvas_top480,16034
 proc vTclWindow.vTcl.tree {args} {vTclWindow.vTcl.tree486,16169
-
+
+
 undo.tcl,528
 proc vTcl:prepare_undo_geom {list {m ""}} {vTcl:prepare_undo_geom23,952
 proc vTcl:prepare_undo_sash {widget handle} {vTcl:prepare_undo_sash59,2213
@@ -1098,7 +1151,8 @@ proc vTcl:undo_remove {} {vTcl:undo_remove196,6877
 proc vTcl:undo_geom {} {vTcl:undo_geom212,7339
 proc vTcl:pop_undo {} {vTcl:pop_undo250,8974
 proc vTcl:destroy_undo {} {vTcl:destroy_undo256,9092
-
+
+
 vtclib.tcl,551
 proc Window {args} {Window27,1065
 proc vTcl:WidgetProc {w args} {vTcl:WidgetProc64,2466
@@ -1109,7 +1163,8 @@ proc vTcl:FireEvent {target event {params {}}} {vTcl:FireEvent183,7115
 proc vTcl:WindowsCleanup {} {vTcl:WindowsCleanup217,8480
 proc {chasehelper} {filename {count 0}} {{chasehelper}238,9255
 proc {info_script} {} {{info_script}249,9569
-
+
+
 widget.tcl,4807
 proc vTcl:get_toplevel {target} {vTcl:get_toplevel41,1630
 proc vTcl:base_name {target} {vTcl:base_name55,1991
@@ -1125,7 +1180,7 @@ proc vTcl:active_widget {target} {vTcl:active_widget212,6305
 proc vTcl:select_widget {target} {vTcl:select_widget283,9123
 proc vTcl:widget_tree {target {include_target 1}} {vTcl:widget_tree322,10344
 proc vTcl:list_widget_tree {target {which ""} {include_menus 0} \vTcl:list_widget_tree360,11414
-proc vTcl:complete_widget_tree {{root .} {wantsdiff 1}} {vTcl:complete_widget_tree395,12631
+proc vTcl:complete_widget_tree {{வேர் .} {wantsdiff 1}} {vTcl:complete_widget_tree395,12631
 proc vTcl:split_info {target} {vTcl:split_info427,13614
 proc vTcl:split_wm_info {target} {vTcl:split_wm_info466,14728
 proc vTcl:get_grid_stickies {sticky} {vTcl:get_grid_stickies515,16756
@@ -1169,13 +1224,13 @@ proc vTcl:widget:remove_unregistered_widgets {{w .}} {vTcl:widget:remove_unregi
 proc vTcl:widget:register_all_widgets {{w .}} {vTcl:widget:register_all_widgets2039,69702
     proc saveOptions {w optionName} {saveOptions2048,69898
     proc saveSubOptions {w args} {saveSubOptions2060,70271
-    proc iterateCompleteWidgetTree {root actionProc actionParam returnVal} {iterateCompleteWidgetTree2078,70810
+    proc iterateCompleteWidgetTree {வேர் actionProc actionParam returnVal} {iterateCompleteWidgetTree2078,70810
     proc getClasses {w args} {getClasses2086,71100
-    proc usedClasses {root} {usedClasses2098,71499
+    proc usedClasses {வேர்} {usedClasses2098,71499
     proc getLibrary {w arg} {getLibrary2110,71815
-    proc usedLibraries {root} {usedLibraries2116,71975
+    proc usedLibraries {வேர்} {usedLibraries2116,71975
     proc loadedLibraries {} {loadedLibraries2130,72391
     proc verifyLibraries {libraries} {verifyLibraries2136,72562
     proc queryInsertOptions {class addOptions refOptions} {queryInsertOptions2148,72928
     proc getResources {w resourceType} {getResources2162,73420
-    proc usedResources {root resourceType} {usedResources2194,74455
+    proc usedResources {வேர் resourceType} {usedResources2194,74455

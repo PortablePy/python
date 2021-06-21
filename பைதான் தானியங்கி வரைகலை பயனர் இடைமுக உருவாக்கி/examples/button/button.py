@@ -24,26 +24,26 @@ import os.path
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
+    global val, w, வேர்
     global prog_location
     prog_call = sys.argv[0]
     prog_location = os.path.split(prog_call)[0]
-    root = tk.Tk()
-    top = Toplevel1 (root)
-    button_support.init(root, top)
-    root.mainloop()
+    வேர் = tk.Tk()
+    top = Toplevel1 (வேர்)
+    button_support.init(வேர், top)
+    வேர்.mainloop()
 
 w = None
 def create_Toplevel1(rt, *args, **kwargs):
     '''Starting point when module is imported by another module.
-       Correct form of call: 'create_Toplevel1(root, *args, **kwargs)' .'''
-    global w, w_win, root
+       Correct form of call: 'create_Toplevel1(வேர், *args, **kwargs)' .'''
+    global w, w_win, வேர்
     global prog_location
     prog_call = sys.argv[0]
     prog_location = os.path.split(prog_call)[0]
-    #rt = root
-    root = rt
-    w = tk.Toplevel (root)
+    #rt = வேர்
+    வேர் = rt
+    w = tk.Toplevel (வேர்)
     top = Toplevel1 (w)
     button_support.init(w, top, *args, **kwargs)
     return (w, top)

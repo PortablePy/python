@@ -137,7 +137,7 @@ proc Wizard::create { path args } {
     }
 
     array set branches {
-        root    ""
+        வேர்    ""
     }
 
     set frame $path
@@ -506,8 +506,8 @@ proc Wizard::step { path node {start ""} {traverse 1} } {
 
             if {$idx >= [llength $branches($branch)]} {
                 ## We've reached the end of this branch.
-                ## If it's the root branch, or this branch terminates we return.
-                if {[string equal $branch "root"]
+                ## If it's the வேர் branch, or this branch terminates we return.
+                if {[string equal $branch "வேர்"]
                     || [Widget::cget $items($branch) -action] == "terminate"} {
                     return
                 }
@@ -711,7 +711,7 @@ proc Wizard::variable { path step option } {
 proc Wizard::branch { path {node "current"} } {
     Widget::getVariable $path data
     if {[string equal $node "current"]} { set item [$path step current] }
-    if {[string equal $node ""]} { return "root" }
+    if {[string equal $node ""]} { return "வேர்" }
     if {[info exists data($node,branch)]} { return $data($node,branch) }
     return -code error "item \"$node\" does not exist"
 }
@@ -720,7 +720,7 @@ proc Wizard::branch { path {node "current"} } {
 proc Wizard::traverse { path node } {
     Widget::getVariable $path items
 
-    if {$node == "root"} { return 1 }
+    if {$node == "வேர்"} { return 1 }
 
     if {![_is_branch $path $node]} {
         return -code error "branch \"$node\" does not exist"

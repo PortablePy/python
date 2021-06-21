@@ -23,18 +23,18 @@ import vrex_help_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
-    root = tk.Tk()
-    top = Vrex_Help (root)
-    vrex_help_support.init(root, top)
-    root.mainloop()
+    global val, w, வேர்
+    வேர் = tk.Tk()
+    top = Vrex_Help (வேர்)
+    vrex_help_support.init(வேர், top)
+    வேர்.mainloop()
 
 w = None
-def create_Vrex_Help(root, *args, **kwargs):
+def create_Vrex_Help(வேர், *args, **kwargs):
     '''Starting point when module is imported by another program.'''
     global w, w_win, rt
-    rt = root
-    w = tk.Toplevel (root)
+    rt = வேர்
+    w = tk.Toplevel (வேர்)
     top = Vrex_Help (w)
     vrex_help_support.init(w, top, *args, **kwargs)
     return (w, top)

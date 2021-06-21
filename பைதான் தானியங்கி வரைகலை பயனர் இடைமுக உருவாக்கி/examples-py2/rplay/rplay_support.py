@@ -160,7 +160,7 @@ def select_album():
     #cd, tracks = pick_album(albums)
     pick_album()
     load_textbox(tracks)
-    root.update()
+    வேர்.update()
     return
 
 def repeat_cd():
@@ -230,7 +230,7 @@ def play():
     t.start()
     while t.isAlive():
         time.sleep(0.25)
-        root.update()
+        வேர்.update()
 
 def play_tracks ():
     """Heart of the program. The outer loop selects the CD to be played
@@ -262,7 +262,7 @@ def play_tracks ():
             color_line(sel_index, cd_track[index])
             w.Scrolledtext1.see(float(sel_index)) # Make the current selection is
                                                   # visible in the text window.
-            root.update()
+            வேர்.update()
         elif search_flag:
             # If we select the CD from a search we want to start with
             # first track.
@@ -375,7 +375,7 @@ def kill_playloop():
         os.system("pkill mpg123")
     while ('t' in globals()) and  t.isAlive() and semaphore:
         time.sleep(0.1)
-        root.update()
+        வேர்.update()
 
 
 def load_textbox(tracks):
@@ -444,7 +444,7 @@ def init(top, gui, *args, **kwargs):
     '''The list of albums is read once at the beginning of execution.
        If the program is left running for a long time then CD might be
        added but not known to the program.'''
-    global w, top_level, root
+    global w, top_level, வேர்
     global albums
     global selection_flag
     global search_flag
@@ -454,7 +454,7 @@ def init(top, gui, *args, **kwargs):
     global cd_stack
     w = gui
     top_level = top
-    root = top
+    வேர் = top
     top.protocol("WM_DELETE_WINDOW", quit)
     if socket.gethostname() != 'ajax':
         mount_music()

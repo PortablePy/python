@@ -176,7 +176,7 @@ proc vTcl:python_generate_context_menu {root_list} {
         append vTcl(popup_code) "$vTcl(tab)def popup$count"
         append vTcl(popup_code) "(event, *args, **kwargs):\n"
         # append vTcl(popup_code) \
-            #     "$vTcl(tab)$vTcl(tab)$widname = Menu(root, tearoff=0)\n"
+            #     "$vTcl(tab)$vTcl(tab)$widname = Menu(வேர், tearoff=0)\n"
         # vTcl:python_configure_widget $popup $widname "" \
             #     "menu"  "" $popup
         # vTcl:python_process_menu $popup $widname $widname
@@ -191,7 +191,7 @@ proc vTcl:python_generate_context_menu {root_list} {
             append vTcl(popup_code) $vTcl(toplevel_config)
         }
         append vTcl(popup_code) \
-            "$vTcl(tab)$vTcl(tab)$widname = tk.Menu(root, tearoff=0)\n"
+            "$vTcl(tab)$vTcl(tab)$widname = tk.Menu(வேர், tearoff=0)\n"
         append vTcl(popup_code) $vTcl(py_initfunc)
         append vTcl(popup_code) \
             "$vTcl(tab)$vTcl(tab)$widname.post(event.x_root, event.y_root)\n"
@@ -3420,7 +3420,7 @@ $vTcl(tab)$vTcl(tab)PNOTEBOOK = \"ClosetabNotebook\" \n\n"
             set config [$target configure]
             append py_initfunc [vTcl:style_code "TScrollbar"]
             #append vTcl(py_initfunc) \
-                "$vTcl(tab2)root.option_add('*scrollbar*background', '$vTcl(actual_gui_bg)')\n"
+                "$vTcl(tab2)வேர்.option_add('*scrollbar*background', '$vTcl(actual_gui_bg)')\n"
             append vTcl(py_initfunc) \
                     "$vTcl(tab2)self.$widname = ScrolledText($pframe)\n"
             vTcl:relative_placement $parent
@@ -3433,7 +3433,7 @@ $vTcl(tab)$vTcl(tab)PNOTEBOOK = \"ClosetabNotebook\" \n\n"
             set config [$target configure]
             append py_initfunc [vTcl:style_code "TScrollbar"]
             #append vTcl(py_initfunc) \
-                "$vTcl(tab2)root.option_add('*scrollbar*background', '$vTcl(actual_gui_bg)')\n"
+                "$vTcl(tab2)வேர்.option_add('*scrollbar*background', '$vTcl(actual_gui_bg)')\n"
             append vTcl(py_initfunc) \
                     "$vTcl(tab2)self.$widname = ScrolledCanvas($pframe)\n"
             vTcl:relative_placement $parent
@@ -3448,7 +3448,7 @@ $vTcl(tab)$vTcl(tab)PNOTEBOOK = \"ClosetabNotebook\" \n\n"
             set config [$target configure]
             append py_initfunc [vTcl:style_code "TScrollbar"]
             #append vTcl(py_initfunc) \
-                "$vTcl(tab2)root.option_add('*scrollbar*background', '$vTcl(actual_gui_bg)')\n"
+                "$vTcl(tab2)வேர்.option_add('*scrollbar*background', '$vTcl(actual_gui_bg)')\n"
             append vTcl(py_initfunc) \
                     "$vTcl(tab2)self.$widname = ScrolledEntry($pframe)\n"
             vTcl:entry_placement  $parent
@@ -3461,7 +3461,7 @@ $vTcl(tab)$vTcl(tab)PNOTEBOOK = \"ClosetabNotebook\" \n\n"
             set config [$target configure]
             append py_initfunc [vTcl:style_code "TScrollbar"]
             #append vTcl(py_initfunc) \
-                "$vTcl(tab2)root.option_add('*scrollbar*background', '$vTcl(actual_gui_bg)')\n"
+                "$vTcl(tab2)வேர்.option_add('*scrollbar*background', '$vTcl(actual_gui_bg)')\n"
             append vTcl(py_initfunc) \
                     "$vTcl(tab2)self.$widname = ScrolledSpinbox($pframe)\n"
             vTcl:entry_placement  $parent
@@ -3474,7 +3474,7 @@ $vTcl(tab)$vTcl(tab)PNOTEBOOK = \"ClosetabNotebook\" \n\n"
             set config [$target configure]
             append py_initfunc [vTcl:style_code "TScrollbar"]
             #append vTcl(py_initfunc) \
-                "$vTcl(tab2)root.option_add('*scrollbar*background', '$vTcl(actual_gui_bg)')\n"
+                "$vTcl(tab2)வேர்.option_add('*scrollbar*background', '$vTcl(actual_gui_bg)')\n"
             append vTcl(py_initfunc) \
                     "$vTcl(tab2)self.$widname = ScrolledCombo($pframe)\n"
             vTcl:entry_placement $parent
@@ -4328,7 +4328,7 @@ import $vTcl(import_name)
 "
 def vp_start_gui():
 $vTcl(tab)'''Starting point when module is the main routine.'''
-$vTcl(tab)global val, w, root"
+$vTcl(tab)global val, w, வேர்"
     if {$vTcl(image_count)} {
         append start_gui \
 "
@@ -4337,29 +4337,29 @@ $vTcl(tab)prog_call = sys.argv\[0\]
 $vTcl(tab)prog_location = os.path.split(prog_call)\[0\]\n"
     }
 if {$vTcl(image_count) == 0} {append start_gui "\n"}
-    append start_gui  "$vTcl(tab)root = tk.Tk()\n"
-    # root.title('$classname')"
+    append start_gui  "$vTcl(tab)வேர் = tk.Tk()\n"
+    # வேர்.title('$classname')"
     # Add the geometry stuff.
     #append start_gui $geom \
 #"
-#    root.geometry(geom)"
+#    வேர்.geometry(geom)"
 
     if {$vTcl(global_variable)} {
         append start_gui \
 "$vTcl(tab)$vTcl(import_name).set_Tk_var()\n"
     }
     append start_gui \
-"$vTcl(tab)top = $classname (root)
+"$vTcl(tab)top = $classname (வேர்)
 "
     if {$vTcl(import_module) == "" } {
         append start_gui \
 "
 $vTcl(tab)init()
-$vTcl(tab)root.mainloop()"
+$vTcl(tab)வேர்.mainloop()"
     } else {
         append start_gui \
-"$vTcl(tab)$vTcl(import_name).init(root, top)
-$vTcl(tab)root.mainloop()
+"$vTcl(tab)$vTcl(import_name).init(வேர், top)
+$vTcl(tab)வேர்.mainloop()
 "
     }
     append start_gui "\nw = None\n" "def create_$classname" \
@@ -4368,8 +4368,8 @@ $vTcl(tab)root.mainloop()
     "$vTcl(tab)'''Starting point when module is imported by another module.\n"
     append start_gui \
 "$vTcl(tab)   Correct form of call: 'create_$classname" \
-    "(root, *args, **kwargs)' .'''
-$vTcl(tab)global w, w_win, root"
+    "(வேர், *args, **kwargs)' .'''
+$vTcl(tab)global w, w_win, வேர்"
     if {$vTcl(image_count)} {
         append start_gui \
 "
@@ -4379,9 +4379,9 @@ $vTcl(tab)prog_location = os.path.split(prog_call)\[0\]\n"
     }
 if {$vTcl(image_count) == 0} {append start_gui "\n"}
     append start_gui \
-"$vTcl(tab)#rt = root
-$vTcl(tab)root = rt
-$vTcl(tab)w = tk.Toplevel (root)"
+"$vTcl(tab)#rt = வேர்
+$vTcl(tab)வேர் = rt
+$vTcl(tab)w = tk.Toplevel (வேர்)"
 #     append start_gui $geom \
 #     w.title('$classname')"
 # "
@@ -4621,7 +4621,7 @@ proc vTcl:python_dump_bind {target widname} {
                     set b_name self.$widname
                 }
                 append result \
-"$vTcl(tab2)if (root.tk.call('tk', 'windowingsystem')=='aqua'):
+"$vTcl(tab2)if (வேர்.tk.call('tk', 'windowingsystem')=='aqua'):
 $vTcl(tab2)$vTcl(tab)$b_name.bind('<Control-1>', $cmd)
 $vTcl(tab2)$vTcl(tab)$b_name.bind('<Button-2>', $cmd)
 $vTcl(tab2)else:

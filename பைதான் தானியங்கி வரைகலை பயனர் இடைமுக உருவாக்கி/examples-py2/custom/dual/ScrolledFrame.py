@@ -23,12 +23,12 @@ class ScrolledFrame(tk.Frame):
     x_incr = 10
     y_incr = 10
 
-    def __init__(self, root, *args, **kwargs):
+    def __init__(self, வேர், *args, **kwargs):
 
         self.width = 200 # kw.pop('width', 200)
         self.height = 200 # kw.pop('height', 200)
 
-        tk.Frame.__init__(self, root, *args, **kwargs)
+        tk.Frame.__init__(self, வேர், *args, **kwargs)
         self.canvas = tk.Canvas(self)
 
         self._hsb = tk.Scrollbar(self, orient='horizontal',

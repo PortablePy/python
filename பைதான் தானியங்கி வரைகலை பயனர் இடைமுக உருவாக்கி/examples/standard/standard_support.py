@@ -26,10 +26,10 @@ def set_Tk_var():
     combobox = tk.StringVar()
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, root
+    global w, top_level, வேர்
     w = gui
     top_level = top
-    root = top
+    வேர் = top
 
 def destroy_window():
     # Function which closes the window.

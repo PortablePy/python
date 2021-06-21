@@ -25,19 +25,19 @@ import standard_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
-    root = tk.Tk()
+    global val, w, வேர்
+    வேர் = tk.Tk()
     standard_support.set_Tk_var()
-    top = Toplevel1 (root)
-    standard_support.init(root, top)
-    root.mainloop()
+    top = Toplevel1 (வேர்)
+    standard_support.init(வேர், top)
+    வேர்.mainloop()
 
 w = None
-def create_Toplevel1(root, *args, **kwargs):
+def create_Toplevel1(வேர், *args, **kwargs):
     '''Starting point when module is imported by another program.'''
     global w, w_win, rt
-    rt = root
-    w = tk.Toplevel (root)
+    rt = வேர்
+    w = tk.Toplevel (வேர்)
     standard_support.set_Tk_var()
     top = Toplevel1 (w)
     standard_support.init(w, top, *args, **kwargs)

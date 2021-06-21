@@ -23,21 +23,21 @@ import progress_bar_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
-    root = tk.Tk()
+    global val, w, வேர்
+    வேர் = tk.Tk()
     progress_bar_support.set_Tk_var()
-    top = Progress_Bar (root)
-    progress_bar_support.init(root, top)
-    root.mainloop()
+    top = Progress_Bar (வேர்)
+    progress_bar_support.init(வேர், top)
+    வேர்.mainloop()
 
 w = None
 def create_Progress_Bar(rt, *args, **kwargs):
     '''Starting point when module is imported by another module.
-       Correct form of call: 'create_Progress_Bar(root, *args, **kwargs)' .'''
-    global w, w_win, root
-    #rt = root
-    root = rt
-    w = tk.Toplevel (root)
+       Correct form of call: 'create_Progress_Bar(வேர், *args, **kwargs)' .'''
+    global w, w_win, வேர்
+    #rt = வேர்
+    வேர் = rt
+    w = tk.Toplevel (வேர்)
     progress_bar_support.set_Tk_var()
     top = Progress_Bar (w)
     progress_bar_support.init(w, top, *args, **kwargs)

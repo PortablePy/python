@@ -24,7 +24,7 @@ def start2():
     print('w1_support.start2')
     sys.stdout.flush()
     import w2
-    w2.create_Window_II(root, 'Hello')
+    w2.create_Window_II(வேர், 'Hello')
 
 
 def quit():
@@ -33,10 +33,10 @@ def quit():
     sys.exit()
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, root
+    global w, top_level, வேர்
     w = gui
     top_level = top
-    root = top
+    வேர் = top
 
 def destroy_window():
     # Function which closes the window.

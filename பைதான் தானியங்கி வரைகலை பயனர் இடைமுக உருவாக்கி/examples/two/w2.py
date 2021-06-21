@@ -23,21 +23,21 @@ import w2_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
-    root = tk.Tk()
+    global val, w, வேர்
+    வேர் = tk.Tk()
     w2_support.set_Tk_var()
-    top = Window_II (root)
-    w2_support.init(root, top)
-    root.mainloop()
+    top = Window_II (வேர்)
+    w2_support.init(வேர், top)
+    வேர்.mainloop()
 
 w = None
 def create_Window_II(rt, *args, **kwargs):
     '''Starting point when module is imported by another module.
-       Correct form of call: 'create_Window_II(root, *args, **kwargs)' .'''
-    global w, w_win, root
-    #rt = root
-    root = rt
-    w = tk.Toplevel (root)
+       Correct form of call: 'create_Window_II(வேர், *args, **kwargs)' .'''
+    global w, w_win, வேர்
+    #rt = வேர்
+    வேர் = rt
+    w = tk.Toplevel (வேர்)
     w2_support.set_Tk_var()
     top = Window_II (w)
     w2_support.init(w, top, *args, **kwargs)

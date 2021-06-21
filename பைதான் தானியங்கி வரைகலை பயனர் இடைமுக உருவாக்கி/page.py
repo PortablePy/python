@@ -1,5 +1,5 @@
 #import tkinter, sys
-#root=tkinter.Tk()
+#வேர்=tkinter.Tk()
 
 try:
     import Tkinter as tk
@@ -8,23 +8,23 @@ except ImportError:
 import sys
 import os, os.path
 
-root = tk.Tk()
+வேர் = tk.Tk()
 
-root.tk.eval('set argv {}; set argc 0')
+வேர்.tk.eval('set argv {}; set argc 0')
 p = os.path.abspath(sys.argv[0])
 cmd = "source {" + os.path.join(os.path.dirname(p), 'page.tcl') + "}"
 
-#root.tk.eval('puts "tcl_version = $tcl_version"')
+#வேர்.tk.eval('puts "tcl_version = $tcl_version"')
 
 for a in sys.argv[1:]: # Skip argv[0] (the filename of this script)
-    # root.tk.eval(f'lappend argv {{{a}}}; incr argc')
-    root.tk.eval("lappend argv {%s}; incr argc" % a)
+    # வேர்.tk.eval(f'lappend argv {{{a}}}; incr argc')
+    வேர்.tk.eval("lappend argv {%s}; incr argc" % a)
 
 try:
-    root.tk.eval(cmd)
+    வேர்.tk.eval(cmd)
     sys.exit()
 except:
     pass
 
-root.mainloop()
+வேர்.mainloop()
 

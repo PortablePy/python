@@ -392,11 +392,11 @@ proc vTcl:list_widget_tree {target {which ""} {include_menus 0} \
 # wantsdiff returns along with each megawidget's children the
 # level difference for the widget tree (ex. #-4 to skip 4 levels)
 
-proc vTcl:complete_widget_tree {{root .} {wantsdiff 1}} {
+proc vTcl:complete_widget_tree {{வேர் .} {wantsdiff 1}} {
 
     global classes
 
-    set tree [vTcl:list_widget_tree $root]
+    set tree [vTcl:list_widget_tree $வேர்]
 
     set result ""
     foreach i $tree {
@@ -536,7 +536,7 @@ proc vTcl:update_widget_info {target} {
     set parent [winfo parent $target]
     foreach i $vTcl(attr,winfo) {
         if {$i == "manager" && $target == "."} {
-            # root placer problem
+            # வேர் placer problem
             set vTcl(w,$i) wm
         } elseif { $i == "manager" && [winfo class $target] == "TLabelframe"} {
             set vTcl(w,$i) place
@@ -2072,9 +2072,9 @@ namespace eval vTcl::widgets {
     ##    returnVal(.top32) core
     ##    returnVal(.top32.arrow28) bwidget
     ##    ...
-    proc iterateCompleteWidgetTree {root actionProc actionParam returnVal} {
+    proc iterateCompleteWidgetTree {வேர் actionProc actionParam returnVal} {
         upvar $returnVal _returnVal
-        set children [vTcl:complete_widget_tree $root 0]
+        set children [vTcl:complete_widget_tree $வேர் 0]
         foreach child $children {
             set _returnVal($child) [$actionProc $child $actionParam]
         }
@@ -2092,9 +2092,9 @@ namespace eval vTcl::widgets {
         }
     }
 
-    proc usedClasses {root} {
+    proc usedClasses {வேர்} {
         array set classArray {}
-        iterateCompleteWidgetTree $root getClasses {} classArray
+        iterateCompleteWidgetTree $வேர் getClasses {} classArray
 
         set result ""
         foreach index [array names classArray] {
@@ -2110,9 +2110,9 @@ namespace eval vTcl::widgets {
     }
 
     ## return the list of libraries used by a compound
-    proc usedLibraries {root} {
+    proc usedLibraries {வேர்} {
         array set libraries {}
-        iterateCompleteWidgetTree $root getLibrary {} libraries
+        iterateCompleteWidgetTree $வேர் getLibrary {} libraries
 
         set result ""
         foreach index [array names libraries] {
@@ -2188,9 +2188,9 @@ namespace eval vTcl::widgets {
 
     ## return the list of images/font used by a compound
     ## resourceType parameter needs to be "image" or "font"
-    proc usedResources {root resourceType} {
+    proc usedResources {வேர் resourceType} {
         array set resources {}
-        iterateCompleteWidgetTree $root getResources $resourceType resources
+        iterateCompleteWidgetTree $வேர் getResources $resourceType resources
 
         set result ""
         foreach index [array names resources] {

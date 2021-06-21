@@ -23,20 +23,20 @@ import tksheetGUI_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
-    root = tk.Tk()
-    top = Toplevel1 (root)
-    tksheetGUI_support.init(root, top)
-    root.mainloop()
+    global val, w, வேர்
+    வேர் = tk.Tk()
+    top = Toplevel1 (வேர்)
+    tksheetGUI_support.init(வேர், top)
+    வேர்.mainloop()
 
 w = None
 def create_Toplevel1(rt, *args, **kwargs):
     '''Starting point when module is imported by another module.
-       Correct form of call: 'create_Toplevel1(root, *args, **kwargs)' .'''
-    global w, w_win, root
-    #rt = root
-    root = rt
-    w = tk.Toplevel (root)
+       Correct form of call: 'create_Toplevel1(வேர், *args, **kwargs)' .'''
+    global w, w_win, வேர்
+    #rt = வேர்
+    வேர் = rt
+    w = tk.Toplevel (வேர்)
     top = Toplevel1 (w)
     tksheetGUI_support.init(w, top, *args, **kwargs)
     return (w, top)

@@ -21,18 +21,18 @@ import canvas_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
-    root = Tk()
-    top = Canvas_Example (root)
-    canvas_support.init(root, top)
-    root.mainloop()
+    global val, w, வேர்
+    வேர் = Tk()
+    top = Canvas_Example (வேர்)
+    canvas_support.init(வேர், top)
+    வேர்.mainloop()
 
 w = None
-def create_Canvas_Example(root, *args, **kwargs):
+def create_Canvas_Example(வேர், *args, **kwargs):
     '''Starting point when module is imported by another program.'''
     global w, w_win, rt
-    rt = root
-    w = Toplevel (root)
+    rt = வேர்
+    w = Toplevel (வேர்)
     top = Canvas_Example (w)
     canvas_support.init(w, top, *args, **kwargs)
     return (w, top)

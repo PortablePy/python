@@ -23,18 +23,18 @@ import dual_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
-    root = Tk()
-    top = Two_Custom_Widgets (root)
-    dual_support.init(root, top)
-    root.mainloop()
+    global val, w, வேர்
+    வேர் = Tk()
+    top = Two_Custom_Widgets (வேர்)
+    dual_support.init(வேர், top)
+    வேர்.mainloop()
 
 w = None
-def create_Two_Custom_Widgets(root, *args, **kwargs):
+def create_Two_Custom_Widgets(வேர், *args, **kwargs):
     '''Starting point when module is imported by another program.'''
     global w, w_win, rt
-    rt = root
-    w = Toplevel (root)
+    rt = வேர்
+    w = Toplevel (வேர்)
     top = Two_Custom_Widgets (w)
     dual_support.init(w, top, *args, **kwargs)
     return (w, top)
@@ -204,7 +204,7 @@ class Two_Custom_Widgets:
             " roman -underline 0 -overstrike 0"
         font9 = "-family {DejaVu Sans Mono} -size 14 -weight normal "  \
             "-slant roman -underline 0 -overstrike 0"
-        Popupmenu1 = Menu(root, tearoff=0)
+        Popupmenu1 = Menu(வேர், tearoff=0)
         Popupmenu1.configure(activebackground="#ffffcd")
         Popupmenu1.configure(disabledforeground="#b8a786")
         Popupmenu1.configure(font=font12)

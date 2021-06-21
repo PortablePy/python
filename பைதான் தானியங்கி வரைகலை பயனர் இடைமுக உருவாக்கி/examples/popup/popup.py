@@ -23,20 +23,20 @@ import popup_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
-    root = tk.Tk()
-    top = Toplevel1 (root)
-    popup_support.init(root, top)
-    root.mainloop()
+    global val, w, வேர்
+    வேர் = tk.Tk()
+    top = Toplevel1 (வேர்)
+    popup_support.init(வேர், top)
+    வேர்.mainloop()
 
 w = None
 def create_Toplevel1(rt, *args, **kwargs):
     '''Starting point when module is imported by another module.
-       Correct form of call: 'create_Toplevel1(root, *args, **kwargs)' .'''
-    global w, w_win, root
-    #rt = root
-    root = rt
-    w = tk.Toplevel (root)
+       Correct form of call: 'create_Toplevel1(வேர், *args, **kwargs)' .'''
+    global w, w_win, வேர்
+    #rt = வேர்
+    வேர் = rt
+    w = tk.Toplevel (வேர்)
     top = Toplevel1 (w)
     popup_support.init(w, top, *args, **kwargs)
     return (w, top)
@@ -74,7 +74,7 @@ class Toplevel1:
         self.Button1.configure(font="-family {DejaVu Sans} -size 12")
         self.Button1.configure(highlightbackground="wheat")
         self.Button1.configure(text='''Button1''')
-        if (root.tk.call('tk', 'windowingsystem')=='aqua'):
+        if (வேர்.tk.call('tk', 'windowingsystem')=='aqua'):
             self.Button1.bind('<Control-1>', lambda e: self.popup1(e))
             self.Button1.bind('<Button-2>', lambda e: self.popup1(e))
         else:
@@ -88,7 +88,7 @@ class Toplevel1:
         self.Button2.configure(font="-family {DejaVu Sans} -size 12")
         self.Button2.configure(highlightbackground="wheat")
         self.Button2.configure(text='''Button2''')
-        if (root.tk.call('tk', 'windowingsystem')=='aqua'):
+        if (வேர்.tk.call('tk', 'windowingsystem')=='aqua'):
             self.Button2.bind('<Control-1>', lambda e: self.popup2(e))
             self.Button2.bind('<Button-2>', lambda e: self.popup2(e))
         else:
@@ -104,7 +104,7 @@ class Toplevel1:
 
     @staticmethod
     def popup1(event, *args, **kwargs):
-        Popupmenu1 = tk.Menu(root, tearoff=0)
+        Popupmenu1 = tk.Menu(வேர், tearoff=0)
         Popupmenu1.configure(activebackground="#ffffcd")
         Popupmenu1.configure(background="#dda0dd")
         Popupmenu1.configure(disabledforeground="#b8a786")
@@ -160,7 +160,7 @@ class Toplevel1:
 
     @staticmethod
     def popup2(event, *args, **kwargs):
-        Popupmenu2 = tk.Menu(root, tearoff=0)
+        Popupmenu2 = tk.Menu(வேர், tearoff=0)
         Popupmenu2.configure(activebackground="#ffffcd")
         Popupmenu2.configure(background="wheat")
         Popupmenu2.configure(disabledforeground="#b8a786")

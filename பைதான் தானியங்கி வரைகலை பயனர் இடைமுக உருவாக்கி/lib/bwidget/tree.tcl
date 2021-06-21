@@ -162,7 +162,7 @@ proc Tree::create { path args } {
         Widget::configure $path [list -crossclosebitmap @$file]
     }
 
-    set data(root)         {{}}
+    set data(வேர்)         {{}}
     set data(selnodes)     {}
     set data(upd,level)    0
     set data(upd,nodes)    {}
@@ -341,7 +341,7 @@ proc Tree::insert { path index parent node args } {
     }
     set data($node) [list $parent]
 
-    if { [string equal $parent "root"] } {
+    if { [string equal $parent "வேர்"] } {
         _redraw_idle $path 3
     } elseif { [visible $path $parent] } {
         # parent is visible...
@@ -367,7 +367,7 @@ proc Tree::itemconfigure { path node args } {
     upvar 0  $path data
 
     set node [_node_name $path $node]
-    if { [string equal $node "root"] || ![info exists data($node)] } {
+    if { [string equal $node "வேர்"] || ![info exists data($node)] } {
         return -code error "node \"$node\" does not exist"
     }
 
@@ -429,7 +429,7 @@ proc Tree::itemcget { path node option } {
     # Instead of upvar'ing $path as data for this test, just directly refer to
     # it, as that is faster.
     set node [_node_name $path $node]
-    if { [string equal $node "root"] || \
+    if { [string equal $node "வேர்"] || \
 	    ![info exists ::Tree::${path}($node)] } {
         return -code error "node \"$node\" does not exist"
     }
@@ -487,7 +487,7 @@ proc Tree::delete { path args } {
     foreach lnodes $args {
 	foreach node $lnodes {
             set node [_node_name $path $node]
-	    if { ![string equal $node "root"] && [info exists data($node)] } {
+	    if { ![string equal $node "வேர்"] && [info exists data($node)] } {
 		set parent [lindex $data($node) 0]
 		set idx	   [lsearch -exact $data($parent) $node]
 		set data($parent) [lreplace $data($parent) $idx $idx]
@@ -512,14 +512,14 @@ proc Tree::move { path parent node index } {
     upvar 0  $path data
 
     set node [_node_name $path $node]
-    if { [string equal $node "root"] || ![info exists data($node)] } {
+    if { [string equal $node "வேர்"] || ![info exists data($node)] } {
         return -code error "node \"$node\" does not exist"
     }
     if { ![info exists data($parent)] } {
         return -code error "node \"$parent\" does not exist"
     }
     set p $parent
-    while { ![string equal $p "root"] } {
+    while { ![string equal $p "வேர்"] } {
         if { [string equal $p $node] } {
             return -code error "node \"$parent\" is a descendant of \"$node\""
         }
@@ -536,9 +536,9 @@ proc Tree::move { path parent node index } {
         incr index
         set data($parent) [linsert $data($parent) $index $node]
     }
-    if { ([string equal $oldp "root"] ||
+    if { ([string equal $oldp "வேர்"] ||
           ([visible $path $oldp] && [Widget::getoption $path.$oldp   -open])) ||
-         ([string equal $parent "root"] ||
+         ([string equal $parent "வேர்"] ||
           ([visible $path $parent] && [Widget::getoption $path.$parent -open])) } {
         _redraw_idle $path 3
     }
@@ -665,11 +665,11 @@ proc Tree::selection { path cmd args } {
 		    lappend nodes $node
 		}
 	    }
-	    # surles: Set the root string to the first element on the list.
-	    if {$node1 == "root"} {
+	    # surles: Set the வேர் string to the first element on the list.
+	    if {$node1 == "வேர்"} {
 		set node1 [lindex $nodes 0]
 	    }
-	    if {$node2 == "root"} {
+	    if {$node2 == "வேர்"} {
 		set node2 [lindex $nodes 0]
 	    }
 
@@ -799,7 +799,7 @@ proc Tree::index { path node } {
     upvar 0  $path data
 
     set node [_node_name $path $node]
-    if { [string equal $node "root"] || ![info exists data($node)] } {
+    if { [string equal $node "வேர்"] || ![info exists data($node)] } {
         return -code error "node \"$node\" does not exist"
     }
     set parent [lindex $data($node) 0]
@@ -917,9 +917,9 @@ proc Tree::visiblenodes { path } {
     variable $path
     upvar 0  $path data
 
-    # Root is always open (?), so all of its children automatically get added
+    # வேர் is always open (?), so all of its children automatically get added
     # to the result, and to the stack.
-    set st [lrange $data(root) 1 end]
+    set st [lrange $data(வேர்) 1 end]
     set result $st
 
     while {[llength $st]} {
@@ -964,7 +964,7 @@ proc Tree::opentree { path node {recursive 1} } {
     upvar 0  $path data
 
     set node [_node_name $path $node]
-    if { [string equal $node "root"] || ![info exists data($node)] } {
+    if { [string equal $node "வேர்"] || ![info exists data($node)] } {
         return -code error "node \"$node\" does not exist"
     }
 
@@ -981,7 +981,7 @@ proc Tree::closetree { path node {recursive 1} } {
     upvar 0  $path data
 
     set node [_node_name $path $node]
-    if { [string equal $node "root"] || ![info exists data($node)] } {
+    if { [string equal $node "வேர்"] || ![info exists data($node)] } {
         return -code error "node \"$node\" does not exist"
     }
 
@@ -1371,7 +1371,7 @@ proc Tree::_draw_subnodes { path nodes x0 y0 deltax deltay padx showlines } {
         set yp $y1
         set y1 [_draw_node $path $node $x0 [expr {$y1+$deltay}] $deltax $deltay $padx $showlines]
     }
-    # Only draw a line to the invisible root node above the tree widget when
+    # Only draw a line to the invisible வேர் node above the tree widget when
     # there are multiple top nodes.
     set len [llength $nodes]
     if { $showlines && $len && !($y0 < 0 && $len < 2) } {
@@ -1468,7 +1468,7 @@ proc Tree::_draw_tree { path } {
     $path.c delete all
     set cursor [$path.c cget -cursor]
     $path.c configure -cursor watch
-    _draw_subnodes $path [lrange $data(root) 1 end] 8 \
+    _draw_subnodes $path [lrange $data(வேர்) 1 end] 8 \
         [expr {-[Widget::getoption $path -deltay]/2}] \
         [Widget::getoption $path -deltax] \
         [Widget::getoption $path -deltay] \
@@ -1665,7 +1665,7 @@ proc Tree::_over_cmd { path source event X Y op type dnddata } {
     }
     if { ($data(dnd,mode) & 2) && $data(dnd,empty) } {
         # dropovermode includes position and tree is empty
-        lappend target [list root 0]
+        lappend target [list வேர் 0]
         set vmode  [expr {$vmode | 2}]
     }
 
@@ -1889,7 +1889,7 @@ proc Tree::_scroll { path scroll } {
 
 proc Tree::_keynav {which win} {
     # check for an empty tree
-    if {[$win nodes root] eq ""} {
+    if {[$win nodes வேர்] eq ""} {
         return
     }
 
@@ -1991,12 +1991,12 @@ proc Tree::_keynav {which win} {
 		return
 	    } else {
 		set parent [$win parent $node]
-	        if { [string equal $parent "root"] } {
+	        if { [string equal $parent "வேர்"] } {
 		    set parent $node
                 } else {
                     while { ![$win itemcget $parent -selectable] } {
 		        set parent [$win parent $parent]
-		        if { [string equal $parent "root"] } {
+		        if { [string equal $parent "வேர்"] } {
 			    set parent $node
 			    break
 		        }
@@ -2045,7 +2045,7 @@ proc Tree::_keynav {which win} {
 #	node selection trees.  If the tree allows for 
 #	multiple selection, return the cursor node.  Otherwise,
 #	if there is a selection, return the first node in the
-#	list.  If there is no selection, return the root node.
+#	list.  If there is no selection, return the வேர் node.
 #
 # arguments:
 #       win        name of the tree widget
@@ -2239,7 +2239,7 @@ proc Tree::_destroy { path } {
     if { $data(dnd,afterid) != "" } {
         after cancel $data(dnd,afterid)
     }
-    _subdelete $path [lrange $data(root) 1 end]
+    _subdelete $path [lrange $data(வேர்) 1 end]
     Widget::destroy $path
     unset data
 }

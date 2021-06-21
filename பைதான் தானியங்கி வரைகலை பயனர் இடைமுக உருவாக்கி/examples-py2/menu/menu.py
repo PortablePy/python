@@ -21,19 +21,19 @@ import menu_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
-    root = Tk()
+    global val, w, வேர்
+    வேர் = Tk()
     menu_support.set_Tk_var()
-    top = Menu_Example (root)
-    menu_support.init(root, top)
-    root.mainloop()
+    top = Menu_Example (வேர்)
+    menu_support.init(வேர், top)
+    வேர்.mainloop()
 
 w = None
-def create_Menu_Example(root, *args, **kwargs):
+def create_Menu_Example(வேர், *args, **kwargs):
     '''Starting point when module is imported by another program.'''
     global w, w_win, rt
-    rt = root
-    w = Toplevel (root)
+    rt = வேர்
+    w = Toplevel (வேர்)
     menu_support.set_Tk_var()
     top = Menu_Example (w)
     menu_support.init(w, top, *args, **kwargs)

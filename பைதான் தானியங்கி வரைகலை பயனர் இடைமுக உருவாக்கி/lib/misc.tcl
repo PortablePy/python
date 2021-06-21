@@ -1085,11 +1085,11 @@ proc lempty {list} {
 #     }
 # }
 
-proc vTcl:namespace_tree {{root "::"}} {
+proc vTcl:namespace_tree {{வேர் "::"}} {
 
-    set children [namespace children $root]
+    set children [namespace children $வேர்]
     set result ""
-    lappend result $root
+    lappend result $வேர்
 
     foreach child $children {
         foreach subchild [vTcl:namespace_tree $child] {
@@ -1446,7 +1446,7 @@ proc vTclWindow.vTcl.tkcon {args} {
 # }
 
 proc ::vTcl::InitTkcon {} {
-    if {[catch {winfo exists $::tkcon::PRIV(root)}]} {
+    if {[catch {winfo exists $::tkcon::PRIV(வேர்)}]} {
         ::tkcon::Init
     ::tkcon::Attach Main slave
     tkcon title "PAGE"

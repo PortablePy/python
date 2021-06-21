@@ -605,18 +605,18 @@ proc vTclWindow.vTcl.itemEdit {base} {
     frame $base.cpd37.03 \
         -background #ff0000 -borderwidth 2 -relief raised
     bind $base.cpd37.03 <B1-Motion> {
-        set root [ split %W . ]
-    set nb [ llength $root ]
+        set வேர் [ split %W . ]
+    set nb [ llength $வேர் ]
     incr nb -1
-    set root [ lreplace $root $nb $nb ]
-    set root [ join $root . ]
-    set width [ winfo width $root ].0
-    set val [ expr (%X - [winfo rootx $root]) /$width ]
+    set வேர் [ lreplace $வேர் $nb $nb ]
+    set வேர் [ join $வேர் . ]
+    set width [ winfo width $வேர் ].0
+    set val [ expr (%X - [winfo rootx $வேர்]) /$width ]
     if { $val >= 0 && $val <= 1.0 } {
 
-        place $root.01 -relwidth $val
-        place $root.03 -relx $val
-        place $root.02 -relwidth [ expr 1.0 - $val ]
+        place $வேர்.01 -relwidth $val
+        place $வேர்.03 -relx $val
+        place $வேர்.02 -relwidth [ expr 1.0 - $val ]
     }
     }
     ScrolledWindow $base.cpd37.02.sw

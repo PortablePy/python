@@ -21,18 +21,18 @@ import button_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
-    root = Tk()
-    top = Button_Example (root)
-    button_support.init(root, top)
-    root.mainloop()
+    global val, w, வேர்
+    வேர் = Tk()
+    top = Button_Example (வேர்)
+    button_support.init(வேர், top)
+    வேர்.mainloop()
 
 w = None
-def create_Button_Example(root, *args, **kwargs):
+def create_Button_Example(வேர், *args, **kwargs):
     '''Starting point when module is imported by another program.'''
     global w, w_win, rt
-    rt = root
-    w = Toplevel (root)
+    rt = வேர்
+    w = Toplevel (வேர்)
     top = Button_Example (w)
     button_support.init(w, top, *args, **kwargs)
     return (w, top)

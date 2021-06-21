@@ -23,19 +23,19 @@ import called_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
-    root = tk.Tk()
+    global val, w, வேர்
+    வேர் = tk.Tk()
     called_support.set_Tk_var()
-    top = Called (root)
-    called_support.init(root, top)
-    root.mainloop()
+    top = Called (வேர்)
+    called_support.init(வேர், top)
+    வேர்.mainloop()
 
 w = None
-def create_Called(root, *args, **kwargs):
+def create_Called(வேர், *args, **kwargs):
     '''Starting point when module is imported by another program.'''
     global w, w_win, rt
-    rt = root
-    w = tk.Toplevel (root)
+    rt = வேர்
+    w = tk.Toplevel (வேர்)
     called_support.set_Tk_var()
     top = Called (w)
     called_support.init(w, top, *args, **kwargs)

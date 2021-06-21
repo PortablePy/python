@@ -1,0 +1,287 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Module Structure &#8212; PAGE 5.0 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Styles and Themes" href="themes.html" />
+    <link rel="prev" title="Defaults and Preferences" href="preferences.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-structure">
+<h1>Module Structure<a class="headerlink" href="#module-structure" title="Permalink to this headline">¶</a></h1>
+<p>PAGE generates two modules, The GUI module, and the Support
+Module. The first contains all of the Python code necessary to plop
+the GUI window onto the computer screen. In my vision of the PAGE
+world, the GUI module is not to be edited. It contains all of the
+required linkage to the Support module.  It is generally the main
+module of the application.</p>
+<p>The Support module is generated in skeletal form and is the framework
+upon which the application is built. It is where the user written code
+resides.  As such it is infrequently generated or replaced by PAGE. In
+fact, the separation is the secret of rework; it allows changes
+to the content and appearance of the GUI window while preserving the
+user’s code.</p>
+<p>When the modules are generated they are displayed in the Python
+Console but not saved automatically. This gives the user an
+opportunity to inspect the code and decide whether to save. When PAGE
+generates a module, it uses four spaces for indentation. When PAGE
+saves a module, spaces are saved as spaces.</p>
+<div class="section" id="project-directory">
+<h2>Project Directory<a class="headerlink" href="#project-directory" title="Permalink to this headline">¶</a></h2>
+<p>The directory containing the various files associated with PAGE is
+called the project directory. It contains the project file, the
+generate Python modules, any image files used with widgets, and any
+application support modules.</p>
+<p>Let me call the project directory “proj_dir”, because it is precise
+and corresponds to an internal PAGE variable. proj_dir is set several
+ways:</p>
+<ul class="simple">
+<li>If PAGE is executed without an arguments, proj_dir is set to the
+current working directory.</li>
+<li>If PAGE is called with an argument, proj_dir is set to the current
+working directory joined to the directory portion of the argument.</li>
+<li>If the GUI design created with PAGE is saved, the destination
+directory becomes the proj_dir.</li>
+<li>If a project file is opened, the source directory becomes the
+proj_dir.</li>
+</ul>
+<p>This is important when widgets have image attributes. To keep such
+cases reasonable sane, PAGE requires that all image files associated
+with such widgets reside within the proj_dir or a subdirectory of it
+prior to the specification of the widget.</p>
+<p>I recommend that before executing PAGE, a directory be created and
+that directory be made the current working directory. Image files need
+not be included before beginning the GUI development, but need to
+included before widgets specify non-blank image attributes. Again, you
+can add a widget that might include an image but the image file must
+be included before specified the image attribute.</p>
+</div>
+<div class="section" id="gui-module">
+<h2>GUI Module<a class="headerlink" href="#gui-module" title="Permalink to this headline">¶</a></h2>
+<p>The main feature of the GUI module is the class definition, which
+defines a GUI window.  It defines the top level window and all of the
+contained widgets.  Note that it refers to all callback functions as
+functions in the support module and that Tk variables such as
+textvariables are referred to Tk variables in the support module.</p>
+<p>The GUI module contains two stylized function for instantiating the
+window class. The first is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">vp_start_gui</span><span class="p">():</span>
+        <span class="sd">&#39;&#39;&#39;Starting point when module is the main routine.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">val</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">root</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">New_Toplevel_1</span> <span class="p">(</span><span class="n">root</span><span class="p">)</span>
+    <span class="n">fnew_support</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">top</span><span class="p">)</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>which is the entry point when starting the routine as the main routine
+of the application as seen at the bottom of the module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+   <span class="n">vp_start_gui</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The main thing about the function vp_start_gui  is that it initializes
+Tk and establishes the Tkinter mainloop.   Note that the init function in
+the support module is passed  pointer to the GUI window class.</p>
+<p>The other function is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_New_Toplevel_1</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Starting point when module is imported by another</span>
+<span class="sd">    program.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">w</span><span class="p">,</span> <span class="n">w_win</span><span class="p">,</span> <span class="n">rt</span>
+    <span class="n">rt</span> <span class="o">=</span> <span class="n">root</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">Toplevel</span> <span class="p">(</span><span class="n">root</span><span class="p">)</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">New_Toplevel_1</span> <span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">fnew_support</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">top</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>which is the entry point when ate GUI window is invoked from code
+within the running application, for instance, if a secondary GUI such as
+a progress bar is desired for some action triggered in the main
+GUI. Notice that it does not call Tk() nor start a mainloop; you only
+want one of those.  A big point is that the init function is passed a
+variable argument list in the name of flexibility.  It is also passed
+a pointer to the GUI window. This is done so that the user can close
+the created window in its support module without closing affecting
+other windows in the application.</p>
+</div>
+<div class="section" id="support-module">
+<h2>Support Module<a class="headerlink" href="#support-module" title="Permalink to this headline">¶</a></h2>
+<p>This module is home of the hand coded portion of the application.
+Obviously, PAGE can only prepare a framework for the application. What
+PAGE knows about are, (1) the linkage between the GUI module and the
+support module, (2) the callback functions to be located in the
+Support module, and (3) the Tk variables which are to be manipulated
+in the support module.</p>
+<p>For linkage between the modules is mainly the init function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">gui</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">w</span><span class="p">,</span> <span class="n">top_level</span><span class="p">,</span> <span class="n">root</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">gui</span>
+    <span class="n">top_level</span> <span class="o">=</span> <span class="n">top</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">top</span>
+</pre></div>
+</div>
+<p>Here PAGE merely generates the bare minimum. It sets global variables
+which refer to the root of the GUI window and w which points to the
+GUI window created by the corresponding GUI module.  The latter allows
+the user to change configuration of the GUI window and of widget
+contained in the window. For instance if there is a button (Button1)
+in the GUI window, the color may be changed anywhere in the support
+module simply with the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">w</span><span class="o">.</span><span class="n">Button1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Also, if there is hierarchy of modules or routines flowing from the
+support module, then the reference to the GUI window can be passed
+along and manipulated.</p>
+<p>The generated code for the callback functions is even simpler:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">callback</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;unknown_support.callback&#39;</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Code generated for the Tk variable kkkk looks like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">set_Tk_var</span><span class="p">():</span>
+   <span class="c1"># These are Tk variables used passed to Tkinter and must be</span>
+   <span class="c1"># defined before the widgets using them are created.</span>
+   <span class="k">global</span> <span class="n">kkkk</span>
+   <span class="n">kkkk</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The code generated as above is so generated so that the GUI module and
+the support module will be an executable pair.  That is, you can
+execute the GUI module and see what it will look like even though you
+have put in no additional application code. If the GUI invokes a
+callback, say by a button select, the program will tell you that it
+was invoked. Now you have a leg up, go program.</p>
+<p>What if after you have written a substantial body of application code,
+and discover that you need an additional widget in the GUI module;
+what to do?</p>
+<p>First invoke PAGE with the project name, add the widget with all its
+configuration including callbacks and Tk variables. Then generate
+Python code for the GUI module just like before.  You sure do not want
+to rebuild the support module anew and erase all of your hand code.
+So when you tell PAGE to generate your support module, it gives you
+the option of updating the existing support module. If selected, PAGE
+will merely add skeletons for the new callbacks and add the new Tk
+variables.  In addition, it will backup the previous version of the
+modules in case of failure or PAGE bugs. etc..  PAGE will keep backups
+to a depth specified in the preferences.  See <a class="reference internal" href="preferences.html#backup"><span class="std std-ref">backup preferences</span></a>.</p>
+<p>As a convenience, the following code is added at the bottom of the
+support module to aid in debugging.  I you are debugging the support
+module and want to test its execution, you can just execute it and it
+will not start by invoking a functions within the support module but
+rather the main function in the GUI module.  I found it particularly
+useful since I do my development in emacs where I have a key binding
+which will invoke python to execute the current buffer.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="kn">import</span> <span class="nn">bind_example</span>
+<span class="n">bind_example</span><span class="o">.</span><span class="n">vp_start_gui</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Some of these features are further explored in <a class="reference internal" href="use.html#applications-with-multiple-top-level-windows"><span class="std std-ref">Applications with Multiple Top-Level Windows</span></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">PAGE</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interface.html">The PAGE Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preferences.html">Defaults and Preferences</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Module Structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#project-directory">Project Directory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gui-module">GUI Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#support-module">Support Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="themes.html">Styles and Themes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use.html">Using PAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="menu.html">Menus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rework.html">Rework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rework.html#reuse">Reuse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ttkwidgets.html">The ttkwidgets Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="final.html">Epilogue</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="preferences.html" title="previous chapter">Defaults and Preferences</a></li>
+      <li>Next: <a href="themes.html" title="next chapter">Styles and Themes</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2008 - 2020 Donald Rozenberg.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/modules.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

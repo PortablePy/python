@@ -185,18 +185,18 @@ set vTcl(menu,gen_Python) {
 }
 
 
-proc vTcl:menu:insert {menu name {root ""}} {
+proc vTcl:menu:insert {menu name {வேர் ""}} {
     global vTcl tcl_version
     if {$tcl_version >= 8} then {
         set tab ""
     } else {
         set tab "\t"
     }
-    if {$root != ""} then {
-        if {![winfo exists $root]} then {
-            menu $root
+    if {$வேர் != ""} then {
+        if {![winfo exists $வேர்]} then {
+            menu $வேர்
         }
-        $root add cascade -label [vTcl:upper_first $name] -menu $menu
+        $வேர் add cascade -label [vTcl:upper_first $name] -menu $menu
     }
     menu $menu -tearoff 0
     set vTcl(menu,$name,m) $menu

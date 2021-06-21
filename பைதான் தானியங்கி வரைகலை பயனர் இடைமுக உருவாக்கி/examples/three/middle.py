@@ -23,20 +23,20 @@ import middle_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
-    root = tk.Tk()
-    top = middle (root)
-    middle_support.init(root, top)
-    root.mainloop()
+    global val, w, வேர்
+    வேர் = tk.Tk()
+    top = middle (வேர்)
+    middle_support.init(வேர், top)
+    வேர்.mainloop()
 
 w = None
 def create_middle(rt, *args, **kwargs):
     '''Starting point when module is imported by another module.
-       Correct form of call: 'create_middle(root, *args, **kwargs)' .'''
-    global w, w_win, root
-    #rt = root
-    root = rt
-    w = tk.Toplevel (root)
+       Correct form of call: 'create_middle(வேர், *args, **kwargs)' .'''
+    global w, w_win, வேர்
+    #rt = வேர்
+    வேர் = rt
+    w = tk.Toplevel (வேர்)
     top = middle (w)
     middle_support.init(w, top, *args, **kwargs)
     return (w, top)
@@ -75,7 +75,7 @@ class middle:
           GUI
 It is envoked and intern invokes
 another GUI which has a popup and thus 
-needs "root"''')
+needs "வேர்"''')
         self.Message1.configure(width=334)
 
         self.Button1 = tk.Button(top)

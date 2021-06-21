@@ -34,10 +34,10 @@ def unhide():
 
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, root
+    global w, top_level, வேர்
     w = gui
     top_level = top
-    root = top
+    வேர் = top
     global p_info
     p_info = w.Button1.place_info()
     print p_info

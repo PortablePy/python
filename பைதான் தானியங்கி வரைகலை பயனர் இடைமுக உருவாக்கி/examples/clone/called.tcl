@@ -86,7 +86,7 @@ proc vTclWindow.top34 {base} {
     ttk::style configure Button -font "$vTcl(actual_gui_font_dft_desc)"
     button $top.but34 \
         -activebackground $vTcl(analog_color_m) -activeforeground black \
-        -background $vTcl(actual_gui_bg) -command lambda:create_called(root) \
+        -background $vTcl(actual_gui_bg) -command lambda:create_called(வேர்) \
         -disabledforeground #b8a786 -font {-family {DejaVu Sans} -size 16} \
         -foreground $vTcl(actual_gui_fg) \
         -highlightbackground $vTcl(actual_gui_bg) -highlightcolor black \

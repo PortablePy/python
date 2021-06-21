@@ -39,12 +39,12 @@ else:
 
 def vp_start_gui():
     global val, w
-    root = Tk()
-    root.title('Directory Tree')
-    root.geometry('609x422+377+239')
-    w = New_Toplevel_1(root)
+    வேர் = Tk()
+    வேர்.title('Directory Tree')
+    வேர்.geometry('609x422+377+239')
+    w = New_Toplevel_1(வேர்)
     init()
-    root.mainloop()
+    வேர்.mainloop()
 
 
 def init():

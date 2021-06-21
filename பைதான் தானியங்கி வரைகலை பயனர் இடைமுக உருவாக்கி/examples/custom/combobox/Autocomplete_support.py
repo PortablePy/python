@@ -30,10 +30,10 @@ def set_Tk_var():
 #-------------------------------------------------------------------------------
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, root
+    global w, top_level, வேர்
     w = gui
     top_level = top
-    root = top
+    வேர் = top
 
     # Some data to use for the dropdown...
     temp = ["Opening Balance","Tesco Current Account","Amazon UK","Bridgend Industrial Estate",

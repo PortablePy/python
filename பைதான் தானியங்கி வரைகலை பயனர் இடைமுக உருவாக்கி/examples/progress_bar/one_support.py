@@ -25,10 +25,10 @@ def set_Tk_var():
     prog_var = tk.IntVar()
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, root
+    global w, top_level, வேர்
     w = gui
     top_level = top
-    root = top
+    வேர் = top
 
 import time    
 def advance():
@@ -39,13 +39,13 @@ def advance():
     if info == {}:
         w.TProgressbar1.place(relx=0.333, rely=0.378, relwidth=0.333,
                               relheight=0.0, height=19)
-        root.update() # This updates Tkinter
+        வேர்.update() # This updates Tkinter
        
     if bar_value < 1.0:
         bar_value += 0.2
         print (sys._getframe().f_code.co_name, f': {bar_value = }')   # Rozen dpr
         prog_var.set(int(bar_value*100)) 
-        root.update() # This updates Tkinter.
+        வேர்.update() # This updates Tkinter.
     if bar_value >= 1.0:
         time.sleep(1)        # Wait one second and then kill the progress bar.
         w.TProgressbar1.place_forget()

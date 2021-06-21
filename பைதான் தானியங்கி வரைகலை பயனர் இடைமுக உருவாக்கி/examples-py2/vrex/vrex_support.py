@@ -26,9 +26,9 @@ def clear_textbox(o):
 
 
 def init(tk_root,gui):
-    global w, root
+    global w, வேர்
     w = gui
-    root = tk_root
+    வேர் = tk_root
     # This is executed after the GUI is drawn.
     global colors, color_noreport, color_lookahead, levels, o_e, o_s, o_m
     # Define the object names for the three text windows;
@@ -91,7 +91,7 @@ def go():
     sample_colorize()
 
 def help():
-    vrex_help.create_Vrex_Help(root)
+    vrex_help.create_Vrex_Help(வேர்)
 
 def load_regular_expression():
     regex_file = tkFileDialog.askopenfilename(filetypes=[("all files", "*")])

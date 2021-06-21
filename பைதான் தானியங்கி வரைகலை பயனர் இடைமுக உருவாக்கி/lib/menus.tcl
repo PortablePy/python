@@ -1061,7 +1061,7 @@ proc configCmd {top option variable} {
 
     # proc {::menu_edit::includes_menu} {top m} {
 
-    #     # is it the root menu?
+    #     # is it the வேர் menu?
     #     if {[set ::${top}::menu] == $m} {
     #         return 0}
 
@@ -1142,7 +1142,7 @@ proc configCmd {top option variable} {
     #     ::menu_edit::show_menu $top 0
     # }
 
-    ## finds the root menu of the given menu
+    ## finds the வேர் menu of the given menu
     proc {::menu_edit::find_root_menu} {m} {
 
         # go up until we find something that is not a menu
@@ -1169,7 +1169,7 @@ proc vTclWindow.vTclMenuEdit {base menu} {
     # Check for and destroy any existing menu editor window.
     ::menu_edit::kill_existing_editor
 
-    # always open a menu editor with root menu
+    # always open a menu editor with வேர் menu
     set original_menu $menu
     set menu [::menu_edit::find_root_menu $menu]
 
@@ -1378,20 +1378,20 @@ proc vTclWindow.vTclMenuEdit {base menu} {
     frame $base.cpd24.03 \
         -background #ff0000 -borderwidth 2 -relief raised
     bind $base.cpd24.03 <B1-Motion> {
-        set root [ split %W . ]
-        set nb [ llength $root ]
+        set வேர் [ split %W . ]
+        set nb [ llength $வேர் ]
         incr nb -1
-        set root [ lreplace $root $nb $nb ]
-        set root [ join $root . ]
-        set width [ winfo width $root ].0
+        set வேர் [ lreplace $வேர் $nb $nb ]
+        set வேர் [ join $வேர் . ]
+        set width [ winfo width $வேர் ].0
 
-        set val [ expr (%X - [winfo rootx $root]) /$width ]
+        set val [ expr (%X - [winfo rootx $வேர்]) /$width ]
 
         if { $val >= 0 && $val <= 1.0 } {
 
-            place $root.01 -relwidth $val
-            place $root.03 -relx $val
-            place $root.02 -relwidth [ expr 1.0 - $val ]
+            place $வேர்.01 -relwidth $val
+            place $வேர்.03 -relx $val
+            place $வேர்.02 -relwidth [ expr 1.0 - $val ]
         }
     }
     ###################

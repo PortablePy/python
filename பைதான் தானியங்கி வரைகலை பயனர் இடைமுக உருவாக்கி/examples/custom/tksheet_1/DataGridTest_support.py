@@ -139,10 +139,10 @@ def formatSheet(rows):
 #-------------------------------------------------------------------------------
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, root
+    global w, top_level, வேர்
     w = gui
     top_level = top
-    root = top
+    வேர் = top
 
     w.lblCellValue.config(text='')
 

@@ -20,10 +20,10 @@ except ImportError:
     py3 = True
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, root
+    global w, top_level, வேர்
     w = gui
     top_level = top
-    root = top
+    வேர் = top
 
 def how():
     print('positional_support.how')

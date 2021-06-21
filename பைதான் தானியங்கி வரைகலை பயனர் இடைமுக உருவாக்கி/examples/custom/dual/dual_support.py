@@ -86,7 +86,7 @@ def display_buttons():
    from PIL import Image, ImageTk
    pict = {}
    label = {}
-   root.update_idletasks()
+   வேர்.update_idletasks()
    frame_width = w.Custom1.window_width()
    no_thumbnails_per_row = frame_width // width
    remainder = frame_width % width
@@ -130,10 +130,10 @@ def clean_window():
             pass
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, root
+    global w, top_level, வேர்
     w = gui
     top_level = top
-    root = top
+    வேர் = top
     display_buttons()
     # ======================================================
     # Our init code

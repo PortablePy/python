@@ -27,10 +27,10 @@ def set_Tk_var():
     prog_var = tk.IntVar()
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, root
+    global w, top_level, வேர்
     w = gui
     top_level = top
-    root = top
+    வேர் = top
     globals.prog_var = prog_var
     globals.destroy_window = destroy_window
 

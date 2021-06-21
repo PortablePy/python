@@ -57,10 +57,10 @@ def close():
     destroy_window()
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, root
+    global w, top_level, வேர்
     w = gui
     top_level = top
-    root = top
+    வேர் = top
     greeting.set(args[0])
     t.set(100)
     global w1        # w1 is the toplevel widget.

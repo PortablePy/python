@@ -32,10 +32,10 @@ def set_Tk_var():
     Check_2 = tk.StringVar()
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, root
+    global w, top_level, வேர்
     w = gui
     top_level = top
-    root = top
+    வேர் = top
 
 def check1():
     print('menu_support.check1')

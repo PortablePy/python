@@ -1,0 +1,7 @@
+This directory contain examples where the support files have been
+modified to execute under Python 3. With the decision to support only
+Python 3, these are the examples to view.
+
+Previous contents of this directory have been moved to the
+Examples-py2 subdirectory. Those examples are no longer being
+maintained.

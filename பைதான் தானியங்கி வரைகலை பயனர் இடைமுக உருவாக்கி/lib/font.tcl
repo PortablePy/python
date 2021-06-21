@@ -749,7 +749,7 @@ proc vTcl:font:prompt_noborder_fontlist {font} {
     global vTcl
     vTcl:font:create_noborder_fontlist ""
 
-    # do not reposition window according to root window
+    # do not reposition window according to வேர் window
     vTcl:dialog_wait $vTcl(font,noborder_fontlist,win) vTcl(font,noborder_fontlist,font) 1
     destroy $vTcl(font,noborder_fontlist,win)
     # user wants a new font ?

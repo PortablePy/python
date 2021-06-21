@@ -23,20 +23,20 @@ import customwidgetdemo_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
-    root = tk.Tk()
-    top = formCustomDemo (root)
-    customwidgetdemo_support.init(root, top)
-    root.mainloop()
+    global val, w, வேர்
+    வேர் = tk.Tk()
+    top = formCustomDemo (வேர்)
+    customwidgetdemo_support.init(வேர், top)
+    வேர்.mainloop()
 
 w = None
 def create_formCustomDemo(rt, *args, **kwargs):
     '''Starting point when module is imported by another module.
-       Correct form of call: 'create_formCustomDemo(root, *args, **kwargs)' .'''
-    global w, w_win, root
-    #rt = root
-    root = rt
-    w = tk.Toplevel (root)
+       Correct form of call: 'create_formCustomDemo(வேர், *args, **kwargs)' .'''
+    global w, w_win, வேர்
+    #rt = வேர்
+    வேர் = rt
+    w = tk.Toplevel (வேர்)
     top = formCustomDemo (w)
     customwidgetdemo_support.init(w, top, *args, **kwargs)
     return (w, top)

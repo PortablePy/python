@@ -92,7 +92,7 @@ proc vTclWindow.top43 {base} {
           GUI
 It is envoked and intern invokes
 another GUI which has a popup and thus 
-needs "root"} \
+needs "வேர்"} \
         -width 334 
     vTcl:DefineAlias "$top.mes44" "Message1" vTcl:WidgetProc "middle" 1
     button $top.but46 \

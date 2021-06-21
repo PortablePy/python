@@ -21,19 +21,19 @@ except ImportError:
     py3 = True
     
 def init(top, gui, *args, **kwargs):
-    global w, top_level, root
+    global w, top_level, வேர்
     w = gui
     top_level = top
-    root = top
-    print("middle_support: init: root = %s" % root)
+    வேர் = top
+    print("middle_support: init: வேர் = %s" % வேர்)
 
 import popup
     
 def invoke():
     print('middle_support.invoke')
     sys.stdout.flush()
-    print("middle_support: invoke: root = %s" % root)
-    popup.create_popup(root)
+    print("middle_support: invoke: வேர் = %s" % வேர்)
+    popup.create_popup(வேர்)
 
 def quit():
     print('middle_support.quit')

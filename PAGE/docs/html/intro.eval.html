@@ -1,0 +1,1072 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Introduction &#8212; PAGE 5.0 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>PAGE is a tool which helps to create Python GUI interfaces using
+Tkinter and the Tk/ttk widget set.  It is a fork or extension of the
+program Visual Tcl (vTcl) which now produces Python code. PAGE runs on
+any system with Tcl installed and the generated Python code requires
+only Python to execute.</p>
+<p>Faced with the problem of building a single GUI window for an
+application, PAGE will facilitate designing that GUI window and
+building a working skeletal Python program utilizing the Tk/ttk widget
+set. As other windows are required, they are designed with PAGE and
+incorporated into the application by importing the generated python
+modules. See <a class="reference internal" href="use.html#applications-with-multiple-top-level-windows"><span class="std std-ref">Applications with Multiple Top-Level Windows</span></a>. Also, PAGE supports design rework to a limited extent.</p>
+<p>PAGE is aimed at a user who wants to rapidly construct a GUI and is
+willing to compromise generality for ease and speed of construction.
+It is a helper tool. It does not build an entire application but
+rather is aimed at building a single GUI window.  It is not a Python
+Interactive Design Environment (IDE). Stated in other words, PAGE
+generates a Python class which implements a single GUI window and also
+supplies all of the boiler-plate code for execution or instantiation
+of the GUI object. If, like me, you have difficulty remembering all
+the little tricks of getting a GUI to show up on the screen, PAGE can
+show you code that will work.</p>
+<p>When I first set about building programs that exploited Tkinter, I
+could not find nearly enough examples. Another way of looking at PAGE
+is to consider it to be a Tkinter example builder which can build the
+examples you need to see.  It is a good place to start when starting
+with Tkinter.</p>
+<p>The author is Donald Rozenberg and project page for PAGE is
+<a class="reference external" href="http://page.sourceforge.net/">http://page.sourceforge.net/</a>. My email address is Don dot Rozenberg at
+gmail dot com.</p>
+<p>Note that some of the screen shots in this documentation may appear
+with a gray or a wheat background. The reason is that the Tk default
+color is gray but I prefer wheat. Also, the font size is often large
+because I prefer nay require large fonts.</p>
+<div class="section" id="change-history">
+<h2>Change History<a class="headerlink" href="#change-history" title="Permalink to this headline">¶</a></h2>
+<p>The 5.6 release:</p>
+<ul class="simple">
+<li>fixes a problem with code generation for notebook widgets,</li>
+<li>fixes a problem with the presentation of the Attribute Editor in
+Windows,</li>
+<li>revises the command options. See <a class="reference internal" href="#rc"><span class="std std-ref">Initializing and Executing PAGE</span></a>.</li>
+</ul>
+<p>The 5.5 release:</p>
+<ul class="simple">
+<li>fixes a problem with aliases in copy-and-paste operations,</li>
+<li>adds the capability to revert to default geometries for the
+principle PAGE windows, see <a class="reference internal" href="menu.html#newmenu"><span class="std std-ref">Menu Attributes</span></a>,</li>
+<li>fixes problems with opening and saving projects,</li>
+<li>fixes a problem the Absolute/Relative code,</li>
+<li>makes minor improvement in the handling of fonts,</li>
+<li>reworks some of the examples for better presentation across OS’s.</li>
+</ul>
+<p>The 5.4 release:</p>
+<ul class="simple">
+<li>changes the Menu Editor to more closely align with Tk
+menu capabilities. See <a class="reference internal" href="interface.html#menu"><span class="std std-ref">Menus</span></a>.</li>
+<li>fixes a problem with font preferences.</li>
+<li>adds the Scrolledspinbox widget.</li>
+</ul>
+<p>The 5.3 release:</p>
+<ul class="simple">
+<li>fixes the use of arrow keys and extends their usage to changing
+sashes in paned windows,</li>
+<li>corrects some problems with paned windows,</li>
+<li>simplifies the specification of command attributes with arguments by
+generating lambda functions in some simple cases, See <a class="reference internal" href="use.html#cmd"><span class="std std-ref">section on
+command linkage</span></a>.</li>
+<li>includes minor changes to the menu editor.</li>
+</ul>
+<p>The 5.2 release:</p>
+<ul class="simple">
+<li>fixes the saving of font specification for scrolled widgets,</li>
+<li>modifies the tooltip support to allow changes from inside the
+support module. See <a class="reference internal" href="use.html#balloon"><span class="std std-ref">Balloon Help - Tooltips</span></a>,</li>
+<li>expands again the functions available in multiple selection. See
+<a class="reference internal" href="use.html#multiselection"><span class="std std-ref">Multiple Selection</span></a>,</li>
+<li>improves undo.  See <a class="reference internal" href="use.html#undo"><span class="std std-ref">Undo</span></a>.</li>
+</ul>
+<p>The 5.1 release:</p>
+<ul class="simple">
+<li>extends function available in multiple selection. See
+<a class="reference internal" href="use.html#multiselection"><span class="std std-ref">Multiple Selection</span></a>,</li>
+<li>changes the key commands for removing multiple selection
+designation,</li>
+<li>provides an experimental undo capability for certain operations.
+See <a class="reference internal" href="use.html#undo"><span class="std std-ref">Undo</span></a>.,</li>
+<li>handles Windows device letters better,</li>
+<li>improve the resizing of panes in paned windows.</li>
+</ul>
+<p>The 5.0.3 release fixes bugs with relative placement and multiple selection.</p>
+<p>The 5.0.2 release fixes a busy cursor bug.</p>
+<p>The 5.0.1 release repairs a mistake in the release of 5.0 documentation.</p>
+<p>The 5.0 release:</p>
+<ul class="simple">
+<li>contains rewrite of the support module update code,</li>
+<li>fixes problem with aliases of multiple instances of scrolled and
+custom widgets,</li>
+<li>adds facility for removing an image from a widget,</li>
+<li>provides limited functionality for multiple widget selection. See
+<a class="reference internal" href="use.html#multiselection"><span class="std std-ref">Multiple Selection</span></a>,</li>
+<li>adds the Scrolledwindow widget based on the canvas widget. See
+<a class="reference internal" href="use.html#scrolledwindow"><span class="std std-ref">Scrolledwindow</span></a>,</li>
+<li>adds New command to File menu in main menu,</li>
+<li>extends relative placement to the design phase of GUI
+development providing a WYSIWYG improvement. See <a class="reference internal" href="use.html#relative"><span class="std std-ref">Relative Placement</span></a>,</li>
+<li>corrects some problems with Pane window widgets,</li>
+<li>changes the way values are specified for Ttk Combobox widgets. See
+<a class="reference internal" href="use.html#combo"><span class="std std-ref">Ttk Combobox</span></a>,</li>
+<li>improves automatic project saving upon Python generation,</li>
+<li>improves support for copy-and-paste,</li>
+<li>adds the busy cursor for some long running operations,</li>
+<li>moves the python3 examples to the “examples” subdirectory
+and the previous python2 examples have been moved to the
+“examples-py2” subdirectory. Python2 examples are no longer being maintained.</li>
+</ul>
+<p>The 4.26 release:</p>
+<ul class="simple">
+<li>generates new code for several geometric attributes
+of toplevel widgets.</li>
+<li>changes the invocation option “−s” to “−−s”,
+and removes the “−h” option. Also add new option “−−s”. See <a class="reference internal" href="#rc"><span class="std std-ref">Initializing and Executing PAGE</span></a>.</li>
+<li>changes validation specification and code. See <a class="reference internal" href="use.html#entrycmd"><span class="std std-ref">Validation commands</span></a>.</li>
+<li>corrects problem with color of widget handles.</li>
+<li>corrects problem with resizing notebook widgets.
+See <a class="reference internal" href="use.html#nbresize"><span class="std std-ref">Resizing Notebook Widgets</span></a>.</li>
+<li>improves Attribute Editor by not displaying attributes that are not
+changeable.</li>
+<li>tentively explores the ttkwidgets package. See <span class="xref std std-ref">ttkwidgets</span>.</li>
+<li>corrects several problems with menu generation and saving.</li>
+</ul>
+<p>The 4.25.1 release fixes a bug affecting the Python generation for a
+number of ttk widgets when project have not been saved and reopened
+before generation of GUI module code.</p>
+<p>The 4.25 release</p>
+<ul class="simple">
+<li>makes operation on 32 bit Windows system a whole lot better.</li>
+<li>enables the opening of project files on drives different from the
+current drive,</li>
+<li>improves the “Stash and Apply” to facilitate widget alignment,</li>
+<li>changes the preferences function has to allow the saving of
+preferences to a named file.</li>
+<li>and fixes several bugs.</li>
+</ul>
+<p>The 4.24 release includes further corrections for widget images, and
+font specification. It also facilitates the use of multiple
+initialization files. See <a class="reference internal" href="#rc"><span class="std std-ref">Initializing and Executing PAGE</span></a>.</p>
+<p>The 4.23a release fixes error that prevents code generation.</p>
+<p>The 4.23 release fixes several bugs, one related to the
+Scrolledtreeview, another to code generation in the absence of an IDE
+specification, and one related to changing relative size attributes in
+the Attribute Editor. In addition, some aspects of image use has been
+improved. The font support revealed errors and had to be
+fixed. Finally, the encoding problems and internationalization was
+addressed.</p>
+<p>The 4.22 release fixes several bugs.</p>
+<p>The 4.21 release includes Balloon Help (tooltips) for many of the
+supported widgets and bug fixes.</p>
+<p>The 4.20 release fixes bugs related to the Scale widget and the Scrolledtreeview widget.</p>
+<p>The 4.19 release:</p>
+<ul class="simple">
+<li>provides Stash and Apply mechanism for transferring attributes from
+one widget to others,</li>
+<li>enables context menus in the Attribute Editor for transferring
+attributes from one widget to others -
+<a class="reference internal" href="interface.html#propagate"><span class="std std-ref">see the Attribute Editor</span></a>,</li>
+<li>further enhances scrolling of PAGE windows,</li>
+<li>fixes bugs, some related to color preferences,</li>
+</ul>
+<p>The 4.18 release:</p>
+<ul class="simple">
+<li>enhances the Scrolled widgets to support mousewheel scrolling over
+data windows in generated Python modules,</li>
+<li>enhances mousewheel scrolling over PAGE data windows,</li>
+<li>removed some warning messages and added other more meaningful ones,</li>
+<li>improves the style of the tkinter import statements (see <a class="reference internal" href="use.html#naming"><span class="std std-ref">Naming Conventions</span></a>),</li>
+<li>adds line numbering to the Python consoles,</li>
+<li>adds Top button to several PAGE windows,  …</li>
+</ul>
+<p>The 4.17 release: displays the locked state of a widget in the
+Attribute Editor, adds a preference for setting the indentation,
+expands tabs when updating the support module, fixes a subtle bug with
+placement within labelframe widgets, and enhances the use of geometric
+attributes in the Attribute Editor.</p>
+<p>The 4.16 release fixes an important bug in the support module update
+feature as well as improving the “Fill Container” function.</p>
+<p>The 4.15 release improves the use of the Binding Window, improves the
+display of callback functions, and the automatic saving of the project
+file. The ttk::separator widget is added and support of custom
+widgets expanded. Individual widget geometries can now be locked to
+prevent mouse changes.</p>
+<p>The 4.14 release provides function to save the Widget Tree to a
+file and function to display callback functions. Fixes are also made
+for copy and paste as well as to relative placement.</p>
+<p>The 4.13 release adds a search function to the Python Consols, fixes a
+syntax coloring problem, adds additional support for utf-8 encoding, and
+fixes some bugs.</p>
+<p>The 4.12 release fixes several bugs related to placement, cut and
+paste, and borrowing.</p>
+<p>The 4.11 release allows one to copy a menu bar from an existing
+project to the current project. An important addition is the inclusion
+of a tutorial written by Greg Walters.</p>
+<p>The 4.10 release includes a reuse facility which allows one to copy from
+existing projects and paste to the current project.  This release also
+modifies the startup to automatically create the Toplevel widget and
+expands support for the Canvas widget and adds some checking of
+identifier syntax. In addition, there is a new custom version of the
+TNotebook widget which incorporates an icon for closing tabs.</p>
+<p>The 4.9 release fixes bugs related to state values of several
+widgets. It also improves the Widget Tree by changing the labels to
+display the class and the alias of the widget and automatically
+updating it in more cases.</p>
+<p>The 4.8.x releases fixes bugs and updates the documentation.</p>
+<p>The 4.8 release includes support for Custom widgets which are widgets
+for which the Python implementation is left to the user. Python 3
+versions of the examples are included. The widgets handles have been
+enlarged and colored to facilitate selection. Bugs related to the
+changing of aliases have been corrected. Finally, a function which
+expands a widget to fill its container has been added to some widgets
+I have fixed some bug within the font handling code and that may
+require that fonts in existing PAGE projects be re-specified.</p>
+<p>The 4.7 release includes support for binding events to top level
+windows and reorganizes the generated code for greater clarity and
+provides variable parameter lists for the init function in the support
+module using the Python convention of *vargs, **kwargs. Important
+fixes for Cut, Copy, and Paste and for the TCombobox widget.</p>
+<p>The 4.6 release includes new function. a) Shows generated code in
+separate console windows. b) Allows loading of consol windows without
+generating code. c) Allows the opening of user’s favorite IDE with
+saved versions of the generated code. d) Corresponding changes in
+the Gen_Python menu.</p>
+<p>The 4.5 release incorporates new flexibility for the location of the
+toplevel widget in the generated GUI using the default location
+determined by the window manager.</p>
+<p>The 4.4.x releases contain bug fixes.</p>
+<p>The 4.4 releases supported popup or context menus. Also, support for
+ttk menubuttons was removed pending more debugging and the Labelframe
+widget was added. Finally, support for function definition was;
+however, PAGE still defined skeleton functions as before.
+The 4.3 release includes code to update an existing support module
+with Tkinter variables and skeleton functions newly required as a result of
+<a class="reference internal" href="rework.html#rework"><span class="std std-ref">Rework</span></a>.</p>
+<p>The 4.2 releases has new function which aids <a class="reference internal" href="rework.html#rework"><span class="std std-ref">Rework</span></a>.  This is a
+fairly extensive departure from the previous workings of
+PAGE. Additional examples were added to illustrate some aspects of the
+rework scheme. They also provided additional Help and additional
+scrolled widgets.</p>
+<p>The 4.1 releases contains several changes dealing with preferences
+dealing with font preferences and function to backup versions of the
+generated GUI.</p>
+<p>The 4.0 release contains sufficient advances including:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Significant improvements in the specification and clarity of Preferences.</li>
+<li>Significant work with color and associated connections with styles.  Emphasis on readability of generated style code. Unfortunately, this seems to work better with Linux/Unix systems than with Windows or OS X.</li>
+<li>Better support for OS X.</li>
+<li>Better support for the Scale and TScale widgets.</li>
+<li>Better support for Toplevel widgets. You can now change attributes; background and cursor, for example.</li>
+<li>Corrected problems with the TMenubutton.</li>
+<li>Shifted emphasis to Python 2.7 from 2.6.</li>
+<li>Added the ttk::sizegrip widget.</li>
+<li>Fixed numerous bugs.</li>
+</ul>
+</div></blockquote>
+<p>The 3.0 release was a major revision of PAGE initiated because of the
+following events:</p>
+<blockquote>
+<div><ul class="simple">
+<li>The release of Tcl/Tk 8.5 which includes the ttk widget
+set. This is a themed widget set containing new core widgets
+such as notebook, combobox, treeview and progressbar widgets.
+Further, the themed feature allows the same design look natural
+on Linux, Windows, and OS X.</li>
+<li>The advent of a new version of Visual Tcl upon which PAGE is
+built. The new version provides an improved user interface.</li>
+<li>I have realized that some of the bells and whistles that I
+included before are superfluous or perhaps error prone.</li>
+<li>Although relative placement was incorporated in the previous
+version, it added to the desirability of making a major
+revision because some Tix widgets had some problems when
+stretched. I want to thank George Tellalov for his suggestions
+and encouragement regarding this feature.</li>
+<li>The Pyttk package by Guilherme Polo showed me how to create
+scrolled versions of text boxes and list boxes in a very
+transparent manner.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="x-concepts">
+<h2>X Concepts<a class="headerlink" href="#x-concepts" title="Permalink to this headline">¶</a></h2>
+<p>Let me review some X window definitions and concepts in order to
+avoid confusion with the terms used here, including top-level
+window. Some of this information is taken from “Tcl and the Tk
+Toolkit” by John K. Ousterhout. “The X Window System provides
+facilities for manipulating windows on displays. … Each screen
+displays a hierarchical collection of rectangular windows, starting
+with a ‘root window’ that covers the entire area of the screen. The
+root window may have any number of child windows, each of which is
+called a ‘top-level window’.  An X application typically manages
+several top-level windows, one for each of the application’s major
+panels and dialogs.” One can also speak of an application’s ‘root’
+top-level window. This is the terminology from Grayson’s book. John
+Grayson’s “Python and Tkinter Programming”, Manning, 2000</p>
+</div>
+<div class="section" id="visual-tcl">
+<h2>Visual Tcl<a class="headerlink" href="#visual-tcl" title="Permalink to this headline">¶</a></h2>
+<p>PAGE is based on Stewart Allen’s Visual Tcl program. In fact, it is
+vTcl, with modifications and several additional modules that generates
+Python code. And yes, it is written in Tcl! Why not? Tcl is a great
+language to have available on your machine. It has features which I
+would like to see in Python. There are many great programs written in
+that language.  Further, it leaves the door open to use the same
+techniques for GUI builders in other languages which support Tk. The
+disadvantage of using a Tcl implementation is that one is restricted
+to widget sets which are available to both Tcl and Python. Ann
+additional disadvantage is that Windows users probably need to install
+Tcl/Tk. In previous versions of PAGE, I supported Tix widgets to
+provide a comprehensive widget set. With the arrival of ttk widgets in
+Tcl/Tk 8.5, I felt that the ttk widget set was sufficient and dropped
+Tix.</p>
+<p>PAGE is a modified version of Visual Tcl. Visual Tcl is a interactive
+Tcl/Tk program for generating whole projects in Tcl/Tk. Building PAGE, I
+added the feature of also generating a Python program which realizes
+the same GUI.  My changes were primarily to:</p>
+<ul class="simple">
+<li>Add the modules which generate Python code.</li>
+<li>Add support to Visual Tcl for the ttk widget set as well as scrolled
+versions of several widgets like listbox, textbox, and treeview.</li>
+<li>Aim the program to handle only one top level window.  I ditched the
+whole window project orientation. Facilities for testing Tcl
+programs, for defining functions, support for multiple toplevel
+windows, and support for geometry managers other than the placer
+geometry manager were among those deleted.</li>
+<li>Simplify the interface to only support the needs of one
+building Python interfaces.</li>
+<li>Write some documentation and comments for the program.
+Documentation of Virtual Tcl is virtually nonexistent and that is
+truly sad but all too common with open source programming.</li>
+<li>Fix bugs.</li>
+</ul>
+<p>My changes have become so numerous that it is perhaps wrong to call it
+merely a modification of Virtual Tcl.  I now think of PAGE as a fork
+which will probably be of little interest to the maintainers of Vtcl
+nor should they be saddled with any responsibility for the state of my
+version.  Since I have diverged so much from Visual Tcl, I decided to
+replace the Visual Tcl splash screen.</p>
+<p>I was looking at different GUI generators for Tcl/Tk with a view of
+converting the output of one to Python when I came across Visual Tcl
+and the work of Constantin Teodorescu in generating Java from Visual
+Tcl. I thought if one could automatically generate Java, it should be
+even easier and much better to generate Python.</p>
+<p>I believe that Stewart Allen wrote Visual Tcl in the 1996-1998 time
+period to aid in the development of Tcl/Tk applications. Constantin
+Teodorescu modified vTcl to generate Java code using SWING as the
+widget set. Looking at the Java generator convinced me to try doing
+PAGE.  I was able to discern its behavior in spite of the nearly total
+lack of documentation, usually finding an existing procedure when
+needed.</p>
+<p>PAGE supports only the placer geometry manager. In the past, I
+worked with Visual Basic and the placer geometry manager seemed
+comfortable and got me useful results. Similarly,
+Constantin Teodorescu also limited the Java generation to the placer
+geometry manager. It seems really natural with the drag and drop
+paradigm. One disadvantage is that some of the sizes could be wrong if
+fonts change. This is because several Tk widgets have sizing based on
+font parameters. This has implications if the GUI is generated with
+different fonts or resolution than are active during execution. There
+may also be similar problems if the generated GUI is moved to other
+platforms or environments.  It is interesting that many people writing
+about Tk and Tkinter dismiss the placer geometry manager.</p>
+</div>
+<div class="section" id="design-paradigm-using-page">
+<h2>Design Paradigm using PAGE<a class="headerlink" href="#design-paradigm-using-page" title="Permalink to this headline">¶</a></h2>
+<p>The PAGE view of the application development process is to build the
+program one GUI window at a time using PAGE to automate the
+construction of the GUI window realized in the GUI module and to put
+all of the supporting application dependent code in a support module.
+I expect to change the GUI often as I polish its appearance and add
+widgets, but ideally would only automatically generate the support
+module once. The difficult coding job should be restricted to getting
+the application right and not to realizing the conventions of Tkinter.
+In other words, reworking the GUI appearance should have only a
+minimum impact on the application code.</p>
+<p>I believe that it is a good idea to build the GUI and the support
+module in a separate subdirectory so the recommended procedure is to
+create the application subdirectory and make that your working directory.</p>
+<p>PAGE generates a single Toplevel window for use in an application.
+In doing that, PAGE generates two Python modules, the GUI module and the
+support module while preserving the design in the project file.</p>
+<p>The orthodox view of object oriented programming groups all of the
+attributes and methods of an object into a single class. I normally
+follow that dictum.  PAGE deviates from that rule in that it places
+the automatically generated code in a GUI module and relegates the
+hand-coded event functions to a separate support module. All
+that PAGE does with the support module is optionally create a skeletal
+version of that module containing linkages between the two modules and
+skeleton callback functions. PAGE also can update the support module
+to the extent of adding skeletons for new callback functions required
+by rework.</p>
+<p>The separation of the two module results from requiring a fool proof
+method for reworking the GUI.  I have found that I am constantly
+changing the GUI for reasons such as improving its appearance,
+clarifying its behavior, adding new widgets to support new function,
+etc.; I call this rework.  Once I have researched and written code for
+the support module, I don’t want to expose that code to some “smart”
+automation program, even my own, but I still want to use PAGE to
+update the GUI. Implementing rework requires that PAGE be able to
+distinguish between automatically generated code, which can be
+rewritten, and hand written code which must be left alone.  The only
+safe way I could think to do that was to separate the code into two
+modules. <strong>A paramount requirement of PAGE is the preservation of
+manual code</strong> as the user goes around the loop of polishing the GUI
+design and expanding and testing the application.</p>
+<p>When building a multiple top-level window application, I recommend
+that one use PAGE to build the ‘root’ top-level window and then use
+the corresponding generated Python module as the main module of
+the application. When one needs additional top-level windows, use PAGE
+to specify them and use that code as additional modules for the
+application which can be imported as needed. (Generated GUI modules
+will contain automatically generated functions to aid in creating and
+destroying them within the modules.)</p>
+<p>The GUI module contains code to actually cause the GUI to appear on
+the screen. By interacting with the GUI, the user causes events, such
+as selecting a button or adding text to an entry, to occur which
+really invoke callback functions which are implemented as functions
+found in the support module.</p>
+<p>A design goal of PAGE is to allow the user to actually execute and see
+the GUI before the application is completed. To that end, generation
+of the support module will provide skeletal functions for the callback
+functions.</p>
+<p>When one does a save in PAGE, it saves the design as a tcl
+file which then can be used as an argument to PAGE allowing one to
+modify or augment the GUI. Even more important, if PAGE screws up it
+can be used to restart the process at the point where the GUI was
+saved. So, save often.  The Tcl GUI design file is not an executable
+stand-alone script.  It contains Tcl/Tk code and is used as the
+argument of the tcl source command.</p>
+<p>The following diagram shows the design/implementation loop supported
+by PAGE.</p>
+<img alt="_images/paradigm.png" class="align-center" src="_images/paradigm.png" />
+<p>PAGE generates the three files shown above. The two modules on the left
+are required to realize the GUI window as a Python program. The GUI
+module as conceived by the author is completely generated by PAGE while
+the support module will contain all of the hand coded Python required by
+the application using the GUI window. The &lt;name&gt; may be thought of as
+a project name and must be a legal Python identifier because the
+generated Python code will use &lt;name&gt; in an import statement.</p>
+<p>The project file records the GUI window description in the form of a
+Tcl/Tk module. It serves as input to PAGE for subsequent rework
+iterations. It is not an executable program.</p>
+<p>Every time you make a set of modifications to the GUI design, you will
+want to generate and test a new GUI module. However, the support
+module needs to be changed only when GUI modifications refer to new
+callback functions. There are a couple of additional but infrequent
+cases as well. (They include the addition of Tkinter variables used by
+widgets such as Label and a definition of a custom widget.)</p>
+<p>The dashed line is meant to convey the idea that you will not want to
+change the support module each time the GUI design is modified. For
+that reason PAGE has separate commands for generating the GUI module
+and the support module.  Also, the generation of the GUI module has
+two variations, complete generation and updating the support module.</p>
+<p>The first time that a GUI is designed, one wants to generate both
+Python modules. The support module will have all the necessary boiler
+plate necessary to work with the GUI module; i.e., the GUI module and
+the support module should be an executable program even with no manual
+code added to the skeletal callback functions.</p>
+<p>With subsequent modifications of the GUI, the support module may need
+to be updated by PAGE only to add skeletal functions for newly
+referenced callbacks, etc. in the GUI.  <em>No code is deleted.</em> Further,
+backup versions of all generated files are saved.</p>
+<p>Please see <a class="reference internal" href="rework.html#rework"><span class="std std-ref">Rework</span></a> for more discussion of this world view.</p>
+</div>
+<div class="section" id="project-directory-configuration">
+<span id="projdir"></span><h2>Project Directory Configuration<a class="headerlink" href="#project-directory-configuration" title="Permalink to this headline">¶</a></h2>
+<p>When dealing with code, one should use a project based approach.  It
+really doesn’t make a difference where you store your code in the
+grand scheme of things, but each project should be structured in a
+folder of it’s own.  For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">MyProject</span>
+   <span class="n">Images</span>
+   <span class="n">Documentation</span>
+   <span class="n">code</span>
+   <span class="o">...</span>
+</pre></div>
+</div>
+<p>Even if you have multiple forms for a given project, all of the code
+should be contained within the same project folder.  Any
+images/graphics should be kept within a folder under the main folder.
+Documentation (including change logs, etc) can be maintained in a
+separate folder within the project.</p>
+<p>Versions can be maintained as follows…</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Project</span>
+   <span class="n">Version</span> <span class="mf">1.</span><span class="n">x</span>
+      <span class="n">Images</span>
+      <span class="n">Documentation</span>
+      <span class="n">code</span>
+      <span class="o">...</span>
+
+   <span class="n">Version</span> <span class="mf">2.</span><span class="n">x</span>
+      <span class="n">Images</span>
+      <span class="n">Documentation</span>
+      <span class="n">code</span>
+      <span class="o">...</span>
+   <span class="o">...</span>
+</pre></div>
+</div>
+<p>This way, base information can simple be copied and modified and maintained.</p>
+</div>
+<div class="section" id="python-2-or-python-3">
+<h2>Python 2 or Python 3<a class="headerlink" href="#python-2-or-python-3" title="Permalink to this headline">¶</a></h2>
+<p>With PAGE, the presence of Unicode characters in project names will
+require Python 3, because those characters will be used as identifiers
+in the generated Python code.</p>
+<p>Up to this point, version 4.22, all my development and testing has
+been in Python 2. Since the Python developers have announced the end
+of support for Python 2 at the end of 2019 and the recognition of
+internationalization problems, I have decide to shift my focus to
+Python 3. Primarily that means that I will no longer generate or debug
+examples in Python 2 and will switch my testing of generated code to
+Python 3. I have reworked the existing Python 2 examples to function
+in Python 3. I would not recommend starting new projects in Python 2.
+Reserve Python 2 for legacy programs.</p>
+</div>
+<div class="section" id="python-encoding-and-utf-8">
+<h2>Python Encoding and UTF-8<a class="headerlink" href="#python-encoding-and-utf-8" title="Permalink to this headline">¶</a></h2>
+<p>I have recently received a bug report and example with the claim that
+it would not execute in 32 bit Windows. Testing and help from abroad
+revealed that the real problem was that the encoding of the supplied
+example was in Windows-1252 also known as cp1252 and Python requires
+UTF-8.  This illustrated a real problem with sharing PAGE projects
+between countries and internationally.  In release 4.23, PAGE has been
+modified to treat input and output as encoded in UTF-8. That means
+that when using the Open or Borrow function PAGE will expect the
+incoming project file to be encoded in UTF-8 and that output files,
+the Python files, will be encoded in UTF-8.</p>
+<p>The simple reasons why everything should default to UTF-8:</p>
+<ul class="simple">
+<li>Python requires UTF-8 and thus, PAGE should deliver UTF-8-encoded
+files, too.</li>
+<li>Ansi is not portable at all. Neither for different countries nor for
+different platforms.</li>
+<li>Ansi is not able to represent characters that don’t belong to the
+specific code page.</li>
+</ul>
+<p>So, things must be consistent. UTF-8 always and everywhere. That way
+each character of every language is representable (no loss of data),
+scripts are portable between different countries and platforms, and
+scripts don’t cause coding errors in Python anymore.</p>
+</div>
+<div class="section" id="a-very-short-description-of-using-page">
+<h2>A Very Short Description of using PAGE<a class="headerlink" href="#a-very-short-description-of-using-page" title="Permalink to this headline">¶</a></h2>
+<p>As first steps in using PAGE, I recommend creating a subdirectory to
+contain the application and all supporting files needed and then
+making that subdirectory the current working directory.</p>
+<img alt="_images/overview.png" class="align-center" src="_images/overview.png" />
+<p>There are three generated files associated with a PAGE GUI.  They are
+a GUI design module also called the project file, a Python GUI module
+which contains generated Python code for instantiating a class which
+displays the defined GUI, and a Python support module which is a
+skeleton for the code written outside of PAGE which realizes the
+function of the GUI. The GUI module and the support module can be
+executed from within PAGE to demonstrate the GUI.</p>
+<p>Using a drag-and-drop paradigm inspired by that of Visual Basic, one
+constructs or designs the GUI window from Tk widgets within a top
+level window and modifies the attributes appropriately, when satisfied
+the user then issues commands to create the GUI module and the support
+module. Those modules are displayed and may be saved and executed to
+verify the appearance of the GUI. The remaining step of writing the
+necessary code in the support module to realize the function or
+application behavior of the GUI is left to the user.  The rest of this
+document will expand and exemplify the first two steps of this
+process.</p>
+<p>PAGE generates two Python modules from a GUI specification.  The first
+module, called the GUI module, is the code to create the GUI and is
+named &lt;name&gt;.py. All the code in this module is generated by PAGE. The
+other module, termed the support module, named &lt;name&gt;_support.py
+contains the code that is necessary to complete the function of the
+GUI.  As generated it contains skeleton code for the callback
+functions named in the course of laying out the GUI, the definitions
+of required Tkinter Variable classes referred to in the GUI, a default
+definition of a custom widget, and finally the necessary linkage
+between the two modules. The GUI design specification is captured and
+saved for later use in reworking or modifying the design in the file
+named &lt;name&gt;.tcl.</p>
+<p>A user begins by invoking PAGE using a script, ‘page’ in Linux.
+Starting with version 4.10, a new toplevel widget is automatically
+generated.  This toplevel widget is the GUI window. (In this manual, I
+use the terms Button-1 and Button-3 rather than left button and right
+button because a user may be using a left handed mouse. This is
+consistent with Tcl documentation. Button-1 is under the index
+finger.)</p>
+<ol class="arabic simple">
+<li>Using Button-1 on the mouse, drag the toplevel window to where you
+want it and resize it appropriately. Change attributes such as
+title as desired using the attribute editor. If the “default
+origin” is YES then the generated window will be placed at the
+default location as determined by the system window manager,
+otherwise it will use the coordinates of the current toplevel
+location.</li>
+</ol>
+<ol class="arabic simple" start="2">
+<li>Select a desired widget from the Widget Toolbar with Button-1 and
+place it within its parent by clicking Button-1 within the
+parent. One can then use the mouse to move and resize the widget
+(For some of the complex widgets, one has to press the control key
+along with Button-1 to select the entire widget.) Using the
+Attribute Editor, then change any of the attributes of the widget
+including the names of callback functions. It is probably a good
+idea to provide an alias which will make the generated code easier
+to read.</li>
+</ol>
+<ol class="arabic simple" start="3">
+<li>Repeat the above step (2) until the GUI is complete.</li>
+</ol>
+<ol class="arabic simple" start="4">
+<li>The remaining step is to generate the Python code in new python
+modules with the same root name based on the root name the “tcl”
+file. This is done by selecting commands ‘Gen_Python’ in the
+submenu in the menu bar of the main window and generating the
+Python code. Two Python modules are required the Python module for
+the Python GUI and the Python support module containing callback
+functions, etc.. First generate the GUI module, you will see a new
+window, the Python console, where the code can be expected to
+appear. After saving the GUI module, generate the support module.
+Another Python console will appear containing the support
+module. Again save the module. Execute the code, to preview the
+GUI. It only shows the GUI, it is not the complete application; you
+have to write that.</li>
+</ol>
+<ol class="arabic simple" start="5">
+<li>Create the necessary Python functions to realize the function of
+the application.  PAGE will facilitate this by generating skeleton
+functions for any functions named as callback functions in command
+attributes and other boiler plate code in a second python module
+with the same rootname with “_support” appended.  As of version
+4.6, PAGE can directly open an IDE such as idleX with two windows
+containing the stored version of the GUI and support module
+respectively. I want to avoid building an IDE.</li>
+</ol>
+<ol class="arabic simple" start="6">
+<li>Test the GUI, this can be done by selecting the “Run” button in
+either of the PAGE consoles.
+This will show the resulting GUI.</li>
+</ol>
+<p>With some Tk widgets, variables can be used to track changes to an
+entered value. The Checkbutton and Radiobutton widgets require
+variables to work properly. Variables can also be used to validate the
+contents of an entry widget, and to change the text in label
+widgets. When using those widgets in Python-Tkinker programs it is
+necessary to use “Tk Variable Classes” - BooleanVar, DoubleVar,
+IntVar, and StringVar - which create variable wrappers that can be
+used wherever Tk can use a traced Tcl variable. In this document I
+refer to these classes as “Tkinter variables”. PAGE assists by
+creating the definitions for the Tkinter variables as well as
+instantiating the classes. See the <a class="reference external" href="http://effbot.org/tkinterbook/variable.htm">effbot website</a> for additional
+information.  PAGE attempts to help by supplying boiler plate to
+define and instantiate the required classes.</p>
+<p>When the GUI code is saved or the File-&gt;Save is invoked, a Tcl project
+file is saved so that one can come back and modify the GUI.  See
+<a class="reference internal" href="rework.html#rework"><span class="std std-ref">Rework</span></a> for details.</p>
+<p>Release 4.10 added the capability to paste widgets from existing
+projects into the current toplevel GUI window. This is a new
+additional way of selecting and including widgets into the GUI. See
+<a class="reference internal" href="rework.html#reuse"><span class="std std-ref">Reuse</span></a> for details.</p>
+</div>
+<div class="section" id="status-of-page">
+<h2>Status of PAGE<a class="headerlink" href="#status-of-page" title="Permalink to this headline">¶</a></h2>
+<p>PAGE runs on many operating systems including Linux, Windows, OS X,
+and most versions of Unix. Recently, it has been running on Raspbian,
+the Linux derivative for the Raspberry Pi 3.</p>
+<p>PAGE supports many of the Tk widgets and many of the ttk widgets, other
+widgets seem to be of lower priority to me; creating scrollbars and
+linking them with text boxes and the like seemed  confusing so I
+skipped them in favor of auto-scrolled widgets like Scrolledlistbox,
+Scrolledtextbox, and Scrolledtreeview. Though not directly implemented in
+the ttk widget set, Guilherme Polo in his Pyttk samples shows how to
+easily implement them; they seem great, therefore, they are included.</p>
+<p>The supported widgets:</p>
+<ul>
+<li><p class="first">Tk Widgets</p>
+<blockquote>
+<div><ul class="simple">
+<li>Toplevel</li>
+<li>Button</li>
+<li>Canvas</li>
+<li>Checkbutton</li>
+<li>Entry</li>
+<li>Frame</li>
+<li>Label</li>
+<li>Labelframe</li>
+<li>Listbox</li>
+<li>Message</li>
+<li>Popupmenu</li>
+<li>Radiobutton</li>
+<li>Scale</li>
+<li>Spinbox</li>
+<li>Text</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Themed Widgets</p>
+<blockquote>
+<div><ul class="simple">
+<li>TButton</li>
+<li>TCombobox</li>
+<li>TEntry</li>
+<li>TFrame</li>
+<li>TLabel</li>
+<li>TLabelframe</li>
+<li>TMenubutton</li>
+<li>TNotebook</li>
+<li>TPanedwindow</li>
+<li>TProgressbar</li>
+<li>TRadiobutton</li>
+<li>TScale</li>
+<li>TSeparator</li>
+<li>TSizegrip</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Enhanced widgets.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Scrolledentry</li>
+<li>Scrolledlistbox</li>
+<li>Scrolledspinbox</li>
+<li>Scrolledtext</li>
+<li>Scrolledtreeview</li>
+<li>Scrolledwindow</li>
+<li>Custom</li>
+<li>PNotebook</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>I have included Canvas in the above lists; however, I have rarely used
+the canvas widget directly and do not fully understand its use or
+programming. I am concerned that its programming is so general that I
+cannot usefully help with PAGE.  It is there and Page will manipulate
+a canvas widget into your GUI. Canvas has been extended with the
+inclusion of the Scrolledwindow widget which is a canvas widget in
+which a window item has been created at position (0,0). The Scrolledwindow
+widget is a container for Tk widgets.</p>
+<p>With version 4.8, I have include the Custom widget, which allows the
+user to include his own special widget, provided that he has a
+Python/Tkinter implementation. See <a class="reference internal" href="examples.html#custom-example"><span class="std std-ref">Custom Widgets</span></a>. I added this
+feature because I want to use PAGE to build a photo album application
+where I need a scrolling window for displaying photo thumbnail
+images. I was able to find several such tkinter classes but none that
+I felt comfortable including as PAGE widgets for any of several
+reasons such as:</p>
+<blockquote>
+<div><ul class="simple">
+<li>I don’t fully understand the code.</li>
+<li>There is not a corresponding tk implementation which would allow
+me to incorporate it into Virtual Tcl functions like the
+Attribute Editor.</li>
+<li>The one I actually use successfully is alleged to contain bugs.</li>
+<li>The generality of the widgets may be limited.</li>
+<li>Documentation may be wanting.</li>
+</ul>
+</div></blockquote>
+<p>So for users who have a tkinter widget that they want to use, I have
+implemented the Custom widget which can be placed, sized, saved in the
+generated tcl file, etc., while the tkinter implementation is added by
+the user to the support module.  Again, configuration properties are
+not available to within PAGE but may be user-manipulated in the
+support module. With version 4.15 you may have more than one custom
+widget type per GUI window and you can have several instances of them.</p>
+<p>One of the important features of the ttk widgets is the ability to
+generate and modify themes.  Unfortunately, PAGE provides only
+rudimentary facilities for manipulating themes. See a later section on
+Styles and Themes.
+<a class="reference internal" href="themes.html#styles"><span class="std std-ref">Styles and Themes</span></a></p>
+<p>As conceived Visual Tcl will save executable Tcl files which evolve
+into the application. PAGE is trying to generate Python applications
+so the resulting Tcl/Tk design files need not be executable but they
+definitely are saved and can be loaded into PAGE for rework and
+backtracking to a previous state. They are the project files referred
+to below.</p>
+<p>Knowing that I should have tested more, written more, and included
+more widgets and more examples, I apologize.  If you come across bugs
+or have comments please let me know and I will fix them if I can. I
+can be reached at [don {dot} rozenberg {at} gmail {dot} com].  Please
+report problems and suggestions to me, it is the best way to help PAGE
+to be as good as it can be.  I have mainly developed PAGE on LINUX but
+I have done some testing of PAGE on Windows 10 and on a Mac. It even
+works on the Raspberry PI.</p>
+<p>While it seems prudent to advise users to keep it simple, take a look
+at examples/complex.py where I have paned windows nested inside pane
+windows and a notebook nested inside a nested paned window.</p>
+<p>For release 4.0, I spent about two months working with the “Theme”
+part of ttk and have had only partial success. The lack of
+documentation has left me thrashing.  I continue to support ttk
+because of a few widgets like the paned window, notebook, and treeview
+widgets which are not in the standard package.</p>
+<p>With release 4.2, I have addressed the problem of rework, hopefully,
+allowing easy tweaking of the GUI without jeopardizing th users hand
+code.  See <a class="reference internal" href="rework.html#rework"><span class="std std-ref">Rework</span></a>.</p>
+<p>I am not happy with the menubutton support, I will revisit it in a
+future release. So far I have not found it to be a useful widget in
+any of the GUI’s that I have created; I would appreciate comments about
+that.</p>
+<p>PAGE allows one to build an application one GUI window at a time, with
+release 4.10, I have added Borrow functionality which allows one to
+copy widget specification from existing projects and paste them in the
+GUI currently under development. See <a class="reference internal" href="rework.html#borrow"><span class="std std-ref">Borrowing Widgets from Existing Projects</span></a>.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>The required packages for executing PAGE are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>PAGE 6 or greater - This is the GUI generator. Actually one
+should be using the latest version.</li>
+<li>Python 3.7 or greater.</li>
+</ul>
+</div></blockquote>
+<p>The packages required for executing the python code generated by PAGE
+are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Python 3.7 or later. The current version of the Python tkinter
+package includes the ttk widget set.</li>
+<li>If JPG images are used to decorate widgets, then the Python
+Imaging Library is needed. The installation package for PIL is
+named Pillow.</li>
+</ul>
+</div></blockquote>
+<p>One does not have to install Tcl/Tk or PAGE to execute programs
+containing GUI’s generated by PAGE. All that is necessary is a Python
+version which includes the ttk widgets and possibly Pillow.</p>
+<p><strong>As of April 2019, I am recommending the use of Python 3.6 or
+later.</strong> This is because Python 2 support ends in 2019. I am also
+recommending the most up-to-date ActiveTcl package.  I would recommend
+that anyone using a package you generate with PAGE be instructed to
+use Python 3.</p>
+<p>The installations that I am using place the directory containing PAGE,
+named “page” into the users home directory on Unix-like systems.  This
+directory contains the script “page.py”, which is executed to invoke PAGE
+on Unix-like systems.</p>
+<p>With Windows the “page” installation directory is C:\page. It is
+recommended that C:\page be added to the environmental variable
+PATH. The installation directory contains “winpage.bat” which invokes
+PAGE.</p>
+<div class="section" id="installation-on-linux">
+<span id="configure"></span><h3>Installation on Linux<a class="headerlink" href="#installation-on-linux" title="Permalink to this headline">¶</a></h3>
+<p>Untar the distribution file in your home directory. You can probably
+use ‘tar zxvf pageXXX.tgz. This will put all the distribution in the
+subdirectory “page”.</p>
+<p>If you wish to use JPG images then installing three additional
+packages using apt-get - libtk-img, python3-pil, and
+python3-pil.imagetk gets things working.</p>
+</div>
+<div class="section" id="installation-on-windows">
+<h3>Installation on Windows<a class="headerlink" href="#installation-on-windows" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Download page-6.x.x.exe and execute it.</li>
+</ol>
+<p>winpage.bat is the analog to the “page” script mentioned
+above. winpage.bat is a one line file containing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">start</span> <span class="o">/</span><span class="nb">min</span>   <span class="n">python</span> <span class="n">c</span><span class="p">:</span>\<span class="n">page</span>\<span class="n">page</span><span class="o">.</span><span class="n">tcl</span> <span class="o">%</span><span class="mi">1</span> <span class="o">%</span><span class="mi">2</span> <span class="o">%</span><span class="mi">3</span>
+</pre></div>
+</div>
+<p>With Version 4.2.2, it is now feasible to install PAGE in any
+directory and have the icon start the program.  This has been tested
+on Windows 7 running under VirtualBox.  The default directory for
+installation is C:\page. If PAGE is installed in a different
+directory then winpage.bat will have to be changed  to
+reflect the that fact. For instance if it is installed in C:\x\y
+then the winpage.bat should look like</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">start</span> <span class="o">/</span><span class="nb">min</span> <span class="n">wish</span><span class="o">.</span><span class="n">exe</span> <span class="n">C</span><span class="p">:</span>\<span class="n">x</span>\<span class="n">y</span>\<span class="n">page</span><span class="o">.</span><span class="n">tcl</span> <span class="o">%</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>I recommend that the PATH environmental variable be set to include the
+installation directory. I am not confident in my Windows skills to attempt
+including that in the Windows installer. If done one can then execute
+PAGE in any directory with the command “winpage” rather than
+“C:\page\winpage” or a variation containing the installation directory.
+Also, things will run more smoothly if there is a defined HOME
+environmental variable.</p>
+<p>At the time of this writing, I do not know how to make the fuction of
+the Img package available to Tkinter on Windows. Thus Windows users
+are apparently stuck with limited image formats.</p>
+</div>
+<div class="section" id="installation-on-os-x">
+<h3>Installation on OS X<a class="headerlink" href="#installation-on-os-x" title="Permalink to this headline">¶</a></h3>
+<p>I have not done much with PAGE on OS X.  However, several users,
+including Kent Fox, have tried PAGE on OS X and have convinced me that
+I should try to support PAGE on that system.  However, the
+implementation of ttk with respect to color on OS X doesn’t seem very
+satisfactory to me so I recommend sticking with default colors.</p>
+<blockquote>
+<div>ActiveTcl and Python.</div></blockquote>
+<ol class="arabic simple">
+<li>Download page-6.x.x.tgz</li>
+<li>Double click on it to expand the zip file.</li>
+<li>Move the page folder to your home directory.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="initializing-and-executing-page">
+<span id="rc"></span><h2>Initializing and Executing PAGE<a class="headerlink" href="#initializing-and-executing-page" title="Permalink to this headline">¶</a></h2>
+<p>One executes PAGE in Unix-like systems, Linux, OS X, SunOS, etc., by
+issuing the “python3 page.py” command in the installation directory.
+If you create an alias such as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">alias</span> <span class="n">page</span><span class="o">=</span><span class="s2">&quot;python3 ~/page/page.py&quot;</span>
+</pre></div>
+</div>
+<p>then you can execute PAGE in any directory. Be aware that Linux system
+may have a completely different command with the name “page”. If you
+issue the command “page” and strange things happen check to be sure
+you know if our page was executed.</p>
+<p>Associated with the execution of PAGE is an initialization file
+sometimes called an rc file. It contains the initial configuration, i.e
+color schemes, font preferences, window locations, the Python command
+name, and many other initial values.</p>
+<p>With PAGE the rc is by default the file “.pagerc” located in the
+user’s home directory. There are times when one wishes
+to have multiple initial configurations which may be stored by having
+multiple rc files in the users home directory.</p>
+<p>The command for executing PAGE beginning with version 4.24 is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">page</span> <span class="o">&lt;</span><span class="n">option</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">project_file</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">where</span> <span class="n">option</span> <span class="n">can</span> <span class="n">be</span><span class="p">:</span>
+    <span class="o">-</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">rc_file</span><span class="o">&gt;</span>    <span class="p">:</span> <span class="n">specifies</span> <span class="n">the</span> <span class="n">rcfile</span> <span class="n">to</span> <span class="n">be</span> <span class="n">used</span><span class="o">.</span> <span class="n">If</span> <span class="n">absent</span>
+                      <span class="n">the</span> <span class="n">rc_file</span> <span class="ow">is</span> <span class="o">~/.</span><span class="n">pagerc</span>
+    <span class="o">-</span><span class="n">d</span>              <span class="p">:</span> <span class="n">run</span> <span class="n">without</span> <span class="n">using</span> <span class="n">an</span> <span class="n">rc_file</span><span class="o">.</span> <span class="n">Use</span> <span class="n">default</span>
+                      <span class="n">values</span> <span class="n">instead</span><span class="o">.</span>
+    <span class="o">-</span><span class="n">s</span>              <span class="p">:</span> <span class="n">select</span> <span class="n">the</span> <span class="n">rc_file</span> <span class="n">to</span> <span class="n">be</span> <span class="n">used</span><span class="o">.</span>
+    <span class="o">-</span><span class="n">h</span><span class="p">,</span><span class="o">--</span><span class="n">help</span>       <span class="p">:</span> <span class="n">display</span> <span class="n">this</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span><span class="o">.</span>
+
+    <span class="ow">and</span> <span class="n">the</span> <span class="n">project_file</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">existing</span> <span class="n">project</span> <span class="n">file</span> <span class="n">to</span> <span class="n">be</span> <span class="n">opened</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>If you leave out the “-p &lt;rc_file&gt;”, it works just like always calling
+forth .pagerc as the rc file.  You can use any name you want for
+rc_file and that will be the rc file in your home directory for that
+run. Specifying “-p gregrc” has the same effect as “-p
+~/gregrc”. Consider the following examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">page</span> <span class="o">-</span><span class="n">p</span> <span class="o">~/</span><span class="n">page</span><span class="o">-</span><span class="n">dev</span><span class="o">/</span><span class="n">themes</span><span class="o">-</span><span class="n">greg</span><span class="o">/.</span><span class="n">pagerc</span> <span class="n">themed1</span>
+</pre></div>
+</div>
+<p>or on Windows</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">winpage</span> <span class="o">-</span><span class="n">p</span> <span class="n">F</span><span class="p">:</span>\<span class="n">darkrc</span>
+</pre></div>
+</div>
+<p>You set any preferences you want and they will be saved in the current
+rc file when you quit. If the file does not exist at the start of
+execution, you will be granted the default values of everything usually
+stored in the rc file.  rc files usually start with a ‘.’ but that is
+not necessary.</p>
+<p>Since an application built with PAGE will involve numerous file
+including several files including the project file with the “.tcl”
+extension, the generated Python files, any needed image files, as well
+as other files needed by the application, it is recommended that
+one (1) creates a directory to contain them all and (2) makes that
+directory the current working directory before initiating PAGE. This
+will also facilitate distributing the application.</p>
+<p>Because the Windows PAGE installer sets the working directory for the
+PAGE icon to the install directory, using the PAGE icon may not be the
+best way to initiate PAGE. Comments welcome.</p>
+<p>In Windows, initiating PAGE by means of the PAGE icon sets the working
+directory to the installation directory, using the PAGE icon may not
+be the best way to initiate PAGE. Comments welcome.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">PAGE</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interface.html">The PAGE Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preferences.html">Defaults and Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Module Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="themes.html">Styles and Themes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use.html">Using PAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="menu.html">Menus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rework.html">Rework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rework.html#reuse">Reuse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ttkwidget.html">ttkwidgets Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="final.html">Epilogue</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2008 - 2020 Donald Rozenberg.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/intro.eval.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
