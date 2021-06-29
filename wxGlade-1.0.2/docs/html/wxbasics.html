@@ -1,0 +1,322 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>wx Basics &#8212; wxGlade 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorial Project: Calculator" href="tutorial.html" />
+    <link rel="prev" title="wxGlade Overview and Quick Start" href="intro.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial Project: Calculator"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="wxGlade Overview and Quick Start"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">wxGlade 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="wx-basics">
+<h1>wx Basics<a class="headerlink" href="#wx-basics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="concept">
+<h2>Concept<a class="headerlink" href="#concept" title="Permalink to this headline">¶</a></h2>
+<p>wxPython is a Wrapper around the wxWidgets GUI library, which is written in C++.</p>
+<dl class="docutils">
+<dt>You may want to visit these pages for more information:</dt>
+<dd><ul class="first last simple">
+<li>The wxPython home page: <a class="reference external" href="https://wxpython.org/">https://wxpython.org/</a></li>
+<li>The <strong>wxPython API</strong> documentation: <a class="reference external" href="https://docs.wxpython.org/">https://docs.wxpython.org/</a></li>
+<li>An overview including a <cite>Hello World</cite> application example: <a class="reference external" href="https://wxpython.org/pages/overview/">https://wxpython.org/pages/overview/</a></li>
+<li>A more comprehensive <cite>Getting Started</cite> guide: <a class="reference external" href="https://wiki.wxpython.org/Getting%20Started">https://wiki.wxpython.org/Getting%20Started</a></li>
+<li>The wxWidgets home page: <a class="reference external" href="https://www.wxwidgets.org/">https://www.wxwidgets.org/</a></li>
+</ul>
+</dd>
+</dl>
+<p>The wxGlade documentation is intended to be readable without previous wx knowledge.
+It will teach you how to create windows, handle events and how to integrate with your ‘business logic’ code.
+Sooner or later you will have to look into the wx documentation, though.</p>
+<p>If you are new to wx/Python, make sure that you work through this documentation at least up to and including section
+“Create and Use Source Code”.</p>
+<p>Also please note that the <strong>wxPython demo</strong> is probably most important resource for exploring the available controls!
+The demo has examples and example code for most widgets, including the more complicated and powerful ones like the
+grid control.</p>
+<p>If you don’t have the demo, have a look here: <a class="reference external" href="https://extras.wxpython.org/wxPython4/extras/">https://extras.wxpython.org/wxPython4/extras/</a> <br/>
+Go to the subdirectory matching your wxPython version and download the demo archive. <br/>
+Then unpack the archive and run <code class="docutils literal"><span class="pre">demo.py</span></code>.</p>
+</div>
+<div class="section" id="sizers-layout-managers">
+<h2>Sizers (Layout Managers)<a class="headerlink" href="#sizers-layout-managers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>With wxWidgets / wxPython and similar toolkits, usually controls are not placed at pixel positions on their windows, but the layout of a window is managed by <em>sizers</em>.</dt>
+<dd><ul class="first last simple">
+<li>There are <em>horizontal box sizers</em>, <em>vertical box sizers</em> and <em>grid sizers</em>.</li>
+<li>The <em>box sizers</em> may have a label and a box around them. In that case they’re called <em>static box sizers</em>.</li>
+<li>Each sizer and contained sizer items can be fixed size or grow to fill the available space, e.g. when the window is resized.</li>
+<li>Typically in a main window or frame the sizer makes the contents fill the available space, while dialogs will
+be sized to the minimum required space.</li>
+</ul>
+</dd>
+</dl>
+<div class="section" id="sizer-examples">
+<h3>Sizer Examples<a class="headerlink" href="#sizer-examples" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="colwidths-given docutils align-center">
+<colgroup>
+<col width="60%" />
+<col width="40%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><p class="first"><strong>Vertical BoxSizer</strong></p>
+<ul class="last simple">
+<li>This sizer stacks the controls it manages one above the other.</li>
+<li>This example shows three buttons arranged in this way.</li>
+</ul>
+</td>
+<td><a class="reference internal" href="_images/vertical.png"><img alt="vertical" src="_images/vertical.png" style="width: 120px;" /></a></td>
+</tr>
+<tr class="row-even"><td><p class="first"><strong>Horizontal BoxSizer</strong></p>
+<ul class="last simple">
+<li>This sizer arranges its controls alongside of one another.</li>
+<li>This example shows three button arranged in this way.</li>
+</ul>
+</td>
+<td><a class="reference internal" href="_images/horizontal.png"><img alt="horizontal" src="_images/horizontal.png" style="width: 280px;" /></a></td>
+</tr>
+<tr class="row-odd"><td><p class="first"><strong>Allowing controls to grow and/or expand</strong></p>
+<ul class="simple">
+<li>Controls in a horizontal sizer can “grow” horizontally, or “expand” vertically in response to changes in window size.</li>
+<li>In this three button example, using a horizontal BoxSizer:</li>
+</ul>
+<blockquote class="last">
+<div><ul class="simple">
+<li>The middle button has been allowed to grow horizontally.</li>
+<li>The third button has been allowed to expand vertically.</li>
+</ul>
+</div></blockquote>
+</td>
+<td><a class="reference internal" href="_images/horizontal2.png"><img alt="horizontal2" src="_images/horizontal2.png" style="width: 280px;" /></a></td>
+</tr>
+<tr class="row-even"><td><p class="first"><strong>Alignment of controls</strong></p>
+<ul class="simple">
+<li>The alignment of controls within a sizer can also be specified. <br/>
+This example also uses a horizontal BoxSizer to specify that:</li>
+</ul>
+<blockquote class="last">
+<div><ul class="simple">
+<li>The first button is “top” aligned.</li>
+<li>The middle button is “bottom” aligned.</li>
+<li>The third button has been given a border that provides some space around it on all sides.</li>
+</ul>
+</div></blockquote>
+</td>
+<td><a class="reference internal" href="_images/horizontal3.png"><img alt="horizontal3" src="_images/horizontal3.png" style="width: 280px;" /></a></td>
+</tr>
+<tr class="row-odd"><td><p class="first"><strong>StaticBoxSizer</strong></p>
+<ul class="last simple">
+<li>This sizer puts a border around its edges and provides a label to describe its contents.</li>
+<li>In this example, a horizontal StaticBoxSizer has been used to contain the three buttons
+(which have the same properties set as those in the previous example). <br/></li>
+<li>StaticBoxSizers can be either horizontal or vertical, just like their “non-static” equivalents.</li>
+</ul>
+</td>
+<td><a class="reference internal" href="_images/static_horizontal.png"><img alt="static_horizontal" src="_images/static_horizontal.png" style="width: 280px;" /></a></td>
+</tr>
+<tr class="row-even"><td><p class="first"><strong>GridSizer</strong></p>
+<ul class="last simple">
+<li>GridSizers arrange their contained controls in a grid made up of equally sized rows and columns.</li>
+<li>In this example, the grid has been set to two rows and two columns.</li>
+<li>Each cell in the example contains a button, which has been centred in the cell.</li>
+</ul>
+</td>
+<td><a class="reference internal" href="_images/grid1.png"><img alt="grid1" src="_images/grid1.png" style="width: 300px;" /></a></td>
+</tr>
+<tr class="row-odd"><td><p class="first"><strong>Expanding, growing and aligning in a grid cell</strong></p>
+<dl class="last docutils">
+<dt>In this example:</dt>
+<dd><ul class="first last simple">
+<li>The first button has been aligned LEFT.</li>
+<li>The second button has been aligned BOTTOM.</li>
+<li>The third button has been allowed to expand.</li>
+<li>The fourth button has been aligned RIGHT and CENTER.</li>
+</ul>
+</dd>
+</dl>
+</td>
+<td><a class="reference internal" href="_images/grid2.png"><img alt="grid2" src="_images/grid2.png" style="width: 300px;" /></a></td>
+</tr>
+<tr class="row-even"><td><p class="first"><strong>FlexGridSizer</strong></p>
+<ul class="last simple">
+<li>The FlexGridSizer allows a little more flexibility over cell sizes by allowing individual
+rows and columns to grow and/or expand.</li>
+<li>In this example, the first column has been allowed to grow horizontally and
+the second one allowed to grow vertically. <br/>
+Note that this becomes obvious when the window is resized by the user.</li>
+</ul>
+</td>
+<td><a class="reference internal" href="_images/flex_grid.png"><img alt="flex_grid" src="_images/flex_grid.png" style="width: 300px;" /></a></td>
+</tr>
+<tr class="row-odd"><td><p class="first"><strong>GridBagSizer</strong></p>
+<ul class="last simple">
+<li>This example uses a 3x3 grid and five buttons.</li>
+<li>It shows how a GridBagSizer can allow controls to span multiple columns and/or rows.</li>
+<li>All the buttons have their EXPAND property set so that they fill all the space in the cell(s).</li>
+</ul>
+</td>
+<td><a class="reference internal" href="_images/gridbag.png"><img alt="gridbag" src="_images/gridbag.png" style="width: 300px;" /></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="example-application-calculator-window">
+<h3>Example application: Calculator window<a class="headerlink" href="#example-application-calculator-window" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="first last reference internal image-reference" href="_images/Calculator_06_preview.png"><img alt="_images/Calculator_06_preview.png" src="_images/Calculator_06_preview.png" style="width: 200px;" /></a>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This window is managed by <font color="green"> <strong>one vertical box sizer with six slots</strong> </font> for the five rows,
+plus a horizontal line and five <font color="blue"> <strong>horizontal box sizers</strong> </font> for the horizontally arranged controls
+they contain (i.e. label plus text control, label plus radio box or button plus button):</p>
+<table border="1" class="docutils align-center">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>The <em>Design</em> and <em>Preview</em> windows look like this, but without the colored frames for the horizontal and vertical sizers: <br/>
+<a class="reference internal" href="_images/Calculator_06_sizers.png"><img alt="Calculator_06_sizers" class="align-middle" src="_images/Calculator_06_sizers.png" style="width: 200px;" /></a> <br/>
+Each blue frame is a horizontal sizer with two slots each.
+The (invisible) borders between slots are indicated by dashed lines. <br/> <br/>
+The inputs for Value 1 and 2 are set to grow horizontally;
+the Result output is growing horizontally and EXPANDing vertically.</td>
+<td>In the <em>Tree</em> window, you can see the hierarchical structure: <br/>
+<a class="reference internal" href="_images/Calculator_06_tree.png"><img alt="Calculator_06_tree" class="align-middle" src="_images/Calculator_06_tree.png" style="width: 200px;" /></a> <br/> <br/>
+Note that <font color="blue"> horizontal </font> and <font color="green"> vertical </font> sizers are <br/>
+visualized with different icons: <img alt="sizer_h" src="_images/sizer_h.png" /> <img alt="sizer" src="_images/sizer.png" /> .</td>
+</tr>
+</tbody>
+</table>
+<p>Later we’ll have a look at alternative structures which allow better alignment of the fields.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>For your own projects, always use the simplest available sizers.
+Usually you will need mainly box sizers and maybe one or two FlexGridSizers.</li>
+<li>Use nested sizers to match the hierarchical / logical structure of your project. This will make it easy
+to re-arrange things to find the best user interface.</li>
+<li><strong>Never ever try to use a Grid(Bag)Sizer as main sizer</strong> of a window trying to resemble pixel placement or
+Tkinter’s grid geometry manager. This is a mess to create and maintain.
+Actually, a GridBagSizer is rarely needed.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/wxglade.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">wx Basics</a><ul>
+<li><a class="reference internal" href="#concept">Concept</a></li>
+<li><a class="reference internal" href="#sizers-layout-managers">Sizers (Layout Managers)</a><ul>
+<li><a class="reference internal" href="#sizer-examples">Sizer Examples</a></li>
+<li><a class="reference internal" href="#example-application-calculator-window">Example application: Calculator window</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="intro.html"
+                        title="previous chapter">wxGlade Overview and Quick Start</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial.html"
+                        title="next chapter">Tutorial Project: Calculator</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/wxbasics.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial Project: Calculator"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="wxGlade Overview and Quick Start"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">wxGlade 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017-2020, Dietmar Schwertberger.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.4.
+    </div>
+  </body>
+</html>

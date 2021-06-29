@@ -1,0 +1,302 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Custom Widget &#8212; wxGlade 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Menu, Status Bar, Tool Bar" href="menu_status_tool.html" />
+    <link rel="prev" title="Dialogs" href="dialogs.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="menu_status_tool.html" title="Menu, Status Bar, Tool Bar"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="dialogs.html" title="Dialogs"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">wxGlade 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="custom-widget">
+<h1>Custom Widget<a class="headerlink" href="#custom-widget" title="Permalink to this headline">¶</a></h1>
+<p>Sometimes you may want to use a widget that is not supported by wxGlade.</p>
+<p>For this, just insert a CustomWidget <img alt="custom" src="_images/custom.png" /> as placeholder.
+<br/>
+You will be prompted for a class name. In the <em>Design</em> and <em>Preview</em> windows, just a placeholder will be shown.</p>
+<p><strong>E.g. the Properties window to integrate “wx.html.HtmlWindow” could look like this:</strong></p>
+<table border="1" class="colwidths-given docutils align-center">
+<colgroup>
+<col width="40%" />
+<col width="60%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Properties -&gt; Common:</strong> <br/> <br/>
+Property “Instance Class” is the name of the class that will be instantiated. <br/>
+In this example: <span class="guilabel">wx.html.HtmlWindow</span></td>
+<td><a class="reference internal" href="_images/CustomWidgetPropertiesCommon.png"><img alt="Instance class: wx.html.HtmlWindow" class="align-middle" src="_images/CustomWidgetPropertiesCommon.png" style="width: 300px;" /></a></td>
+</tr>
+<tr class="row-even"><td><strong>Properties -&gt; Widget:</strong> <br/> <br/>
+The arguments for instantiation of the class.
+<br/> Usually you will at least enter <span class="guilabel">$parent</span> here.</td>
+<td><a class="reference internal" href="_images/CustomWidgetProperties.png"><img alt="CustomWidgetProperties" class="align-middle" src="_images/CustomWidgetProperties.png" style="width: 300px;" /></a></td>
+</tr>
+<tr class="row-odd"><td><strong>Properties -&gt; Code:</strong> <br/> <br/>
+Enter the import statement here, if required.</td>
+<td><a class="reference internal" href="_images/CustomWidgetPropertiesCode.png"><img alt="import wx.html" class="align-middle" src="_images/CustomWidgetPropertiesCode.png" style="width: 300px;" /></a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>The generated code for this example will look like this:</strong></p>
+<p><strong>Import</strong> statement at the head of the file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># begin wxGlade: extracode</span>
+<span class="kn">import</span> <span class="nn">wx.html</span>
+<span class="c1"># end wxGlade</span>
+</pre></div>
+</div>
+<p><strong>Instantiation</strong> of the class:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">html</span> <span class="o">=</span> <span class="n">wx</span><span class="o">.</span><span class="n">html</span><span class="o">.</span><span class="n">HtmlWindow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">panel_1</span><span class="p">,</span> <span class="n">wx</span><span class="o">.</span><span class="n">ID_ANY</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The Arguments <span class="guilabel">$parent</span> and <span class="guilabel">$id</span> were replaced with the required code. There are two more magic arguments: <span class="guilabel">$width</span> and <span class="guilabel">$height</span>.</p>
+<dl class="docutils">
+<dt>The files can be found in the folder <code class="docutils literal"><span class="pre">wxglade/examples/html</span></code>:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="../../examples/html/html_example.wxg">html_example.wxg</a></li>
+<li><a class="reference external" href="../../examples/html/html_example.py">html_example.py</a></li>
+</ul>
+</dd>
+</dl>
+<div class="section" id="custom-constructor">
+<h2>Custom constructor<a class="headerlink" href="#custom-constructor" title="Permalink to this headline">¶</a></h2>
+<p>For most applications you would probably be more interested in using <code class="code docutils literal"><span class="pre">wx.html2.WebView</span></code> as this will
+display non-trivial HTML, JavaScript and CSS pages.</p>
+<p>See <code class="docutils literal"><span class="pre">wxglade/examples/html2</span></code> for an example application.</p>
+<p>The <code class="code docutils literal"><span class="pre">html2.WebView</span></code> class is a bit special as it is not to be instantiated directly.
+Instead, <code class="code docutils literal"><span class="pre">wx.html2.WebView.New</span></code> is to be called. In the .wxg file this is handled by setting
+<em>Properties -&gt; Widget -&gt; Custom constructor -&gt;</em> to <span class="guilabel">wx.html2.WebView.New</span>.</p>
+</div>
+<div class="section" id="example-matplotlib-matplotlib-canvas-quick-and-dirty">
+<h2>Example ‘matplotlib’: matplotlib canvas, quick and dirty<a class="headerlink" href="#example-matplotlib-matplotlib-canvas-quick-and-dirty" title="Permalink to this headline">¶</a></h2>
+<p>The above example was rather simple to implement as the class <code class="code docutils literal"><span class="pre">ImagePanel</span></code> did not require any extra
+arguments or code. It was just called with the parent window and the default ID as arguments. <br/>
+Sometimes, the widget to be used needs some things to be set up before it can be created. <br/>
+E.g. if you want to use the matplotlib <code class="code docutils literal"><span class="pre">FigureCanvas</span></code>, this needs a <code class="code docutils literal"><span class="pre">Figure</span></code> instance to be created and supplied as argument. To use it from within wxGlade, you may write a wrapper class around it or enter the required extra code in wxGlade.</p>
+<p>This code creates a matplotlib canvas and plots a sine function:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="kn">import</span> <span class="nn">matplotlib</span>
+ <span class="kn">from</span> <span class="nn">matplotlib.figure</span> <span class="k">import</span> <span class="n">Figure</span>
+ <span class="kn">from</span> <span class="nn">matplotlib.backends.backend_wxagg</span> <span class="k">import</span> <span class="n">FigureCanvasWxAgg</span> <span class="k">as</span> <span class="n">FigureCanvas</span>
+
+ <span class="c1"># create the figure with a single plot and create a canvas with the figure</span>
+ <span class="n">figure</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matplotlib_figure</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">()</span>
+ <span class="bp">self</span><span class="o">.</span><span class="n">matplotlib_axes</span> <span class="o">=</span> <span class="n">figure</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>  <span class="c1"># 1x1 grid, first subplot</span>
+ <span class="bp">self</span><span class="o">.</span><span class="n">matplotlib_canvas</span> <span class="o">=</span> <span class="n">FigureCanvas</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">panel_1</span><span class="p">,</span> <span class="n">wx</span><span class="o">.</span><span class="n">ID_ANY</span><span class="p">,</span> <span class="n">figure</span><span class="p">)</span>
+
+<span class="c1"># draw a sine function</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">matplotlib_axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="c1"># show the plot</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">matplotlib_canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This example shows how to use the wxGlade CustomWidget <img alt="custom" src="_images/custom.png" /> to include a matplotlib canvas in your application:</p>
+<table border="1" class="colwidths-given docutils align-center">
+<colgroup>
+<col width="40%" />
+<col width="60%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Properties -&gt; Common:</strong> <br/> <br/>
+The class <span class="guilabel">FigureCanvas</span> will be instantiated.</td>
+<td><a class="reference internal" href="_images/matplotlib_class.png"><img alt="Instance class: FigureCanvas" class="align-middle" src="_images/matplotlib_class.png" style="width: 460px;" /></a></td>
+</tr>
+<tr class="row-even"><td><strong>Properties -&gt; Widget:</strong> <br/> <br/>
+The class will be instantiated with the arguments <span class="guilabel">$parent</span>, <span class="guilabel">$id</span> and <span class="guilabel">figure</span>. <br/>
+The argument <span class="guilabel">figure</span> is non-standard.
+It will be defined in <em>Properties</em> -&gt; Code.</td>
+<td><a class="reference internal" href="_images/matplotlib_arguments.png"><img alt="Class instantiation arguments" class="align-middle" src="_images/matplotlib_arguments.png" style="width: 460px;" /></a></td>
+</tr>
+<tr class="row-odd"><td><strong>Properties -&gt; Code:</strong> <br/> <br/>
+The import statement will make the required classes and modules available on module level. <br/> <br/>
+Right before class instantiation, a Figure instance with a single subplot will be created.</td>
+<td><a class="reference internal" href="_images/matplotlib_code.png"><img alt="extra import and setup code" class="align-middle" src="_images/matplotlib_code.png" style="width: 460px;" /></a></td>
+</tr>
+<tr class="row-even"><td><strong>Result:</strong> <br/> <br/>
+The Python file has a very basic function plotter in it’s event handler for the “Plot” button.</td>
+<td><a class="reference internal" href="_images/matplotlib_screenshot.png"><img alt="the running application" class="align-middle" src="_images/matplotlib_screenshot.png" style="width: 320px;" /></a></td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>The files can be found in the folder <code class="docutils literal"><span class="pre">wxglade/examples/matplotlib</span></code>:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="../../examples/matplotlib/matplotlib_example.wxg">matplotlib_example.wxg</a></li>
+<li><a class="reference external" href="../../examples/matplotlib/matplotlib_example.py">matplotlib_example.py</a></li>
+</ul>
+</dd>
+</dl>
+<p>To run the example, you need to have numpy and matplotlib installed, of course.</p>
+<p>The above approach is OK for a quick &amp; dirty prototype. The advantage is that all code is contained within wxGlade
+and therefore you may just copy it from one project or window to another.</p>
+<p>Once things get more complex, it’s better to implement a custom class which does not require such extra code.
+The resulting code will be cleaner and also easier to maintain and extend.</p>
+</div>
+<div class="section" id="example-matplotlib2-matplotlib-canvas-well-structured">
+<h2>Example ‘matplotlib2’: matplotlib canvas, well structured<a class="headerlink" href="#example-matplotlib2-matplotlib-canvas-well-structured" title="Permalink to this headline">¶</a></h2>
+<p>This example has the same functionality, but shows how the code can be structured in a more readable and maintainable way.</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">matplotlib_canvas.py</span></code>: a class <code class="code docutils literal"><span class="pre">MatplotlibCanvas</span></code> as layer between <code class="code docutils literal"><span class="pre">Matplotlib.FigureCanvas</span></code></li>
+<li><code class="docutils literal"><span class="pre">matplotlib_GUI.py</span></code>: the GUI code, generated from wxGlade file <code class="docutils literal"><span class="pre">matplotlib_GUI.wxg</span></code></li>
+<li><code class="docutils literal"><span class="pre">matplotlib_example.py</span></code>: the main file with the <cite>business logic</cite></li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
+<dt>The files can be found in the folder <code class="docutils literal"><span class="pre">wxglade/examples/matplotlib2</span></code>:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="../../examples/matplotlib2/matplotlib_canvas.wxg">matplotlib_canvas.wxg</a></li>
+<li><a class="reference external" href="../../examples/matplotlib2/matplotlib_GUI.py">matplotlib_GUI.py</a></li>
+<li><a class="reference external" href="../../examples/matplotlib2/matplotlib_GUI.wxg">matplotlib_GUI.wxg</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="example-matplotlib3-matplotlib-canvas-comprehensive-embedding-example">
+<h2>Example ‘matplotlib3’: matplotlib canvas, comprehensive embedding example<a class="headerlink" href="#example-matplotlib3-matplotlib-canvas-comprehensive-embedding-example" title="Permalink to this headline">¶</a></h2>
+<p>This example shows most of the building blocks that you will need for integration of a Matplotlib canvas.</p>
+<p>It shows how to plot and draw, zoom and drag, select items, export images and so on.
+It shows also how to draw graphics primitives like lines or circles on the whole canvas, i.e without plot axes.</p>
+<p>This example is only for Python 3 and Matplotlib versions &gt;=2.2.</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">matplotlib_canvas.py</span></code>: a class <code class="code docutils literal"><span class="pre">MatplotlibCanvas</span></code> as layer between <code class="code docutils literal"><span class="pre">Matplotlib.FigureCanvas</span></code></li>
+<li><code class="docutils literal"><span class="pre">matplotlib_GUI.py</span></code>: the GUI code, generated from wxGlade file <code class="docutils literal"><span class="pre">matplotlib_GUI.wxg</span></code></li>
+<li><code class="docutils literal"><span class="pre">matplotlib_example.py</span></code>: the main file with the <cite>business logic</cite></li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
+<dt>The files can be found in the folder <code class="docutils literal"><span class="pre">wxglade/examples/matplotlib2</span></code>:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="../../examples/matplotlib3/matplotlib_canvas.wxg">matplotlib_canvas.wxg</a></li>
+<li><a class="reference external" href="../../examples/matplotlib3/matplotlib_GUI.py">matplotlib_GUI.py</a></li>
+<li><a class="reference external" href="../../examples/matplotlib3/matplotlib_GUI.wxg">matplotlib_GUI.wxg</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="more-examples">
+<h2>More Examples<a class="headerlink" href="#more-examples" title="Permalink to this headline">¶</a></h2>
+<p>In subfolders of <code class="docutils literal"><span class="pre">wxglade/examples/matplotlib2</span></code> there are more examples:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">html2</span></code>: use <code class="code docutils literal"><span class="pre">wx.html2.WebView</span></code> to display HTML with Javascript and CSS (not available on wxPython 2.8)</li>
+<li><code class="docutils literal"><span class="pre">lib_plot</span></code>: use <code class="code docutils literal"><span class="pre">wx.lib.plot.PlotCanvas</span></code> for plotting</li>
+<li><code class="docutils literal"><span class="pre">SpeedMeter</span></code>: demonstrate <code class="code docutils literal"><span class="pre">wx.lib.agw.speedmeter.SpeedMeter</span></code></li>
+<li><code class="docutils literal"><span class="pre">py_shell</span></code>: show how to embed a Python shell <code class="code docutils literal"><span class="pre">wx.py.shell.Shell</span></code></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/wxglade.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Custom Widget</a><ul>
+<li><a class="reference internal" href="#custom-constructor">Custom constructor</a></li>
+<li><a class="reference internal" href="#example-matplotlib-matplotlib-canvas-quick-and-dirty">Example ‘matplotlib’: matplotlib canvas, quick and dirty</a></li>
+<li><a class="reference internal" href="#example-matplotlib2-matplotlib-canvas-well-structured">Example ‘matplotlib2’: matplotlib canvas, well structured</a></li>
+<li><a class="reference internal" href="#example-matplotlib3-matplotlib-canvas-comprehensive-embedding-example">Example ‘matplotlib3’: matplotlib canvas, comprehensive embedding example</a></li>
+<li><a class="reference internal" href="#more-examples">More Examples</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="dialogs.html"
+                        title="previous chapter">Dialogs</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="menu_status_tool.html"
+                        title="next chapter">Menu, Status Bar, Tool Bar</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/custom_widgets.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="menu_status_tool.html" title="Menu, Status Bar, Tool Bar"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="dialogs.html" title="Dialogs"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">wxGlade 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017-2020, Dietmar Schwertberger.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.4.
+    </div>
+  </body>
+</html>

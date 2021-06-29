@@ -1,0 +1,37 @@
+# Files to be ignored by git
+
+**.pyc
+**.pyo
+**~
+
+
+# build related directories
+bdist
+build
+dist
+/wxGlade.egg-info
+
+# build related files
+logdict*.log
+warnwxglade.txt
+MANIFEST
+
+# wxGlade log file
+wxglade.log
+
+# IDE project files
+.idea
+.ropeproject
+*.wpr
+
+# automatically generated version file
+version.py
+wxgladeDS.py
+/tests/generated/*
+sphinx/images/*.*
+docs/doctrees/*.*
+docs/html/_sources/*.*
+/tests/test_bugs_new_38-64.py
+/tests/test_gui_new_38-64.py
+*.xpm
+*.xcf
