@@ -587,7 +587,7 @@ proc vTcl:analyze_existing_support_module {} {
 }
 
 proc vTcl:get_import_name { } {
-    # Builds the வேர் name of the support module for use in generating
+    # Builds the root name of the support module for use in generating
     # skeletal functions.
     global vTcl
     set t [file tail $vTcl(project,file)]
@@ -646,10 +646,10 @@ $vTcl(tab)py3 = True
     append source \
 "
 def init(top, gui, *args, **kwargs):
-$vTcl(tab)global w, top_level, வேர்
+$vTcl(tab)global w, top_level, root
 $vTcl(tab)w = gui
 $vTcl(tab)top_level = top
-$vTcl(tab)வேர் = top
+$vTcl(tab)root = top
 "
 
     # Create code for the functions needed.  NEEDS WORK: Consider

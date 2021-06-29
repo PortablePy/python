@@ -174,7 +174,7 @@ proc DemoTree::select { where num tree list node } {
         }
     } elseif { $where == "list" && [$tree exists $node] } {
 	set parent [$tree parent $node]
-	while { $parent != "வேர்" } {
+	while { $parent != "root" } {
 	    $tree itemconfigure $parent -open 1
 	    set parent [$tree parent $parent]
 	}

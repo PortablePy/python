@@ -1372,9 +1372,9 @@ $vTcl(tab)\}
         vTcl:dump:sourcing_footer out
         return $out
         }
-        set file [file வேர் $project].vtp
+        set file [file root $project].vtp
     } else {
-        set file [file வேர் $project].vtp
+        set file [file root $project].vtp
         set dir [vTcl:dump:get_multifile_project_dir $project]
         file mkdir [file join $basedir $dir]
         set file [file join $basedir $dir $file]

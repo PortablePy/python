@@ -21,18 +21,18 @@ import lib_demo_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, வேர்
-    வேர் = Tk()
-    top = Library_Demo (வேர்)
-    lib_demo_support.init(வேர், top)
-    வேர்.mainloop()
+    global val, w, root
+    root = Tk()
+    top = Library_Demo (root)
+    lib_demo_support.init(root, top)
+    root.mainloop()
 
 w = None
-def create_Library_Demo(வேர், *args, **kwargs):
+def create_Library_Demo(root, *args, **kwargs):
     '''Starting point when module is imported by another program.'''
     global w, w_win, rt
-    rt = வேர்
-    w = Toplevel (வேர்)
+    rt = root
+    w = Toplevel (root)
     top = Library_Demo (w)
     lib_demo_support.init(w, top, *args, **kwargs)
     return (w, top)
@@ -129,7 +129,7 @@ class Library_Demo:
             " roman -underline 0 -overstrike 0"
         font9 = "-family {DejaVu Sans Mono} -size 14 -weight normal "  \
             "-slant roman -underline 0 -overstrike 0"
-        Popupmenu1 = Menu(வேர், tearoff=0)
+        Popupmenu1 = Menu(root, tearoff=0)
         Popupmenu1.configure(activebackground="#ffffcd")
         Popupmenu1.configure(background="#f5deb3")
         Popupmenu1.configure(disabledforeground="#b8a786")

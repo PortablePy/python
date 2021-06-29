@@ -759,7 +759,7 @@ proc TtkWidget {val} {TtkWidget479,12132
 
 
 menu.tcl,497
-proc vTcl:menu:insert {menu name {வேர் ""}} {vTcl:menu:insert188,7981
+proc vTcl:menu:insert {menu name {root ""}} {vTcl:menu:insert188,7981
 proc vTcl:initRcFileMenu {} {vTcl:initRcFileMenu236,9714
 proc vTcl:addRcFile {file} {vTcl:addRcFile248,10011
 proc vTcl:updateRcFileMenu {} {vTcl:updateRcFileMenu258,10279
@@ -860,7 +860,7 @@ proc vTcl:split_geom {geom} {vTcl:split_geom1043,31580
 proc vTcl:get_win_position {w} {vTcl:get_win_position1051,31824
 proc ::vTcl::lremove {varName args} {::vTcl::lremove1056,31949
 proc lempty {list} {lempty1070,32283
-proc vTcl:namespace_tree {{வேர் "::"}} {vTcl:namespace_tree1084,32652
+proc vTcl:namespace_tree {{root "::"}} {vTcl:namespace_tree1084,32652
 proc vTcl:copy_widgetname {} {vTcl:copy_widgetname1099,32959
 proc echo {args} {echo1103,33040
 proc incr0 {varName {num 1}} {incr01107,33087
@@ -1180,7 +1180,7 @@ proc vTcl:active_widget {target} {vTcl:active_widget212,6305
 proc vTcl:select_widget {target} {vTcl:select_widget283,9123
 proc vTcl:widget_tree {target {include_target 1}} {vTcl:widget_tree322,10344
 proc vTcl:list_widget_tree {target {which ""} {include_menus 0} \vTcl:list_widget_tree360,11414
-proc vTcl:complete_widget_tree {{வேர் .} {wantsdiff 1}} {vTcl:complete_widget_tree395,12631
+proc vTcl:complete_widget_tree {{root .} {wantsdiff 1}} {vTcl:complete_widget_tree395,12631
 proc vTcl:split_info {target} {vTcl:split_info427,13614
 proc vTcl:split_wm_info {target} {vTcl:split_wm_info466,14728
 proc vTcl:get_grid_stickies {sticky} {vTcl:get_grid_stickies515,16756
@@ -1224,13 +1224,13 @@ proc vTcl:widget:remove_unregistered_widgets {{w .}} {vTcl:widget:remove_unregi
 proc vTcl:widget:register_all_widgets {{w .}} {vTcl:widget:register_all_widgets2039,69702
     proc saveOptions {w optionName} {saveOptions2048,69898
     proc saveSubOptions {w args} {saveSubOptions2060,70271
-    proc iterateCompleteWidgetTree {வேர் actionProc actionParam returnVal} {iterateCompleteWidgetTree2078,70810
+    proc iterateCompleteWidgetTree {root actionProc actionParam returnVal} {iterateCompleteWidgetTree2078,70810
     proc getClasses {w args} {getClasses2086,71100
-    proc usedClasses {வேர்} {usedClasses2098,71499
+    proc usedClasses {root} {usedClasses2098,71499
     proc getLibrary {w arg} {getLibrary2110,71815
-    proc usedLibraries {வேர்} {usedLibraries2116,71975
+    proc usedLibraries {root} {usedLibraries2116,71975
     proc loadedLibraries {} {loadedLibraries2130,72391
     proc verifyLibraries {libraries} {verifyLibraries2136,72562
     proc queryInsertOptions {class addOptions refOptions} {queryInsertOptions2148,72928
     proc getResources {w resourceType} {getResources2162,73420
-    proc usedResources {வேர் resourceType} {usedResources2194,74455
+    proc usedResources {root resourceType} {usedResources2194,74455

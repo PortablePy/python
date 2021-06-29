@@ -334,7 +334,7 @@ proc vTcl:open {{file ""} {title "Open Project"}} {
     ## Rozen. I don't expect to find one!
     set basedir [file dir $file]
     set multidir [vTcl:dump:get_multifile_project_dir $vTcl(project,name)]
-    set file [file வேர் $vTcl(project,name)].vtp
+    set file [file root $vTcl(project,name)].vtp
     if {[file exists [file join $basedir $file]]} {
         source [file join $basedir $file]
     } elseif {[file exists [file join $basedir $multidir $file]]} {

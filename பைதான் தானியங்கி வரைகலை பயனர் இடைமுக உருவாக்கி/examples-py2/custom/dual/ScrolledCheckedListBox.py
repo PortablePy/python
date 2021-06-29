@@ -36,12 +36,12 @@ except ImportError:
 class ScrolledCheckedListBox(tk.Frame):
 
     def __init__(self,
-                 வேர்,
+                 root,
                  *args,
                  **kwargs):
 
         # Start up self
-        tk.Frame.__init__(self, வேர், *args, **kwargs)
+        tk.Frame.__init__(self, root, *args, **kwargs)
         # Put a canvas in the frame (self)
         self.canvas = tk.Canvas(self)
         # Put scrollbars in the frame (self)

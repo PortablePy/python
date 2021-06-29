@@ -44,10 +44,10 @@ def close():
     destroy_window()
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, வேர்
+    global w, top_level, root
     w = gui
     top_level = top
-    வேர் = top
+    root = top
     greeting.set(args[0])
     t.set(100)
 

@@ -21,18 +21,18 @@ import complex_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, வேர்
-    வேர் = Tk()
-    top = Complex_Example (வேர்)
-    complex_support.init(வேர், top)
-    வேர்.mainloop()
+    global val, w, root
+    root = Tk()
+    top = Complex_Example (root)
+    complex_support.init(root, top)
+    root.mainloop()
 
 w = None
-def create_Complex_Example(வேர், *args, **kwargs):
+def create_Complex_Example(root, *args, **kwargs):
     '''Starting point when module is imported by another program.'''
     global w, w_win, rt
-    rt = வேர்
-    w = Toplevel (வேர்)
+    rt = root
+    w = Toplevel (root)
     top = Complex_Example (w)
     complex_support.init(w, top, *args, **kwargs)
     return (w, top)

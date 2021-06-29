@@ -21,16 +21,16 @@ except ImportError:
 import middle
 
 def open_middle():
-    middle.create_middle(வேர்)
+    middle.create_middle(root)
 
 def quit():
     sys.exit()
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, வேர்
+    global w, top_level, root
     w = gui
     top_level = top
-    வேர் = top
+    root = top
 
 def destroy_window():
     # Function which closes the window.

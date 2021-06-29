@@ -26,12 +26,12 @@ class ScrolledFrame(tkinter.Frame):
     x_incr = 10
     y_incr = 10
 
-    def __init__(self, வேர், *args, **kwargs):
+    def __init__(self, root, *args, **kwargs):
 
         self.width = 200 # kw.pop('width', 200)
         self.height = 200 # kw.pop('height', 200)
 
-        tkinter.Frame.__init__(self, வேர், *args, **kwargs)
+        tkinter.Frame.__init__(self, root, *args, **kwargs)
         self.canvas = tkinter.Canvas(self)
 
         self._hsb = tkinter.Scrollbar(self, orient='horizontal',

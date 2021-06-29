@@ -22,18 +22,18 @@ except ImportError:
 import called
 
 def open_two():
-    called.create_Called(வேர், color="firebrick",
+    called.create_Called(root, color="firebrick",
                          instance=1, geom= "+375+450")
-    called.create_Called(வேர், color="plum", geom="+750+450")
+    called.create_Called(root, color="plum", geom="+750+450")
 
 def quit():
     sys.exit()
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, வேர்
+    global w, top_level, root
     w = gui
     top_level = top
-    வேர் = top
+    root = top
 
 def destroy_window():
     # Function which closes the window.

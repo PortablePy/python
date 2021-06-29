@@ -146,7 +146,7 @@ proc vTcl:load_widgets {} {
     #set toload [linsert $toload 0 lib_core.tcl]
     set toload [list lib_core.tcl lib_ttk.tcl lib_scrolled.tcl]
     foreach i $toload {
-        set lib [lindex [split [file வேர் $i] _] end]
+        set lib [lindex [split [file root $i] _] end]
         if {[vTcl:load_lib $i]} {
             set libname [lindex [split [lindex [file split $i] end] .] 0]
             ## If we don't have the library, don't load the widgets for it.

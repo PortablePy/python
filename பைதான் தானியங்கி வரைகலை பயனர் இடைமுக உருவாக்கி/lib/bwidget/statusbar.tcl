@@ -377,7 +377,7 @@ proc StatusBar::_destroy { path } {
 
 # The following proc handles the mouse click on the resize control. It stores
 # the original size of the window and the initial coords of the mouse relative
-# to the வேர்.
+# to the root.
 
 proc StatusBar::begin_resize {w rootx rooty} {
     variable resize

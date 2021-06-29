@@ -23,21 +23,21 @@ import called_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, வேர்
-    வேர் = tk.Tk()
+    global val, w, root
+    root = tk.Tk()
     called_support.set_Tk_var()
-    top = Called (வேர்)
-    called_support.init(வேர், top)
-    வேர்.mainloop()
+    top = Called (root)
+    called_support.init(root, top)
+    root.mainloop()
 
 w = None
 def create_Called(rt, *args, **kwargs):
     '''Starting point when module is imported by another module.
-       Correct form of call: 'create_Called(வேர், *args, **kwargs)' .'''
-    global w, w_win, வேர்
-    #rt = வேர்
-    வேர் = rt
-    w = tk.Toplevel (வேர்)
+       Correct form of call: 'create_Called(root, *args, **kwargs)' .'''
+    global w, w_win, root
+    #rt = root
+    root = rt
+    w = tk.Toplevel (root)
     called_support.set_Tk_var()
     top = Called (w)
     called_support.init(w, top, *args, **kwargs)
@@ -71,7 +71,7 @@ class Called:
         self.Button1.place(relx=0.249, rely=0.251, height=40, width=167)
         self.Button1.configure(activebackground="#f4bcb2")
         self.Button1.configure(background="wheat")
-        self.Button1.configure(command=lambda:called_support.create_called(வேர்))
+        self.Button1.configure(command=lambda:called_support.create_called(root))
         self.Button1.configure(disabledforeground="#b8a786")
         self.Button1.configure(font="-family {DejaVu Sans} -size 16")
         self.Button1.configure(highlightbackground="wheat")

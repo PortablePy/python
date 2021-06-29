@@ -62,10 +62,10 @@ def zoom_out(p1):
     sys.stdout.flush()
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, வேர்
+    global w, top_level, root
     w = gui
     top_level = top
-    வேர் = top
+    root = top
     display_buttons()
 
 def destroy_window():
@@ -91,7 +91,7 @@ def display_buttons():
    global pict, label
    pict = {}
    label = {}
-   வேர்.update_idletasks()
+   root.update_idletasks()
    frame_width = w.Custom1.window_width()
    no_thumbnails_per_row = frame_width // width
 

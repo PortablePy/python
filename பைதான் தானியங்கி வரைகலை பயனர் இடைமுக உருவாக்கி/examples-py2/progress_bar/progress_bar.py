@@ -21,19 +21,19 @@ import progress_bar_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, வேர்
-    வேர் = Tk()
+    global val, w, root
+    root = Tk()
     progress_bar_support.set_Tk_var()
-    top = Progress_Bar (வேர்)
-    progress_bar_support.init(வேர், top)
-    வேர்.mainloop()
+    top = Progress_Bar (root)
+    progress_bar_support.init(root, top)
+    root.mainloop()
 
 w = None
-def create_Progress_Bar(வேர், *args, **kwargs):
+def create_Progress_Bar(root, *args, **kwargs):
     '''Starting point when module is imported by another program.'''
     global w, w_win, rt
-    rt = வேர்
-    w = Toplevel (வேர்)
+    rt = root
+    w = Toplevel (root)
     progress_bar_support.set_Tk_var()
     top = Progress_Bar (w)
     progress_bar_support.init(w, top, *args, **kwargs)

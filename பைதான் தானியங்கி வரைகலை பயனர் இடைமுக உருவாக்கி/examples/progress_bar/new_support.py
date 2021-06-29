@@ -24,10 +24,10 @@ import progress_bar
 import globals
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, வேர்
+    global w, top_level, root
     w = gui
     top_level = top
-    வேர் = top
+    root = top
 
 def advance():
     global bar, bar_value
@@ -35,8 +35,8 @@ def advance():
     if not progress_bar.w:
         print("creating progress bar")
         # If the progress bar has not been previously created,
-        # create it; note the parameter 'வேர்'.
-        bar = progress_bar.create_Progress_Bar(வேர்)
+        # create it; note the parameter 'root'.
+        bar = progress_bar.create_Progress_Bar(root)
         # The above gives us access to functions and attributes of
         # the progress_bar object.
         bar_value = globals.prog_var.get() / float(100)
@@ -46,7 +46,7 @@ def advance():
         bar_value += 0.2
         print ("Value to display: %f" % bar_value)
         globals.prog_var.set(int(bar_value*100))
-        வேர்.update() # This updates Tk for both this and the progress_bar.
+        root.update() # This updates Tk for both this and the progress_bar.
     if bar_value >= 1.0:
         time.sleep(1)        # Wait one second and then kill the progress bar
         #globals.destroy_window()

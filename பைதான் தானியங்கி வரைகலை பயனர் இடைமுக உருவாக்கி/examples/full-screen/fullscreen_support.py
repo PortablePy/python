@@ -22,7 +22,7 @@ except ImportError:
     py3 = True
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, வேர்
+    global w, top_level, root
     global fullScreenState
     w = gui
     top_level = top

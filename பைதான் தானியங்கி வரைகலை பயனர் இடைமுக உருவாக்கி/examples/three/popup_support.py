@@ -50,11 +50,11 @@ def this():
     sys.stdout.flush()
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, வேர்
+    global w, top_level, root
     w = gui
     top_level = top
-    வேர் = top
-    print("popup: init: வேர் = %s" % வேர்)
+    root = top
+    print("popup: init: root = %s" % root)
     
 def destroy_window():
     # Function which closes the window.

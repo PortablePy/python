@@ -41,10 +41,10 @@ def set_Tk_var():
 
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, வேர்
+    global w, top_level, root
     w = gui
     top_level = top
-    வேர் = top
+    root = top
     # ======================================================
     # My init code starts...
     # ======================================================
@@ -54,7 +54,7 @@ def init(top, gui, *args, **kwargs):
     LblStat = w.Label5
     LblStat.configure(background='RED')
     global comm1
-    comm1 = வேர்.after(0, on_tick)
+    comm1 = root.after(0, on_tick)
 
 
 def on_tick():
@@ -69,7 +69,7 @@ def on_tick():
     elif shared.child_active == False:
         LblStat.configure(background='RED')
 
-    comm1 = வேர்.after(100, on_tick)
+    comm1 = root.after(100, on_tick)
 
 
 def on_btnExit():
@@ -81,7 +81,7 @@ def on_btnExit():
 def on_btnLaunch():
     # print('parent_support.on_btnLaunch')
     # sys.stdout.flush()
-    child.create_Toplevel1(வேர்)
+    child.create_Toplevel1(root)
 
 
 def destroy_window():

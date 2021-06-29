@@ -28,10 +28,10 @@ import progress_bar_support # To allow reference to Tkinter variables
                              # defined in progress_bar_support.
 
 def init(top, gui):
-    global w, top_level, வேர்
+    global w, top_level, root
     w = gui
     top_level = top
-    வேர் = top
+    root = top
 
 def destroy_window ():
     # Function which closes the window.
@@ -43,8 +43,8 @@ def advance():
     global bar, bar_value
     if not progress_bar_support.top_level:
         # If the progress bar has not been previously created,
-        # create it; note the parameter 'வேர்'.
-        bar = progress_bar.create_Progress_Bar(வேர்)
+        # create it; note the parameter 'root'.
+        bar = progress_bar.create_Progress_Bar(root)
         # The above gives us access to functions and attributes of
         # the progress_bar object.
         bar_value = progress_bar_support.prog_var.get() / float(100)
@@ -52,7 +52,7 @@ def advance():
     if bar_value < 1.0:
         bar_value += 0.2
         progress_bar_support.update(bar_value)
-        வேர்.update() # This updates Tk for both this and the progress_bar.
+        root.update() # This updates Tk for both this and the progress_bar.
     if bar_value >= 1.0:
         time.sleep(1)     # Wait one second and then kill the progress bar.
         progress_bar_support.close()

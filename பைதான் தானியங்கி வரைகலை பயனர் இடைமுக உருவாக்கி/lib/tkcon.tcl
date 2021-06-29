@@ -195,7 +195,7 @@ proc ::tkcon::Init {args} {
 
     docs        "http://tkcon.sourceforge.net/"
     email       {jeff(a)hobbs(.)org}
-    வேர்        .
+    root        .
     uid     0
     tabs        {}
     } {
@@ -242,8 +242,8 @@ proc ::tkcon::Init {args} {
 
     ## If we are using the default '.' toplevel, and there appear to be
     ## children of '.', then make sure we use a disassociated toplevel.
-    if {$PRIV(வேர்) == "." && [llength [winfo children .]]} {
-    set PRIV(வேர்) .tkcon
+    if {$PRIV(root) == "." && [llength [winfo children .]]} {
+    set PRIV(root) .tkcon
     }
 
     ## Do platform specific configuration here, other than defaults
@@ -329,7 +329,7 @@ proc ::tkcon::Init {args} {
         -package - -load    { lappend OPT(autoload) $val }
         -slave      { append OPT(slaveeval) \n$val\n }
         -nontcl     { set OPT(nontcl) [regexp -nocase $truth $val]}
-        -வேர்       { set PRIV(வேர்) $val }
+        -root       { set PRIV(root) $val }
         -font       { set OPT(font) $val }
         -rcfile {}
         default { lappend slaveargs $arg; incr i -1 }
@@ -561,8 +561,8 @@ proc ::tkcon::InitInterp {name type} {
 
 ## ::tkcon::InitUI - inits UI portion (console) of tkcon
 ## Creates all elements of the console window and sets up the text tags
-# ARGS: வேர்    - widget pathname of the tkcon console வேர்
-#   title   - title for the console வேர் and main (.) windows
+# ARGS: root    - widget pathname of the tkcon console root
+#   title   - title for the console root and main (.) windows
 # Calls:    ::tkcon::InitMenus, ::tkcon::Prompt
 ##
 proc ::tkcon::InitUI {title} {
@@ -570,11 +570,11 @@ proc ::tkcon::InitUI {title} {
     variable PRIV
     variable COLOR
 
-    set வேர் $PRIV(வேர்)
-    if {[string match . $வேர்]} { set w {} } else { set w [toplevel $வேர்] }
+    set root $PRIV(root)
+    if {[string match . $root]} { set w {} } else { set w [toplevel $root] }
     if {!$PRIV(WWW)} {
-    wm withdraw $வேர்
-    wm protocol $வேர் WM_DELETE_WINDOW $PRIV(protocol)
+    wm withdraw $root
+    wm protocol $root WM_DELETE_WINDOW $PRIV(protocol)
     }
     set PRIV(base) $w
 
@@ -610,8 +610,8 @@ proc ::tkcon::InitUI {title} {
 
     # Only apply this for the first console
     $con configure -setgrid 1 -width $OPT(cols) -height $OPT(rows)
-    bind $PRIV(வேர்) <Configure> {
-    if {"%W" == $::tkcon::PRIV(வேர்)} {
+    bind $PRIV(root) <Configure> {
+    if {"%W" == $::tkcon::PRIV(root)} {
         scan [wm geometry [winfo toplevel %W]] "%%dx%%d" \
         ::tkcon::OPT(cols) ::tkcon::OPT(rows)
         if {[info exists ::tkcon::EXP(spawn_id)]} {
@@ -641,23 +641,23 @@ proc ::tkcon::InitUI {title} {
     Bindings
 
     if {$OPT(showmenu)} {
-    $வேர் configure -menu $PRIV(menubar)
+    $root configure -menu $PRIV(menubar)
     }
 
     grid $con  -row 1 -column 1 -sticky news
     grid $sy   -row 1 -column [expr {$OPT(scrollypos)=="left"?0:2}] -sticky ns
     grid $sbar -row 2 -column 0 -columnspan 3 -sticky ew
 
-    grid columnconfigure $வேர் 1 -weight 1
-    grid rowconfigure    $வேர் 1 -weight 1
+    grid columnconfigure $root 1 -weight 1
+    grid rowconfigure    $root 1 -weight 1
 
     if {!$OPT(showstatusbar)} {
     grid remove $sbar
     }
 
     if {!$PRIV(WWW)} {
-    wm title $வேர் "tkcon $PRIV(version) $title"
-    if {$PRIV(showOnStartup)} { wm deiconify $வேர் }
+    wm title $root "tkcon $PRIV(version) $title"
+    if {$PRIV(showOnStartup)} { wm deiconify $root }
     }
     if {$PRIV(showOnStartup)} { focus -force $PRIV(console) }
     if {$OPT(gc-delay)} {
@@ -694,7 +694,7 @@ proc ::tkcon::InitTab {w} {
     $con configure -font tkconfixed
     }
     set OPT(font) [$con cget -font]
-    bindtags $con [list $con TkConsole TkConsolePost $PRIV(வேர்) all]
+    bindtags $con [list $con TkConsole TkConsolePost $PRIV(root) all]
 
     # scrollbar
     if {!$PRIV(WWW)} {
@@ -714,7 +714,7 @@ proc ::tkcon::InitTab {w} {
         set OPT(rows) [expr {($sh / $ch) - 3}]
         }
         # Place it so that the titlebar underlaps the CE titlebar
-        wm geometry $PRIV(வேர்) +0+0
+        wm geometry $PRIV(root) +0+0
     }
     }
     $con configure -height $OPT(rows) -width $OPT(cols)
@@ -1339,8 +1339,8 @@ proc ::tkcon::About {} {
     global tk_patchLevel tcl_patchLevel tcl_version
     toplevel $w
     wm withdraw $w
-    wm transient $w $PRIV(வேர்)
-    wm group $w $PRIV(வேர்)
+    wm transient $w $PRIV(root)
+    wm group $w $PRIV(root)
     wm title $w "About tkcon v$PRIV(version)"
     button $w.b -text Dismiss -command [list wm withdraw $w]
     text $w.text -height 9 -bd 1 -width 60 \
@@ -1522,7 +1522,7 @@ proc ::tkcon::InitMenus {w title} {
         -underline 0 -variable ::tkcon::OPT(showmultiple)
     $m add check -label "Show Menubar" \
         -underline 5 -variable ::tkcon::OPT(showmenu) \
-        -command {$::tkcon::PRIV(வேர்) configure -menu [expr \
+        -command {$::tkcon::PRIV(root) configure -menu [expr \
         {$::tkcon::OPT(showmenu) ? $::tkcon::PRIV(menubar) : {}}]}
     $m add check -label "Show Statusbar" \
         -underline 5 -variable ::tkcon::OPT(showstatusbar) \
@@ -1675,8 +1675,8 @@ proc ::tkcon::InterpPkgs {app type} {
     toplevel $t
     wm withdraw $t
     wm title $t "$app Packages"
-    wm transient $t $PRIV(வேர்)
-    wm group $t $PRIV(வேர்)
+    wm transient $t $PRIV(root)
+    wm group $t $PRIV(root)
     bind $t <Escape> [list destroy $t]
 
     label $t.ll -text "Loadable:" -anchor w
@@ -2254,8 +2254,8 @@ proc ::tkcon::NewSocket {} {
     grid configure $t.ok -padx 4 -pady 2
     grid columnconfig $t 1 -weight 1
     grid rowconfigure $t 1 -weight 1
-    wm transient $t $PRIV(வேர்)
-    wm group $t $PRIV(வேர்)
+    wm transient $t $PRIV(root)
+    wm group $t $PRIV(root)
     wm geometry $t +[expr {([winfo screenwidth $t]-[winfo \
         reqwidth $t]) / 2}]+[expr {([winfo \
         screenheight $t]-[winfo reqheight $t]) / 2}]
@@ -2448,7 +2448,7 @@ proc ::tkcon::MainInit {} {
     if {[llength $PRIV(interps)] == 1} { exit }
     if {"" == $slave} {
         ## Main interpreter close request
-        if {[tk_messageBox -parent $PRIV(வேர்) -title "Quit tkcon?" \
+        if {[tk_messageBox -parent $PRIV(root) -title "Quit tkcon?" \
              -message "Close all windows and exit tkcon?" \
              -icon question -type yesno] == "yes"} { exit }
         return
@@ -2571,7 +2571,7 @@ proc ::tkcon::MainInit {} {
         grid $t.ok   -   -sticky ew
         grid columnconfig $t 1 -weight 1
         grid rowconfigure $t 1 -weight 1
-        wm transient $t $PRIV(வேர்)
+        wm transient $t $PRIV(root)
         wm geometry $t +[expr {([winfo screenwidth $t]-[winfo \
             reqwidth $t]) / 2}]+[expr {([winfo \
             screenheight $t]-[winfo reqheight $t]) / 2}]
@@ -3417,7 +3417,7 @@ proc tkcon {cmd args} {
         grid $t.ok   -      -sticky ew
         grid columnconfig $t 0 -weight 1
         grid rowconfig    $t 1 -weight 1
-        wm transient $t $PRIV(வேர்)
+        wm transient $t $PRIV(root)
         wm geometry $t +[expr {([winfo screenwidth $t]-[winfo \
             reqwidth $t]) / 2}]+[expr {([winfo \
             screenheight $t]-[winfo reqheight $t]) / 2}]
@@ -3467,8 +3467,8 @@ proc tkcon {cmd args} {
     }
     hid* - with* {
         ## 'hide' 'withdraw' - hides the console.
-        if {[info exists PRIV(வேர்)] && [winfo exists $PRIV(வேர்)]} {
-        wm withdraw $PRIV(வேர்)
+        if {[info exists PRIV(root)] && [winfo exists $PRIV(root)]} {
+        wm withdraw $PRIV(root)
         }
     }
     his* {
@@ -3481,8 +3481,8 @@ proc tkcon {cmd args} {
     }
     ico* {
         ## 'iconify' - iconifies the console with 'iconify'.
-        if {[info exists PRIV(வேர்)] && [winfo exists $PRIV(வேர்)]} {
-        wm iconify $PRIV(வேர்)
+        if {[info exists PRIV(root)] && [winfo exists $PRIV(root)]} {
+        wm iconify $PRIV(root)
         }
     }
     mas* - eval {
@@ -3533,24 +3533,24 @@ proc tkcon {cmd args} {
     }
     sh* - dei* {
         ## 'show|deiconify' - deiconifies the console.
-        if {![info exists PRIV(வேர்)]} {
+        if {![info exists PRIV(root)]} {
         set PRIV(showOnStartup) 0
-        set PRIV(வேர்) .tkcon
+        set PRIV(root) .tkcon
         set OPT(exec) ""
         }
-        if {![winfo exists $PRIV(வேர்)]} {
+        if {![winfo exists $PRIV(root)]} {
         ::tkcon::Init
         }
-        wm deiconify $PRIV(வேர்)
-        raise $PRIV(வேர்)
+        wm deiconify $PRIV(root)
+        raise $PRIV(root)
         focus -force $PRIV(console)
     }
     ti* {
         ## 'title' ?title? - gets/sets the console's title
         if {[llength $args]} {
-        return [wm title $PRIV(வேர்) [join $args]]
+        return [wm title $PRIV(root) [join $args]]
         } else {
-        return [wm title $PRIV(வேர்)]
+        return [wm title $PRIV(root)]
         }
     }
     upv* {
@@ -4995,21 +4995,21 @@ proc ::tkcon::Bindings {} {
     bind TkConsole $key {}
     }
 
-    ## Make the வேர் bindings
-    bind $PRIV(வேர்) <<TkCon_Exit>> exit
-    bind $PRIV(வேர்) <<TkCon_New>>  { ::tkcon::New }
-    bind $PRIV(வேர்) <<TkCon_NewTab>>   { ::tkcon::NewTab }
-    bind $PRIV(வேர்) <<TkCon_NextTab>>  { ::tkcon::GotoTab 1 ; break }
-    bind $PRIV(வேர்) <<TkCon_PrevTab>>  { ::tkcon::GotoTab -1 ; break }
-    bind $PRIV(வேர்) <<TkCon_Close>>    { ::tkcon::Destroy }
-    bind $PRIV(வேர்) <<TkCon_About>>    { ::tkcon::About }
-    bind $PRIV(வேர்) <<TkCon_Help>> { ::tkcon::Help }
-    bind $PRIV(வேர்) <<TkCon_Find>> { ::tkcon::FindBox $::tkcon::PRIV(console) }
-    bind $PRIV(வேர்) <<TkCon_Slave>>    {
+    ## Make the root bindings
+    bind $PRIV(root) <<TkCon_Exit>> exit
+    bind $PRIV(root) <<TkCon_New>>  { ::tkcon::New }
+    bind $PRIV(root) <<TkCon_NewTab>>   { ::tkcon::NewTab }
+    bind $PRIV(root) <<TkCon_NextTab>>  { ::tkcon::GotoTab 1 ; break }
+    bind $PRIV(root) <<TkCon_PrevTab>>  { ::tkcon::GotoTab -1 ; break }
+    bind $PRIV(root) <<TkCon_Close>>    { ::tkcon::Destroy }
+    bind $PRIV(root) <<TkCon_About>>    { ::tkcon::About }
+    bind $PRIV(root) <<TkCon_Help>> { ::tkcon::Help }
+    bind $PRIV(root) <<TkCon_Find>> { ::tkcon::FindBox $::tkcon::PRIV(console) }
+    bind $PRIV(root) <<TkCon_Slave>>    {
     ::tkcon::Attach {}
     ::tkcon::RePrompt "\n" [::tkcon::CmdGet $::tkcon::PRIV(console)]
     }
-    bind $PRIV(வேர்) <<TkCon_Master>>   {
+    bind $PRIV(root) <<TkCon_Master>>   {
     if {[string compare {} $::tkcon::PRIV(name)]} {
         ::tkcon::Attach $::tkcon::PRIV(name)
     } else {
@@ -5017,17 +5017,17 @@ proc ::tkcon::Bindings {} {
     }
     ::tkcon::RePrompt "\n" [::tkcon::CmdGet $::tkcon::PRIV(console)]
     }
-    bind $PRIV(வேர்) <<TkCon_Main>> {
+    bind $PRIV(root) <<TkCon_Main>> {
     ::tkcon::Attach Main
     ::tkcon::RePrompt "\n" [::tkcon::CmdGet $::tkcon::PRIV(console)]
     }
-    bind $PRIV(வேர்) <<TkCon_Popup>> {
+    bind $PRIV(root) <<TkCon_Popup>> {
     ::tkcon::PopupMenu %X %Y
     }
 
     ## Menu items need null TkConsolePost bindings to avoid the TagProc
     ##
-    foreach ev [bind $PRIV(வேர்)] {
+    foreach ev [bind $PRIV(root)] {
     bind TkConsolePost $ev {
         # empty
     }
@@ -6058,7 +6058,7 @@ proc ::tkcon::Retrieve {} {
         -defaultextension $defExt \
         -initialdir  [file dirname $PRIV(SCRIPT)] \
         -initialfile [file tail $PRIV(SCRIPT)] \
-        -parent $PRIV(வேர்) \
+        -parent $PRIV(root) \
         -filetypes {{"Tcl Files" {.tcl .tk}} {"All Files" {*.*}}}]
     if {[string compare $file ""]} {
     package require http 2
@@ -6085,7 +6085,7 @@ proc ::tkcon::Retrieve {} {
         regexp {VERSION\s+"(\d+\.\d+[^\"]*)"} $data -> tkconVersion
         if {(![info exists rcsVersion] || ![info exists tkconVersion])
             && [tk_messageBox -type yesno -icon warning \
-                -parent $PRIV(வேர்) \
+                -parent $PRIV(root) \
                 -title "Invalid tkcon source code" \
                 -message "Source code retrieved does not appear\
             to be correct.\nContinue with save to \"$file\"?"] \
@@ -6103,7 +6103,7 @@ proc ::tkcon::Retrieve {} {
     } err]
     ::http::cleanup $token
     if {$code == 2} {
-        tk_messageBox -type ok -icon info -parent $PRIV(வேர்) \
+        tk_messageBox -type ok -icon info -parent $PRIV(root) \
             -title "Failed to retrieve source" \
             -message "Failed to retrieve latest tkcon source:\n$err"
     } elseif {$code} {
@@ -6111,7 +6111,7 @@ proc ::tkcon::Retrieve {} {
     } else {
         if {![info exists rcsVersion]}   { set rcsVersion   "UNKNOWN" }
         if {![info exists tkconVersion]} { set tkconVersion "UNKNOWN" }
-        if {[tk_messageBox -type yesno -icon info -parent $PRIV(வேர்) \
+        if {[tk_messageBox -type yesno -icon info -parent $PRIV(root) \
             -title "Retrieved tkcon v$tkconVersion, RCS $rcsVersion" \
             -message "Successfully retrieved tkcon v$tkconVersion,\
             RCS $rcsVersion.  Shall I resource (not restart) this\
@@ -6297,7 +6297,7 @@ proc ::tkcon::AtSource {} {
     set ::argv0 $PRIV(SCRIPT)
     }
 
-    if {(![info exists PRIV(வேர்)] || ![winfo exists $PRIV(வேர்)]) \
+    if {(![info exists PRIV(root)] || ![winfo exists $PRIV(root)]) \
         && (![info exists ::argv0] || $PRIV(SCRIPT) == $::argv0)} {
     global argv
     if {[info exists argv]} {

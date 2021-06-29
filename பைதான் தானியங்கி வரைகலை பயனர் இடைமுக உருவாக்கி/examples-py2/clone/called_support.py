@@ -43,11 +43,11 @@ def quit():
     sys.stdout.flush()
     sys.exit()
 
-def create_Called(வேர், *args, **kwargs):
+def create_Called(root, *args, **kwargs):
     '''Starting point when module is imported by another program.'''
     global w, w_win, rt
-    rt = வேர்
-    w = Toplevel (வேர்)
+    rt = root
+    w = Toplevel (root)
     top = Called (w)
     called_support.init(w, top, *args, **kwargs)
     return (w, top)
@@ -65,10 +65,10 @@ def create_called(rt):
 
 count = 0
 def init(top, gui, *args, **kwargs):
-    global w, top_level, வேர்
+    global w, top_level, root
     w = gui
     top_level = top
-    வேர் = top
+    root = top
     color = kwargs['color']
     geom = kwargs['geom']
     global count
@@ -77,7 +77,7 @@ def init(top, gui, *args, **kwargs):
     instance.set(string)
     top_level.geometry(geom)
     top_level.configure(background = color)
-    வேர்.update()
+    root.update()
 
 def destroy_window():
     # Function which closes the window.

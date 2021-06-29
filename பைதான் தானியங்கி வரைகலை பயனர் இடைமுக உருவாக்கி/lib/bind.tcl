@@ -322,20 +322,20 @@ proc vTclWindow.vTcl.bind {args} {
         -background #dcdcdc -borderwidth 2 -highlightbackground #dcdcdc \
         -highlightcolor #000000 -relief raised
     bind $base.cpd21.03 <B1-Motion> {
-        set வேர் [ split %W . ]
-        set nb [ llength $வேர் ]
+        set root [ split %W . ]
+        set nb [ llength $root ]
         incr nb -1
-        set வேர் [ lreplace $வேர் $nb $nb ]
-        set வேர் [ join $வேர் . ]
-        set width [ winfo width $வேர் ].0
+        set root [ lreplace $root $nb $nb ]
+        set root [ join $root . ]
+        set width [ winfo width $root ].0
 
-        set val [ expr (%X - [winfo rootx $வேர்]) /$width ]
+        set val [ expr (%X - [winfo rootx $root]) /$width ]
 
         if { $val >= 0 && $val <= 1.0 } {
 
-            place $வேர்.01 -relwidth $val
-            place $வேர்.03 -relx $val
-            place $வேர்.02 -relwidth [ expr 1.0 - $val ]
+            place $root.01 -relwidth $val
+            place $root.03 -relx $val
+            place $root.02 -relwidth [ expr 1.0 - $val ]
         }
     }
     ###################

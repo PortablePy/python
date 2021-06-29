@@ -28,10 +28,10 @@ def quit():
     sys.exit()
 
 def init(top, gui, *args, **kwargs):
-    global w, top_level, வேர்
+    global w, top_level, root
     w = gui
     top_level = top
-    வேர் = top
+    root = top
     current()
 
 def destroy_window():
