@@ -2,12 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="652bde68-eea1-4bef-88c6-9bce34c1e333" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/0004/சுழற்சி.py" beforeDir="false" afterPath="$PROJECT_DIR$/0004/சுழற்சி.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/0004/பிபோநாசி.py" beforeDir="false" afterPath="$PROJECT_DIR$/0004/பிபோநாசி.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/0005/வகுப்பு பரம்பரை.py" beforeDir="false" afterPath="$PROJECT_DIR$/0005/வகுப்பு பரம்பரை.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/0005/வகுப்பு மறுசெய்கை.py" beforeDir="false" afterPath="$PROJECT_DIR$/0005/வகுப்பு மறுசெய்கை.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/0005/வகுப்புசரம்.py" beforeDir="false" afterPath="$PROJECT_DIR$/0005/வகுப்புசரம்.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/0005/வகுப்புமாறிகள்.py" beforeDir="false" afterPath="$PROJECT_DIR$/0005/வகுப்புமாறிகள்.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/0011/TellTime.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/0012/berlin-copy.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/0012/lines-copy.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/python.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/python.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/0009/நேரம்வித்தியாசம்.py" beforeDir="false" afterPath="$PROJECT_DIR$/0009/நேரம்வித்தியாசம்.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/0010/நாள்காட்டிகள்.py" beforeDir="false" afterPath="$PROJECT_DIR$/0010/நாள்காட்டிகள்.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/0011/நேரம்சொல்-சோதனை.py" beforeDir="false" afterPath="$PROJECT_DIR$/0011/நேரம்சொல்-சோதனை.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/0011/நேரம்சொல்.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/0012/நகல்-இருமம்.py" beforeDir="false" afterPath="$PROJECT_DIR$/0012/நகல்-இருமம்.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/0012/நகல்-உரை.py" beforeDir="false" afterPath="$PROJECT_DIR$/0012/நகல்-உரை.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,15 +23,19 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1u3ggBvkoKRghdAYw9iQGGpjNJa" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -38,5 +47,20 @@
       <updated>1623899796162</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

@@ -8,13 +8,13 @@ def உள்ளீடு(*வாதங்கள்):
     அ = input (*வாதங்கள்)
     return அ
 
-def main():
+def முதன்மை():
     infile = open('lines.txt', 'rt')
     outfile = open('lines-copy.txt', 'wt')
     for line in infile:
-        print(line.rstrip(), file=outfile)
-        print('.', end='', flush=True)
+        அச்சிடு(line.rstrip(), கோப்பு=outfile)
+        அச்சிடு('.', முடி='', பறிப்பு=True)
     outfile.close()
-    print('\ndone.')
+    அச்சிடு('\ndone.')
 
-if __name__ == '__main__': main()
+if __name__ == '__main__': முதன்மை()

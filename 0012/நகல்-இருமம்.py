@@ -9,16 +9,16 @@ def உள்ளீடு(*வாதங்கள்):
     return அ
 
 
-def main():
+def முதன்மை():
     infile = open('berlin.jpg', 'rb')
     outfile = open('berlin-copy.jpg', 'wb')
     while True:
         buf = infile.read(10240)
         if buf:
             outfile.write(buf)
-            print('.', end='', flush=True)
+            அச்சிடு('.', முடி='', பறிப்பு=True)
         else: break
     outfile.close()
-    print('\ndone.')
+    அச்சிடு('\ndone.')
 
-if __name__ == '__main__': main()
+if __name__ == '__main__': முதன்மை()
