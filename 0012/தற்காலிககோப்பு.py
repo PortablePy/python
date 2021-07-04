@@ -1,5 +1,7 @@
-#!/usr/bin/env python3
 # அச்சிடு வரையறு - பின் வரும் நிரல்களில் அச்சிடு பயன்படுத்தலாம்.
+import tempfile as தற்காலிககோப்பு
+
+
 def அச்சிடு(*வாதங்கள், பிரி=" ", முடி='\n', கோப்பு=None, பறிப்பு=False):
     print(*வாதங்கள், sep=பிரி, end=முடி, file=கோப்பு, flush=பறிப்பு)
 
@@ -11,15 +13,18 @@ def உள்ளீடு(*வாதங்கள்):
     return அ
 
 
-def முதன்மை():
-    மூலம் = open('உரைகோப்பு.உரை', 'rt')
-    நகல் = open('உரைகோப்பு-நகல்.உரை', 'wt')
-    for வரி in மூலம்:
-        அச்சிடு(வரி.rstrip(), கோப்பு=நகல்)
-        அச்சிடு('.', முடி='', பறிப்பு=True)
-    நகல்.close()
-    அச்சிடு('\nநிறைவு.')
+# Tempfile Module
 
+# Create a temporary file
+தகோப்பு = தற்காலிககோப்பு.TemporaryFile()
 
-if __name__ == '__main__':
-    முதன்மை()
+# Write to a temporary file
+தகோப்பு.write(
+    bytearray("இந்த சிறப்பு எண்ணை எனக்காக சேமிக்கவும்: 5678309", "utf8"))
+தகோப்பு.seek(0)
+
+# Read the temporary file
+print(தகோப்பு.read())
+
+# Close the temporary file
+தகோப்பு.close()
