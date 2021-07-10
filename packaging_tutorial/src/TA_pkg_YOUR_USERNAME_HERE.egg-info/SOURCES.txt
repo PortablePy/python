@@ -1,0 +1,11 @@
+LICENSE
+README.md
+pyproject.toml
+setup.cfg
+setup.py
+src/TA_pkg_YOUR_USERNAME_HERE.egg-info/PKG-INFO
+src/TA_pkg_YOUR_USERNAME_HERE.egg-info/SOURCES.txt
+src/TA_pkg_YOUR_USERNAME_HERE.egg-info/dependency_links.txt
+src/TA_pkg_YOUR_USERNAME_HERE.egg-info/top_level.txt
+src/example_package/__init__.py
+src/example_package/example.py
