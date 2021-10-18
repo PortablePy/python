@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="652bde68-eea1-4bef-88c6-9bce34c1e333" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/0011/TellTime.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/0012/berlin-copy.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/0012/lines-copy.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/python.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/python.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/0009/நேரம்வித்தியாசம்.py" beforeDir="false" afterPath="$PROJECT_DIR$/0009/நேரம்வித்தியாசம்.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/0010/நாள்காட்டிகள்.py" beforeDir="false" afterPath="$PROJECT_DIR$/0010/நாள்காட்டிகள்.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/0011/நேரம்சொல்-சோதனை.py" beforeDir="false" afterPath="$PROJECT_DIR$/0011/நேரம்சொல்-சோதனை.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/0011/நேரம்சொல்.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/0012/நகல்-இருமம்.py" beforeDir="false" afterPath="$PROJECT_DIR$/0012/நகல்-இருமம்.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/0012/நகல்-உரை.py" beforeDir="false" afterPath="$PROJECT_DIR$/0012/நகல்-உரை.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +26,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
