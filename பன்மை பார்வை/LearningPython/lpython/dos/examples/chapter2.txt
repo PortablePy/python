@@ -1,0 +1,358 @@
+*** Page 28 *******************************************************************
+
+Numbers       3.1415, 1234, 999L, 3+4j
+Strings       'spam', "guido's"
+Lists         [1, [2, 'three'], 4]
+Dictionaries  {'food':'spam', 'taste':'yum'}
+Tuples        (1,'spam', 4, 'U')
+Files         text = open('eggs', 'r').read()
+
+1234, -24, 0                     Normal integers (C longs)
+999999999999L                    Long integers (unlimited size)
+1.23, 3.14e-10, 4E210, 4.0e+210  Floating-point (C doubles)
+0177, 0x9ff                      Octal and hex constants
+3+4j, 3.0+4.0j, 3J               Complex number constants
+
+
+*** Page 32-35 ****************************************************************
+
+% python
+>>> a = 3          # name created
+>>> b = 4
+>>> b / 2 + a      # same as ((4 / 2) + 3)
+5
+>>> b / (2.0 + a)  # same as (4 / (2.0 + 3))
+0.8
+
+>>> x = 1        # 0001
+>>> x << 2       # shift left 2 bits: 0100
+4
+>>> x | 2        # bitwise OR: 0011
+3
+>>> x & 1        # bitwise AND: 0001
+1
+
+>>> 9999999999999999999999999999 + 1
+OverflowError: integer literal too large
+>>> 9999999999999999999999999999L + 1
+10000000000000000000000000000L
+
+>>> 1j * 1J
+(-1+0j)
+>>> 2 + 1j * 3
+(2+3j)
+>>> (2+1j)*3
+(6+3j)
+
+>>> import math
+>>> math.pi
+3.14159265359
+>>>
+>>> abs(-42), 2**4, pow(2, 4)
+(42, 16, 16)
+
+
+*** Page 37-38 ****************************************************************
+
+% python
+>>> len('abc')         # length: number items
+3
+>>> 'abc' + 'def'      # concatenation: a new string
+'abcdef'
+>>> 'Ni!' * 4          # like "Ni!" + "Ni!" + ...
+'Ni!Ni!Ni!Ni!'
+
+>>> myjob = "hacker"
+>>> for c in myjob: print c,      # step though items
+...
+h a c k e r
+>>> "k" in myjob                  # 1 means true
+1
+
+>>> S = 'spam'
+>>> S[0], S[-2]             # indexing from front or end
+('s', 'a')
+>>> S[1:3], S[1:], S[:-1]   # slicing: extract section
+('pa', 'pam', 'spa')
+
+
+*** Page 39 *******************************************************************
+
+% cat echo.py
+import sys
+print sys.argv
+
+% python echo.py -a -b -c
+['echo.py', '-a', '-b', '-c']
+
+
+*** Page 40 *******************************************************************
+
+>>> S = 'spam'
+>>> S[0] = "x"
+Raises an error!
+>>> S = S + 'Spam!'        # to change a string, make a new one
+>>> S
+'spamSpam!'
+>>> S = S[:4] + 'Burger' + S[-1]
+>>> S
+'spamBurger!'
+>>> 'That is %d %s bird!' % (1, 'dead')    # like C sprintf
+That is 1 dead bird!
+
+>>> exclamation = "Ni"
+>>> "The knights who say %s!" % exclamation
+'The knights who say Ni!'
+>>> "%d %s %d you" % (1, 'spam', 4)
+'1 spam 4 you'
+>>> "%s -- %s -- %s" % (42, 3.14159, [1, 2, 3])
+'42 -- 3.14159 -- [1, 2, 3]'
+
+>>> "%e %f %g" % (1.1, 2.2, 3.3)
+
+
+*** Page 41-43 ****************************************************************
+
+>>> import string            # standard utilities module
+>>> S = "spammify"
+>>> string.upper(S)          # convert to uppercase
+'SPAMMIFY'
+>>> string.find(S, "mm")     # return index of substring
+3
+>>> string.atoi("42"), `42`  # convert from/to string
+(42, '42')
+>>> string.join(string.split(S, "mm"), "XX")
+'spaXXify'
+
+>>> "spam" + 42
+Raises an error
+>>> "spam" + `42`
+'spam42'
+>>> string.atoi("42") + 1
+43
+
+>>> mixed = "Guido's"    # single in double
+>>> mixed
+"Guido's"
+>>> mixed = 'Guido"s'    # double in single
+>>> mixed
+'Guido"s'
+>>> mixed = 'Guido\'s'   # backslash escape
+>>> mixed
+"Guido's"
+
+>>> split = "This" "is" "concatenated"
+>>> split
+'Thisisconcatenated'
+
+>>> big = """This is
+... a multi-line block
+... of text; Python puts
+... an end-of-line marker
+... after each line."""
+>>>
+>>> big
+'This is\012a multi-line block\012of text; Python puts\012an end-of-line
+marker\012after each line.'
+
+
+*** Page 46-49 ****************************************************************
+
+% python
+>>> len([1, 2, 3])            # length
+3
+>>> [1, 2, 3] + [4, 5, 6]     # concatenation
+[1, 2, 3, 4, 5, 6]
+
+>>> ['Ni!'] * 4                     # repetition
+['Ni!', 'Ni!', 'Ni!', 'Ni!']
+>>> for x in [1, 2, 3]: print x,    # iteration
+...
+1 2 3
+
+>>> `[1, 2]` + "34"          # same as "[1, 2]" + "34"
+'[1, 2]34'
+>>> [1, 2] + list("34")      # same as [1, 2] + ["3", "4"]
+[1, 2, '3', '4']
+
+>>> L = ['spam', 'Spam', 'SPAM!']
+>>> L[2]                             # offsets start at zero
+'SPAM!'
+>>> L[-2]                            # negative: count from the right
+'Spam'
+>>> L[1:]                            # slicing fetches sections
+['Spam', 'SPAM!']
+
+>>> L = ['spam', 'Spam', 'SPAM!']
+>>> L[1] = 'eggs'                    # index assignment
+>>> L
+['spam', 'eggs', 'SPAM!']
+>>> L[0:2] = ['eat', 'more']         # slice assignment: delete+insert
+>>> L                                # replaces items 0,1
+['eat', 'more', 'SPAM!']
+
+>>> L.append('please')               # append method call
+>>> L
+['eat', 'more', 'SPAM!', 'please']
+>>> L.sort()                         # sort list items ('S' < 'e')
+>>> L
+['SPAM!', 'eat', 'more', 'please']
+
+>>> L
+['SPAM!', 'eat', 'more', 'please']
+>>> del L[0]                         # delete one item
+>>> L
+['eat', 'more', 'please']
+>>> del L[1:]                        # delete an entire section
+>>> L # same as L[1:] = []
+['eat']
+
+
+*** Page 51-52 ****************************************************************
+
+% python
+>>> d2 = {'spam': 2, 'ham': 1, 'eggs': 3}
+>>> d2['spam']                             # fetch value for key
+2
+>>> len(d2)                                # number of entries in dictionary
+3
+>>> d2.has_key('ham')                      # key membership test (1 means true)
+1
+>>> d2.keys()                              # list of my keys
+['eggs', 'spam', 'ham']
+
+>>> d2['ham'] = ['grill', 'bake', 'fry']   # change entry
+>>> d2
+{'eggs': 3, 'spam': 2, 'ham': ['grill', 'bake', 'fry']}
+>>> del d2['eggs']                         # delete entry
+>>> d2
+{'spam': 2, 'ham': ['grill', 'bake', 'fry']}
+>>> d2['brunch'] = 'Bacon'                 # add new entry
+>>> d2
+{'brunch': 'Bacon', 'spam': 2, 'ham': ['grill', 'bake', 'fry']}
+
+>>> table = {'Python': 'Guido van Rossum',
+...          'Perl': 'Larry Wall',
+...          'Tcl': 'John Ousterhout' }
+...
+>>> language = 'Python'
+>>> creator = table[language]
+>>> creator
+'Guido van Rossum'
+>>> for lang in table.keys(): print lang, '\t', table[lang]
+...
+Tcl John Ousterhout
+Python Guido van Rossum
+Perl Larry Wall
+
+
+*** Page 54 *******************************************************************
+
+import anydbm
+file = anydbm.open("filename") # link to external file
+file['key'] = 'data'           # store data by key
+data = file['key']             # fetch data by key
+
+import cgi
+form = cgi.FieldStorage()      # parse form data (stdin, environ)
+if form.has_key('name'):
+    showReply('Hello, ' + form['name'].value)
+
+
+*** Page 57 *******************************************************************
+
+>>> myfile = open('myfile', 'w')      # open for output (creates)
+>>> myfile.write('hello text file\n') # write a line of text
+>>> myfile.close()
+
+>>> myfile = open('myfile', 'r')      # open for input
+>>> myfile.readline()                 # read the line back
+'hello text file\012'
+>>> myfile.readline()                 # empty string: end of file
+''
+
+
+*** Page 59-61 ****************************************************************
+
+class MySequence:
+    def __getitem__(self, index):
+        # called on self[index], for x in self, x in self
+    def __getslice__(self, low, high):
+        # called on self[low:high]
+    def __add__(self, other):
+        # called on self + other
+
+>>> L = ['abc', [(1, 2), ([3], 4)], 5]
+>>> L[1]
+[(1, 2), ([3], 4)]
+>>> L[1][1]
+([3], 4)
+>>> L[1][1][0]
+[3]
+>>> L[1][1][0][0]
+3
+
+>>> X = [1, 2, 3]
+>>> L = ['a', X, 'b']
+>>> D = {'x':X, 'y':2}
+>>> X[1] = 'surprise'          # changes all three references!
+>>> L
+['a', [1, 'surprise', 3], 'b']
+>>> D
+{'x': [1, 'surprise', 3], 'y': 2}
+
+>>> L1 = [1, ('a', 3)]   # same value, unique objects
+>>> L2 = [1, ('a', 3)]
+>>> L1 == L2, L1 is L2   # equivalent?, same object?
+(1, 0)
+
+>>> L1 = [1, ('a', 3)]
+>>> L2 = [1, ('a', 2)]
+>>> L1 < L2, L1 == L2, L1 > L2   # less, equal, greater: a tuple of results
+(0, 0, 1)
+
+
+*** Page 64-65 ****************************************************************
+
+>>> L = [1, 2, 3]
+>>> M = ['X', L, 'Y']   # embed a reference to L
+>>> M
+['X', [1, 2, 3], 'Y']
+>>> L[1] = 0            # changes M too
+>>> M
+['X', [1, 0, 3], 'Y'] 
+
+>>> L = [1, 2, 3]
+>>> M = ['X', L[:], 'Y']  # embed a copy of L
+>>> L[1] = 0              # only changes L, not M
+>>> L
+[1, 0, 3]
+>>> M
+['X', [1, 2, 3], 'Y']
+
+
+>>> L = [4, 5, 6]
+>>> X = L * 4         # like [4, 5, 6] + [4, 5, 6] + ...
+>>> Y = [L] * 4       # [L] + [L] + ... = [L, L,...]
+>>> X
+[4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6]
+>>> Y
+[[4, 5, 6], [4, 5, 6], [4, 5, 6], [4, 5, 6]]
+
+>>> L[1] = 0          # impacts Y but not X
+>>> X
+[4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6]
+>>> Y
+[[4, 0, 6], [4, 0, 6], [4, 0, 6], [4, 0, 6]]
+
+
+>>> L = ['hi.']; L.append(L)  # append reference to same object
+>>> L                         # before 1.5.1: a loop! (cntl-C breaks)
+
+
+T = (1, 2, 3)
+T[2] = 4           # error!
+T = T[:2] + (4,)   # okay: (1, 2, 4)
+
+
+***see solutions file file exercise source code***

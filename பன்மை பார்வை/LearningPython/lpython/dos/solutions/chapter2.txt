@@ -1,0 +1,244 @@
+1. The basics. ****************************************************************
+
+## Numbers
+
+>>> 2 ** 16          # 2 raised to the power 16
+65536
+>>> 2 / 5, 2 / 5.0   # integer / truncates, float / doesn't
+(0, 0.4)
+
+
+## Strings
+
+>>> "spam" + "eggs"     # concatenation
+'spameggs'
+>>> S = "ham"
+>>> "eggs " + S
+'eggs ham'
+>>> S * 5               # repetition
+'hamhamhamhamham'
+>>> S[:0]               # an empty slice at the front--[0:0]
+''
+>>> "green %s and %s" % ("eggs", S)         # formatting
+'green eggs and ham'
+
+
+## Tuples
+
+>>> ('x',)[0]              # indexing a single-item tuple
+'x'
+>>> ('x', 'y')[1]          # indexing a 2-item tuple
+'y'
+
+
+## Lists
+
+>>> L = [1,2,3] + [4,5,6]                # list operations
+>>> L, L[:], L[:0], L[-2], L[-2:]
+([1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [], 5, [5, 6])
+>>> ([1,2,3]+[4,5,6])[2:4]
+[3, 4]
+>>> [L[2], L[3]]                         # fetch from offsets, store in a list
+[3, 4]
+>>> L.reverse(); L                       # method: reverse list in-place
+[6, 5, 4, 3, 2, 1]
+>>> L.sort(); L                          # method: sort list in-place
+[1, 2, 3, 4, 5, 6]
+>>> L.index(4)                           # method: offset of first 4 (search)
+3
+
+
+## Dictionaries
+
+>>> {'a':1, 'b':2}['b']            # index a dictionary by key
+2
+>>> D = {'x':1, 'y':2, 'z':3}
+>>> D['w'] = 0                     # create a new entry
+>>> D['x'] + D['w']
+1
+>>> D[(1,2,3)] = 4                 # a tuple used as a key (immutable)
+>>> D
+{'w': 0, 'z': 3, 'y': 2, (1, 2, 3): 4, 'x': 1}
+>>> D.keys(), D.values(), D.has_key((1,2,3))           # methods
+(['w', 'z', 'y', (1, 2, 3), 'x'], [0, 3, 2, 4, 1], 1)
+
+
+## Empties
+
+>>> [[]], ["",[],(),{},None]        # lots of nothings
+([[]], ['', [], (), {}, None])
+
+
+2. Indexing and slicing. ******************************************************
+
+>>> L = [1, 2, 3, 4]
+>>> L[4]
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+IndexError: list index out of range
+
+>>> L[-1000:100]
+[1, 2, 3, 4]
+
+>>> L[3:1]
+[]
+
+>>> L
+[1, 2, 3, 4]
+>>> L[3:1] = ['?']
+>>> L
+[1, 2, 3, '?', 4]
+
+
+3. Indexing, slicing, and del. ************************************************
+
+>>> L = [1,2,3,4]
+>>> L[2] = []
+>>> L
+[1, 2, [], 4]
+>>> L[2:3] = []
+>>> L
+[1, 2, 4]
+>>> del L[0]
+>>> L
+[2, 4]
+>>> del L[1:]
+>>> L
+[2]
+>>> L[1:2] = 1
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+TypeError: illegal argument type for built-in operation
+
+
+4. Tuple assignment. **********************************************************
+
+>>> X = 'spam'
+>>> Y = 'eggs'
+>>> X, Y = Y, X
+>>> X
+'eggs'
+>>> Y
+'spam'
+
+
+5. Dictionary keys. ***********************************************************
+
+>>> D = {}
+>>> D[1] = 'a'
+>>> D[2] = 'b'
+>>> D[(1, 2, 3)] = 'c'
+>>> D
+{1: 'a', 2: 'b', (1, 2, 3): 'c'}
+
+
+6. Dictionary indexing. *******************************************************
+
+>>> D = {'a':1, 'b':2, 'c':3}
+>>> D['a']
+1
+>>> D['d']
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+KeyError: d
+>>> D['d'] = 4
+>>> D
+{'b': 2, 'd': 4, 'a': 1, 'c': 3}
+>>>
+>>> L = [0,1]
+>>> L[2]
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+IndexError: list index out of range
+>>> L[2] = 3
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+IndexError: list assignment index out of range
+
+
+7. Generic operations. ********************************************************
+
+>>> "x" + 1
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+TypeError: illegal argument type for built-in operation
+>>>
+>>> {} + {}
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+TypeError: bad operand type(s) for +
+>>>
+>>> [].append(9)
+>>> "".append('s')
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+AttributeError: attribute-less object
+>>>
+>>> {}.keys()
+[]
+>>> [].keys()
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+AttributeError: keys
+>>>
+>>> [][:]
+[]
+>>> ""[:]
+''
+
+
+8. String indexing. ***********************************************************
+
+>>> S = "spam"
+>>> S[0][0][0][0][0]
+'s'
+>>> L = ['s', 'p']
+>>> L[0][0][0]
+'s'
+
+
+9. Immutable types. ***********************************************************
+
+>>> S = "spam"
+>>> S = S[0] + 'l' + S[2:]
+>>> S
+'slam'
+>>> S = S[0] + 'l' + S[2] + S[3]
+>>> S
+'slam'
+
+
+10. Nesting. ******************************************************************
+
+>>> me = {'name':('mark', 'e', 'lutz'), 'age':'?', 'job':'engineer'}
+>>> me['job']
+'engineer'
+>>> me['name'][2]
+'lutz'
+
+
+11. Files. ********************************************************************
+
+% cat maker.py
+file = open('myfile.txt', 'w')
+file.write('Hello file world!\n')
+file.close() # close not always needed
+
+% cat reader.py
+file = open('myfile.txt', 'r')
+print file.read()
+
+% python maker.py
+% python reader.py
+Hello file world!
+
+% ls -l myfile.txt
+-rwxrwxrwa 1 0 0 19 Apr 13 16:33 myfile.txt
+
+
+12. The dir function revisited. ***********************************************
+
+>>> [].__methods__
+['append', 'count', 'index', 'insert', 'remove', 'reverse', 'sort']
+>>> dir([])
+['append', 'count', 'index', 'insert', 'remove', 'reverse', 'sort']

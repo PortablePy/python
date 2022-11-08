@@ -1,0 +1,69 @@
+1. Try/except. ****************************************************************
+
+% cat oops.py
+
+def oops():
+    raise IndexError
+
+def doomed():
+    try:
+        oops()
+    except IndexError:
+        print 'caught an index error!'
+    else:
+        print 'no error caught...'
+
+if __name__ == '__main__': doomed()
+
+% python oops.py
+caught an index error!
+
+
+2. Exception lists. ***********************************************************
+
+% cat oops.py
+MyError = 'hello'
+
+def oops():
+    raise MyError, 'world'
+
+def doomed():
+    try:
+        oops()
+    except IndexError:
+        print 'caught an index error!'
+    except MyError, data:
+        print 'caught error:', MyError, data
+    else:
+        print 'no error caught...'
+
+if __name__ == '__main__':
+    doomed()
+
+% python oops.py
+caught error: hello world
+
+
+3. Error handling. ************************************************************
+
+% cat safe2.py
+import sys, traceback
+
+def safe(entry, *args):
+    try:
+        apply(entry, args) # catch everything else
+    except:
+        traceback.print_exc()
+        print 'Got', sys.exc_type, sys.exc_value
+
+import oops
+safe(oops.oops)
+
+% python safe2.py
+Traceback (innermost last):
+  File "safe2.py", line 5, in safe
+    apply(entry, args) # catch everything else
+  File "oops.py", line 4, in oops
+    raise MyError, 'world'
+hello: world
+Got hello world

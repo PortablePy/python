@@ -1,0 +1,95 @@
+1. Basics, import. ************************************************************
+
+% cat mymod.py
+
+def countLines(name):
+    file = open(name, 'r')
+    return len(file.readlines())
+
+def countChars(name):
+    return len(open(name, 'r').read())
+
+def test(name):                                 # or pass file object
+    return countLines(name), countChars(name)   # or return a dictionary
+
+% python
+>>> import mymod
+>>> mymod.test('mymod.py')
+(10, 291)
+
+
+% cat mymod2.py
+def countLines(file):
+    file.seek(0)                    # rewind to start of file
+    return len(file.readlines())
+
+def countChars(file):
+    file.seek(0)                    # ditto (rewind if needed)
+    return len(file.read())
+
+def test(name):
+    file = open(name, 'r')                        # pass file object
+    return countLines(file), countChars(file)     # only open file once
+
+>>> import mymod2
+>>> mymod2.test("mymod2.py")
+(11, 392)
+
+
+2. from/from*. ****************************************************************
+
+% python
+>>> from mymod import *
+>>> countChars("mymod.py")
+291
+
+
+3. __main__. ******************************************************************
+
+% cat mymod.py
+def countLines(name):
+    file = open(name, 'r')
+    return len(file.readlines())
+
+def countChars(name):
+    return len(open(name, 'r').read())
+
+def test(name):                                 # or pass file object
+    return countLines(name), countChars(name)   # or return a dictionary
+
+if __name__ == '__main__':
+    print test('mymod.py')
+
+% python mymod.py
+(13, 346)
+
+
+4. Nested imports. ************************************************************
+
+% cat myclient.py
+from mymod import countLines
+from mymod import countChars
+print countLines('mymod.py'), countChars('mymod.py')
+
+% python myclient.py
+13 346
+
+% cat mod1.py
+somename = 42
+
+% cat collector.py
+from mod1 import *      # collect lots of names here
+from mod2 import *      # from assigns to my names
+from mod3 import *
+
+>>> from collector import somename
+
+
+5. Reload. ********************************************************************
+
+# see chapter examples file
+
+ 
+6. Circular imports. **********************************************************
+
+# see chapter examples file

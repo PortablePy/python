@@ -1,0 +1,317 @@
+** Page 128 *******************************************************************
+
+# put this code in a file called "module1.py",
+# located in a directory on PYTHONPATH (or ".")
+
+def printer(x):     # module attribute
+    print x
+
+
+# then, import it in the interactive prompt
+
+% python
+>>> import module1                     # get module
+>>> module1.printer('Hello world!')    # qualify to get names (module.name)
+Hello world!
+
+>>> from module1 import printer        # get an export
+>>> printer('Hello world!')            # no need to qualify name
+Hello world!
+
+>>> from module1 import *              # get all exports
+>>> printer('Hello world!')
+Hello world!
+
+
+** Page 130 *******************************************************************
+
+# put this code in a file called "module2.py"
+
+print 'starting to load...'
+
+import sys
+name = 42
+
+def func(): pass
+
+class klass: pass
+
+print 'done loading.'
+
+
+# now, use in interactively
+
+>>> import module2
+starting to load...
+done loading.
+
+>>> module2.sys
+<module 'sys'>
+>>> module2.name
+42
+>>> module2.func, module2.klass
+(<function func at 765f20>, <class klass at 76df60>)
+
+>>> module2.__dict__.keys()
+['__file__', 'name', '__name__', 'sys', '__doc__', '__builtins__', 'klass',
+'func']
+
+
+** Page 132 ******************************************************************
+
+% cat simple.py
+
+print 'hello'
+spam = 1                    # initialize variable
+
+% python
+>>> import simple           # first import: loads and runs file's code
+hello
+>>> simple.spam             # assignment makes an attribute
+1
+>>> simple.spam = 2         # change attribute in module
+>>>
+>>> import simple           # just fetches already-loaded module
+>>> simple.spam             # code wasn't rerun: attribute unchanged
+2
+
+
+** Page 133 *******************************************************************
+
+% cat small.py
+x = 1
+y = [1, 2]
+
+% python
+>>> from small import x, y        # copy two names out
+>>> x = 42                        # changes local x only
+>>> y[0] = 42                     # changes shared mutable in-place
+>>>
+>>> import small                  # get module name (from doesn't)
+>>> small.x                       # small's x is not my x
+1
+>>> small.y                       # but we share a changed mutable
+[42, 2]
+
+
+# emulating "from"
+
+import module         # fetch the module object
+name1 = module.name1  # copy names out by assignment
+name2 = module.name2
+...
+del module            # get rid of the module name
+
+
+** Page 135 *******************************************************************
+
+% cat changer.py
+message = "First version"
+
+def printer():
+    print message
+
+% python
+>>> import changer
+>>> changer.printer()
+First version
+>>>
+
+# change "changer.py" now...
+
+% vi changer.py
+% cat changer.py
+message = "After editing"
+
+def printer():
+    print 'reloaded:', message
+
+# back to the interpreter...
+
+>>> import changer
+>>> changer.printer()             # no effect: uses loaded module
+First version
+
+>>> reload(changer)               # forces new code to load/run
+<module 'changer'>
+>>> changer.printer()             # runs the new version now
+reloaded: After editing
+
+
+** Page 138 *******************************************************************
+
+# put this in a file called runme.py
+
+def tester():
+    print "It's Christmas in Heaven..."
+
+if __name__ == '__main__':     # only when run
+    tester()                   # not when imported
+
+% python
+>>> import runme
+>>> runme.tester()
+It's Christmas in Heaven...
+
+% python runme.py
+It's Christmas in Heaven...
+
+
+>>> import sys
+>>> sys.path
+['.', 'c:\\python\\lib', 'c:\\python\\lib\\tkinter']
+
+>>> sys.path = ['.']                          # change module search path
+>>> sys.path.append('c:\\book\\examples')     # escape backlashes as "\\"
+>>> sys.path                                  # or use r'...' strings
+['.', 'c:\\book\\examples']
+
+>>> import string
+Traceback (innermost last):
+
+
+** Page 142 *******************************************************************
+
+# mydir.py: a module which lists the namespaces of other modules
+
+verbose = 1
+
+def listing(module):
+    if verbose:
+        print "-"*30
+        print "name:", module.___name__, "file:", module.__file__
+        print "-"*30
+
+    count = 0
+    for attr in module.__dict__.keys():        # scan namespace
+        print "%02d) %s" % (count, attr),
+        if attr[0:2] == "__":
+            print "<built-in name>"            # skip __file__, etc.
+        else:
+            print getattr(module, attr) # same as .__dict__[attr]
+        count = count+1
+
+    if verbose:
+        print "-"*30
+        print module.__name__, "has %d names" % count
+        print "-"*30
+
+if __name__ == "__main__":
+    import mydir
+    listing(mydir)       # self-test code: list myself
+
+
+C:\python> python mydir.py
+------------------------------
+name: mydir file: mydir.py
+------------------------------
+00) __file__ <built-in name>
+01) __name__ <built-in name>
+02) listing <function listing at 885450>
+03) __doc__ <built-in name>
+04) __builtins__ <built-in name>
+05) verbose 1
+------------------------------
+mydir has 6 names
+------------------------------
+
+
+** Page 143 *******************************************************************
+
+>>> modname = "string"
+>>> exec "import " + modname         # run a string of code
+>>> string                           # imported in this namespace
+<module 'string'>
+
+>>> modname = "string"
+>>> string = __import__(modname)
+>>> string
+<module 'string'>
+
+
+** Page 144 *******************************************************************
+
+# module nested1.py
+
+X = 99
+def printer(): print X
+
+
+# module nested2.py
+
+from nested1 import X, printer     # copy names out
+X = 88                             # changes my "X" only!
+printer()                          # nested1's X is still 99
+
+
+% python nested2.py
+99
+
+
+# module nested3.py
+
+import nested1           # get module as a whole
+nested1.X = 88           # okay: change nested1's X
+nested1.printer()
+
+
+% python nested3.py
+88
+
+
+** Page 145 *******************************************************************
+
+func1()               # error: "func1" not yet assigned
+
+def func1():
+    print func2()     # okay: "func2" looked up later
+
+func1()               # error: "func2" not yet assigned
+
+def func2():
+    return "Hello"
+
+func1()               # okay: "func1" and "func2" assigned
+
+
+** Page 146 *******************************************************************
+
+# recur1.py
+
+X = 1
+import recur2           # run recur2 now if doesn't exist
+Y = 2
+
+
+# recur2.py
+
+from recur1 import X    # okay: "X" already assigned
+from recur1 import Y    # error: "Y" not yet assigned
+
+
+>>> import recur1
+Traceback (innermost last):
+
+
+** Page 147 *******************************************************************
+
+from module import X    # X may not reflect any module reloads!
+...
+reload(module)          # changes module, not my names
+X                       # still references old object
+
+# versus
+
+import module           # get module, not names
+...
+reload(module)          # changes module in-place
+module.X                # get current X: reflects module reloads
+
+
+% cat A.py
+import B     # not reloaded when A is
+import C     # just an import of an already-loaded module
+
+% python
+>>> . . .
+>>> reload(A)

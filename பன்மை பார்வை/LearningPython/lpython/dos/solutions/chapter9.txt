@@ -1,0 +1,102 @@
+1. Redirecting stdout. ********************************************************
+
+import fileinput, sys, string           # no change here
+sys.stdout = open(sys.argv[-1], 'w')    # open the output file
+del sys.argv[-1]                        # we've dealt with this argument
+...                                     # continue as before
+
+
+2. Writing a simple shell. ****************************************************
+ 
+import cmd, os, string, sys, shutil
+
+class UnixShell(cmd.Cmd):
+    def do_EOF(self, line):
+        """ The do_EOF command is called when the user presses Ctrl-D (unix)
+            or Ctrl-Z (PC). """
+        sys.exit()
+
+    def help_ls(self):
+        print "ls <directory>: list the contents of the specified directory"
+        print " (current directory used by default)"
+
+    def do_ls(self, line):
+        # 'ls' by itself means 'list current directory'
+        if line == '': dirs = [os.curdir]
+        else: dirs = string.split(line)
+        for dirname in dirs:
+            print 'Listing of %s:' % dirname
+            print string.join(os.listdir(dirname), '\n')
+
+    def do_cd(self, dirname):
+        # 'cd' by itself means 'go home'
+        if dirname == '': dirname = os.environ['HOME']
+        os.chdir(dirname)
+
+    def do_mkdir(self, dirname):
+        os.mkdir(dirname)
+
+    def do_cp(self, line):
+        words = string.split(line)
+        sourcefiles,target = words[:-1], words[-1] # target could be a dir
+        for sourcefile in sourcefiles:
+            shutil.copy(sourcefile, target)
+
+    def do_mv(self, line):
+        source, target = string.split(line)
+        os.rename(source, target)
+
+    def do_rm(self, line):
+        map(os.remove, string.split(line))
+
+class DirectoryPrompt:
+    def __repr__(self):
+        return os.getcwd()+'> '
+
+cmd.PROMPT = DirectoryPrompt()
+shell = UnixShell()
+shell.cmdloop()
+
+h:\David\book> python -i shell.py
+h:\David\book> cd ../tmp
+h:\David\tmp> ls
+Listing of .:
+api
+ERREUR.DOC
+ext
+giant_~1.jpg
+icons
+index.html
+lib
+pythlp.hhc
+pythlp.hhk
+ref
+tut
+h:\David\tmp> cd ..
+h:\David> cd tmp
+h:\David\tmp> cp index.html backup.html
+h:\David\tmp> rm backup.html
+h:\David\tmp> ^Z
+
+
+3. Understanding map, reduce and filter. **************************************
+
+def map2(function, sequence):
+    if function is None: return list(sequence)
+    retvals = []
+    for element in sequence:
+        retvals.append(function(element))
+    return retvals
+
+def reduce2(function, sequence):
+    arg1 = function(sequence[0])
+    for arg2 in sequence[1:]:
+        arg1 = function(arg1, arg2)
+    return arg1
+
+def filter2(function, sequence):
+    retvals = []
+    for element in sequence:
+        if (function is None and element) or function(element):
+            retvals.append(element)
+    return retvals

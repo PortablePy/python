@@ -1,0 +1,258 @@
+** Page 198 *******************************************************************
+
+% cat bad.py
+def gobad(x, y):
+    return x / y
+
+def gosouth(x):
+    print gobad(x, 0)
+
+gosouth(1)
+
+% python bad.py
+Traceback (innermost last):
+  File "bad.py", line 7, in ?
+    gosouth(1)
+  File "bad.py", line 5, in gosouth
+    print gobad(x, 0)
+  File "bad.py", line 2, in gobad
+    return x / y
+ZeroDivisionError: integer division or modulo
+
+
+** Page 199 *******************************************************************
+
+def kaboom(list, n):
+    print list[n]          # trigger IndexError
+
+try:
+    kaboom([0, 1, 2], 3)
+except IndexError:         # catch exception here
+    print 'Hello world!'
+
+
+MyError = "my error"
+
+def stuff(file):
+    raise MyError
+
+file = open('data', 'r')      # open an existing file
+try:
+    stuff(file)               # raises exception
+finally:
+    file.close()              # always close file
+
+
+** Page 200 *******************************************************************
+
+while 1:
+    try:
+        line = raw_input()   # read line from stdin
+    except EOFError:
+        break                # exit loop at end of file
+    else:
+        Process next 'line' here...
+
+
+Found = "Item found"
+
+def searcher():
+    raise found or return
+
+try:
+    searcher()
+except Found:    # exception if item was found
+    Success
+else:            # else returned: not found
+    Failure
+
+
+try:
+    Run program
+except:            # all uncaught exceptions come here
+    import sys
+    print 'uncaught!', sys.exc_type, sys.exc_value
+
+
+try:
+    action()
+except NameError:
+    ...
+except IndexError
+    ...
+except KeyError:
+    ...
+except (AttributeError, TypeError, SyntaxError):
+    ...
+else:
+    ...
+
+
+** Page 203 *******************************************************************
+
+# file nestexc.py
+
+def action2():
+    print 1 + []           # generate TypeError
+
+def action1():
+    try:
+        action2()
+    except TypeError:      # most recent matching try
+        print 'inner try'
+
+try:
+    action1()
+except TypeError:          # here only if action1 reraises
+    print 'outer try'
+
+% python nestexc.py
+inner try
+
+
+# file finally.py
+
+def divide(x, y):
+    return x / y        # divide-by-zero error?
+
+def tester(y):
+    try:
+        print divide(8, y)
+    finally:
+        print 'on the way out...'
+
+print '\nTest 1:'; tester(2)
+print '\nTest 2:'; tester(0)    # trigger error
+
+% python finally.py
+
+Test 1:
+4
+on the way out...
+
+Test 2:
+on the way out...
+Traceback (innermost last):
+  File "finally.py", line 11, in ?
+    print 'Test 2:'; tester(0)
+  File "finally.py", line 6, in tester
+    print divide(8, y)
+  File "finally.py", line 2, in divide
+    return x / y # divide-by-zero error?
+ZeroDivisionError: integer division or modulo
+
+
+** Page 204 *******************************************************************
+
+# file helloexc.py
+
+myException = 'Error'         # string object
+
+def raiser1():
+    raise myException, "hello"     # raise, pass data
+
+def raiser2():
+    raise myException              # raise, None implied
+
+def tryer(func):
+    try:
+       func()
+    except myException, extraInfo:     # run func, catch exception + data
+        print 'got this:', extraInfo
+
+% python
+>>> from helloexc import *
+>>> tryer(raiser1)              # gets explicitly passed extra data
+got this: hello
+>>> tryer(raiser2)              # gets None by default
+got this: None
+
+
+# sidebar
+
+def doStuff():
+    doFirstThing()       # we don't care about exceptions here
+    doNextThing()        # so we don’t need to detect them here
+    ...
+    doLastThing()
+
+if__name__ == '__main__':
+    try:
+        doStuff()          # this is where we care about the result
+    except:                #so it's the only place we need to check
+        badEnding()
+    else:
+        goodEnding()
+
+
+** Page 207 *******************************************************************
+
+# file classexc.py
+
+class General:               pass
+class Specific(General):     pass
+
+def raiser1():
+    X = General()      # raise listed class instance
+    raise X
+
+def raiser2():
+    X = Specific()     # raise instance of subclass
+    raise X
+
+for func in (raiser1, raiser2):
+    try:
+        func()
+    except General:    # match General or any subclass of it
+        import sys
+        print 'caught:', sys.exc_type
+
+% python classexc.py
+caught: <class General at 881ee0>
+caught: <class Specific at 881100>
+
+
+** Page 209 *******************************************************************
+
+>>> ex1 = "spam"
+>>> ex2 = "spam"
+>>>
+>>> ex1 == ex2, ex1 is ex2
+(1, 0)
+
+>>> try:
+...     raise ex1
+... except ex1:
+...     print 'got it'
+...
+got it
+
+>>> try:
+...     raise ex1
+... except ex2:
+...     print 'Got it'
+...
+Traceback (innermost last):
+  File "<stdin>", line 2, in ?
+spam
+
+
+
+try:
+    ...
+except:
+    ...    # everything comes here!
+
+try:
+    x = myditctionary[spam]     # oops: misspelled
+except:
+    x = None                    # assume we got KeyError or IndexError
+
+
+try:
+    ...
+except (myerror1, myerror2):    # what if I add a myerror3?
+    ...   # nonerrors
+else:
+    ...   # assumed to be an error
+

@@ -1,0 +1,140 @@
+1. Coding basic loops. ********************************************************
+
+>>> S = 'spam'
+>>> for c in S:
+...     print ord(c)
+...
+115
+112
+97
+109
+
+>>> x = 0
+>>> for c in S: x = x + ord(c)
+...
+>>> x
+433
+
+>>> x = []
+>>> for c in S: x.append(ord(c))
+...
+>>> x
+[115, 112, 97, 109]
+
+>>> map(ord, S)
+[115, 112, 97, 109]
+
+
+2. Backslash characters. ******************************************************
+
+>>> for i in range(50):
+>>>     print 'hello %d\n\a' % i 
+
+
+3. Sorting dictionaries. ******************************************************
+
+>>> D = {'a':1, 'b':2, 'c':3, 'd':4, 'e':5, 'f':6, 'g':7}
+>>> D
+{'f': 6, 'c': 3, 'a': 1, 'g': 7, 'e': 5, 'd': 4, 'b': 2}
+>>>
+>>> keys = D.keys()
+>>> keys.sort()
+>>> for key in keys:
+...     print key, '=>', D[key]
+...
+a => 1
+b => 2
+c => 3
+d => 4
+e => 5
+f => 6
+g => 7
+
+
+4. Program logic alternatives. ************************************************
+
+start)
+
+# power.py
+
+L = [1, 2, 4, 8, 16, 32, 64]
+X = 5
+
+found = i = 0
+while not found and i < len(L):
+    if 2 ** X == L[i]:
+        found = 1
+    else:
+        i = i+1
+
+if found:
+    print 'at index', i
+else:
+    print X, 'not found'
+
+C:\book\tests> python power.py
+at index 5
+
+
+a)
+
+L = [1, 2, 4, 8, 16, 32, 64]
+X = 5
+
+i = 0
+while i < len(L):
+    if 2 ** X == L[i]:
+        print 'at index', i
+        break
+    i = i+1
+else:
+    print X, 'not found'
+
+
+b)
+
+L = [1, 2, 4, 8, 16, 32, 64]
+X = 5
+
+for p in L:
+    if (2 ** X) == p:
+        print (2 ** X), 'was found at', L.index(p)
+        break
+else:
+    print X, 'not found'
+
+
+c)
+
+L = [1, 2, 4, 8, 16, 32, 64]
+X = 5
+
+if (2 ** X) in L:
+    print (2 ** X), 'was found at', L.index(2 ** X)
+else:
+    print X, 'not found'
+
+
+d)
+
+X = 5
+L = []
+for i in range(7): L.append(2 ** i)
+print L
+
+if (2 ** X) in L:
+    print (2 ** X), 'was found at', L.index(2 ** X)
+else:
+    print X, 'not found'
+
+
+e)
+
+X = 5
+L = map(lambda x: 2**x, range(7))
+print L
+
+if (2 ** X) in L:
+    print (2 ** X), 'was found at', L.index(2 ** X)
+else:
+   print X, 'not found'

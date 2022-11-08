@@ -1,0 +1,343 @@
+1. The basics. ****************************************************************
+
+% cat adder.py
+
+class Adder:
+    def add(self, x, y):
+        print 'not implemented!'
+    def __init__(self, start=[]):
+        self.data = start
+    def __add__(self, other):
+        return self.add(self.data, other)    # or in subclasses--return type?
+
+class ListAdder(Adder):
+    def add(self, x, y):
+        return x + y
+
+class DictAdder(Adder):
+    def add(self, x, y):
+        new = {}
+        for k in x.keys(): new[k] = x[k]
+        for k in y.keys(): new[k] = y[k]
+        return new
+
+% python
+>>> from adder import *
+>>> x = Adder()
+>>> x.add(1, 2)
+not implemented!
+>>> x = ListAdder()
+>>> x.add([1], [2])
+[1, 2]
+>>> x = DictAdder()
+>>> x.add({1:1}, {2:2})
+{1: 1, 2: 2}
+
+>>> x = Adder([1])
+>>> x + [2]
+not implemented!
+>>>
+>>> x = ListAdder([1])
+>>> x + [2]
+[1, 2]
+>>> [2] + x
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+TypeError: __add__ nor __radd__ defined for these operands
+
+
+2. Operator overloading. ******************************************************
+
+% cat mylist.py
+
+class MyList:
+    def __init__(self, start):
+        #self.wrapped = start[:]                # copy start: no sideeffects
+        self.wrapped = []                       # make sure it's a list here
+        for x in start: self.wrapped.append(x)
+    def __add__(self, other):
+        return MyList(self.wrapped + other)
+    def __mul__(self, time):
+        return MyList(self.wrapped * time)
+    def __getitem__(self, offset):
+        return self.wrapped[offset]
+    def __len__(self):
+        return len(self.wrapped)
+    def __getslice__(self, low, high):
+        return MyList(self.wrapped[low:high])
+    def append(self, node):
+        self.wrapped.append(node)
+    def __getattr__(self, name):                # other members--sort/reverse/etc.
+        return getattr(self.wrapped, name)
+    def __repr__(self):
+        return `self.wrapped`
+
+if __name__ == '__main__':
+    x = MyList('spam')
+    print x
+    print x[2]
+    print x[1:]
+    print x + ['eggs']
+    print x * 3
+    x.append('a')
+    x.sort()
+    for c in x: print c,
+
+% python mylist.py
+['s', 'p', 'a', 'm']
+a
+['p', 'a', 'm']
+['s', 'p', 'a', 'm', 'eggs']
+['s', 'p', 'a', 'm', 's', 'p', 'a', 'm', 's', 'p', 'a', 'm']
+a a m p s
+
+
+3. Subclassing. ***************************************************************
+
+% cat mysub.py
+
+from mylist import MyList
+
+class MyListSub(MyList):
+    calls = 0                                     # shared by instances
+
+    def __init__(self, start):
+        self.adds = 0                             # varies in each instance
+        MyList.__init__(self, start)
+
+    def __add__(self, other):
+        MyListSub.calls = MyListSub.calls + 1     # class-wide counter
+        self.adds = self.adds + 1                 # per instance counts
+        return MyList.__add__(self, other)
+
+    def stats(self):
+        return self.calls, self.adds              # all adds, my adds
+
+if __name__ == '__main__':
+    x = MyListSub('spam')
+    y = MyListSub('foo')
+    print x[2]
+    print x[1:]
+    print x + ['eggs']
+    print x + ['toast']
+    print y + ['bar']
+    print x.stats()
+
+% python mysub.py
+a
+['p', 'a', 'm']
+['s', 'p', 'a', 'm', 'eggs']
+['s', 'p', 'a', 'm', 'toast']
+['f', 'o', 'o', 'bar']
+(3, 2)
+
+
+4. Metaclass methods. *********************************************************
+
+>>> class Meta:
+...     def __getattr__(self, name): print 'get', name
+...     def __setattr__(self, name, value): print 'set', name, value
+...
+>>> x = Meta()
+>>> x.append
+get append
+>>> x.spam = "pork"
+set spam pork
+>>>
+>>> x + 2
+get __coerce__
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+TypeError: call of non-function
+>>>
+>>> x[1]
+get __getitem__
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+TypeError: call of non-function
+
+>>> x[1:5]
+get __len__
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+TypeError: call of non-function
+
+
+5. Set objects. ***************************************************************
+
+# make sure to put the Set class code from the chapter examples
+# file into a file "set.py", in a directory on your PYTHONPATH
+  
+% python
+>>> from set import Set
+>>> x = Set([1,2,3,4])         # runs __init__
+>>> y = Set([3,4,5])
+
+>>> x & y                      # __and__, intersect, then __repr__
+Set:[3, 4]
+>>> x | y                      # __or__, union, then __repr__
+Set:[1, 2, 3, 4, 5]
+
+>>> z = Set("hello")           # __init__ removes duplicates
+>>> z[0], z[-1]                # __getitem__
+('h', 'o')
+
+>>> for c in z: print c,       # __getitem__
+...
+h e l o
+>>> len(z), z                  # __len__, __repr__
+(4, Set:['h', 'e', 'l', 'o'])
+
+>>> z & "mello", z | "mello"
+(Set:['e', 'l', 'o'], Set:['h', 'e', 'l', 'o', 'm'])
+
+
+# multiset.py: multiple-operand extension subclass
+
+from set import Set
+
+class MultiSet(Set):
+    """
+    inherits all Set names, but extends intersect
+    and union to support multiple operands; note
+    that "self" is still the first argument (stored
+    in the *args argument now); also note that the
+    inherited & and | operators call the new methods
+    here with 2 arguments, but processing more than
+    2 requires a method call, not an expression:
+    """
+
+    def intersect(self, *others):
+        res = []
+        for x in self:                        # scan first sequence
+            for other in others:              # for all other args
+                if x not in other: break      # item in each one?
+            else:                             # no: break out of loop
+                res.append(x)                 # yes: add item to end
+        return Set(res)
+
+    def union(*args):                         # self is args[0]
+        res = []
+        for seq in args:                      # for all args
+            for x in seq:                     # for all nodes
+                if not x in res:
+                    res.append(x)             # add new items to result
+        return Set(res)
+
+
+>>> from multiset import *
+>>> x = MultiSet([1,2,3,4])
+>>> y = MultiSet([3,4,5])
+>>> z = MultiSet([0,1,2])
+
+>>> x & y, x | y                        # 2 operands
+(Set:[3, 4], Set:[1, 2, 3, 4, 5])
+
+>>> x.intersect(y, z)                   # 3 operands
+Set:[]
+>>> x.union(y, z)
+Set:[1, 2, 3, 4, 5, 0]
+
+>>> x.intersect([1,2,3], [2,3,4], [1,2,3])     # 4 operands
+Set:[2, 3]
+>>> x.union(range(10))                         # non-MultiSets work too
+Set:[1, 2, 3, 4, 0, 5, 6, 7, 8, 9]
+
+
+6. Class tree links. **********************************************************
+
+class Lister:
+    def __repr__(self):
+        return ("<Instance of %s(%s), address %s:\n%s>" %
+                          (self.__class__.__name__,          # my class's name
+                           self.supers(),                    # my class's supers
+                           id(self),                         # my address
+                           self.attrnames()) )               # name=value list
+    def attrnames(self):
+        # Unchanged...
+    def supers(self):
+        result = ""
+        first = 1
+        for super in self.__class__.__bases__:       # one level up from class
+            if not first:
+                result = result + ", "
+            first = 0
+            result = result + super.__name__
+        return result
+
+C:\python\examples> python testmixin.py
+<Instance of Sub(Super, Lister), address 7841200:
+name data3=42
+name data2=eggs
+name data1=spam
+>
+
+
+7. Composition. ***************************************************************
+
+# starting point...
+
+class Lunch:
+    def __init__(self)          # make/embed Customer and Employee
+    def order(self, foodName)   # start a Customer order simulation
+    def result(self)            # ask the Customer what kind of Food it has
+
+class Customer:
+    def __init__(self)                         # initialize my food to None
+    def placeOrder(self, foodName, employee)   # place order with an Employee
+    def printFood(self)                        # print the name of my food
+
+class Employee:
+    def takeOrder(self, foodName)    # return a Food, with requested name
+
+class Food:
+    def __init__(self, name)         # store food name
+
+
+# solution...
+# put all this code in a module file called lunch.py;
+# it's run, not imported, so it need not be in PYTHONPATH
+
+class Lunch:
+    def __init__(self):
+        # make/embed Customer and Employee 
+        self.cust = Customer()
+        self.empl = Employee()
+    def order(self, foodName):
+        # start a Customer order simulation
+        self.cust.placeOrder(foodName, self.empl)
+    def result(self):
+        # ask the Customer what kind of Food it has
+        self.cust.printFood()
+
+class Customer:
+    def __init__(self):
+        # initialize my food to None
+        self.food = None
+    def placeOrder(self, foodName, employee):
+        # place order with an Employee
+        self.food = employee.takeOrder(foodName)
+    def printFood(self):
+        # print the name of my food
+        print self.food.name
+
+class Employee:
+    def takeOrder(self, foodName):
+        # return a Food, with requested name
+        return Food(foodName)
+
+class Food:
+    def __init__(self, name):
+        # store food name
+        self.name = name
+
+if __name__ == '__main__':
+    x = Lunch()
+    x.order('burritos')
+    x.result()
+    x.order('pizza')
+    x.result()
+
+% python lunch.py
+burritos
+pizza

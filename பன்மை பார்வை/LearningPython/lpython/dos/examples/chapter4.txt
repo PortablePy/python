@@ -1,0 +1,352 @@
+** Page 99-100 ****************************************************************
+
+>>> def times(x, y):       # create and assign function
+...     return x * y       # body executed when called
+... 
+>>> times(2, 4)            # arguments in parentheses
+8
+>>> times('Ni', 4)         # functions are 'typeless'
+'NiNiNiNi'
+
+
+** Page 101 *******************************************************************
+
+# put this in an imported module file
+# it could be typed interactively too
+
+def intersect(seq1, seq2):
+    res = []                    # start empty
+    for x in seq1:              # scan seq1
+        if x in seq2:           # common item?
+            res.append(x)       # add to end
+    return res
+
+>>> s1 = "SPAM"
+>>> s2 = "SCAM"
+>>> intersect(s1, s2)              # strings
+['S', 'A', 'M']
+>>> intersect([1, 2, 3], (1, 4))   # mixed types
+[1]
+
+
+** Page 103 *******************************************************************
+
+# global scope
+X = 99                  # X and func assigned in module: global
+
+def func(Y):            # Y and Z assigned in function: locals
+    # local scope
+    Z = X + Y           # X is not assigned, so it's a global
+    return Z
+
+func(1)                 # func in module: result=100
+
+
+** Page 104 *******************************************************************
+
+y, z = 1, 2        # global variables in module
+
+def all_global():
+    global x       # declare globals assigned
+    x = y + z      # no need to declare y,z: 3-scope rule
+
+
+** Page 105 *******************************************************************
+
+>>> def changer(x, y):
+...     x = 2                # changes local name's value only
+...     y[0] = 'spam'        # changes shared object in place
+...
+>>> X = 1
+>>> L = [1, 2]
+>>> changer(X, L)     # pass immutable and mutable (use L[:] to avoid changes)
+>>> X, L              # X unchanged, L is different
+(1, ['spam', 2])
+
+
+** Page 107 *******************************************************************
+
+>>> def multiple(x, y):
+...     x = 2               # changes local names only
+...     y = [3, 4]
+...     return x, y         # return new values in a tuple
+...
+>>> X = 1
+>>> L = [1, 2]
+>>> X, L = multiple(X, L)   # assign results to caller's names
+>>> X, L
+(2, [3, 4])
+
+
+** Page 108-110 ***************************************************************
+
+def func(spam, eggs, toast=0, ham=0):     # first 2 required
+    print (spam, eggs, toast, ham)
+
+func(1, 2)                     # output: (1, 2, 0, 0)
+func(1, ham=1, eggs=0)         # output: (1, 0, 0, 1)
+func(spam=1, eggs=0)           # output: (1, 0, 0, 0)
+func(toast=1, eggs=2, spam=3)  # output: (3, 2, 1, 0)
+func(1, 2, 3, 4)               # output: (1, 2, 3, 4)
+
+
+# put this code in a new module file called 
+# "inter2.py", in a directory on PYTHONPATH
+
+def intersect(*args):
+    res = []
+    for x in args[0]:                    # scan first sequence
+        for other in args[1:]:           # for all other args
+            if x not in other: break     # item in each one?
+        else:                            # no: break out of loop
+            res.append(x)                # yes: add items to end
+    return res
+
+def union(*args):
+    res = []
+    for seq in args:                     # for all args
+        for x in seq:                    # for all nodes
+            if not x in res:
+                res.append(x)            # add new items to result
+    return res
+
+
+% python
+>>> from inter2 import intersect, union
+>>> s1, s2, s3 = "SPAM", "SCAM", "SLAM"
+
+>>> intersect(s1, s2), union(s1, s2)           # 2 operands
+(['S', 'A', 'M'], ['S', 'P', 'A', 'M', 'C'])
+
+>>> intersect([1,2,3], (1,4))                  # mixed types
+[1]
+
+>>> intersect(s1, s2, s3)                      # 3 operands
+['S', 'A', 'M']
+
+>>> union(s1, s2, s3)
+['S', 'P', 'A', 'M', 'C', 'L']
+
+
+** Page 112-115 ***************************************************************
+
+>>> def func(x, y, z): return x + y + z
+...
+>>> func(2, 3, 4)
+9
+
+>>> f = lambda x, y, z: x + y + z
+>>> f(2, 3, 4)
+9
+
+>>> x = (lambda a="fee", b="fie", c="foe": a + b + c)
+>>> x("wee")
+'weefiefoe'
+
+>>> apply(func, (2, 3, 4))
+9
+>>> apply(f, (2, 3, 4))
+9
+
+
+L = [lambda x: x**2, lambda x: x**3, lambda x: x**4]
+
+for f in L:
+    print f(2)     # prints 4, 8, 16
+
+print L[0](3)      # prints 9
+
+ 
+>>> counters = [1, 2, 3, 4]
+>>>
+>>> updated = []
+>>> for x in counters:
+...     updated.append(x + 10)    # add 10 to each item
+...
+>>> updated
+[11, 12, 13, 14]
+
+>>> def inc(x): return x + 10     # function to be run
+...
+>>> map(inc, counters)            # collect results
+[11, 12, 13, 14]
+
+>>> map((lambda x: x + 3), counters)   # function expression
+[4, 5, 6, 7]
+
+
+>>> def proc(x):
+...     print x       # no return is a None return
+...
+>>> x = proc('testing 123...')
+testing 123...
+>>> print x
+None
+
+>>> list = [1, 2, 3]
+>>> list = list.append(4)      # append is a 'procedure'
+>>> print list                 # append changes list in-place
+None
+
+
+** Page 116 *******************************************************************
+
+>>> def echo(message):     # echo assigned to a function object
+...     print message
+...
+>>> x = echo               # now x references it too
+>>> x('Hello world!')      # call the object by adding ()
+Hello world!
+
+>>> def indirect(func, arg):
+...     func(arg)                   # call object by adding ()
+...
+>>> indirect(echo, 'Hello jello!')  # pass function to a function
+Hello jello!
+
+>>> schedule = [ (echo, 'Spam!'), (echo, 'Ham!') ]
+>>> for (func, arg) in schedule:
+...     apply(func, (arg,))
+...
+Spam!
+Ham!
+
+
+** Page 117-118 ***************************************************************
+
+>>> X = 99
+>>> def selector():     # X used but not assigned
+...     print X         # X found in global scope
+...
+>>> selector()
+99
+>>> def selector():
+...     print X         # does not yet exist!
+...     X = 88          # X classified as a local name (everywhere)
+...                     # can also happen if "import X", "def X",...
+>>> selector()
+
+
+>>> def selector():
+...     global X        # force X to be global (everywhere)
+...     print X
+...     X = 88
+...
+>>> selector()
+99
+
+
+>>> X = 99
+>>> def selector():
+...     import __main__       # import enclosing module
+...     print __main__.X      # qualify to get to global version of name
+...     X = 88                # unqualified X classified as local
+...     print X               # prints local version of name
+...
+>>> selector()
+99
+88
+
+
+** Page 119 *******************************************************************
+
+>>> def outer(x):
+...     def inner(i):            # assign in outer's local
+...         print i,             # i is in inner's local
+...         if i: inner(i-1)     # not in my local or global!
+...     inner(x)
+...
+>>> outer(3)
+3
+Traceback (innermost last):
+
+>>> def outer(x):
+...     global inner
+...     def inner(i):            # assign in enclosing module
+...         print i,
+...         if i: inner(i-1)     # found in my global scope now
+...     inner(x)
+...
+>>> outer(3)
+3 2 1 0
+
+
+** Page 120-121 **************************************************************
+
+>>> def outer(x, y):
+...     def inner(a=x, b=y):      # save outer's x,y bindings/objects
+...         return a**b           # can't use x and y directly here
+...     return inner
+...
+>>> x = outer(2, 4)
+>>> x()
+16
+
+>>> def outer(x, y):
+...     return lambda a=x, b=y: a**b
+...
+>>> y = outer(2, 5)
+>>> y()
+32
+
+>>> def outer(x):
+...     def inner(i, self=inner):        # name not defined yet
+...         print i,
+...         if i: self(i-1)
+...     inner(x)
+...
+>>> outer(3)
+Traceback (innermost last):
+
+>>> def outer(x):
+...     fillin = [None]
+...     def inner(i, self=fillin):     # save mutable
+...         print i,
+...         if i: self[0](i-1)         # assume it's set
+...     fillin[0] = inner              # plug value now
+...     inner(x)
+...
+>>> outer(3)
+3 2 1 0
+
+>>> def inner(i):             # define module level name
+...     print i,
+...     if i: inner(i-1)      # no worries: it's a global
+...
+>>> def outer(x):
+...     inner(x)
+...
+>>> outer(3)
+3 2 1 0
+
+
+** Page 122 *******************************************************************
+
+>>> def saver(x=[]):      # saves away a list object
+...     x.append(1)       # changes same object each time!
+...     print x
+...
+>>> saver([2])            # default not used
+[2, 1]
+>>> saver()               # default used
+[1]
+>>> saver()               # grows on each call
+[1, 1]
+>>> saver()
+[1, 1, 1]
+
+>>> def saver(x=None):
+...     if x is None:     # no argument passed?
+...         x = []        # run code to make a new list
+...     x.append(1)       # changes new list object
+...     print x
+...
+>>> saver([2])
+[2, 1]
+>>> saver()               # doesn't grow here
+[1]
+>>> saver()
+[1]
+
+
+*** see solutions file for this chapter for exercise code *** 

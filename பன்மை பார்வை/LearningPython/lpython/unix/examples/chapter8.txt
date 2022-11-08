@@ -1,0 +1,487 @@
+** Page 216 *******************************************************************
+
+>>> dir([])                          # what are the attributes of lists?
+['append', 'count', 'index', 'insert', 'remove', 'reverse', 'sort']
+
+>>> dir(())                          # what are the attributes of tuples?
+[]                                   # tuples have no attributes!
+
+>>> dir(sys.stdin)                   # what are the attributes of files?
+['close', 'closed', 'fileno', 'flush', 'isatty', 'mode', 'name', 'read',
+'readinto', 'readline', 'readlines', 'seek', 'softspace', 'tell', 'truncate',
+'write', 'writelines']
+
+>>> dir(sys)                         # modules are objects too
+['__doc__', '__name__', 'argv', 'builtin_module_names', 'copyright', 'dllhandle'
+, 'exc_info', 'exc_type', 'exec_prefix', 'executable', 'exit', 'getrefcount',
+'maxint', 'modules', 'path', 'platform', 'prefix', 'ps1', 'ps2',
+'setcheckinterval', 'setprofile', 'settrace', 'stderr', 'stdin', 'stdout',
+'version', 'winver']
+
+>>> type(sys.version)                # what kind of thing is 'version'?
+<type 'string'>
+>>> print sys.version                # what is the value of this string?
+1.5 (#0, Dec 30 1997, 23:24:20) [MSC 32 bit (Intel)]
+
+
+** Page 217 *******************************************************************
+
+>>> dir(__builtins__)
+['ArithmeticError', 'AssertionError', 'AttributeError', 'EOFError', 'Ellipsis',
+'Exception', 'FloatingPointError', 'IOError', 'ImportError', 'IndexError',
+'KeyError', 'KeyboardInterrupt', 'LookupError', 'MemoryError', 'NameError',
+'None', 'OverflowError', 'RuntimeError', 'StandardError', 'SyntaxError',
+'SystemError', 'SystemExit', 'TypeError', 'ValueError', 'ZeroDivisionError',
+'__debug__', '__doc__', '__import__', '__name__', 'abs', 'apply', 'callable',
+'chr', 'cmp', 'coerce', 'compile', 'complex', 'delattr', 'dir', 'divmod', 'eval',
+'execfile', 'filter', 'float', 'getattr', 'globals', 'hasattr', 'hash', 'hex',
+'id', 'input', 'int', 'intern', 'isinstance', 'issubclass', 'len', 'list',
+'locals', 'long', 'map', 'max', 'min', 'oct', 'open', 'ord', 'pow', 'range',
+'raw_input', 'reduce', 'reload', 'repr', 'round', 'setattr', 'slice', 'str',
+'tuple', 'type', 'vars', 'xrange']
+
+
+** Page 218 *******************************************************************
+
+>>> int(1.0), int(1.4), int(1.9), round(1.9), int(round(1.9))
+(1, 1, 1, 2.0, 2)
+>>> int("1")
+1
+>>> int("1.2")                              # this doesn't work
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+ValueError: invalid literal for int(): 1.2
+
+>>> int("1.0")                              # interestingly, neither does this
+Traceback (innermost last):                 # since 1.0 is also not a valid
+  File "<stdin>", line 1, in ?              # integer literal
+ValueError: invalid literal for int(): 1.0
+
+>>> hex(1000), oct(1000), complex(1000), long(1000)
+('0x3e8', '01750', (1000+0j), 1000L)
+
+>>> def safeint(candidate):
+...     import math
+...     truncated = math.floor(float(candidate))
+...     rounded = round(float(candidate))
+...     if truncated == rounded:
+...        return int(truncated)
+...     else:
+...        raise ValueError, "argument would lose precision when cast to integer"
+...
+>>> safeint(3.0)
+3
+>>> safeint("3.0")
+3
+>>> safeint(3.1)
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+  File "<stdin>", line 6, in safeint
+ValueError: argument would lose precision when cast to integer
+
+>>> abs(-1), abs(-1.2), abs(-3+4j)
+(1, 1.2, 5.0) # 5 is sqrt(3*3 + 4*4)
+
+>>> map(ord, "test")     # remember that strings are sequences
+[116, 101, 115, 116]     # of characters, so map can be used
+>>> chr(64)
+'@'
+>>> ord('@')
+64
+
+# map returns a list of single characters, so it
+# needs to be 'join'ed into a str
+
+>>> map(chr, (83, 112, 97, 109, 33))
+['S', 'p', 'a', 'm', '! ']
+>>> import string
+>>> string.join(map(chr, (83, 112, 97, 109, 33)), '')
+'Spam!'
+
+>>> min("pif", "paf", "pof")     # when called with multiple 'paf' arguments
+                                 # return appropriate one
+>>> min("ZELDA!"), max("ZELDA!") # when called with a sequence, '!', 'Z'
+                                 # return the min/max element of it
+
+
+** Page 220 *******************************************************************
+
+>>> str(dir())
+"['__builtins__', '__doc__', '__name__']"
+
+>>> list("tomato")
+['t', 'o', 'm', 'a', 't', 'o']
+>>> list((1,2,3))
+[1, 2, 3]
+
+>>> tuple("tomato")
+('t', 'o', 'm', 'a', 't', 'o')
+>>> tuple([0])
+(0,)
+
+>>> int("3")
+3
+
+>>> long("3")
+3L
+
+>>> float("3")
+3.0
+
+>>> complex(3,5)
+(3+5j)
+
+>>> hex(10000)
+'0x2710'
+
+>>> oct(10000)
+'023420'
+
+>>> ord('A')
+64
+
+>>> chr(65)
+'A'
+
+>>> min([5,1,2,3,4])
+1
+>>> min(5,1,2,3,4)
+1
+
+>>> max([5,1,2,3,4])
+5
+>>> max(5,1,2,3,4)
+5
+
+
+** Page 221 *******************************************************************
+
+>>> def increment_attribute(object, attrname):
+...     if not hasattr(object, attrname):
+...         setattr(object, attrname, 1)
+...     else:
+...         setattr(object, attrname, getattr(object, attrname) + 1)
+...
+>>> class Test: pass
+...
+>>> aname = 'foo'
+>>> increment_attribute(Test, aname)   # create Test.foo and set it to
+1
+>>> increment_attribute(Test, aname)   # increment Test.foo
+>>> Test.foo
+2
+
+def increment_attribute(object, attrname):
+    setattr(object, attrname, getattr(object, attrname, 0) + 1)
+
+
+** Page 222 *******************************************************************
+
+>>> code = "x = 'Something'"
+>>> x = "Nothing"             # sets the value of x
+>>> exec code                 # modifies the value of x!
+>>> print x
+'Something'
+
+import sys
+for argument in sys.argv[1:]:    # we'll skip ourselves, or it'll loop!
+    execfile(argument)           # do whatever
+
+>>> z = eval("'xo'*10")
+>>> print z
+'xoxoxoxoxoxoxoxoxoxo'
+
+>>> z = eval("x = 3")
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+  File "<string>", line 1
+    x = 3
+      ^
+SyntaxError: invalid syntax
+
+>>> callable(sys.exit), type(sys.exit)
+(1, <type 'builtin_function_or_method'>)
+>>> callable(sys.version), type(sys.version)
+(0, <type 'string'>)
+
+
+** Page 225 *******************************************************************
+
+>>> string.atof("1.4")
+1.4
+
+>>> string.atoi("365")
+365
+
+>>> string.atol("987654321")
+987654321L
+
+>>> string.capitalize("tomato")
+'Tomato'
+
+>>> string.capwords("now is the time")
+'Now Is The Time'
+
+>>> string.find("now is the time", 'is')
+4
+
+>>> string.count("now is the time", 'i')
+2
+
+>>> string.replace("now is the time", ' ', '_')
+'now_is_the_time'
+
+>>> string.split("now is the time")
+['now', 'is', 'the', 'time']
+
+>>> string.join(["now","is","the","time", '*'])
+'now*is*the*time'
+>>> string.join("now is the time", '*')
+'n*o*w* *i*s* *t*h*e* *t*i*m*e'
+
+>>> string.strip(" before and after ")
+'before and after'
+
+
+** Page 228 *******************************************************************
+
+# file pepper.txt
+
+This is a paragraph that mentions bell peppers multiple times. For
+one, here is a red pepper and dried tomato salad recipe. I don't like
+to use green peppers in my salads as much because they have a harsher
+flavor.
+
+This second paragraph mentions red peppers and green peppers but not
+the "s" word (s-a-l-a-d), so no bells should show up.
+
+This third paragraph mentions red peppercorns and green peppercorns,
+which aren't vegetables but spices (by the way, bell peppers really
+aren't peppers, they're chilies, but would you rather have a good cook
+or a good botanist prepare your salad?).
+
+
+# file pepper.py
+
+file = open('pepper.txt')
+text = file.read()
+
+import string
+paragraphs = string.split(text, '\n\n')
+
+import re
+matchstr = re.compile(
+    r"""\b(red|green)         # 'red' or 'green' starting new words
+        (\s+                  # followed by whitespace
+         pepper               # the word 'pepper'
+         (?!corn)             # if not followed immediately by 'corn'
+         (?=.*salad))""",     # and if followed at some point by 'salad'',
+      re.IGNORECASE |         # allow pepper, Pepper, PEPPER, etc.
+      re.DOTALL |             # allow to match newlines as well
+      re.VERBOSE)             # this allows the comments and the newlines above
+for paragraph in paragraphs:
+    fixed_paragraph = matchstr.sub(r'bell\2', paragraph)
+    print fixed_paragraph+'\n'
+
+
+/home/David/book$ python pepper.py
+This is a paragraph that mentions bell peppers multiple times. For
+one, here is a bell pepper and dried tomato salad recipe. I don’t like
+to use bell peppers in my salads as much because they have a harsher
+flavor.
+
+This second paragraph mentions red peppers and green peppers but not
+the "s" word (s-a-l-a-d), so no bells should show up.
+
+This third paragraph mentions red peppercorns and green peppercorns,
+which aren’t vegetables but spices (by the way, bell peppers really
+aren’t peppers, they’re chilies, but would you rather have a good cook
+or a good botanist prepare your salad?).
+
+
+** Page 231 *******************************************************************
+
+>>> print os.getcwd()
+h:\David\book
+
+>>> os.listdir(os.getcwd())
+['preface.doc', 'part1.doc', 'part2.doc']
+
+
+>>> os.rmdir('nonexistent_directory')        # how it usually shows up
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+os.error: (2, 'No such file or directory')
+
+>>> try:                                     # we can catch the error and take
+...     os.rmdir('nonexistent directory')    # it apart
+... except os.error, value:
+...     print value[0], value[1]
+...
+2 No such file or directory
+
+
+>>> print os.environ['SHELL']
+/bin/sh
+>>> os.environ['STARTDIR'] = 'MyStartDir'
+>>> os.system('echo $STARTDIR')              # 'echo %STARTDIR%' on DOS/Win
+MyStartDir                                   # printed by the shell
+0                                            # return code from echo
+
+
+** Page 233 *******************************************************************
+
+>>> os.path.split("h:/David/book/part2.doc"
+('h:/David/book', 'part2.doc')
+
+>>> print os.path.join(os.getcwd(),
+... os.pardir, 'backup', 'part2.doc')
+h:\David\book\..\backup\part2.doc
+
+>>> print os.path.expanduser('~/mydir')
+h:\David\mydir
+
+>>> print os.path.expandvars('$TMP')
+C:\TEMP
+
+>>> print os.path.normpath("/foo/bar\\../tmp")
+\foo\tmp
+
+>>> def test_walk(arg, dirname, names):
+...     print arg, dirname, names
+...
+>>> os.path.walk('..', test_walk, 'show')
+show ..\logs ['errors.log', 'access.log']
+show ..\cgi-bin ['test.cgi']
+...
+
+
+** Page 235 *******************************************************************
+
+>>> page = urlopen('http://www.python.org')
+>>> page.readline()
+'<HTML>\012'
+>>> page.readline()
+'<!-- THIS PAGE IS AUTOMATICALLY GENERATED. DO NOT EDIT. -->\012'
+
+>>> urllib.urlretrieve('http://www.python.org/', 'wwwpython.html')
+
+>>> quote('this & that @ home')
+'this%20%26%20that%20%40%20home'
+
+>>> unquote('this%20%26%20that%20%40%20home')
+'this & that @ home'
+
+>>> locals()
+{'urllib': <module 'urllib'>, '__doc__': None, 'x':3, 
+'__name__': '__main__', '__builtins__': <module '__builtin__'>}
+>>> urllib.urlencode(locals())
+'urllib=%3cmodule+%27urllib%27%3e&__doc__=None&x=3&
+__ name__=__main__&__builtins__=%3cmodule+%27
+__builtin__%27%3e'
+
+>>> urlparse('http://www.python.org/FAQ.html')
+('http', 'www.python.org', '/FAQ.html', '', '','')
+
+>>> urljoin('http://www.python.org', 'doc/lib')
+'http://www.python.org/doc/lib'
+
+
+** Page 238 *******************************************************************
+
+import struct
+
+data = open('bindat.dat').read()
+start, stop = 0, struct.calcsize('fl')
+version_number, num_bytes = struct.unpack('fl', data[start:stop])
+start, stop = stop, start + struct.calcsize('B'*num_bytes)
+bytes = struct.unpack('B'*num_bytes, data[start:stop])
+
+
+** Page 239 *******************************************************************
+
+>>> import spam                         # import the module we wish to debug
+>>> import pdb                          # import pdb
+>>> pdb.run('instance = spam.Spam()')   # start pdb with a statement to run
+> <string>(0)?()
+(Pdb) break spam.Spam.__init__          # we can set break points
+(Pdb) next
+> <string>(1)?()
+(Pdb) n                                 # 'n' is short for 'next'
+> spam.py(3)__init__()
+-> def __init__(self):
+(Pdb) n
+> spam.py(4)__init__()
+-> Spam.numInstances = Spam.numInstances + 1
+(Pdb) list                              # show the source code listing
+1   class Spam:
+2       numInstances = 0
+3 B     def __init__(self):             # note the B for Breakpoint
+4 ->        Spam.numInstances = Spam.numInstances + 1     # where we are
+5       def printNumInstances(self):
+6           print "Number of instances created: ", Spam.numInstances
+7
+[EOF]
+(Pdb) where     # show the calling stack
+<string>(1)?()
+> spam.py(4)__init__()
+-> Spam.numInstances = Spam.numInstances + 1
+(Pdb) Spam.numInstances = 10               # note that we can modify variables
+(Pdb) print Spam.numInstances              # while the program is being debugged
+10
+(Pdb) continue                     # this continues until the next break-
+--Return--                         # point, but there is none, so we're
+> <string>(1)?()->None             # done
+(Pdb) c                            # this ends up quitting Pdb
+<spam.Spam instance at 80ee60>     # this is the returned instance
+>>> instance.numInstances          # note that the change to numInstance
+11                                 # was *before* the increment op
+
+
+** Page 240 *******************************************************************
+
+# file makezeros.py
+
+def lots_of_appends():
+    zeros = []
+    for i in range(10000):
+        zeros.append(0)
+
+def one_multiply():
+    zeros = [0] * 10000
+
+# file timings.py
+
+import time, makezeros
+
+def do_timing(num_times, *funcs):
+    totals = {}
+    for func in funcs: totals[func] = 0.0
+    for x in range(num_times):
+        for func in funcs:
+            starttime = time.time()         # record starting time
+            apply(func)
+            stoptime = time.time()          # record ending time
+            elapsed = stoptime-starttime    # difference yields time elapsed
+            totals[func] = totals[func] + elapsed
+    for func in funcs:
+        print "Running %s %d times took %.3f seconds" % (func.__name__,
+                                                         num_times,
+                                                         totals[func])
+
+do_timing(100, (makezeros.lots_of_appends, makezeros.one_multiply))
+
+
+csh> python timings.py
+Running lots_of_appends 100 times took 7.891 seconds
+Running one_multiply 100 times took 0.120 seconds
+
+
+>>> import profile
+>>> from timings import *
+>>> from makezeros import *
+>>> profile.run('do_timing(100, (lots_of_appends, one_multiply))')
+Running lots_of_appends 100 times took 8.773 seconds
+Running one_multiply 100 times took 0.090 seconds
+...
+

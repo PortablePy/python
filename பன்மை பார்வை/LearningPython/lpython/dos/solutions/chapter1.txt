@@ -1,0 +1,57 @@
+1. Interaction. ***************************************************************
+
+% python
+copyright information lines...
+>>> "Hello World!"
+'Hello World!'
+>>> # <ctrl-D or ctrl-Z to exit>
+
+
+2. Programs. ******************************************************************
+
+% cat module1.py
+print 'Hello module world!'
+
+% python module1.py
+Hello module world!
+
+
+3. Modules. *******************************************************************
+
+% python
+>>> import module1
+Hello module world!
+>>>
+
+
+4. Scripts. *******************************************************************
+
+% cat module1.py
+#!/usr/local/bin/python        (or #!/usr/bin/env python)
+print 'Hello module world!'
+
+% chmod +x module1.py
+% module1.py
+Hello module world!
+
+
+5. Errors. ********************************************************************
+
+% python
+>>> 1 / 0
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+ZeroDivisionError: integer division or modulo
+>>>
+>>> x
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+NameError: x
+
+
+6. Breaks. ********************************************************************
+
+% python
+>>> L = [1, 2]
+>>> L.append(L)
+

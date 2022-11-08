@@ -1,0 +1,155 @@
+1. Basics. ********************************************************************
+
+% python
+>>> def func(x): print x
+...
+>>> func("spam")
+spam
+>>> func(42)
+42
+>>> func([1, 2, 3])
+[1, 2, 3]
+>>> func({'food': 'spam'})
+{'food': 'spam'}
+
+
+2. Arguments. *****************************************************************
+
+% cat mod.py
+def adder(x, y):
+    return x + y
+
+print adder(2, 3)
+print adder('spam', 'eggs')
+print adder(['a', 'b'], ['c', 'd'])
+
+% python mod.py
+5
+spameggs
+['a', 'b', 'c', 'd']
+
+
+3. varargs. *******************************************************************
+
+% cat adders.py
+
+def adder1(*args):
+    print 'adder1',
+    if type(args[0]) == type(0):   # integer?
+        sum = 0                    # init to zero
+    else:                          # else sequence:
+        sum = args[0][:0]          # use empty slice of arg1
+    for arg in args:
+        sum = sum + arg
+    return sum
+
+def adder2(*args):
+    print 'adder2',
+    sum = args[0]                # init to arg1
+    for next in args[1:]:
+        sum = sum + next         # add items 2..N
+    return sum
+
+for func in (adder1, adder2):
+    print func(2, 3, 4)
+    print func('spam', 'eggs', 'toast')
+    print func(['a', 'b'], ['c', 'd'], ['e', 'f'])
+
+% python adders.py
+adder1 9
+adder1 spameggstoast
+adder1 ['a', 'b', 'c', 'd', 'e', 'f']
+adder2 9
+adder2 spameggstoast
+adder2 ['a', 'b', 'c', 'd', 'e', 'f']
+
+
+4. Keywords. ******************************************************************
+
+% cat mod.py
+def adder(good=1, bad=2, ugly=3):
+    return good + bad + ugly
+
+print adder()
+print adder(5)
+print adder(5, 6)
+print adder(5, 6, 7)
+print adder(ugly=7, good=6, bad=5)
+
+% python mod.py
+6
+10
+14
+18
+18
+
+
+5. and 6. *********************************************************************
+
+% cat dict.py
+def copyDict(old):
+    new = {}
+    for key in old.keys():
+        new[key] = old[key]
+    return new
+
+def addDict(d1, d2):
+    new = {}
+    for key in d1.keys():
+        new[key] = d1[key]
+    for key in d2.keys():
+        new[key] = d2[key]
+    return new
+
+% python
+>>> from dict import *
+>>> d = {1:1, 2:2}
+>>> e = copyDict(d)
+>>> d[2] = '?'
+>>> d
+{1: 1, 2: '?'}
+>>> e
+{1: 1, 2: 2}
+
+>>> x = {1:1}
+>>> y = {2:2}
+>>> z = addDict(x, y)
+>>> z
+{1: 1, 2: 2}
+
+
+7. More argument matching examples. *******************************************
+
+# put these in a module and ftech with "from mod import *"
+
+def f1(a, b): print a, b               # normal args
+def f2(a, *b): print a, b              # positional varargs
+def f3(a, **b): print a, b             # keyword varargs
+def f4(a, *b, **c): print a, b, c      # mixed modes
+def f5(a, b=2, c=3): print a, b, c     # defaults
+def f6(a, b=2, *c): print a, b, c      # defaults + positional varargs
+
+% python
+>>> f1(1, 2)            # matched by position (order matters)
+1 2
+>>> f1(b=2, a=1)        # matched by name (order doesn't matter)
+1 2
+
+>>> f2(1, 2, 3)         # extra positionals collected in a tuple
+1 (2, 3)
+
+>>> f3(1, x=2, y=3)     # extra keywords collected in a dictionary
+1 {'x': 2, 'y': 3}
+
+>>> f4(1, 2, 3, x=2, y=3)     # extra of both kinds
+1 (2, 3) {'x': 2, 'y': 3}
+
+>>> f5(1)                     # both defaults kick in
+1 2 3
+>>> f5(1, 4)                  # only one default used
+1 4 3
+
+>>> f6(1)                     # one argument: matches "a"
+1 2 ()
+>>> f6(1, 3, 4)               # extra positional collected
+1 3 (4,)

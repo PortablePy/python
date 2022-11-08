@@ -1,0 +1,672 @@
+** Page 243 *******************************************************************
+
+newList = myList[:]
+
+newDict = {}
+for key in myDict.keys():
+    newDict[key] = myDict[key]
+
+newDict = myDict.copy()
+
+for key in otherDict.keys():
+    oneDict[key] = otherDict[key]
+
+def mergeWithoutOverlap(oneDict, otherDict):
+    newDict = oneDict.copy()
+    for key in otherDict.keys():
+        if key in oneDict.keys():
+            raise ValueError, "the two dictionaries are sharing keys!"
+        newDict[key] = otherDict[key]
+    return newDict
+
+def mergeWithOverlap(oneDict, otherDict):
+    newDict = oneDict.copy()
+    for key in otherDict.keys():
+        if key in oneDict.keys():
+            newDict[key] = oneDict[key], otherDict[key]
+        else:
+            newDict[key] = otherDict[key]
+    return newDict
+
+phoneBook1 = {'michael': '555-1212', 'mark': '554-1121', 'emily': '556-0091'}
+phoneBook2 = {'latoya': '555-1255', 'emily': '667-1234'}
+
+
+** Page 245 *******************************************************************
+
+>>> import copy
+>>> listOne = [{"name": "Willie", "city": "Providence, RI"}, 1, "tomato", 3.0]
+>>> listTwo = listOne[:]                   # or listTwo=copy.copy(listOne)
+>>> listThree = copy.deepcopy(listOne)
+>>> listOne.append("kid")
+>>> listOne[0]["city"] = "San Francisco, CA"
+>>> print listOne, listTwo, listThree
+[{'name': 'Willie', 'city': 'San Francisco, CA'}, 1, 'tomato', 3.0, 'kid']
+[{'name': 'Willie', 'city': 'San Francisco, CA'}, 1, 'tomato', 3.0]
+[{'name': 'Willie', 'city': 'Providence, RI'}, 1, 'tomato', 3.0]
+
+
+** Page 246 *******************************************************************
+
+listCopy = list(myTuple)
+listCopy.sort()
+for item in listCopy:
+    print item         # or whatever needs doing
+
+keys = myDict.keys()   # returns an unsorted list of the keys in the dict
+keys.sort()
+for key in keys:              # print key, value pairs
+    print key, myDict[key]    # sorted by key
+
+>>> def caseIndependentSort(something, other):
+...     something, other = string.lower(something), string.lower(other)
+...     return cmp(something, other)
+...
+>>> testList = ['this', 'is', 'A', 'sorted', 'List']
+>>> testList.sort()
+>>> print testList
+['A', 'List', 'is', 'sorted', 'this']
+>>> testList.sort(caseIndependentSort)
+>>> print testList
+['A', 'is', 'List', 'sorted', 'this']
+
+
+while myList:        # will stop looping when myList is empty
+    element = whrandom.choice(myList)
+    myList.remove(element)
+    print element,
+
+
+** Page 248 *******************************************************************
+
+class Stack:
+    def __init__(self, data):
+        self._data = list(data)
+    def push(self, item):
+        self._data.append(item)
+    def pop(self):
+        item = self._data[-1]
+        del self._data[-1]
+        return item
+
+>>> thingsToDo = Stack(['write to mom', 'invite friend over', 'wash the
+kid'])
+>>> thingsToDo.push('do the dishes')
+>>> print thingsToDo.pop()
+do the dishes
+>>> print thingsToDo.pop()
+wash the kid
+
+
+# import the UserList class from the UserList module
+from UserList import UserList
+
+# subclass the UserList class
+class Stack(UserList):
+    push = UserList.append
+    def pop(self):
+        item = self[-1]          # uses __getitem__
+        del self[-1]
+        return item
+
+>>> thingsToDo = Stack(['write to mom', 'invite friend over', 'wash the
+kid'])
+>>> print thingsToDo                   # inherited from UserList
+['write to mom', 'invite friend over', 'wash the kid']
+>>> thingsToDo.pop()
+'wash the kid'
+>>> thingsToDo.push('change the oil')
+>>> for chore in thingsToDo:           # we can also iterate over the contents
+...     print chore                    # as "for .. in .." uses __getitem__
+...
+write to mom
+invite friend over
+change the oil
+
+
+** Page 250 *******************************************************************
+
+import sys
+data = sys.stdin.readlines()
+print "Counted", len(data), "lines."
+
+% cat countlines.py | python countlines.py
+Counted 3 lines.
+
+C:\> type countlines.py | python countlines.py
+Counted 3 lines.
+
+
+# Finding all lines that start with a #
+
+import sys
+for line in sys.stdin.readlines():
+    if line[0] == '#':
+        print line,
+
+
+# Extracting the fourth column of a file (where columns are whitespace)
+
+import sys, string
+for line in sys.stdin.readlines():
+    words = string.split(line)
+    if len(words) >= 4:
+        print words[3]
+
+# or...
+    try:
+        print words[3]
+    except IndexError: # there aren't enough words
+        pass
+
+
+# Extracting the fourth column of a file, 
+# where columns are separated by colons, and lowercasing it
+
+import sys, string
+for line in sys.stdin.readlines():
+    words = string.split(line, ':')
+    if len(words) >= 4:
+        print string.lower(words[3])
+
+
+# Printing the first 10 lines, the last 10 lines, and every other line
+
+import sys, string
+lines = sys.stdin.readlines()
+sys.stdout.writelines(lines[:10])           # first ten lines
+sys.stdout.writelines(lines[-10:])          # last ten lines
+for lineIndex in range(0, len(lines), 2):   # get 0, 2, 4, ...
+    sys.stdout.write(lines[lineIndex])      # get the indexed line
+
+
+# Counting the number of times the word "Python" occurs in a file
+
+import string
+text = open(fname).read()
+print string.count(text, 'Python')
+
+
+# Changing a list of columns into a list of rows
+
+import sys, string
+lines = sys.stdin.readlines()
+wordlists = []
+for line in lines:
+    words = string.split(line)
+    wordlists.append(words)
+for row in range(len(wordlists[0])):
+    for col in range(len(wordlists)):
+        print wordlists[col][row] + '\t',
+    print
+
+
+** Page 252 *******************************************************************
+
+# read character by character
+while 1:
+    next = sys.stdin.read(1)     # read a one-character string
+    if not next:                 # or an empty string at eof
+        break
+    Process character 'next'
+
+# read line by line
+while 1:
+    next = sys.stdin.readline()  # read a one-line string
+    if not next:                 # or an empty string at EOF
+        break
+    Process line 'next'
+
+
+% python myScript.py input1.txt input2.txt input3.txt output.txt
+
+import sys
+inputfilenames, outputfilename = sys.argv[1:-1], sys.argv[-1]
+for inputfilename in inputfilenames:
+    inputfile = open(inputfilename, "r")
+    do_something_with_input(inputfile)
+outputfile = open(outputfilename, "w")
+write_results(outputfile)
+
+def do_something_with_input(inputfile):
+    for line in inputfile.readlines()
+        process(line)
+
+
+import fileinput
+for line in fileinput.input():
+    process(line)
+
+
+
+# take the first argument out of sys.argv and assign it to searchterm
+searchterm, sys.argv[1:] = sys.argv[1], sys.argv[2:]
+for line in fileinput.input():
+    num_matches = string.count(line, searchterm)
+    if num_matches:                  # a nonzero count means there was a match
+        print "found '%s' %d times in %s on line %d." % (searchterm, num_matches,
+               fileinput.filename(), fileinput.filelineno())
+
+
+** Page 254 *******************************************************************
+
+import os, string
+if len(sys.argv) == 1:                   # if no filenames are specified,
+    filenames = os.listdir(os.curdir)    # use current dir
+else:                                    # otherwise, use files specified
+    filenames = sys.argv[1:]             # on the command line
+for filename in filenames:
+    if ' ' in filename:
+        newfilename = string.replace(filename, ' ', '_')
+        print "Renaming", filename, "to", newfilename, "..."
+        os.rename(filename, newfilename)
+
+
+import sys, glob, operator
+print sys.argv[1:]
+sys.argv = reduce(operator.add, map(glob.glob, sys.argv))
+print sys.argv[1:]
+
+/usr/python/book$ python showglob.py *.py
+['countlines.py', 'mygrep.py', 'retest.py', 'showglob.py', 'testglob.py']
+['countlines.py', 'mygrep.py', 'retest.py', 'showglob.py', 'testglob.py']
+C:\python\book> python showglob.py *.py
+['*.py']
+['countlines.py', 'mygrep.py', 'retest.py', 'showglob.py', 'testglob.py']
+
+
+>>> numbers = range(30)
+>>> def even(x):
+...     return x % 2 == 0
+...
+>>> print numbers
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+21, 22, 23, 24, 25, 26, 27, 28, 29]
+>>> print filter(even, numbers)
+[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28]
+
+
+import string
+words = string.split(open('myfile.txt').read()) # get all the words
+
+def at_least_ten(word):
+    return len(word) >= 10
+
+longwords = filter(at_least_ten, words)
+
+
+lines = open('myfile.txt').readlines()
+lines = filter(None, lines) # remember, the empty string is false
+
+
+** Page 258 *******************************************************************
+
+# read input file
+inputFile = open('input.txt', 'r')
+
+import tempfile
+# create temporary file
+tempFile = tempfile.TemporaryFile()                  # we don't even need to
+first_process(input = inputFile, output = tempFile)  # know the filename...
+
+# create final output file
+outputFile = open('output.txt', 'w')
+second_process(input = tempFile, output = outputFile)
+
+
+formletter = """Dear %s,\nI'm writing to you to suggest that ...""" # etc.
+myDatabase = [('Bill Clinton', 'bill@whitehouse.gov.us'),
+              ('Bill Gates', 'bill@microsoft.com'),
+              ('Bob', 'bob@subgenius.org')]
+for name, email in myDatabase:
+    specificLetter = formletter % name
+    tempfilename = tempfile.mktemp()
+    tempfile = open(tempfilename, 'w')
+    tempfile.write(specificLetter)
+    tempfile.close()
+    os.system('/usr/bin/mail %(email)s -s "Urgent!" < %(tempfilename)s' 
+                                                               % vars())
+    os.remove(tempfilename)
+
+
+** Page 259 *******************************************************************
+
+#!/usr/bin/env python
+import sys, string
+
+entries = {}
+for line in open(sys.argv[1], 'r').readlines():
+    left, right = string.split(line)
+    try:
+        entries[right].append(left)       # extend list
+    except KeyError:
+        entries[right] = [left]           # first time seen
+
+for (right, lefts) in entries.items():
+    print "%04d '%s'\titems => %s" % (len(lefts), right, lefts)
+
+
+
+# or
+if entries.has_key(right):       # is it already in the dictionary?
+    entries[right].append(left)  # add to the list of current values for key
+else:
+    entries[right] = [left]      # initialize key's values list
+
+
+% cat data.txt
+1 one
+2 one
+3 two
+7 three
+8 two
+10 one
+14 three
+19 three
+20 three
+30 three
+
+% python collector1.py data.txt
+0003 'one' items => ['1', '2', '10']
+0005 'three' items => ['7', '14', '19', '20', '30']
+0002 'two' items => ['3', '8']
+
+
+
+#!/usr/bin/env python
+import sys, string
+
+def collect(file):
+    entries = {}
+    for line in file.readlines():
+        left, right = string.split(line)
+        try:
+            entries[right].append(left)    # extend list
+        except KeyError:
+            entries[right] = [left]        # first time seen
+    return entries
+
+if __name__ == "__main__": # when run as a script
+    if len(sys.argv) == 1:
+        result = collect(sys.stdin)                # read from stdin stream
+    else:
+        result = collect(open(sys.argv[1], 'r'))   # read from passed filename
+    for (right, lefts) in result.items():
+        print "%04d '%s'\titems => %s" % (len(lefts), right, lefts)
+
+
+# run as a script file
+% collector2.py < data.txt
+result displayed here...
+
+# use in some other component (or interactively)
+from collector2 import collect
+result = collect(open("spam.txt", "r"))
+process result here...
+
+
+>>> from collector2 import collect
+>>> from StringIO import StringIO
+>>>
+>>> str = StringIO("1 one\n2 one\n3 two")
+>>> result = collect(str)                  # scans the wrapped string
+>>> print result                           # {'one':['1','2'],'two':['3']}
+
+
+** Page 262 *******************************************************************
+
+for datafname in ['data.001', 'data.002', 'data.003']:
+   for parameter1 in range(1, 10):
+      os.system("analyzeData -in %(datafname)s -param1 %(paramter1)d" % vars())
+
+
+#!/usr/bin/env python
+# find files, search for tabs
+
+import string, os
+cmd = 'find . -name "*.py" -print'           # find is a standard Unix tool
+
+for file in os.popen(cmd).readlines():       # run find command
+    num = 1
+    name = file[:-1] # strip '\n'
+    for line in open(name).readlines():      # scan the file
+        pos = string.find(line, "\t")
+        if pos >= 0:
+            print name, num, pos             # report tab found
+            print '....', line[:-1]          # [:-1] strips final \n
+            print '....', ' '*pos + '*', '\n'
+        num = num+1
+
+
+C:\python\book-examples> python findtabs.py
+./happyfingers.py 2 0
+....   for i in range(10):
+.... *
+./happyfingers.py 3 0
+....           print "oops..."
+.... *
+./happyfingers.py 5 5
+.... print     "bad style"
+....      *
+
+
+if sys.platform == "win32":      # on a Windows port
+    try:
+        import win32pipe
+        popen = win32pipe.popen
+    except ImportError:
+        raise ImportError, "The win32pipe module could not be found"
+else:                            # else on POSIX box
+    import os
+    popen = os.popen
+...And use popen in blissful platform ignorance
+
+
+** Page 265 *******************************************************************
+
+# file get_temperature.py
+import urllib, urlparse, string, time
+
+def get_temperature(country, state, city):
+    url = urlparse.urljoin('http://www.weather.com/weather/cities/',
+                            string.lower(country)+'_' + \
+                            string.lower(state) + '_' + \
+                            string.replace(string.lower(city), ' ',
+                                               '_') + '.html')
+    data = urllib.urlopen(url).read()
+    start = string.index(data, 'current temp: ') + len('current temp: ')
+    stop = string.index(data, '&deg;F', start-1)
+    temp = int(data[start:stop]) 
+    localtime = time.asctime(time.localtime(time.time()))
+    print ("On %(localtime)s, the temperature in %(city)s, " +\
+           "%(state)s %(country)s is %(temp)s F.") % vars()
+
+get_temperature('FR', '', 'Paris')
+get_temperature('US', 'RI', 'Providence')
+get_temperature('US', 'CA', 'San Francisco')
+
+
+~/book:> python get_temperature.py
+On Wed Nov 25 16:22:25 1998, the temperature in Paris, FR is 39 F.
+On Wed Nov 25 16:22:30 1998, the temperature in Providence, RI US is 39 F.
+On Wed Nov 25 16:22:35 1998, the temperature in San Francisco, CA US is 58 F.
+
+
+** Page 266 *******************************************************************
+
+>>> from poplib import *
+>>> server = POP3('mailserver.spam.org')
+>>> print server.getwelcome()
++OK QUALCOMM Pop server derived from UCB (version 2.1.4-R3) at spam starting.
+>>> server.user('da')
+'+OK Password required for da.'
+>>> server.pass_('youllneverguess')
+'+OK da has 153 message(s) (458167 octets).'
+
+>>> header, msg, octets = server.retr(152)  # let's get the latest msgs
+>>> import string
+>>> print string.join(msg[:3], '\n')        # and look at the first three lines
+Return-Path: <jim@bigbad.com>
+Received: from gator.bigbad.com by mailserver.spam.org (4.1/SMI-4.1)
+        id AA29605; Wed, 25 Nov 98 15:59:24 PST
+
+
+** Page 267 *******************************************************************
+
+# file interest.py
+
+trace = 1     # print each year?
+
+def calc(principal, interest, years):
+    for y in range(years):
+        principal = principal * (1.00 + (interest / 100.0))
+        if trace: print y+1, '=> %.2f' % principal
+    return principal
+
+% python
+>>> from interest import calc
+>>> calc(65000, 5.5, 10)
+1 => 68575.00
+2 => 72346.63
+3 => 76325.69
+4 => 80523.60
+5 => 84952.40
+6 => 89624.78
+7 => 94554.15
+8 => 99754.62
+9 => 105241.13
+10 => 111029.39
+111029.389793
+
+>>> import interest
+>>> interest.trace = 0
+>>> calc(65000, 5.5, 10)
+111029.389793
+
+
+def calc(principal, interest, years):
+    interest = interest / 100.0
+    for y in range(years):
+        earnings = principal * interest
+        principal = principal + earnings
+        if trace: print y+1, '(+%d)' % earnings, '=> %.2f' % principal
+    return principal
+
+>>> interest.trace = 1
+>>> calc(65000, 5.5, 10)
+1 (+3575) => 68575.00
+2 (+3771) => 72346.63
+3 (+3979) => 76325.69
+4 (+4197) => 80523.60
+5 (+4428) => 84952.40
+6 (+4672) => 89624.78
+7 (+4929) => 94554.15
+8 (+5200) => 99754.62
+9 (+5486) => 105241.13
+10 (+5788) => 111029.39
+111029.389793
+
+
+** Page 269 *******************************************************************
+
+#!/usr/bin/env python
+# find a free modem to dial out on
+
+import glob, os, string
+LOCKS = "/var/spool/locks/"
+
+locked = [0] * 10
+for lockname in glob.glob(LOCKS + "LCK*modem*"):     # find locked modems
+    print "Found lock:", lockname
+    locked[string.atoi(lockname[-1])] = 1            # 0..9 at end of name
+
+print 'free: ',
+for i in range(10):                                  # report, dial-out
+    if not locked[i]: print i,
+print
+
+for i in range(10):
+    if not locked[i]:
+        if raw_input("Try %d? " % i) == 'y':
+            os.system("kermit -m hayes -l /dev/modem%d -b 19200 -S" % i)
+            if raw_input("More? ") != 'y': break
+
+
+** Page 270 *******************************************************************
+
+# file rolo.py
+
+#!/usr/bin/env python
+# An interactive rolodex
+
+import string, sys, pickle, cmd
+
+class Rolodex(cmd.Cmd):
+
+    def __init__(self):
+        cmd.Cmd.__init__(self)                # initialize the base class
+        self.prompt = "Monty's Friends: "     # customize the prompt
+        self.people = {}                      # at first, we know nobody
+
+    def help_add(self):
+        print "Adds an entry (specify a name)"
+    def do_add(self, name):
+        if name == "": name = raw_input("Enter Name: ")
+        phone = raw_input("Enter Phone Number for "+ name+": ")
+        self.people[name] = phone             # add phone number for name
+
+    def help_find(self):
+        print "Find an entry (specify a name)"
+    def do_find(self, name):
+        if name == "": name = raw_input("Enter Name: ")
+        if self.people.has_key(name):
+            print "The number for %s is %s." % (name, self.people[name])
+        else:
+            print "We have no record for %s." % (name,)
+
+    def help_list(self):
+        print "Prints the contents of the directory"
+    def do_list(self, line):
+        names = self.people.keys()            # the keys are the names
+        if names == []: return                # if there are no names, exit
+        names.sort()                          # we want them in alphabetic order
+        print '='*41
+        for name in names:
+            print string.rjust(name, 20), ":", string.ljust(self.people[name], 20)
+        print '='*41
+
+    def help_EOF(self):
+        print "Quits the program"
+    def do_EOF(self, line):
+        sys.exit()
+
+    def help_save(self):
+        print "save the current state of affairs"
+    def do_save(self, filename):
+        if filename == "": filename = raw_input("Enter filename: ")
+        saveFile = open(filename, 'w')
+        pickle.dump(self.people, saveFile)
+
+    def help_load(self):
+        print "load a directory"
+    def do_load(self, filename):
+        if filename == "": filename = raw_input("Enter filename: ")
+        saveFile = open(filename, 'r')
+        self.people = pickle.load(saveFile)   # note that this will override
+                                              # any existing people directory
+if __name__ == '__main__':      # this way the module can be
+    rolo = Rolodex()            # imported by other programs as well
+    rolo.cmdloop()
+
+
+% python rolo.py
+Monty's Friends: help
+
+Documented commands (type help <topic>):
+========================================
+EOF   add   find   list   load
+save
+
+Undocumented commands:
+======================
+help

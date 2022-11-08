@@ -1,0 +1,305 @@
+*** Page 73-74 ****************************************************************
+
+>>> nudge = 1
+>>> wink = 2
+>>> A, B = nudge, wink # tuples
+>>> A, B
+(1, 2)
+>>> [C, D] = [nudge, wink] # lists
+>>> C, D
+(1, 2)
+>>> nudge, wink = wink, nudge          # tuples: swaps values
+>>> nudge, wink                        # same as T=nudge; nudge=wink; wink=T
+(2, 1)
+
+>>> x = 0            # x bound to an integer object
+>>> x = "Hello"      # now it's a string
+>>> x = [1, 2, 3]    # and now it's a list
+
+
+*** Page 76-77 ****************************************************************
+
+>>> print "a", "b"
+a b
+>>> print "a" + "b"
+ab
+>>> print "%s...%s" % ("a", "b")
+a...b
+
+>>> print 'hello world'       # print a string object
+hello world
+>>> 'hello world'             # interactive prints
+'hello world'
+>>> import sys                # printing the hard way
+>>> sys.stdout.write('hello world\n')
+hello world
+
+
+class FileFaker:
+    def write(self, string):
+        # do something with the string
+
+import sys
+sys.stdout = FileFaker()
+print someObjects         # sends to the write method of the class
+
+python script.py < inputfile > outputfile
+python script.py | filter
+
+
+*** Page 78-79 ****************************************************************
+
+>>> if 1:
+...     print 'true'
+...
+true
+
+>>> if not 1:
+...     print 'true'
+... else:
+...     print 'false'
+...
+false
+
+>>> x = 'killer rabbit'
+>>> if x == 'roger':
+...     print "how's jessica?"
+... elif x == 'bugs':
+...     print "what's up doc?"
+... else:
+...     print 'Run away! Run away!'
+...
+Run away! Run away!
+
+>>> choice = 'ham'
+>>> print {'spam':  1.25,        # a dictionary-based 'switch'
+...        'ham':   1.99,        # use has_key() test for default case
+...        'eggs':  0.99,
+...        'bacon': 1.10}[choice]
+1.99
+
+>>> if choice == 'spam':
+...     print 1.25
+... elif choice == 'ham':
+...    print 1.99
+... elif choice == 'eggs':
+...    print 0.99
+... elif choice == 'bacon':
+...     print 1.10
+... else:
+...     print 'Bad choice'
+...
+1.99
+
+
+*** Page 80-82 ****************************************************************
+
+x = 1
+if x:
+    y = 2
+    if y:
+        print 'block2'
+    print 'block1'
+print 'block0'
+
+L = ["Good",
+     "Bad",
+     "Ugly"]        # open pairs may span lines
+
+if a == b and c == d and \
+   d == e and f == g:
+       print 'olde' # backslashes allow continuations
+
+if (a == b and c == d and
+    d == e and e == f):
+       print 'new ' # but parentheses usually do too
+
+x = 1; y = 2; print x # more than 1 simple statement
+
+if 1: print 'hello' # simple statement on header line
+
+
+*** Page 83 *******************************************************************
+
+>>> 2 < 3, 3 < 2        # less-than: return 1 or 0
+(1, 0)
+
+>>> 2 or 3, 3 or 2      # return left operand if true
+(2, 3)                  # else return right operand (whether true or false)
+>>> [] or 3
+3
+>>> [] or {}
+{}
+
+>>> 2 and 3, 3 and 2    # return left operand if false
+(3, 2)                  # else return right operand (whether true or false)
+>>> [] and {}
+[]
+>>> 3 and []
+[]
+
+
+*** Page 85 *******************************************************************
+
+>>> while 1:
+...     print 'Type Ctrl-C to stop me!'
+
+>>> x = 'spam'
+>>> while x:
+...     print x,
+...     x = x[1:]        # strip first character off x
+...
+spam pam am m
+
+>>> a=0; b=10
+>>> while a < b:         # one way to code counter loops
+...     print a,
+...     a = a+1
+...
+0 1 2 3 4 5 6 7 8 9
+
+
+*** Page 86-87 ****************************************************************
+
+while 1: pass       # type ctrl-C to stop me!
+
+
+x = 10
+while x:
+    x = x-1
+    if x % 2 != 0: continue     # odd?--skip print
+    print x,
+
+
+# y = some value
+x = y / 2
+while x > 1:
+    if y % x == 0:                  # remainder
+        print y, 'has factor', x
+        break                       # skip else
+    x = x-1
+else:                               # normal exit
+    print y, 'is prime'
+
+
+*** Page 88-91 ****************************************************************
+
+>>> for x in ["spam", "eggs", "ham"]:
+...     print x,
+...
+spam eggs ham
+
+
+>>> sum = 0
+>>> for x in [1, 2, 3, 4]:
+...     sum = sum + x
+...
+>>> sum
+10
+>>> prod = 1
+>>> for item in [1, 2, 3, 4]: prod = prod * item
+...
+>>> prod
+24
+
+
+>>> S, T = "lumberjack", ("and", "I'm", "okay")
+>>> for x in S: print x,
+...
+l u m b e r j a c k
+
+>>> for x in T: print x,
+...
+and I'm okay
+
+
+>>> T = [(1, 2), (3, 4), (5, 6)]
+>>> for (a, b) in T:              # tuple assignment at work
+...     print a, b
+...
+1 2
+3 4
+5 6
+
+
+>>> items = ["aaa", 111, (4, 5), 2.01]     # a set of objects
+>>> tests = [(4, 5), 3.14]                 # keys to search for
+>>>
+>>> for key in tests:                    # for all keys
+...     for item in items:               # for all items
+...         if item == key:              # check for match
+...             print key, "was found"
+...             break
+...     else:
+...         print key, "not found!"
+...
+(4, 5) was found
+3.14 not found!
+
+
+>>> for key in tests:                # for all keys
+...     if key in items:             # let Python check for a match
+...         print key, "was found"
+...     else:
+...         print key, "not found!"
+...
+(4, 5) was found
+3.14 not found!
+
+
+>>> seq1 = "spam"
+>>> seq2 = "scam"
+>>>
+>>> res = []                   # start empty
+>>> for x in seq1:             # scan first sequence
+...     if x in seq2:          # common item?
+...         res.append(x)      # add to result end
+...
+>>> res
+['s', 'a', 'm']
+
+
+file = open("name", "r")
+while 1:
+    line = file.readline()     # fetch next line, if any
+    if not line: break         # exit loop on end-of-file (empty string)
+    Process line here...
+
+file = open("name", "r")
+for line in file.readlines():  # read into a lines list
+    Process line here...
+
+
+*** Page 91-92 ****************************************************************
+
+>>> range(5), range(2, 5), range(0, 10, 2)
+([0, 1, 2, 3, 4], [2, 3, 4], [0, 2, 4, 6, 8])
+
+
+>>> X = 'spam'
+>>> for item in X: print item,      # simple iteration
+...
+s p a m
+
+
+>>> i = 0
+>>> while i < len(X):               # while iteration
+...     print X[i],; i = i+1
+...
+s p a m
+
+
+>>> for i in range(len(X)): print X[i],     # manual indexing
+...
+s p a m
+
+
+>>> for i in range(3): print i, 'Pythons'
+...
+0 Pythons
+1 Pythons
+2 Pythons
+
+
+*** see solutions file for exercises' source code ***
+

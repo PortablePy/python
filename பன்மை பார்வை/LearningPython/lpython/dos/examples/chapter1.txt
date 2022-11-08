@@ -1,0 +1,123 @@
+*** Page 12 *******************************************************************
+
+% python
+>>> print 'Hello world!'
+Hello world!
+>>> lumberjack = "okay"
+>>> # Ctrl D to exit (Ctrl Z on some platforms)
+
+
+*** Page 13 *******************************************************************
+
+[file spam.py]
+import sys
+print sys.argv # more on this later
+
+% python spam.py -i eggs -o bacon
+['spam.py', '-i', 'eggs', '-o', 'bacon']
+
+
+*** Page 14 *******************************************************************
+
+[file brian]
+#!/usr/local/bin/python
+print 'The Bright Side of Life...' # another comment here
+
+% chmod +x brian
+% brian
+The Bright Side of Life...
+
+C:\book\tests> python brian
+The Bright Side of Life...
+
+
+*** Page 17 *******************************************************************
+
+[file myfile.py]
+title = "The Meaning of Life"
+
+% python
+>>> import myfile                 # Run file, load module as a whole
+>>> print myfile.title            # Use its names: '.' qualification
+The Meaning of Life
+
+% python
+>>> from myfile import title      # Run file, load its names
+>>> print title                   # Use name directly: no need to qualify
+The Meaning of Life
+
+% python
+>>> import myfile                 # Run/load module
+>>> print myfile.title            # Qualify to fetch name
+The Meaning of Life
+
+... Change myfile.py in your text editor
+
+>>> import myfile                 # Will NOT rerun the file’s code
+>>> reload(myfile)                # WILL rerun the file’s (current) code
+
+
+*** Page 19 *******************************************************************
+
+>>> x = 1
+>>> y = "shrubbery"
+>>> dir()
+['__builtins__', '__doc__', '__name__', 'x', 'y']
+
+[file threenames.py]
+a = 'dead'
+b = 'parrot'
+c = 'sketch'
+
+% cat threenames.py
+a = 'dead'
+b = 'parrot'
+c = 'sketch'
+% python
+>>> import threenames
+>>> dir(threenames)
+['__builtins__', '__doc__', '__file__', '__name__', 'a', 'b', 'c']
+>>> dir(__builtins__)
+All the names Python predefines for you
+
+
+*** Page 21 *******************************************************************
+
+[file runpy]
+#!/bin/csh
+# Give this file executable privileges (chmod +x runpy).
+# Put this info in your .cshrc file to make it permanent.
+
+# 1) Add path to command-line interpreter
+set path = (/usr/local/bin $path)
+
+# 2) Set python library search paths (unless predefined)
+# add your module file directories to the list as desired
+setenv PYTHONPATH \
+.:/usr/local/lib/python:/usr/local/lib/python/tkinter
+
+# 3) Set tk library search paths for GUIs (unless predefined)
+setenv TCL_LIBRARY /usr/local/lib/tcl8.0
+setenv TK_LIBRARY /usr/local/lib/tk8.0
+
+# 4) Start up the interactive command-line
+python
+
+
+[file runpy.bat]
+PATH c:\python;%PATH%
+set PYTHONPATH=.;c:\python\lib;c:\python\lib\tkinter
+set TCL_LIBRARY=c:\Program Files\Tcl\lib\tcl8.0
+set TK_LIBRARY=c:\Program Files\Tcl\lib\tk8.0
+python
+
+
+% runpy
+version/copyright information...
+>>> from Tkinter import *
+>>> w = Button(text="Hello", command='exit')
+>>> w.pack()
+>>> w.mainloop()
+
+
+***see solutions directory for exercises code***

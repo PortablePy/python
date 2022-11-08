@@ -1,0 +1,149 @@
+1. Describing a directory. ****************************************************
+
+import os, sys, stat
+
+def describedir(start):
+    def describedir_helper(arg, dirname, files):
+        """ Helper function for describing directories """
+        print "Directory %s has files:" % dirname
+        for file in files:
+            # find the full path to the file (directory + filename)
+            fullname = os.path.join(dirname, file)
+            if os.path.isdir(fullname):
+                # if it's a directory, say so; no need to find the size
+                print ' '+ file + ' (subdir)'
+            else:
+                # find out the size, and print the info.
+                size = os.stat(fullname)[stat.ST_SIZE]
+                print ' '+file+' size=' + `size`
+
+    # Start the 'walk'.
+    os.path.walk(start, describedir_helper, None)
+
+>>> import describedir
+>>> describedir.describedir2('testdir')
+Directory testdir has files:
+  describedir.py size=939
+  subdir1 (subdir)
+  subdir2 (subdir)
+Directory testdir\subdir1 has files:
+  makezeros.py size=125
+  subdir3 (subdir)
+Directory testdir\subdir1\subdir3 has files:
+Directory testdir\subdir2 has files:
+
+ 
+2. Modifying the prompt. ******************************************************
+
+# modifyprompt.py
+
+import sys, os
+class MyPrompt:
+    def __init__(self, subprompt='>>> '):
+        self.lineno = 0
+        self.subprompt = subprompt
+    def __repr__(self):
+        self.lineno = self.lineno + 1
+        return os.getcwd()+'|%d'%(self.lineno)+self.subprompt
+
+sys.ps1 = MyPrompt()
+sys.ps2 = MyPrompt('... ')
+
+h:\David\book> python -i modifyprompt.py
+h:\David\book|1>>> x = 3
+h:\David\book|2>>> y = 3
+h:\David\book|3>>> def foo():
+h:\David\book|3... x = 3            # the secondary prompt is supported
+h:\David\book|3...
+h:\David\book|4>>> import os
+h:\David\book|5>>> os.chdir('..')
+h:\David|6>>>                        # note the prompt changed!
+
+
+3. Avoiding regular expressions. **********************************************
+
+import string
+file = open('pepper.txt')
+text = file.read()
+paragraphs = string.split(text, '\n\n')
+
+def find_indices_for(big, small):
+    indices = []
+    cum = 0
+    while 1:
+        index = string.find(big, small)
+        if index == -1:
+           return indices
+        indices.append(index+cum)
+        big = big[index+len(small):]
+        cum = cum + index + len(small)
+
+def fix_paragraphs_with_word(paragraphs, word):
+    lenword = len(word)
+    for par_no in range(len(paragraphs)):
+        p = paragraphs[par_no]
+        wordpositions = find_indices_for(p, word)
+        if wordpositions == []: return
+        for start in wordpositions:
+            # look for 'pepper' ahead
+            indexpepper = string.find(p, 'pepper')
+            if indexpepper == -1: return -1
+            if string.strip(p[start:indexpepper]) != '':
+                # something other than whitespace in between!
+                continue
+            where = indexpepper+len('pepper')
+            if p[where:where+len('corn')] == 'corn':
+                # it's immediately followed by 'corn'!
+                continue
+            if string.find(p, 'salad') < where:
+                # it's not followed by 'salad'
+                continue
+            # Finally! we get to do a change!
+            p = p[:start] + 'bell' + p[start+lenword:]
+            paragraphs[par_no] = p         # change mutable argument!
+
+fix_paragraphs_with_word(paragraphs, 'red')
+fix_paragraphs_with_word(paragraphs, 'green')
+
+for paragraph in paragraphs:
+    print paragraph+'\n'
+
+
+4. Wrapping a text file with a class. *****************************************
+
+import string
+
+class FileStrings:
+    def __init__(self, filename=None, data=None):
+        if data == None:
+            self.data = open(filename).read()
+        else:
+            self.data = data
+        self.paragraphs = string.split(self.data, '\n\n')
+        self.lines = string.split(self.data, '\n')
+        self.words = string.split(self.data)
+    def __repr__(self):
+        return self.data
+    def paragraph(self, index):
+        return FileStrings(data=self.paragraphs[index])
+    def line(self, index):
+        return FileStrings(data=self.lines[index])
+    def word(self, index):
+        return self.words[index]
+
+>>> from FileStrings import FileStrings
+>>> bigtext = FileStrings('pepper.txt')
+>>> print bigtext.paragraph(0)
+This is a paragraph that mentions bell peppers multiple times. For
+one, here is a red Pepper and dried tomato salad recipe. I don't like
+to use green peppers in my salads as much because they have a harsher
+flavor.
+>>> print bigtext.line(0)
+This is a paragraph that mentions bell peppers multiple times. For
+>>> print bigtext.line(-4)
+aren't peppers, they're chilies, but would you rather have a good cook
+>>> print bigtext.word(-4)
+botanist
+
+>>> print bigtext.paragraph(2).line(2).word(-1)
+'cook'
