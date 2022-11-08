@@ -1,0 +1,82 @@
+
+
+PAGE is a drop and drag tool which helps to create Tkinter GUI interfaces for use within Python programs.  It is a fork of the program Visual Tcl which now produces Python code. PAGE builds multiple GUI windows and generates a working skeletal Python program using tk and ttk widgets. 
+
+It is aimed at a user who wants to rapidly construct a GUI and is willing to compromise generality for ease and speed of construction. It is a helper tool. It does not build an entire application but rather is aimed at building GUI windows.  It is not a Python Interactive Design Environment(IDE). Stated in other words, PAGE generates a Python classs which implements GUI windows and also supplies all of the boiler-plate code for execution or instantiating the GUI objects. If, like me, you have difficulty remembering all the little tricks of getting a GUI to actually appear on the screen, PAGE can show you code that will work.
+
+PAGE is written in Tcl/Tk but invoked within a Python wrapper. This means that PAGE will run on any system which has Python installed. Separate installation of Tcl/Tk is not required.
+
+The generated output is pure Python 3 and will run on any system supporting Python with Tkinter.
+
+The 7.5 release:
+
++ Moves some boiler plate code from the toplevel class definitions to
+  the module level.
++ Adds function to Widget Tree allowing collapse and expansion of
+  container widgets.
++ Changes the code generation for GUI images so that generated GUI
+  modules can be executed from arbitrary directories.
++ Corrects problems with paned window widget.
++ Improves menu processing.  
++ Makes minor corrections to color handling.
++ Changes skeletal callback functions to make the output more
+  readable.
++ Adds a couple of color utilities to help with choosing colors.
+
+The 7.4 release:
+
++ Cleans up color handling and can lead to a "Dark" mode for PAGE. 
++ Supports the location of rc files to be in any writable
+  directory.
++ Added some capability to modify global colors when reopening existing
+  projects.
++ Includes a new example which shows all of the supported widgets and
+  shows some useful tips.
+
+The 7.3 release consists mostly of bug fixes.
+
+The 7.2 release:
+
++ Corrects bugs related to the textvariable option with ttk
+  widgets. Requires the user to disregard "::" artifact in Attribute
+  Editor. 
++ Disallows the closing of the Widget Tree by the user.
++ Now supports a variety of graphical formats including JPEG for most
+  architectures and OS's.
++ Uses tk widgets, in place of ttk widgets for dialogues.
++ Corrects bugs in the update functions.
++ Corrects bug with selecting TLabel widgets.
+
+
+The 7.1 release:
+
++ Improves behavior of Attribute Editor
++ Corrects bug that prevented creation of popup menus.
+
+The 7.0 release is a major release which
+
++ Utilizes new formats for the generated GUI module and the support module which are simpler particulary for multiple toplevel GUI's. However, the new formats present some backward compatibility questions with existing support modules.
++ Changes code for the skeletal callback functions.   
++ Drops Python 2 support.
++ Updates examples to version 7.
++ Updates and substantially enlarges the tutorials.
++ Includes a discussion on migrating projects created in earlier versions of PAGE.  
++ Improves presentation of attribute errors.  
++ Allows user defined names for context menu function names.
++ Corrects code for using images.
++ Corrects code in notebook editor.  
++ Improves the handling of text and textvariable interactions.
++ Adds support for the ttk::spinbox widget.
++ Modifies the copy-paste to behave more naturally when borrowing toplevel windows.
++ Corrects problems with copy-paste of toplevel menubars and context menus. 
++ Modifies the Widget Tree to behave more naturally when borrowing.
++ Relegates backup files to the "backups" subdirectoy of project directory.
++ Adds a preference to add custom sizes to the font selection dialog.
++ Provides support for the labelanchor attribute with labelframe widgets.
++ Support for inclusion of the post command for the ttk::combobox.
++ Fixes miscellaneous bugs.  
+
+The 6.1 release introduces an autosave feature, accepts a nonexistant project file at invocation, and fixes a several bugs.
+
+The 6.0 release utilizes a Python wrapper which improves and simplifies PAGE installation, particularly on Windows.
+

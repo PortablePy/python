@@ -1,0 +1,28 @@
+#!/bin/sh
+
+###
+## This script will write out the script "page" relecting the
+## installation location. If you installed PAGE in the default
+## location, HOME/page you need not execute this configuration script.
+
+## It is recommended that you consider aliasing a command to the
+## resulting "page" script.
+###
+
+
+
+cd `dirname $0`
+PAGE_HOME=`pwd`
+
+cat > $PAGE_HOME/page << EOF
+python3 ${PAGE_HOME}/page.py \$*
+EOF
+
+chmod +x $PAGE_HOME/page
+
+
+echo "#-------- Generated page --------------#"
+
+cat $PAGE_HOME/page
+
+echo "#-------- End of page -----------------#"

@@ -1,0 +1,23 @@
+ImageDir: Z:/page-tree/examples/widgetdemo\images\icons
+Running under Windows
+widgetdemo_support.on_CheckClick
+    another arg: 1
+widgetdemo_support.on_RadioClick
+    another arg: 1
+widgetdemo_support.on_MsgJustify
+1
+widgetdemo_support.on_LBActiveStyle
+widgetdemo_support.on_LBSelectMode
+widgetdemo_support.on_MsgJustify
+1
+widgetdemo_support.on_TCheck
+widgetdemo_support.on_TRadio
+['winnative', 'clam', 'alt', 'default', 'classic', 'vista', 'xpnative']
+NDX: 5
+Location: Z:/page-tree/examples/widgetdemo\images\icons\document.png
+widgetdemo_support.on_RepeatDelay
+widgetdemo_support.on_RepeatInterval
+Page 2 seen: False
+CurrentTab: 0
+Update_Tree
+widgetdemo_support.on_btnExit

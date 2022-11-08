@@ -1,0 +1,22 @@
+
+This example is a tool which I used extensively when make the color
+changes for version 7.4 and is interesing for three reasons.
+
+1. Given a color it shows the hex value of the color, a swatch of the
+color, and whether the color is deemed a light or dark color using the
+page algorithm.
+
+2. I have thought of GUI's primarily as the primary controller of the
+program, i.e.,the program throws up a GUI and waits until the user
+acts on the GUI such as entering a value in an entry widget, selects a
+button, selects a menu command, etc.. In this case, the program is
+entered from the command line and a color is given as an argument. For
+example, "python3 color_show.py dark green". Then the program does its
+thing and the GUI appears with the answer. There are no callback
+functions in the support module. I think that this is the only time I
+wrote a PAGE program in this way without using callbacks.
+
+3. There is a "Quit" button the GUI that terminates the program and
+the associated command is "sys.exit". But sys.exit does not require a
+function definition in the support module and so there is no callback
+function.

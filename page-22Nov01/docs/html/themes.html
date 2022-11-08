@@ -1,0 +1,282 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Styles and Themes &#8212; PAGE 7 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using PAGE" href="use.html" />
+    <link rel="prev" title="Module Structure" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="styles-and-themes">
+<span id="styles"></span><h1>Styles and Themes<a class="headerlink" href="#styles-and-themes" title="Permalink to this headline">¶</a></h1>
+<p>My understanding is that the motivation and attraction of ttk is that
+one may compose a GUI and it will look “normal” when run in any of the
+common OS’s - Linux, UNIX, Windows, or OS X.
+Also, it is possible to create new themes which are more pleasing for
+a more modern appearance of a GUI. However, I think ttk is a mess in
+terms of architecture, implementation, and especially documentation.
+However, there are several much needed widgets available in ttk including
+ttk::notebook, ttk::progressbar, ttk::treeview, ttk::panedwindow,
+ttk::separator, and ttk::sizegrip. PAGE supports those ttk widgets as well
+as a few others. To get a better appreciation of some of the
+difficulties in working with styles and themes, see
+https://tkdocs.com/tutorial/styles.html#whydifficult.</p>
+<p>So what I have tried to do is manipulate the Themes and Styles in a
+way that the PAGE user can mix ttk widgets with tk widgets and have a
+consistent appearance. This is very much a case of evolving
+understanding and appreciation. This usage of Themes and styles is
+different from orthodox usage which would replace tk widgets with ttk
+widgets but it seems to work pretty well as shown by <a class="reference internal" href="examples.html#widgetdemo"><span class="std std-ref">Widgetdemo</span></a>.</p>
+<p>This is an area that remains confusing to me.  If one is interested
+using a GUI color scheme different for the default gray for Linux and
+MS, then one has to confront Styles.  I was unable to make much
+progress until I received a great deal of help from Guilherme Polo
+which got me to the point I am at now.  I am not sure that I have
+found the best approach or even a
+particularly good way of achieving my results.  So I have tried to
+make style commands as clear as possible so that the user can
+understand what I have done.  If a user
+knows a better way of doing this please let me know and I shall try to
+incorporate it in a future release. Also, Maksim Korzh was
+instrumental in providing the Style coding for the PNotebook widget.</p>
+<p>First I would like to automatically generate code for the user which
+would follow his color scheme.
+Consider the following code for a GUI window that contains a tabbed
+notebook with a background color of wheat:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">_bgcolor</span> <span class="o">=</span> <span class="s1">&#39;wheat&#39;</span>  <span class="c1"># X11 color: #f5deb3</span>
+    <span class="n">_fgcolor</span> <span class="o">=</span> <span class="s1">&#39;#000000&#39;</span>  <span class="c1"># X11 color: &#39;black&#39;</span>
+    <span class="n">_compcolor</span> <span class="o">=</span> <span class="s1">&#39;#b2c9f4&#39;</span> <span class="c1"># Closest X11 color: &#39;SlateGray2&#39;</span>
+    <span class="n">_ana1color</span> <span class="o">=</span> <span class="s1">&#39;#eaf4b2&#39;</span> <span class="c1"># Closest X11 color: &#39;{pale goldenrod}&#39;</span>
+    <span class="n">_ana2color</span> <span class="o">=</span> <span class="s1">&#39;beige&#39;</span> <span class="c1"># X11 color: #f5f5dc</span>
+    <span class="n">_tabfg1</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
+    <span class="n">_tabfg2</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
+    <span class="n">_tabbg1</span> <span class="o">=</span> <span class="s1">&#39;grey75&#39;</span>
+    <span class="n">_tabbg2</span> <span class="o">=</span> <span class="s1">&#39;grey89&#39;</span>
+    <span class="n">_bgmode</span> <span class="o">=</span> <span class="s1">&#39;light&#39;</span>
+    <span class="n">font10</span> <span class="o">=</span> <span class="s2">&quot;-family {DejaVu Sans} -size 14 -weight normal -slant roman -underline 0 -overstrike 0&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Style</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">theme_use</span><span class="p">(</span><span class="s1">&#39;winnative&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">background</span><span class="o">=</span><span class="n">_bgcolor</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">foreground</span><span class="o">=</span><span class="n">_fgcolor</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">font</span><span class="o">=</span><span class="n">font10</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">background</span><span class="o">=</span>
+        <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="n">_compcolor</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="n">_ana2color</span><span class="p">)])</span>
+    <span class="n">master</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="n">_bgcolor</span><span class="p">)</span>
+
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s1">&#39;TNotebook.Tab&#39;</span><span class="p">,</span><span class="n">background</span><span class="o">=</span><span class="n">_bgcolor</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s1">&#39;TNotebook.Tab&#39;</span><span class="p">,</span><span class="n">foreground</span><span class="o">=</span><span class="n">_fgcolor</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;TNotebook.Tab&#39;</span><span class="p">,</span><span class="n">background</span><span class="o">=</span>
+        <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="n">_compcolor</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="n">_ana2color</span><span class="p">)])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Notebook</span><span class="p">(</span><span class="n">master</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">relx</span><span class="o">=</span><span class="mf">0.28</span><span class="p">,</span><span class="n">rely</span><span class="o">=</span><span class="mf">0.16</span><span class="p">,</span><span class="n">relheight</span><span class="o">=</span><span class="mf">0.51</span><span class="p">,</span><span class="n">relwidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">takefocus</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1_pg0</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1_pg0</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="o">.</span><span class="n">tab</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Page 1&quot;</span><span class="p">,</span><span class="n">underline</span><span class="o">=</span><span class="s2">&quot;-1&quot;</span><span class="p">,)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1_pg1</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1_pg1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="o">.</span><span class="n">tab</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Page 2&quot;</span><span class="p">,</span><span class="n">underline</span><span class="o">=</span><span class="s2">&quot;-1&quot;</span><span class="p">,)</span>
+</pre></div>
+</div>
+<p>The first group of statements in __init__define define the default GUI
+colors and the default GUI fonts. These setting come directly from the
+user’s preference choices. I added the comments to the color
+statements so that the user would have a little clearer picture was to
+what was going on.  Similarly, there are several different ways to
+specify fonts and I think that the string format that I used may be
+the clearest for the user to understand and modify.  The complementary
+color and the two analog colors were calculated from algorithms found
+on the net.  I have included as comments the names of the closest or
+exact X11 color. Also, if the color is specified by the X11 name a
+comment contains the hex value.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_bgcolor</span> <span class="o">=</span> <span class="s1">&#39;wheat&#39;</span> <span class="c1"># RGV value #f5deb3</span>
+<span class="n">_fgcolor</span> <span class="o">=</span> <span class="s1">&#39;#000000&#39;</span> <span class="c1"># Closest X11 color: &#39;black&#39;</span>
+<span class="n">_compcolor</span> <span class="o">=</span> <span class="s1">&#39;#b2c9f4&#39;</span> <span class="c1"># Closest X11 color: &#39;SlateGray2&#39;</span>
+<span class="n">_ana1color</span> <span class="o">=</span> <span class="s1">&#39;#eaf4b2&#39;</span> <span class="c1"># Closest X11 color: &#39;{pale goldenrod}&#39;</span>
+<span class="n">_ana2color</span> <span class="o">=</span> <span class="s1">&#39;#f4bcb2&#39;</span> <span class="c1"># Closest X11 color: &#39;RosyBrown2&#39;</span>
+<span class="n">font10</span> <span class="o">=</span> <span class="s2">&quot;-family {DejaVu Sans} -size 14 -weight normal -slant roman -underline 0 -overstrike 0&quot;</span>
+</pre></div>
+</div>
+<p>The next group of statements obtain the ttk
+style in use and set the background and foreground color defaults for
+ttk as well as colors for highlight and active colors.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Style</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">theme_use</span><span class="p">(</span><span class="s1">&#39;winnative&#39;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">background</span><span class="o">=</span><span class="n">_bgcolor</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">foreground</span><span class="o">=</span><span class="n">_fgcolor</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">font</span><span class="o">=</span><span class="n">font10</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">background</span><span class="o">=</span>
+    <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="n">_compcolor</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="n">_ana2color</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p>This will handle most of the color setting for ttk but not all of
+them.  I expected that all the style configuration in ttk would be
+inherited from the ‘.’ object; that seems not to be the case. Notice
+that the second and third lines of code above cause the “winnative”
+theme to be used when the code is run under Windows.</p>
+<p>The following fixes the background color of the Toplevel window.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">top</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="n">_bgcolor</span><span class="p">)</span>
+<span class="n">top</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">highlightbackground</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="n">top</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">highlightcolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Since the tabbed notebook is in use, we encounter one of the ttk
+“exceptions” - colors for notebook tabs.  Hence, the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_compcolor</span> <span class="o">=</span> <span class="s1">&#39;#b2c9f4&#39;</span> <span class="c1"># Closest X11 color: &#39;SlateGray2&#39;</span>
+<span class="n">_ana1color</span> <span class="o">=</span> <span class="s1">&#39;#eaf4b2&#39;</span> <span class="c1"># Closest X11 color: &#39;{pale goldenrod}&#39;</span>
+<span class="n">_ana2color</span> <span class="o">=</span> <span class="s1">&#39;#f4bcb2&#39;</span> <span class="c1"># Closest X11 color: &#39;RosyBrown2&#39;</span>
+</pre></div>
+</div>
+<p>I came across some code which purports to calculate the complement and
+analogs of a color and used that to calculate the above colors.  I also
+used similar code to translate the RGB coding to the name of the
+closest X11 color so that the user can get some idea of the color and
+easily change them if desired.</p>
+<p>and finally I make the color of the selected tab the complement of the
+background color as defined above, and the color of the tab under the
+mouse one of the analog colors from above.  This is sort of automating
+the theme color selection and I really don’t want to do that.  It just
+seemed necessary to compete the task.  I hope the user is able to
+derive from the example, the changes he wishes to make.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;TNotebook.Tab&#39;</span><span class="p">,</span><span class="n">background</span><span class="o">=</span>
+    <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="n">_compcolor</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="n">_ana2color</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p>The above shows the code I added to make the notebook widget look
+consistent. Similar tricks can be seen for treeview widgets,
+scrollbars, labeled frames, etc.  Again, if you see better or clearer
+ways of handling style components please let me know.</p>
+<p>I did all of my development work on Linux.  As an illustration of the
+same PAGE-generated GUI running under different systems, let me
+present the following screens shots of vrex.py (vrex is one of the
+examples discussed later in the examples section):</p>
+<img alt="_images/vrex-linux.png" src="_images/vrex-linux.png" />
+<p>Above: Running vrex running on Linux.  This is what I built using PAGE
+on Linux..</p>
+<img alt="_images/vrex-windows10.png" src="_images/vrex-windows10.png" />
+<p>Above: Running vrex running on Windows 10 using the “winnative”
+theme. This looks pretty good except for the background color in the
+menubar and the sizegrep.</p>
+<img alt="_images/vrex-osx.jpg" src="_images/vrex-osx.jpg" />
+<p>Above: Running vrex running on OS X.</p>
+<p>As one can see there are differences in appearance but on the whole it
+seems to work reasonable well for this example.  That is fortunate
+because the main feature of the example is the use of paned windows
+and scrolled text widgets and they are certainly important for GUI
+building.</p>
+<p>I concluded that it would be better if I generated code which forces
+the “winnative” theme when the generated GUI is run on Windows.  It
+seems preferable to me to have the sizegrip with an incorrect
+background but a better rendering of the notebook widget than the
+other way around.  Any comments, help, or suggestions will be very
+welcome.</p>
+<p>From the above and similar experiences, for my own use, I avoid ttk
+widgets which are also implemented as tk widgets such as buttons,
+labels, frames, checkboxs, and radiobuttons,  but use
+notebook, paned window, progress bar, and treeview, because of their
+convenience. I intend to keep looking at the ttk problems and if I can
+learn how to avoid them I will certainly do so.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">PAGE</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interface.html">The PAGE Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preferences.html">Defaults and Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Module Structure</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Styles and Themes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use.html">Using PAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use.html#saving-of-page-files">Saving of PAGE Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="menu.html">Menus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rework.html">Rework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rework.html#reuse">Reuse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ttkwidget.html">Ttkwidgets Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="final.html">Epilogue</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">Module Structure</a></li>
+      <li>Next: <a href="use.html" title="next chapter">Using PAGE</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2008 - 2021 Donald Rozenberg.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/themes.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

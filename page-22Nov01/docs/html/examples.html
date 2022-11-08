@@ -1,0 +1,540 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Examples &#8212; PAGE 7 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Epilogue" href="final.html" />
+    <link rel="prev" title="Ttkwidgets Package" href="ttkwidget.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<p>Examples are the main way that I learned about Tkinter and how to
+write code for building GUI’s .  Unfortunately, it is hard to find
+examples.  Grayson’s book has been an immense help over the years and
+more recently the pyttk-samples distributed by Guilherme Polo have
+helped greatly.  The official Tcl documentation is pretty much limited
+to man pages which are of minor assistance in getting started with
+Tkinter. The <a class="reference external" href="http://www.tkdocs.com/tutorial/index.html">tutorial on the Tcl Developers site</a> only recently included
+Python code. Much experimentation was required before I was able to
+see a paned window on my screen or a scrolled directory.  I have
+gathered a number of interesting examples in the examples
+subdirectory to help users get going with PAGE.</p>
+<p>One may experiment with the examples changing sizes, colors, fonts,
+etc. in the GUI modules and they should still work if he does not
+regenerate support modules.  At least, one can see some of the</p>
+<p>possibilities.  Of course, I have created some of them like menus in
+poor taste just to illustrate some of the possibilities. You may
+encounter some difficulties which may be due to the absence or miss
+match of fonts, etc. between my system and yours.</p>
+<p>Some of the prior examples have not yet been rewritten for
+version 7. I will weed out some of the examples that I no longer think
+teach much.  The examples can be found in &lt;page installation
+directory&gt;/examples.  The examples that have multiple toplevels, are
+collected in page/examples/multi-toplevel-examples and the ones with
+custom widgets are in page/examples/custom.</p>
+<p>The easiest way to try the examples is to go to one page/examples
+subdirectories and (1) run page against the a ‘.tcl’ file in
+that directory and (2) execute the generated GUI module.</p>
+<p>If you try saving  the examples by executing PAGE on the Tcl files be
+aware that generating and saving support files will replace the
+included support files which will become backup versions and the
+functioning of the applications will be lost unless the respective
+files are restored.</p>
+<div class="section" id="vrex">
+<span id="id1"></span><h2>Vrex<a class="headerlink" href="#vrex" title="Permalink to this headline">¶</a></h2>
+<p>Vrex is the most important example because it is a useful tool for
+composing and testing Python regular expressions. It is located in
+&lt;install dir&gt;/examples/multi-toplevel-examples.</p>
+<p>In the past I have used a number of regular expressions in Python and
+used to great advantage <a class="reference external" href="http://laurent.riesterer.free.fr/regexp/">Visual Regexp</a> in composing and testing
+those regular expressions and thought that rewriting the program in
+Python would be interesting because</p>
+<ul class="simple">
+<li>It would illustrate important capabilities of PAGE.</li>
+<li>It would be a useful program in its own right. Indeed, I use it all
+the time.</li>
+<li>The original version was written in Tcl/Tk and so uses the regular
+expression processing of Tcl which is bound to be slightly different
+from that in Python. So an all Python version using the Python
+regular expression processing would be true to Python.</li>
+<li>The original program had ZERO documentation. I never could figure
+out all of the facilities present. (The most recent version has one
+page of documentation.) I wanted a version that I could document.</li>
+<li>Vrex uses two Toplevel Widgets; the main GUI shown below and a
+separate window for the help facility.</li>
+<li>This example illustrates several points about PAGE support: Building
+menus, using paned windows, text colorization, synchronization
+between two scrolled text windows.</li>
+</ul>
+<img alt="_images/Vrex_for_Python.png" src="_images/Vrex_for_Python.png" />
+<p>The main portion of the GUI is a three pane window for entering the
+regular expression and sample in the first two and the third pane
+presents match results based on the selection of buttons at the
+bottom.</p>
+<p>Some of the features of PAGE illustrated in this useful program are:</p>
+<ul class="simple">
+<li>Scrolled text widgets nested inside of label frames.</li>
+<li>Use of two separate GUI’s, one for the main function of the program
+and one for a help window.</li>
+<li>Colorizing the text within the scrolled text windows.</li>
+</ul>
+<div class="section" id="vrex-operation">
+<h3>Vrex Operation<a class="headerlink" href="#vrex-operation" title="Permalink to this headline">¶</a></h3>
+<p>Briefly, Vrex works as follows:</p>
+<p>One enters the regular expression under test into the top text box,
+and the sample which is the subject of the regular expression match
+into the middle text box.  One may use the File menu to load files
+into the text boxes, one may directly type entries or use the normal
+cut and paste facilities of the operating system.  The user can also
+save the regular expression and sample using the File menu.</p>
+<ul class="simple">
+<li>Pressing the Go button causes the match to be attempted.  Also,
+colorization is applied to both the regular expression and to the
+sample. The regular expression is colorized to show the portions of
+the regular expression are to extracted individually. And if the
+match is successful the corresponding portions of the sample are
+displayed in the same colors.</li>
+<li>By selecting one of the row of buttons marked match, 1, 2, …, 9,
+the portions of the sample corresponding to extracted subpatterns are
+displayed in the match window.</li>
+<li>You can use the File menu to load to save both the regular expression
+and the sample.</li>
+<li>The Quit Button terminates the program.</li>
+<li>The File menu also has a Quit entry that terminates the program.</li>
+<li>The Help menu opens a second GUI containing a ScrolledText widget
+which has help information.</li>
+</ul>
+<p>The regular expression should be colorized showing the portions to be
+extracted in different colors and as well as the matching portion of
+the sample.</p>
+<p>If you then Select Match, that matching portion of the sample will be
+shown in the Match text box. Select 1, and the portion matching the
+sub expression will be shown, etc..</p>
+<p>You can also load a file into the sample window and thus run the
+regular expression against many strings.</p>
+</div>
+</div>
+<div class="section" id="widgetdemo">
+<span id="id2"></span><h2>Widgetdemo<a class="headerlink" href="#widgetdemo" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/widgetdemo.png" src="_images/widgetdemo.png" />
+<p>This example displays all of the supported widgets and demonstrates
+some programming tips and tricks. There is a very helpful readme
+file. I highly recommend executing the file widgetdemo.py.</p>
+</div>
+<div class="section" id="progress-bar">
+<span id="progress"></span><h2>Progress Bar<a class="headerlink" href="#progress-bar" title="Permalink to this headline">¶</a></h2>
+<p>The directory, &lt;install
+dir&gt;/examples/multi-toplevel-examples/progress_bar, contains two
+examples which exemplify progress bars. The first, new, has the
+progress bar in a separate toplevel widget, while the other, one,
+incorporates the progress bar in the main toplevel. To run the first
+use the command “python3 new.py”. To run the other use the command
+“python3 one.py”</p>
+<p>This example shows the usage of the progress bar widget but is included
+mainly for illustrating an application with two toplevel windows.  It
+shows how the main window is able to interact with variables and
+procedures in the imported module which actually displays the progress
+bar. It also shows how to hide and restore a widget.</p>
+<p>Important features illustrated include the creation and destruction of
+the secondary top level window and the fact that the main GUI support
+code requires access to Tkinter variables defined and manipulated in
+the support module of the other, progress bar, window.</p>
+</div>
+<div class="section" id="complex">
+<h2>Complex<a class="headerlink" href="#complex" title="Permalink to this headline">¶</a></h2>
+<p>This really isn’t much of an example doing nothing but does show
+nesting of a paned window inside of a paned window and a notebook
+widget nested inside of a paned window. By the way, one can enlarge
+the top level window and copy and paste the whole paned window to a
+new location.</p>
+</div>
+<div class="section" id="menus">
+<span id="id3"></span><h2>Menus<a class="headerlink" href="#menus" title="Permalink to this headline">¶</a></h2>
+<p>There are two directories page/examples/menu and page/examples/popup
+which demonstrate menus.</p>
+<div class="section" id="menu-directory">
+<h3>Menu Directory<a class="headerlink" href="#menu-directory" title="Permalink to this headline">¶</a></h3>
+<p>The menu directory contains a fairly extreme menu bar example.  Note, I do not
+advocate this as a style to be used; it merely suggests some of the
+things that can be done.</p>
+<p>While this example works as expected within Linux, Windows does not
+preserve the specified fonts, and OS X drops the fonts and the colors; see
+<a class="reference internal" href="menu.html#menu-example"><span class="std std-ref">images from the three OS,s</span></a>.</p>
+</div>
+<div class="section" id="popup-directory">
+<span id="popup"></span><h3>Popup Directory<a class="headerlink" href="#popup-directory" title="Permalink to this headline">¶</a></h3>
+<p>The popup directory contains a primary example, ‘popup’ which merely
+activates a popup menu which then activates callback functions passing
+no arguments to the callback functions.  The example has a top level
+window with two buttons and a different context menu attached to each.
+To see the popup menus click with Button-3 on the buttons.  You will
+note that the two menus have different colors.</p>
+</div>
+</div>
+<div class="section" id="standard-tcl">
+<h2>standard.tcl<a class="headerlink" href="#standard-tcl" title="Permalink to this headline">¶</a></h2>
+<p>This is just a top level window with each of the standard Tk widgets
+that I support.  It just shows that I can generate working Python code
+for each.   The lowercase ‘s’ emphasizes that it doesn’t do much.</p>
+</div>
+<div class="section" id="themed-tcl">
+<h2>themed.tcl<a class="headerlink" href="#themed-tcl" title="Permalink to this headline">¶</a></h2>
+<p>As above for the themed widgets.</p>
+</div>
+<div class="section" id="canvas">
+<h2>Canvas<a class="headerlink" href="#canvas" title="Permalink to this headline">¶</a></h2>
+<p>Paul Krieger donated a canvas example which can be found in the
+&lt;install_dir&gt;/examples/canvas directory. I am very thankful since I have
+no facility with the canvas widget.</p>
+<img alt="_images/p-canvas.png" src="_images/p-canvas.png" />
+</div>
+<div class="section" id="clone">
+<span id="double"></span><h2>Clone<a class="headerlink" href="#clone" title="Permalink to this headline">¶</a></h2>
+<p>This is a somewhat kooky example located in &lt;install
+dir&gt;/examples/multi-toplevel-examples/clone, in which clone.py creates
+a GUI which presents a button “Make Two” which cause the creation of
+two instances of the “called” widget but with differing
+characteristics of location and background colors.  The called widget
+is then able to create incidences of clones with different locations
+and background colors.</p>
+<p>There may be a problem executing this example on Windows if fonts
+selected in the tcl are not available on the Windows machine. In that
+case the font will default to TkDefaultFont.</p>
+<p>Note that the command specified in the attribute editor for the Close button
+is “self.top.destroy”.</p>
+</div>
+<div class="section" id="calendar">
+<h2>Calendar<a class="headerlink" href="#calendar" title="Permalink to this headline">¶</a></h2>
+<p>Small example of building a calendar display . It is located in
+examples/calendar subdirectory.</p>
+<img alt="_images/calendar.png" src="_images/calendar.png" />
+</div>
+<div class="section" id="cpu-info">
+<h2>CPU Info<a class="headerlink" href="#cpu-info" title="Permalink to this headline">¶</a></h2>
+<p>Another small example which displays the output of lscpu on a Linux
+system. This does not execute properly on Windows machine because it
+utilizes a Linux command.</p>
+<img alt="_images/cpu-info.png" src="_images/cpu-info.png" />
+</div>
+<div class="section" id="bind">
+<span id="bind-example"></span><h2>Bind<a class="headerlink" href="#bind" title="Permalink to this headline">¶</a></h2>
+<p>This subdirectory contains a bind example where the button
+responds to selection with &lt;Button-1&gt; via the command attribute
+set in the Attribute Editor and to &lt;Button-2&gt; and &lt;Button-3&gt; via
+bind commands created using the Binding Window.</p>
+<p>The function named in the command attribute is different from that
+in the bind statement because in the latter case an event object is
+passed as a parameter to the event handler so the handler must have an
+argument to accommodate the event object.</p>
+</div>
+<div class="section" id="custom-widgets">
+<span id="custom-example"></span><h2>Custom Widgets<a class="headerlink" href="#custom-widgets" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lib-demo">
+<span id="id4"></span><h3>Lib Demo<a class="headerlink" href="#lib-demo" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="scrolledcheckedlistbox">
+<span id="scrolledlistbox"></span><h3>ScrolledCheckedListBox<a class="headerlink" href="#scrolledcheckedlistbox" title="Permalink to this headline">¶</a></h3>
+<img alt="_images/scrolledchecklistbox.png" src="_images/scrolledchecklistbox.png" />
+<p>This annotated example written by Greg Walters is the best example of
+the definition and use of a Custom Widget that I have seen. Included
+is an extensive write up on usage.</p>
+</div>
+<div class="section" id="dual">
+<h3>Dual<a class="headerlink" href="#dual" title="Permalink to this headline">¶</a></h3>
+<img alt="_images/dual.png" src="_images/dual.png" />
+<p>This directory contains an exeample of a GUI with two different custom
+widgets, ScrolledCheckedListBox and ScrolledFrame, which were written
+externally from PAGE. The variants are “_d” and “_g” which give rise
+to class names “Custom_d” and “Custom_g” in the GUI module and which
+are renamed ScrolledFrame and ScrolledCheckedListBox in the support
+module.</p>
+<p>The ScrolledCheckedListBox was written by Greg Walters and is
+borrowed from his ScrolledCheckedListBox example picked up and stuffed
+into a new “dual” toplevel widget along with a rehash of my lib_demo custom
+widget. My original ScrolledFrame proved to have some problem with the
+scroll bars, so I modified it along lines which I borrowed from the
+ScrolledCheckedListBox widget. The toplevel also has a menubar
+borrowed from lib_demo so the entries apply to the ScrolledFrame.</p>
+<p>There is a Tsizegrip widget to facilitate resizing the GUI. The event
+‘&lt;ButtonRelease-1&gt;’ is bound to the Tsizegrip so that when Button1 as
+released  at the end of a resize, the Custom widget on the right is
+refreshed.</p>
+<p>You may notice that there is a bunch of special code in
+ScrolledCheckedListBox.py  to make that custom widget work with both
+Windows and Linux.</p>
+</div>
+<div class="section" id="tksheet-1">
+<h3>Tksheet_1<a class="headerlink" href="#tksheet-1" title="Permalink to this headline">¶</a></h3>
+<p>This example, written by Bill Roberts, employs the tksheet widget as a
+custom widget. While tksheet is quite complex, almost 1 MB
+in the install directory, very little code was required in the support
+module to build this example . The tksheet was created by ragardner
+and can be found at
+<a class="reference external" href="https://github.com/ragardner/tksheet">https://github.com/ragardner/tksheet</a>. Unfortunately, the tksheet
+package was released with incomplete documentation.</p>
+<img alt="_images/tksheets.png" src="_images/tksheets.png" />
+</div>
+<div class="section" id="tksheet-2">
+<span id="auto-combo"></span><h3>Tksheet_2<a class="headerlink" href="#tksheet-2" title="Permalink to this headline">¶</a></h3>
+<p>This is another example using Tksheet_2.  This one
+is written by Greg Walters.</p>
+<p>The tksheet_2 subdirectory also contains an article discussing this
+example that Greg has written for FullCircle magazine to which Greg
+contributes to on a monthly basis.  The article references an earlier
+article for FullCircle magazine issue 155 of a more introductory
+nature. That article is included in the docs/tutorial subdirectory of
+the installation directory.</p>
+<img alt="_images/tksheetGUI.png" src="_images/tksheetGUI.png" />
+</div>
+<div class="section" id="autocomplete-combobox">
+<h3>Autocomplete combobox<a class="headerlink" href="#autocomplete-combobox" title="Permalink to this headline">¶</a></h3>
+<p>This is another custom widget example written by Bill Roberts
+employing the AutocompleteCombobox widget from ttkwidgets. ttkwidgets
+can be found at <a class="reference external" href="https://github.com/TkinterEP/ttkwidgets">https://github.com/TkinterEP/ttkwidgets</a>. The ttkwidgets package
+is documented. See <span class="xref std std-ref">ttkwidgets</span>. This example can be found in
+&lt;install_dir&gt;/examples/custom/combobox.</p>
+<img alt="_images/autocomplete-combobox.png" src="_images/autocomplete-combobox.png" />
+</div>
+<div class="section" id="calendar2">
+<span id="cal2"></span><h3>Calendar2<a class="headerlink" href="#calendar2" title="Permalink to this headline">¶</a></h3>
+<p>This example uses the Calendar widget from the ttkwidgets package.</p>
+<img alt="_images/cal2.png" src="_images/cal2.png" />
+<p>I used the following code in the support module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ttkwidgets</span> <span class="kn">import</span> <span class="n">Calendar</span>
+<span class="k">class</span> <span class="nc">Cal</span><span class="p">(</span><span class="n">Calendar</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">master</span><span class="p">,</span>
+                      <span class="n">selectforeground</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">selectbackground</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">Custom</span> <span class="o">=</span> <span class="n">Cal</span>
+</pre></div>
+</div>
+<p>To execute this example, you must install the ttkwidgets package.</p>
+</div>
+</div>
+<div class="section" id="two">
+<h2>Two<a class="headerlink" href="#two" title="Permalink to this headline">¶</a></h2>
+<p>This is an example of a project which contains two simple windows w1
+and w2.  It issustrates how the support module for window 1 creates
+window 2 and passing it a parameter which is used to set a label. It
+also has another example of the TProgressbar widget.</p>
+</div>
+<div class="section" id="three">
+<h2>Three<a class="headerlink" href="#three" title="Permalink to this headline">¶</a></h2>
+<p>This example has three GUI’s where The main GUI invokes a second which
+invokes the third which sports popup menus bound to the buttons.</p>
+<span class="target" id="rplay"></span></div>
+<div class="section" id="scrolledwindow">
+<h2>Scrolledwindow<a class="headerlink" href="#scrolledwindow" title="Permalink to this headline">¶</a></h2>
+<p>This examples can be found in the examples/scrolledwindow subdirectory.</p>
+<p>This exemplifies the creation of a Scrolledwindow and populates it with
+a column of Button widgets.</p>
+<img alt="_images/lib_sframe.png" src="_images/lib_sframe.png" />
+<p>In this example the scrolled window is a tk canvas which I populate
+with an array of button, each of which contains an image and each of
+which is bound to the same popup menu.</p>
+</div>
+<div class="section" id="tip">
+<h2>Tip<a class="headerlink" href="#tip" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/tooltip.png" src="_images/tooltip.png" />
+<p>This example has three button widgets one of which, the Dest button
+has a tool tip.</p>
+<p>When the Change button is selected, The tooltip message is changed and
+a tooltip is added to the Quit button.</p>
+<p>The addition of the tooltip to the quit button requires access to the
+definition of the Tooltip class.  The code definition of the ToolTip
+class was added to the GUI module because I had specified a tooltip
+for the Change button. If Iad not set up a tooltip in the GUI module I
+would have had to add that code manually to the support module.</p>
+</div>
+<div class="section" id="full-screen">
+<h2>Full Screen<a class="headerlink" href="#full-screen" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/fullscreen.png" src="_images/fullscreen.png" />
+<p>This example has a simple GUI. When the generated Python is executed
+the toplevel window expands to fill the entire screen. F11 and Escape
+keys control whether the GUI occupies the full screen or not as does
+the Screen submenu.</p>
+<p>Because the GUI is in Relative mode, the size of the text widget and
+the widget placement also change correspondingly.</p>
+</div>
+<div class="section" id="id5">
+<h2>Scrolledlistbox<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/scrolledlistbox.png" src="_images/scrolledlistbox.png" />
+<p>This is another example by Greg Walters.</p>
+</div>
+<div class="section" id="plotext">
+<h2>Plotext<a class="headerlink" href="#plotext" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/plotext.png" src="_images/plotext.png" />
+<p>This is an example written by Greg Walters demonstrating the plotext
+library package which was written to plot data directly on a terminal. This
+example shows the use of plotext to plot data in a Scrolledtextbox
+widget.  This example requires the installation of the plotext package
+which can be done with the command “pip install plotext”.  For more
+inforation visit <a class="reference external" href="https://github.com/piccolomo/plotext">https://github.com/piccolomo/plotext</a>.</p>
+<p>This is a replacement of the earlier Plotext example. It illustrates
+utilizes new features of the of the Plotext package upgrade.</p>
+<p>Color-Show</p>
+<img alt="_images/color-show.png" src="_images/color-show.png" />
+<p>This example is a tool which I used extensively when make the color
+changes for version 7.4 and is interesing for three reasons:</p>
+<p>1. Given a color it shows the hex value of the color, a swatch of the
+color, and whether the color is deemed a light or dark color using the
+page algorithm.</p>
+<p>2. I have thought of GUI’s primarily as the primary controller of the
+program, i.e.,the program throws up a GUI and waits until the user
+acts on the GUI such as entering a value in an entry widget, selects a
+button, selects a menu command, etc.. In this case, the program is
+entered from the command line and a color is given as an argument. For
+example, “python3 color_show.py dark green”. Then the program does its
+thing and the GUI appears with the answer. There are no callback
+functions in the support module. I think that this is the only time I
+wrote a PAGE program in this way without using callbacks.</p>
+<p>3. There is a “Quit” button the GUI that terminates the program and
+the associated command is “sys.exit”. But sys.exit does not require a
+function definition in the support module and so there is no callback
+function.</p>
+</div>
+<div class="section" id="busycursor">
+<h2>BusyCursor<a class="headerlink" href="#busycursor" title="Permalink to this headline">¶</a></h2>
+<p>This example creates a toplevel widget with a Run button. The run
+button initiates the callback function run which turns on a busy
+cursor, runs for 5 seconds, and finally restores the original cursor.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">PAGE</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interface.html">The PAGE Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preferences.html">Defaults and Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Module Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="themes.html">Styles and Themes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use.html">Using PAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use.html#saving-of-page-files">Saving of PAGE Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="menu.html">Menus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rework.html">Rework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rework.html#reuse">Reuse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ttkwidget.html">Ttkwidgets Package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vrex">Vrex</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vrex-operation">Vrex Operation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#widgetdemo">Widgetdemo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#progress-bar">Progress Bar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#complex">Complex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#menus">Menus</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#menu-directory">Menu Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#popup-directory">Popup Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#standard-tcl">standard.tcl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#themed-tcl">themed.tcl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#canvas">Canvas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clone">Clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#calendar">Calendar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cpu-info">CPU Info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bind">Bind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-widgets">Custom Widgets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lib-demo">Lib Demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scrolledcheckedlistbox">ScrolledCheckedListBox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dual">Dual</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tksheet-1">Tksheet_1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tksheet-2">Tksheet_2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#autocomplete-combobox">Autocomplete combobox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calendar2">Calendar2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#two">Two</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#three">Three</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scrolledwindow">Scrolledwindow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tip">Tip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#full-screen">Full Screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">Scrolledlistbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotext">Plotext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#busycursor">BusyCursor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="final.html">Epilogue</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="ttkwidget.html" title="previous chapter">Ttkwidgets Package</a></li>
+      <li>Next: <a href="final.html" title="next chapter">Epilogue</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2008 - 2021 Donald Rozenberg.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/examples.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

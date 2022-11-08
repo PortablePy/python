@@ -1,0 +1,2748 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Using PAGE &#8212; PAGE 7 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Menus" href="menu.html" />
+    <link rel="prev" title="Styles and Themes" href="themes.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="using-page">
+<span id="use"></span><h1>Using PAGE<a class="headerlink" href="#using-page" title="Permalink to this headline">¶</a></h1>
+<p>PAGE is built upon the program Visual Tcl, but is different because of
+differing objectives of the two programs.  Visual Tcl was conceived as
+complete build environment for Tcl. It included facilities for
+managing projects with multiple windows, creating of GUI’s, binding
+actions with callback procedures, creating menus, writing functions,
+and testing the application, all the while supporting many different
+widget sets and several geometry managers. PAGE is limited to defining
+a GUI windows using Tk and ttk widgets and the placer geometry
+manager; there are better environments for finishing and debugging
+Python programs once you have code for the GUI.</p>
+<p>PAGE makes use of the Visual Tcl facilities for creating a single GUI
+window, assigning attributes to widgets, binding events to callback
+procedures, and creating menus. PAGE also automatically generates
+skeletal callback functions and supplies much of the boilerplate code
+for running Tkinter.</p>
+<p>When PAGE generates the code for a GUI, all of the code for causing
+Python to create and map that window is generated - a Python classes
+for the toplevel windows with all the code necessary to display the
+window.  The generated code is executable and you can see just how the
+GUI will look in a Python environment.</p>
+<p>I often use the generated GUI classes as starting points for
+customization. When you are not sure how to start or want to quickly
+try out some GUI ideas, PAGE is very useful because it generates all of
+the boilerplate necessary.</p>
+<p>PAGE is invoked by executing the “page” script located in the page
+directory. I go to that directory and issue the command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">page</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="p">[</span><span class="n">filename</span><span class="p">]</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">PAGE Options</th>
+<th class="head">&#160;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>null</td>
+<td>rcfile is ~/.pagerc</td>
+</tr>
+<tr class="row-odd"><td>–p &lt;profile&gt;</td>
+<td>rcfile specified by filename</td>
+</tr>
+<tr class="row-even"><td>—d</td>
+<td>no rcfile, use default values</td>
+</tr>
+<tr class="row-odd"><td>—s</td>
+<td>select the rcfile to be use</td>
+</tr>
+<tr class="row-even"><td>—help</td>
+<td>print help message. No execution.</td>
+</tr>
+</tbody>
+</table>
+<p>I preface the command with “./” to be sure I am executing the page
+script in the page directory. By including “page” in the PATH
+environmental variable, one can work in any directory.</p>
+<p>PAGE can be invoked with zero or one file names.  If supplied the file
+name should have an extension of “.tcl”.  If
+another extension is supplied that is interpreted as an error and PAGE
+terminates. If no extension is given in the file name or the file name
+ends in “.” , an extension of “.tcl” is assumed by PAGE. If a file name is specified, the file should be a tcl file
+saved during a previous PAGE session; it will be opened as PAGE begins
+executing as an alternative to File-&gt;Open for proceeding from a saved
+PAGE session.  Near the top of a “.tcl” design file created in PAGE
+there is a comment containing version information and a timestamp. If
+that version information is not present then PAGE will refuse to open
+the file. Due to a user request the filename may contain blanks
+starting with version 4.10 but I do not recommend that.</p>
+<p>As you use PAGE to build a GUI, you can save the current state of the
+GUI at any time from the File-&gt;Save of File-&gt;Save As menu.  In fact,
+it is a good idea to save your status often in case PAGE fails or
+dies.</p>
+<div class="section" id="naming-conventions">
+<span id="naming"></span><h2>Naming Conventions<a class="headerlink" href="#naming-conventions" title="Permalink to this headline">¶</a></h2>
+<p>PAGE generates several files. The main ones are the project file which
+has the extension of “.tcl” and two Python modules with extensions of
+“.py”. The filename portion of the project module (the part of the name
+without the “.tcl” is used to name the GUI module and the support
+module. Further the name of the support module is incorporated in an
+Python import statement and the requires that the name must be a legal
+python identifier.</p>
+<p>For version 4.10, it was suggested that PAGE check the syntax of
+Python function names. This sounded easy but involved several
+problems.  I have since decided that this was a bad idea and decided
+not to use it. There are too many special cases and it certainly does
+not fit with the move to Python3; it’s gone.</p>
+<p>The
+toplevel class name is based on the Toplevel widget alias just like any other
+widget while submenu names are completely manufactured.</p>
+</div>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This section attempts to describe the main functionality of PAGE when
+building an application with a single root window. It will yield a
+Python module which implements the application interface.</p>
+<p>One uses PAGE to generate a GUI as follows:</p>
+<ul class="simple">
+<li>Start PAGE by executing “page” or activating the PAGE icon on
+the Windows desktop. This will create a toplevel window which you can then
+populate.</li>
+<li>Drag the toplevel window to where you want it.</li>
+<li>Resize the toplevel window by dragging a corner or an edge.</li>
+<li>Change the title by changing the title attribute in the Attribute Editor.</li>
+<li>Add a menu to the top level using the Menu Editor entered from
+Widget-&gt;Edit Menu in the main menu if desired.</li>
+<li>Drag appropriate widgets from the tool bar to the toplevel window or
+other previously placed container widgets.</li>
+<li>If desired to make the generated code more readable, specify an
+unique alias for the widget.</li>
+<li>Adjust properties of the widgets and the toplevel window as desired.
+Some of those properties will include specification of functions to
+support the GUI such as to load list box, or to respond to mouse
+selection, etc. Included can be the specifications of event bindings.</li>
+<li>Use the bind specification facilities to bind events to
+functions.</li>
+<li>Additions toplevel windows can be added by selecting the toplevel
+entry in the Widget Toolbar. They can be populated as above.</li>
+<li>When the windows have the appearance that you want, select
+Gen_Python-&gt;Generate Support Module. A new window will appear and fill
+with the skeleton functions and the definitions of the Tkinter variables.
+Save the source window of the python console.</li>
+<li>Then select Gen_Python-&gt;Generate Python GUI from the main menu.  A
+new window, a Python Console will open and fill with the Python
+code, which I call the GUI module. To generate the support module
+select Gen_Python-&gt;Generate Support Module, which creates and fills
+another Python Console with the generated skeleton support module.</li>
+<li>You can save the code in  one or both of the Python modules and then
+try executing the GUI module to see if you like what you have designed.</li>
+</ul>
+</div>
+<div class="section" id="toplevel-geometry">
+<h2>Toplevel Geometry<a class="headerlink" href="#toplevel-geometry" title="Permalink to this headline">¶</a></h2>
+<p>PAGE generates  toplevel Tk windows which are the users GUI for
+his application. (One can have multiple GUI windows; see
+<a class="reference internal" href="#applications-with-multiple-top-level-windows"><span class="std std-ref">Applications with Multiple Toplevel Windows</span></a>.)
+As elsewhere with Tk and PAGE, there is more than one way to specify
+where the GUI window will appear on the application user’s
+screen.</p>
+<p>When the Python code is generated it will contain code
+that would place the GUI at the exact spot specified.  If you had
+placed it at pixel specification +1000+300, it would end up 1000
+pixels from the upper left corner and 300 pixels down. If the Python
+code was then executed on a machine with a screen size of less than
+1000 pixels, the GUI would not appear; it had been placed beyond the
+edge of the screen.</p>
+<p id="origin">Alternatively,the Python code generation addresses the toplevel
+placement with a new attribute - “default origin”.  The “default
+origin” preference, if selected will cause the generated Python GUI
+window to placed on the screen at the default location as determined
+by the system window manager.  If false, the location will be
+determined from where the toplevel window is placed in PAGE. The
+default for the this attribute is false, but can be changed by means
+of the Preferences mechanism. A default of false will cause PAGE to
+behave as before. Unfortunately, I was faced with an unclear mnemonic
+in the Attribute Editor or a double negative; I chose the latter.</p>
+</div>
+<div class="section" id="aliases">
+<h2>Aliases<a class="headerlink" href="#aliases" title="Permalink to this headline">¶</a></h2>
+<p>An alias is a user specified identifier of a widget in the generated
+code. Obviously, aliases must be unique within the class which will be
+generated in the Python code.</p>
+<ul class="simple">
+<li>An easy way to specify an alias is to select the target widget with
+a Button-3 click and then select “Set Alias …”.  Another small
+window will appear and one can add the alias. Finally close that
+window by selecting the “check” or with the Enter key.</li>
+<li>Another way to enter an alias is to select a widget with Button-1
+and then select “Set Alias …” from the Option menu in the main
+PAGE window.</li>
+<li>Also, one may specify an alias by selecting a widget and editing the
+“Alias” field in the top section of the Attribute Editor.</li>
+</ul>
+<p>An alias must be a legal python identifier. There are numerous schemes
+for generating such names but one that has been suggested is based on
+CamelCase. It is:</p>
+<ul class="simple">
+<li>Buttons could start with ‘btn’,  i.e. btnQuit, btnNew, etc.</li>
+<li>Entry boxes could start with ‘txt’, i.e.  txtFirstName, etc.</li>
+<li>Check boxes could start with ‘chk’ I.E. chkDoThis, etc.</li>
+<li>Radio Buttons could start with ‘rdo’ or ‘rbtn’.</li>
+</ul>
+<p>Note that PAGE has an option to automatically generate aliases.  These
+aliases are algorithmically generated name but are more readable than
+the default generated names.  This is controlled by a new field in the
+Preference window.  I recommend that you go into Preferences, check
+the value and save the preferences.</p>
+</div>
+<div class="section" id="balloon-help-tooltips">
+<span id="balloon"></span><h2>Balloon Help - Tooltips<a class="headerlink" href="#balloon-help-tooltips" title="Permalink to this headline">¶</a></h2>
+<p>Starting with version 4.21, PAGE supports balloon help also called
+tooltips with many of the widgets. The scrolled widgets do not support
+balloon help.</p>
+<p>To use balloon help with any of the supported widgets, merely select
+the widget and supply the desired tooltip message in the attribute
+“tooltip text” in the Attribute Editor.  If balloon help is available
+The message may be multi-line by including “\n” as line breaks.  For a
+given widget that attribute will be present in the Attribute
+Editor. If you do not wish to use tooltips just ignore the “tooltip
+text” attribute; the balloon preference checkbox has been eliminated
+from the preference window.</p>
+<p>The tooltip message may also be specified from the Widget sub menu of
+the widget popup menu which is accessed by selecting Button-3 while
+the widget is selected.</p>
+<p>The Tk default font is really tiny, so the Preferences have been
+extended to allow specification of the tooltip font.</p>
+<p>If the user creates a tooltip in the design phase by specifying a
+non-blank tooltip text attribute in the Attribute Editor the following
+support code is add to the GUI module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span><span class="p">,</span> <span class="n">localtime</span><span class="p">,</span> <span class="n">strftime</span>
+
+<span class="k">class</span> <span class="nc">ToolTip</span><span class="p">(</span><span class="n">tk</span><span class="o">.</span><span class="n">Toplevel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides a ToolTip widget for Tkinter.</span>
+<span class="sd">    To apply a ToolTip to any Tkinter widget, simply pass the widget to the</span>
+<span class="sd">    ToolTip constructor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wdgt</span><span class="p">,</span> <span class="n">tooltip_font</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">msgFunc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">delay</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">follow</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the ToolTip</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">          wdgt: The widget this ToolTip is assigned to</span>
+<span class="sd">          tooltip_font: Font to be used</span>
+<span class="sd">          msg:  A static string message assigned to the ToolTip</span>
+<span class="sd">          msgFunc: A function that retrieves a string to use as the ToolTip text</span>
+<span class="sd">          delay:   The delay in seconds before the ToolTip appears(may be float)</span>
+<span class="sd">          follow:  If True, the ToolTip follows motion, otherwise hides</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wdgt</span> <span class="o">=</span> <span class="n">wdgt</span>
+        <span class="c1"># The parent of the ToolTip is the parent of the ToolTips widget</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wdgt</span><span class="o">.</span><span class="n">master</span>
+        <span class="c1"># Initalise the Toplevel</span>
+        <span class="n">tk</span><span class="o">.</span><span class="n">Toplevel</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># Hide initially</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
+        <span class="c1"># The ToolTip Toplevel should have no frame or title bar</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overrideredirect</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># The msgVar will contain the text displayed by the ToolTip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msgVar</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">msg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">msgVar</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;No message provided&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">msgVar</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msgFunc</span> <span class="o">=</span> <span class="n">msgFunc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delay</span> <span class="o">=</span> <span class="n">delay</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">follow</span> <span class="o">=</span> <span class="n">follow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMotion</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># The text of the ToolTip is displayed in a Message widget</span>
+        <span class="n">tk</span><span class="o">.</span><span class="n">Message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">msgVar</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s1">&#39;#FFFFDD&#39;</span><span class="p">,</span>
+                <span class="n">font</span><span class="o">=</span><span class="n">tooltip_font</span><span class="p">,</span>
+                <span class="n">aspect</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+        <span class="c1"># Add bindings to the widget.  This will NOT override</span>
+        <span class="c1"># bindings that the widget already has</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wdgt</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Enter&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">spawn</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wdgt</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Leave&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hide</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wdgt</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Motion&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">move</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">spawn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Spawn the ToolTip.  This simply makes the ToolTip eligible for display.</span>
+<span class="sd">        Usually this is caused by entering the widget</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">          event: The event that called this funciton</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1"># The after function takes a time argument in milliseconds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">after</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays the ToolTip if the time delay has been long enough</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastMotion</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deiconify</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Processes motion within the widget.</span>
+<span class="sd">        Arguments:</span>
+<span class="sd">          event: The event that called this function</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastMotion</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+        <span class="c1"># If the follow flag is not set, motion within the</span>
+        <span class="c1"># widget will make the ToolTip disappear</span>
+        <span class="c1">#</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">follow</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="c1"># Offset the ToolTip 10x10 pixes southwest of the pointer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s1">&#39;+</span><span class="si">%i</span><span class="s1">+</span><span class="si">%i</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">x_root</span><span class="o">+</span><span class="mi">20</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">y_root</span><span class="o">-</span><span class="mi">10</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Try to call the message function.  Will not change</span>
+            <span class="c1"># the message if the message function is None or</span>
+            <span class="c1"># the message function fails</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">msgVar</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">msgFunc</span><span class="p">())</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">after</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">hide</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Hides the ToolTip.  Usually this is caused by leaving the widget</span>
+<span class="sd">        Arguments:</span>
+<span class="sd">          event: The event that called this function</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the Tooltip with a new message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msgVar</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The code above allows tooltips to be modified from within
+the support module. For instance, if the button “btn_dest” has a
+tooltip message of “Destination”, then the GUI module will contain the
+following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tooltip_font</span> <span class="o">=</span> <span class="s2">&quot;-family {DejaVu Sans} -size 12&quot;</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">btn_dest_tooltip</span> <span class="o">=</span> \
+<span class="n">ToolTip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_dest</span><span class="p">,</span> <span class="n">tooltip_font</span><span class="p">,</span> <span class="s1">&#39;&#39;&#39;Destination&#39;&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>which allows the following code in the support module to update the tooltip message to “New Tooltip”:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">w</span><span class="o">.</span><span class="n">btn_dest_tooltip</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;New tooltip&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, if the tooltip code above is present in the GUI module, then the
+following code in the support module will create a tooltip for a
+widget:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tip</span>
+<span class="n">other_tip</span> <span class="o">=</span> <span class="n">tip</span><span class="o">.</span><span class="n">ToolTip</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">btn_quit</span><span class="p">,</span><span class="n">w</span><span class="o">.</span><span class="n">tooltip_font</span><span class="p">,</span><span class="s2">&quot;Exit Button&quot;</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The tooltip support was made possible by the work of Greg Walters. He
+developed a package which the user could easily incorporate in a
+support module. I realized that his package could be also be easily
+incorporated into PAGE with minimal change. He also suggested
+improvements which allow tooltips to be modified from within the
+support module.</p>
+</div>
+<div class="section" id="selecting-and-modifying-a-widget">
+<h2>Selecting and Modifying a Widget<a class="headerlink" href="#selecting-and-modifying-a-widget" title="Permalink to this headline">¶</a></h2>
+<p>Selecting a widget is key to modifying a widget.
+There are several ways to select a widget for modification and I don’t
+want to keep repeating the variations through out this document.</p>
+<ul class="simple">
+<li>For simple widgets like buttons or text boxes you can select the
+widget either by selecting the widget with Button-1 in the GUI or in
+the Widget Tree.</li>
+</ul>
+<ul class="simple">
+<li>With more complex widgets like notebooks, paned windows, or scrolled
+widgets, which have child widgets inside the main widget clicking
+Button-1 inside the widget will select a child widget rather than
+the whole widget.  The parent widget may be selected with
+Control-Button-1.</li>
+</ul>
+<ul class="simple">
+<li>In the case where a widget is embedded in a container such as a
+frame, the container can be selected with Shift-Button-1. This is
+particularly helpful when a widget fills the container and you want
+to modify the container.</li>
+</ul>
+<ul class="simple">
+<li>Finally, the widget may be selected with Button-1 in the Widget
+Tree.  This is particularly useful with the complex widgets
+mentioned above and also for selecting frames which have been filled
+with child widgets.</li>
+</ul>
+<p>Once selected there are several ways to modify the widget.  The
+location and the geometry may be altered as well as the attributes of
+the widget:</p>
+<ul class="simple">
+<li>A selected widget may be moved by dragging the widget or resized by
+dragging a handle. When the mouse is over a handle, it turns red.</li>
+</ul>
+<ul class="simple">
+<li>Attributes can be changed in the Attribute Editor. Geometric
+attributes can be changed Attribute Editor also.</li>
+</ul>
+<ul class="simple">
+<li>Some changes can be made using the Widget popup menu.</li>
+</ul>
+<p>If you are working with standard Tk widgets, there are many options
+that can be modified whereas the ttk widgets have very few options,
+their appearance being governed principally by the specified theme.</p>
+<p>Using the Attribute Editor to modify attributes and geometry of the
+scrolled widgets has a bit of a twist. They are really compound widget
+containing subwidgets such as a text widget or an entry widget. You may
+change attributes of the subwidget by selecting the subwidget in
+the Widget Tree and then modifying the desired attributes or you may
+select the parent scrolled widget and modify its geometry in the
+Attribute Editor. Of course,you may change the geometry of the
+scrolled widget by selecting it with Control-B1 and dragging the mouse
+like any other widget.</p>
+</div>
+<div class="section" id="multiple-selection">
+<span id="multiselection"></span><h2>Multiple Selection<a class="headerlink" href="#multiple-selection" title="Permalink to this headline">¶</a></h2>
+<p>A limited facility for using multiple selection of widgets has been
+added to PAGE. The first functions using multiple selection were limited
+to the <a class="reference internal" href="#apply"><span class="std std-ref">Stash and Apply</span></a> facility and the Attribute Editor.
+Multiple selection basically creates a list of widgets to be used by
+the Apply function and the Attribute Editor. With version 5.1
+additional functions have been added. They include the ability to move
+members of the multiple selection set in unison provided that they
+share the same parent.</p>
+<p>Multiple selections are made by selecting widgets with Button-2. This
+is similar to simple widget selection. When a widget is so selected,
+the handles are a different color, green, for emphasis. Multiple
+selections can also be made by selecting widgets in the Widget Tree
+with Button-2. Multiple selections are mirrored in the Widget Tree. If
+one selects a complex widget such as a TNotebook widget by placing the
+cursor inside the widget, the complex widget is selected.</p>
+<p>Multiple selection may not change any existing Button-1 selection.
+Selecting a widget with Button-1 which is one of the multiple
+selections removes the widget from any multiple selection and performs
+selection.</p>
+<p>To clear all multiple selections use Options-&gt;Remove Multi Selections
+from the main menu or use the Control-Delete key pair. To remove one
+widget from the multiple selection use the popup menu. Similar results
+can be achieved in the Widget Tree from the popup menu there.</p>
+<p>The group of multiple selected widgets can be moved as a group by
+placing the cursor inside one of the selected widgets and dragging
+with Button-2. The arrow keys can be used to nudge the multi-selection
+group in unison but not to resize the group. One does a Button-2
+selection of a multi-selection widget and then uses the arrow keys.</p>
+<p>Other functionality is accessed via the multiple selection popup  menu.</p>
+<img alt="_images/multi-menu.png" src="_images/multi-menu.png" />
+<p>The menu is accessed by Button-3 inside any of the selected widgets.
+The action is as follows for each of the command in the menu:</p>
+<ul class="simple">
+<li>Remove All Multi Selections: Removes all Multi Selection
+designations.</li>
+<li>Remove One Multi Selection: Removes the current widget from the
+Multi Selection list.</li>
+<li>Align Horizontal: All selected widgets are aligned based on the y
+value of the northwest handle of the selected widget
+containing the cursor. This applies only to the selected widgets
+with the same parent as the selected widget containing the cursor.</li>
+<li>Align Vertical: All selected widgets are aligned based on the x
+value of the northwest handle of the selected widget
+containing the cursor. This applies only to the selected widgets
+with the same parent as the selected widget containing the cursor.</li>
+<li>Spread Horizontal: All selected widget sharing the same parent as
+the selected multi widget are spaced evenly horizontally in the
+parent.</li>
+<li>Spread Vertical:All selected widget sharing the same parent as the
+selected multi widget are spaced evenly vertically in the parent.</li>
+<li>Center Horizontal: All selected widget sharing the same parent as
+the selected multi widget are centered horizontally in the
+parent. This is a useful command following a Spread Vertical
+command.</li>
+<li>Center Vertical: All selected widget sharing the same parent as
+the selected multi widget are centered vertically in the
+parent. This is a useful command following a Spread Horizontal
+command.</li>
+<li>Undo: This undoes the last command.  It is a multi-level undo
+facility. It can also be invoked with the key shortcut
+&lt;Control-D&gt;. See the section below.</li>
+</ul>
+<p>The multi selection list can contain just one item. That allows one to
+use the Center Horizontal and Center Vertical commands to center a
+single widget.</p>
+<p>I considered extending the facility for deleting widgets to remove all
+the multiple selection widgets but felt that that would be too prone to
+error. And I have not seen how to extend copy and paste to handle
+multiple selections.</p>
+<p>Selection and geometry events are summarized in the following table of
+related key pairs:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="39%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Widget events</th>
+<th class="head">Function</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Button1</td>
+<td>Select Widget</td>
+</tr>
+<tr class="row-odd"><td>Control-Button1</td>
+<td>Select complex widget (like a Scrolled widget)</td>
+</tr>
+<tr class="row-even"><td>Shift-Button1</td>
+<td>Select the containing widget</td>
+</tr>
+<tr class="row-odd"><td>Move Button1 inside widget</td>
+<td>Move widget</td>
+</tr>
+<tr class="row-even"><td>Move Button1 inside handle</td>
+<td>Resize widget</td>
+</tr>
+<tr class="row-odd"><td>Move Button2 inside widget</td>
+<td>Move multiple widget group</td>
+</tr>
+<tr class="row-even"><td>Button2</td>
+<td>Add widget to multiple selections</td>
+</tr>
+<tr class="row-odd"><td>Control-Delete</td>
+<td>Clears all Multiple Selections.</td>
+</tr>
+<tr class="row-even"><td>Alt-D</td>
+<td>Clears all Multiple Selections.</td>
+</tr>
+<tr class="row-odd"><td>Arrow Keys</td>
+<td>Nudge the widget position 1 pixel.
+Works with multiple selection widgets</td>
+</tr>
+<tr class="row-even"><td>Shift Arrow Keys</td>
+<td>Nudge the widget size 1 pixel.
+Does not work with multiple selection widgets</td>
+</tr>
+<tr class="row-odd"><td>Control-Z</td>
+<td>Undo</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="undo">
+<span id="id1"></span><h2>Undo<a class="headerlink" href="#undo" title="Permalink to this headline">¶</a></h2>
+<p>Undo provides the function of retracting certain operations in
+PAGE. Some of the operations subject to undo are those provided in
+Multi Selection popup menu described in the previous section. In
+addition, undo will retract widget dragging operations that change
+widget locations as well as geometry changes made with arrow
+keys. Undo is invoked from the multiselect popup menu and the
+Control-Z shortcut.</p>
+<p>Operations that do not work with undo include:</p>
+<ul class="simple">
+<li>Operations which change widget attributes,</li>
+<li>Operations which involve changing geometric attributes in the
+Attribute Editor,</li>
+<li>Cut, Copy, and Paste operations,</li>
+</ul>
+<p>Undo should be considered an experimental feature, it contains a
+number of rough edges that I have not been able to resolve. Please use
+it carefully, report problems, and save often.</p>
+<p>There is no redo operation.</p>
+</div>
+<div class="section" id="modifying-the-geometry-of-a-widget">
+<h2>Modifying the Geometry of a Widget<a class="headerlink" href="#modifying-the-geometry-of-a-widget" title="Permalink to this headline">¶</a></h2>
+<p>Geometry refers to the location of the widget as well as its width and
+height.</p>
+<p>Like many things in PAGE, there are several ways to change the geometry:</p>
+<ul class="simple">
+<li>A selected widget may be moved by dragging the widget or resized by
+dragging a handle. When the mouse is over a handle, it turns
+red. For complex widgets, it is necessary to depress the Control key
+while dragging.</li>
+</ul>
+<ul class="simple" id="arrow">
+<li>The arrow keys may be used.The arrow keys offer a way to make minor
+adjustments to the geometry of a selected widget. The arrow keys
+move the widget a short distance in the obvious way.  Shift with the
+arrow keys change the size in the obvious way while leaving the
+northwest handle anchored. I find the arrow keys very useful when
+trying to align or space widgets. However arrow keys do not modify
+toplevel widgets. This usage of arrow keys works with locked widgets
+as well as unlocked widgets.</li>
+</ul>
+<ul class="simple">
+<li>The arrow key can be used to change pane sizes in a TPanedwindow but
+it is necessary to select a handle of the pane with button-1 and
+then the arrow key. You can only move the window sash.</li>
+</ul>
+<ul class="simple">
+<li>The geometric attributes in the Attribute Editor may be changed.
+The bottom section of the Attribute Editor contains a number
+editable attributes which when changed immediately affect the widget
+geometry. For instance, if you want a widget located half way across
+its container set “relative x” to be 0.5.  If you want it to be 300
+pixels down from the top, set the “y position” to 300. You can do
+similar things with width and height.</li>
+</ul>
+<div class="section" id="locking-the-geometry-of-a-widget">
+<h3>Locking the Geometry of a Widget<a class="headerlink" href="#locking-the-geometry-of-a-widget" title="Permalink to this headline">¶</a></h3>
+<p>There are times when one wants to lock the position of a widget within
+its container to avoid inadvertently moving or resizing it with the
+mouse. That can be accomplished by selecting the lock widget command
+from the context menu.  That is, select the widget and click Button-3
+to bring up the context menu and then select “Lock Widget”. “Unlock
+Widget” has the obvious effect. When a widget is locked, that fact is
+noted in the Widget Tree. With version 4.17, locking is displayed and
+can be changed with the “locked” attribute in the Geometry region of
+the Attribute Editor.</p>
+<p>A locked widget can still be move and resized by changing values in
+the geometry section of the Attribute Editor as well as with the arrow
+keys, see <a class="reference internal" href="#arrow"><span class="std std-ref">use of arrow keys</span></a>. In fact, the adjustments
+need not be multiples of the default grid.  Of course, the container
+widget geometry can be modified with the mouse if not locked.</p>
+</div>
+<div class="section" id="fill-container">
+<h3>Fill Container<a class="headerlink" href="#fill-container" title="Permalink to this headline">¶</a></h3>
+<p>“Fill Container” is a feature that was added in version 4.8 and causes
+the selected widget to expand to fill its container provided that
+there are no other widgets already in the container. This function is
+restricted to those widgets for which I think it makes sense, like
+frames, notebooks, scrolled widgets, canvases as well as text and list
+boxes.</p>
+<p>To use this feature activate the Widget popup menu with Button-3 over
+the widget itself or an entry in the Widget Tree and select
+“Fill Container” from the widget submenu.</p>
+<p>Once you have filled a container using this feature, you can select
+the container with Shift-Button-1 to move or resize it with the mouse.
+You can also select the container in the Widget Tree and then change
+the x and y coordinates in the Geometry section of the Attribute
+Editor.</p>
+</div>
+</div>
+<div class="section" id="cut-copy-and-paste">
+<h2>Cut, Copy, and Paste<a class="headerlink" href="#cut-copy-and-paste" title="Permalink to this headline">¶</a></h2>
+<p>I think that there is now a useful cut, copy, and
+paste feature in PAGE.  The control-x, control-c, and control-v
+shortcuts work as expected. The basic way it works:</p>
+<ul class="simple">
+<li>Open the context menu by selecting the widget to be copied with
+Button-3 and then select Copy or Cut. Alternatively you may select a
+widget and then control-c or control-x will effect the Copy or Cut
+operation. if you are copying a menubar select it from the Widget
+Tree,</li>
+</ul>
+<p>If the widget to be copied is a toplevel widget:</p>
+<ul class="simple">
+<li>Open the context menu of any widget by selecting it with Button-3
+and then select Paste. Alternatively type control-v.</li>
+</ul>
+<p>If the widget is a menubar:</p>
+<ul class="simple">
+<li>Select the destination toplevel, Open the context widget by
+selecting it with Button-3 and select Paste.</li>
+</ul>
+<p>For other classes of widgets:</p>
+<ul class="simple">
+<li>Open the context menu of the destination widget with Button-3 and
+select Paste. Alternatively select the destination widget and type control-v.</li>
+</ul>
+<ul class="simple">
+<li>Move the mouse to the desired insertion point and click Button-1.</li>
+</ul>
+<p>One can cut or copy complex widgets such as frames containing multiple
+widgets like a row of buttons, or notebook widgets. The destination
+widget can be any container widget such as a toplevel widget, a frame,
+or a tab of a notebook widget.  However, a custom widget cannot be a
+destination widget.  One can even copy and paste toplevel windows with
+all its widgets, and menubars.</p>
+<p>Copy and Paste are important features because one cannot drag a widget
+from one container widget into another but one can cut or copy and
+paste to get that effect.  For instance if one creates a button in a
+top level window and then decides that it should be moved to a frame
+or a notebook tab, that cannot be accomplished that just by selecting
+the button and dragging it to the frame. However, it can be done with
+cut and paste.</p>
+<p>When doing cut-copy-paste I make fewer mistakes by selecting the
+widget the Widget Tree than trying to grab it in the top level window.
+Correct selection is crucially important when trying to select and copy
+nested widgets.</p>
+<p>I have implemented cut and it appears to work; however, I never use
+it. There is a sequence of several steps between the selecting cut
+from the menu and completing the paste as well as a lot
+code being executed.  If you get it wrong following a cut, you can’t go
+back and retry the operation; the source for the copying is gone. So,
+I stick to copy and paste and then finish with a delete.</p>
+<p>One thing that cut, copy, and paste can do is copy from one project
+GUI and paste in another project GUI by using the Borrow
+facility. That usage is addressed in the reuse section. See
+<a class="reference internal" href="rework.html#reuse"><span class="std std-ref">Reuse</span></a>.</p>
+<p>Note: if you copy-paste a widget containing images then you <strong>must</strong>
+copy the image to be one resident in the destination project directory
+before paste operation. In fact, it must be in the same relative
+position. In many cases PAGE will volunteer to perform that function.</p>
+<p>With version 7 which supports multiple toplevel windows, copy and
+paste have been extended to include toplevel widgets. This allows one
+to copy an entire toplevel window when using the Borrow function. When
+pasting a toplevel widget the toplevel window will appear slightly
+offset from its original position so you can see it. If the source of
+the copy was a toplevel window in the “borrow” the background color
+will be changed from plum to the active GUI background color.</p>
+<p>Note: if you copy-paste widgets which have variables defined, then
+strange things will arise. For instance, if you create a button and
+set its text to “Button” and then define the text variable to
+“zzz”. The variable will have the value of “Button”.  When you copy-paste
+the Button widget, the new widget text will be determined by the value
+of “zzz” and be “Button”. Changing the text attribute will have no
+effect. To change the initial value of text of the new widget you will
+have to delete the variable entry, change the text attribute and the
+add the variable. You probably don’t want to use the same text for
+more than one button widget.</p>
+<p>Repeat: If you copy-paste a widget containing images then you better
+copy the image to be one resident in the new directory.</p>
+</div>
+<div class="section" id="stash-and-apply-propagate-widget-options">
+<span id="apply"></span><h2>Stash and Apply - Propagate Widget Options<a class="headerlink" href="#stash-and-apply-propagate-widget-options" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to propagate options from one widget to other widgets.
+One may save the configuration of a particular widget and subsequently
+apply selected options to other widgets. This is similar the function
+of the context menu of the Attribute Editor. Thus one may easily align
+widgets, make buttons the same size, make the background colors the
+same, and make other options identical.</p>
+<p id="stash">The current options of the selected widget are stored , “stashed”, by
+selecting “Stash Config” from the Widget context menu. The stashed
+options are displayed in the Apply Window.  Since a given widget can
+contain many options, only the options which have values different
+from the default value as well as height and width are displayed.</p>
+<p>The options to be propagated are checked in the main subwindow. The
+destination is based on the currently selected widget.</p>
+<p>In the Apply Window,  Apply menu item in the
+menu bar leads to two similar submenus:</p>
+<img alt="_images/apply-submenu.png" src="_images/apply-submenu.png" />
+<p>The first entry “Current Widget” causes the selected options to be
+applied to the currently selected widget.  To apply stashed options to
+another widget, one selects the receiving widget from the GUI or the
+widget tree, checks the options to be applied, and finally selects
+“Current Widget” from the Apply submenu.</p>
+<p>The next entry “All widgets in Multi Selection” will apply all of the
+checked values to each of the widgets in the multi selection. This
+leaves the selection unchanged.</p>
+<p>The next entry “All widgets in Toplevel applies the options to all
+widgets in the Toplevel but not to the Toplevel itself.</p>
+<p>The final entry “All widgets same in class same parent” does not
+change options of the parent. This ability is a good argument for
+grouping widgets into container widgets like frames.</p>
+<p>Very similar functions are supplied which will change widget options to the
+default value using the “Reset to default” submenu of apply.</p>
+<p>In case you have a window open for using the borrow function, this
+mechanism will only modify widgets in the primary toplevel, i.e., it
+does not modify widgets in the borrow toplevel.</p>
+<p>What is written above describes option propagation via the Stash and
+Apply mechanism.  Essentially the same function can be realized by
+Button-3 selection of the option name filed of the Attribute Editor.
+However, that propagates only one option value at a time whereas the
+Stash and Apply will handle multiple options.</p>
+</div>
+<div class="section" id="callback-functions">
+<h2>Callback Functions<a class="headerlink" href="#callback-functions" title="Permalink to this headline">¶</a></h2>
+<p>The point of building a GUI is to link actions (the execution of
+specific functions called callback functions) to some event within the
+GUI like selecting a button with a mouse key, typing a particular
+character into a text field, resizing window a widget, etc.. Callback
+functions are referenced in either the command attribute of a widget
+such as a button or in a bind statement.</p>
+<p>The implementation of the callback functions is located in the support
+module with one exception - popup (or context) menus which are
+generated in the GUI module.  Popup menus will reference callback
+functions which are located in the support module.</p>
+<p>PAGE generates skeletal callback functions in the support module. They
+usually have the form:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>The skeletal function looks like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cmd</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;v2_support.cmd&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;another arg:&#39;</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The one variation is for the support of validation command which is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">vcmd</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;v2_support.vcmd&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;another arg:&#39;</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+    <span class="k">return</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>Note that the validation function must return either True or False so
+PAGE add the command “return True”. The print commands in the callback
+skeleton function is there to aid the PAGE user by showing that the
+command is really executed and with the expected arguments. Of course,
+it is recommended that they be removed in the final application.</p>
+<p>With release 4.14, it is possible to list the callback functions which
+have been referenced in the GUI.  That is done from the main menu or
+by the Alt-C shortcut. When invoked the new function opens a special
+window to display all of the callback referenced in the GUI along with
+the name of the referencing widget. This is done by processing the
+widget tree. If you have also created the Python GUI and support
+module, double clicking on the callback function line, a Python
+console will open and display the callback function implementation.</p>
+<div class="section" id="linking-events-to-callback-functions">
+<h3>Linking Events to Callback Functions<a class="headerlink" href="#linking-events-to-callback-functions" title="Permalink to this headline">¶</a></h3>
+<p>I will not try to explain event binding fully for Tk and Tkinter. I have
+read several books and many web pages on the subject but feel little
+mastery.</p>
+<p>Binding events to widgets is a very confusing aspect of using Tk and
+Tkinter.  Tk implements a global binding hierarchy in that Tk allows
+one to create bindings between actions and</p>
+<ol class="arabic simple">
+<li>events within a particular widgets such mouse selection and a
+particular button,</li>
+<li>events within particular classes of widgets such as mouse selection and
+all buttons in an application,</li>
+<li>events within all widgets in a
+toplevel window, and</li>
+<li>events within all the widgets in an
+application.</li>
+</ol>
+<p>PAGE really assists in only the first type of binding. At least one
+respected documenter recommends against using the other three. If you
+feel it is necessary to class bindings, they can be manually added to
+the support modules.</p>
+<p>Grayson, in his book talks about invoking callbacks directly or
+indirectly. Specifying a command attribute leads an indirect invocation
+while specifying a bind command leads to a direct invocation. The
+difference is that the direct invocation passes an event object to the
+callback and the callback function must have an argument list which
+includes a parameter for the event. To see examples of direct and
+indirect invocation of callbacks see the vrex example or the bind example.
+One could also characterize them as clear and confusing, or easy and complex.
+Let me discuss the easy case first, that of specifying a a command attribute.</p>
+<p>Many widgets have a command attribute which specifies the code to
+executed when the widget is selected with Button-1.  This is a
+simplified way of binding for the common case of selecting the widget
+with Button-1.  While Tk allows one to specify a block of code, one
+must stick with a function call in Python.  For example, setting the
+command attribute of a button to “foo” so that selecting the Button-1
+will cause the invocation of the function “foo” without arguments. In
+general, the call occurs without the passing of a argument, so it
+does no make any sense to specify a variable parameter.</p>
+<p>If you want to invoke a function and pass parameters to it, you use a
+lambda expression. Please see section 6.4 of Grayson’s book for a fine
+explanation of the use of lambda expressions in this context.  (In a
+nutshell, if Python encounters a function name followed by parenthesis
+it will try to execute the function immediately, whereas the execution
+is desired when the event occurs.)  Let say that if you want to call
+the function foo and pass it x as an argument, what you enter as
+command is</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">foo</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>not</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>PAGE helps a little with constant parameters like numbers and quoted
+strings by automatically providing the lambda command. So</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is OK.</p>
+<p>To specify such a command, one selects the widget and then in the
+Attribute Editor enters the command in the Command field. In keeping
+with the Visual Tcl style of having too many ways of doing most things, an
+alternative is to select the widget in the Widget Tree with Button-3
+and then Widget-&gt;Set Command. I don’t use the alternate method very
+often. I would probably forget it but for this paragraph.</p>
+<p id="cmd">With version 5.3, I have simplified the command specification. PAGE
+now will read a command specification such as “foo” or “foo(3)” and
+determine whether a lambda expression is required and if so supply it
+in the generated code. If the user specifies a lambda expression it is
+preserved. The limitation is that PAGE checks arguments to see if they
+are integers, floating point numbers, or quoted strings. If not it
+gives up and issues a warning message. If you need a more complex
+lambda expression you may enter it and it will be respected. If there
+are other cases I consider let me know.</p>
+<p id="entrycmd">When it comes specifying “validatecommand” and “invalidcommand”
+options of the Entry widget or Tk_entry widget the command string must
+be a list with first element is the command name and the additional
+elements may include the following script substitutions:</p>
+<ul class="simple">
+<li>%d = Type of action (1=insert, 0=delete, -1 for others)</li>
+<li>%i = index of char string to be inserted/deleted, or -1</li>
+<li>%P = value of the entry if the edit is allowed</li>
+<li>%s = value of entry prior to editing</li>
+<li>%S = the text string being inserted or deleted, if any</li>
+<li>%v = the type of validation that is currently set</li>
+<li>%V = the type of validation that triggered the callback (key,
+focusin, focusout, forced)</li>
+<li>%W = the tk name of the widget</li>
+</ul>
+<p>An example of a possible validation command entered in the Attribute Editor:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vcmd</span> <span class="o">%</span><span class="n">P</span> <span class="o">%</span><span class="n">S</span> <span class="o">%</span><span class="n">W</span>
+</pre></div>
+</div>
+<p>Note that this is a change from earlier documentation.</p>
+<p>So what will happen is that the Python will rewrite the list as a
+tuple with the script substations encased in quotes. It is unclear
+from the documentation that I found if other parameters are allowed
+but I would guess that they are permissible.  In addition, a skeletal
+function vcmd will be created by PAGE in the support module with a
+variable number of parameters. In the case of the example above the
+value of entry being the first argument, the string being inserted as
+the second, and widget information as the third parameter.  Be warned
+that %W does not pass the widget, it passes the widget converted to a
+string.  I think it is a bug in tkinter. It certainly does not behave
+in the same way in tkinter as it does in Tcl/Tk.</p>
+<p>So much for the binding of the easy case which essentially defines a
+configuration command for setting the command attribute of a widget in
+the generated Python.  For binding other events to widgets I point you
+to the Bindings Window which builds a bind command. Of course, the
+bind command could be manually coded in init function of the support
+module.</p>
+<p>For many widgets the command attribute is the way to go and it is
+tempting to think of &lt;Button-1&gt; as the associated event. Actually,
+&lt;ReleaseButton-1&gt; is the associated event. The difference can be
+important. For instance, the Checkbox widget sets the associated
+variable to the new value as the last step of the &lt;ReleaseButton-1&gt;
+event.</p>
+<p>Another zinger is that while the command attribute will generally pass
+zero arguments or the parameters specified in the lambda function. In the case of
+Scale and TScale widgets, the final value of the scale is passed to
+the callback function as the first argument. See <a class="reference internal" href="#scale"><span class="std std-ref">Scale and TScale</span></a>.</p>
+</div>
+<div class="section" id="bindings-window">
+<h3>Bindings Window<a class="headerlink" href="#bindings-window" title="Permalink to this headline">¶</a></h3>
+<p>There are many events that can be linked to code. See the Tk man pages
+and Chapter 6 of Grayson. They include responding to the different
+mouse button pressings or releases, a window gaining or loosing focus,
+etc. as well as virtual events. Bind is the command for linking one of
+these events to code and is accomplished by using the Bindings Window.
+Here the code must be a lambda expression because it pass an event
+object containing much useful information to the
+callback. Consequently, the callback function must have an event
+parameter in its argument list.</p>
+<p>The Bindings Window can be opened by selecting the widget with
+Button-3 and the selecting Bindings… from the popup menu. Basically,</p>
+<ol class="arabic simple">
+<li>select the widget in the left column if not already selected,</li>
+<li>Insert the desired event from the Insert menu,</li>
+<li>select the item in the left column, and</li>
+<li>fill in prototype lambda expression in the right hand column.</li>
+</ol>
+<p>The Bindings Window can be opened either from the popup menus in
+response to selecting the widget with Button-3 or selecting the widget
+with Button-1 and typing Alt-b. Then select Insert from the menu to
+put the event in to the left pane.  Finally insert the desired code in
+the right pane where a template will appear.</p>
+<p>Let’s clarify that and look again at</p>
+<img alt="_images/binding.png" src="_images/binding.png" />
+<p>In the left column you will see the Tcl name of the selected widget and
+below the name a list, initially empty of the events already bound to
+the widget.  In the image two events have already been bound, one of
+which is a user defined virtual event, “&lt;&lt;Bingo&gt;&gt;”.
+Following the event information of the selected widget is a bunch of
+information about the bind hierarchy related to the selected widget. I
+have not found any use for that stuff.</p>
+<p>Two things can be accomplished with the Binding Window are:</p>
+<ol class="arabic simple">
+<li>define a new binding for the selected widget The key action for
+the first is to insert a new event. It is done by clicking Insert
+Menu and selecting one of the actions there.</li>
+<li>modify the lambda expression of an existing binding in the obvious
+way.</li>
+</ol>
+<p>Selecting Insert yields</p>
+<img alt="_images/insert-bind.png" src="_images/insert-bind.png" />
+<p>If you do not find the action you can select Advanced …</p>
+<img alt="_images/advanced-bind.png" src="_images/advanced-bind.png" />
+<p>Here you are presented with a wide selection of possibilities.</p>
+<p>First, if you want the event to be the pressing of the key c, select
+the entry box at the top and type “c”; the event “&lt;Key-c&gt;” appears in
+the Event entry box near the bottom. If you want to modify the event
+to require the control key at the same time, select Control from the
+right column and the event becomes “&lt;Control-Key-c&gt;”.</p>
+<p>For events other than a key press event, then select an event from
+the left column.  The list of events there is more or less every event
+Tk knows about. I know of no way of listing only those events to which
+a particular widget will respond, so I can’t prune the list.</p>
+<p>Again, the selected event may be modified by picking a modifier from
+the right column. Notice that the left column contains all of the
+virtual events that Tk knows about. Unfortunately, Tk skips several
+and I have tried to add them but I probably missed some.  If you are
+going to generate code for a user defined virtual event, say
+&lt;&lt;Bingo&gt;&gt;, or one missed by Tk, you can add that virtual event to the
+Event entry box manually. Yes, you may edit the Event entry box.</p>
+<p>Having now composed your event, you can select the “Add” button
+which will close the insert window and add the event to the left
+column of the Binding Window.</p>
+<p>The penultimate step is to appropriately change the skeletal code in
+the right column. Basically, just add parameters and supply the
+callback function name in place of “xxx”. Finally, save the result by
+selecting the check button.  This is similar to the situation with the
+command already discussed.</p>
+<p>Elsewhere in this document I have used the term callback to mean the
+callback function that appears in the Python support module. At the
+binding level the ‘real’ callback function is a lambda function which
+invoked the callback function in the support module.</p>
+<p>The big thing here is that the ‘real’ callback is always passed a
+parameter, the event object, and so a lambda is needed to receive that
+object and invoke the Python callback passing any parameters to the
+callback function. Those parameters may or may not include the event
+object. The dummy lambda in the Bindings Window assumes just one
+parameter, the event object. This means that the lambda for passing
+the event object (with no user parameters) is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">foo_bar</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>or if passing user parameters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">foo_bar</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Of course, if no parameters, not even the event object, is needed by
+the callback function the following forms may be used:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">foo_bar</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">foo_bar</span>
+</pre></div>
+</div>
+<p id="event">The parameter e above is the event object which contains much
+information about the event. The event object has the following attributes
+(from the documentation found in Tkinter.py):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">serial</span> <span class="o">-</span> <span class="n">serial</span> <span class="n">number</span> <span class="n">of</span> <span class="n">event</span>
+<span class="n">num</span> <span class="o">-</span> <span class="n">mouse</span> <span class="n">button</span> <span class="n">pressed</span> <span class="p">(</span><span class="n">ButtonPress</span><span class="p">,</span> <span class="n">ButtonRelease</span><span class="p">)</span>
+<span class="n">focus</span> <span class="o">-</span> <span class="n">whether</span> <span class="n">the</span> <span class="n">window</span> <span class="n">has</span> <span class="n">the</span> <span class="n">focus</span> <span class="p">(</span><span class="n">Enter</span><span class="p">,</span> <span class="n">Leave</span><span class="p">)</span>
+<span class="n">height</span> <span class="o">-</span> <span class="n">height</span> <span class="n">of</span> <span class="n">the</span> <span class="n">exposed</span> <span class="n">window</span> <span class="p">(</span><span class="n">Configure</span><span class="p">,</span> <span class="n">Expose</span><span class="p">)</span>
+<span class="n">width</span> <span class="o">-</span> <span class="n">width</span> <span class="n">of</span> <span class="n">the</span> <span class="n">exposed</span> <span class="n">window</span> <span class="p">(</span><span class="n">Configure</span><span class="p">,</span> <span class="n">Expose</span><span class="p">)</span>
+<span class="n">keycode</span> <span class="o">-</span> <span class="n">keycode</span> <span class="n">of</span> <span class="n">the</span> <span class="n">pressed</span> <span class="n">key</span> <span class="p">(</span><span class="n">KeyPress</span><span class="p">,</span> <span class="n">KeyRelease</span><span class="p">)</span>
+<span class="n">state</span> <span class="o">-</span> <span class="n">state</span> <span class="n">of</span> <span class="n">the</span> <span class="n">event</span> <span class="k">as</span> <span class="n">a</span> <span class="n">number</span> <span class="p">(</span><span class="n">ButtonPress</span><span class="p">,</span> <span class="n">ButtonRelease</span><span class="p">,</span>
+                        <span class="n">Enter</span><span class="p">,</span> <span class="n">KeyPress</span><span class="p">,</span> <span class="n">KeyRelease</span><span class="p">,</span>
+                        <span class="n">Leave</span><span class="p">,</span> <span class="n">Motion</span><span class="p">)</span>
+<span class="n">state</span> <span class="o">-</span> <span class="n">state</span> <span class="k">as</span> <span class="n">a</span> <span class="n">string</span> <span class="p">(</span><span class="n">Visibility</span><span class="p">)</span>
+<span class="n">time</span> <span class="o">-</span> <span class="n">when</span> <span class="n">the</span> <span class="n">event</span> <span class="n">occurred</span>
+<span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">-</span><span class="n">position</span> <span class="n">of</span> <span class="n">the</span> <span class="n">mouse</span>
+<span class="n">y</span> <span class="o">-</span> <span class="n">y</span><span class="o">-</span><span class="n">position</span> <span class="n">of</span> <span class="n">the</span> <span class="n">mouse</span>
+<span class="n">x_root</span> <span class="o">-</span> <span class="n">x</span><span class="o">-</span><span class="n">position</span> <span class="n">of</span> <span class="n">the</span> <span class="n">mouse</span> <span class="n">on</span> <span class="n">the</span> <span class="n">screen</span>
+         <span class="p">(</span><span class="n">ButtonPress</span><span class="p">,</span> <span class="n">ButtonRelease</span><span class="p">,</span> <span class="n">KeyPress</span><span class="p">,</span> <span class="n">KeyRelease</span><span class="p">,</span> <span class="n">Motion</span><span class="p">)</span>
+<span class="n">y_root</span> <span class="o">-</span> <span class="n">y</span><span class="o">-</span><span class="n">position</span> <span class="n">of</span> <span class="n">the</span> <span class="n">mouse</span> <span class="n">on</span> <span class="n">the</span> <span class="n">screen</span>
+         <span class="p">(</span><span class="n">ButtonPress</span><span class="p">,</span> <span class="n">ButtonRelease</span><span class="p">,</span> <span class="n">KeyPress</span><span class="p">,</span> <span class="n">KeyRelease</span><span class="p">,</span> <span class="n">Motion</span><span class="p">)</span>
+<span class="n">char</span> <span class="o">-</span> <span class="n">pressed</span> <span class="n">character</span> <span class="p">(</span><span class="n">KeyPress</span><span class="p">,</span> <span class="n">KeyRelease</span><span class="p">)</span>
+<span class="n">send_event</span> <span class="o">-</span> <span class="n">see</span> <span class="n">X</span><span class="o">/</span><span class="n">Windows</span> <span class="n">documentation</span>
+<span class="n">keysym</span> <span class="o">-</span> <span class="n">keysym</span> <span class="n">of</span> <span class="n">the</span> <span class="n">event</span> <span class="k">as</span> <span class="n">a</span> <span class="n">string</span> <span class="p">(</span><span class="n">KeyPress</span><span class="p">,</span> <span class="n">KeyRelease</span><span class="p">)</span>
+<span class="n">keysym_num</span> <span class="o">-</span> <span class="n">keysym</span> <span class="n">of</span> <span class="n">the</span> <span class="n">event</span> <span class="k">as</span> <span class="n">a</span> <span class="n">number</span> <span class="p">(</span><span class="n">KeyPress</span><span class="p">,</span> <span class="n">KeyRelease</span><span class="p">)</span>
+<span class="nb">type</span> <span class="o">-</span> <span class="nb">type</span> <span class="n">of</span> <span class="n">the</span> <span class="n">event</span> <span class="k">as</span> <span class="n">a</span> <span class="n">number</span>
+<span class="n">widget</span> <span class="o">-</span> <span class="n">widget</span> <span class="ow">in</span> <span class="n">which</span> <span class="n">the</span> <span class="n">event</span> <span class="n">occurred</span>
+<span class="n">delta</span> <span class="o">-</span> <span class="n">delta</span> <span class="n">of</span> <span class="n">wheel</span> <span class="n">movement</span> <span class="p">(</span><span class="n">MouseWheel</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A couple of points need mentioning. First, the Binding Window contains
+a lot of cruft below the event entries for the selected widget which I
+don’t understand and can’t use. It seems to be a listing default events for the
+binding hierarchy of the widgets alluded to above. I am toying with
+just removing it. In addition I have never done anything good with the
+buttons below the menubar except for the check button which saves the
+bindings, or the ‘x’ button which deletes an event binding.</p>
+<p>The left listbox in the Binding Window has a popup menu which lets one
+modify the event under the mouse pointer.  For instance, it allows one
+to easily change the event &lt;Button-3&gt; to &lt;Double-Button-3&gt;.</p>
+<p>With version 4.8, Custom Widgets were introduced. Since PAGE knows
+nothing of those widgets including binding possibilities, the
+mechanism just described cannot be used to specified bindings for such
+widgets. You will have to do that in the support module.</p>
+</div>
+<div class="section" id="creating-bindings-for-scrolled-widgets">
+<h3>Creating Bindings for Scrolled Widgets<a class="headerlink" href="#creating-bindings-for-scrolled-widgets" title="Permalink to this headline">¶</a></h3>
+<p>The scrolled widgets are implemented as Python wrappers for underlying
+tk widgets such as text boxes, so in order to bind an action to the
+text box of a Scrolledtext widget, use the Bindings Window to bind the
+action to the Scrolledtext widget rather than the Text subwidget.</p>
+</div>
+<div class="section" id="defining-callback-functions">
+<span id="defining-functions"></span><span id="specifying-fonts"></span><h3>Defining Callback Functions<a class="headerlink" href="#defining-callback-functions" title="Permalink to this headline">¶</a></h3>
+<p>If you name a function in a menu, an event binding, command attribute,
+etc., that function is called a callback function and a Python
+implementation of that function is required before trying to execute
+the GUI in PAGE.</p>
+<p>Executing the GUI means executing the generated Python code within
+PAGE to demonstrate how the GUI will appear in the completed
+application.This is done by selecting the Run button on the Python
+Console or with the shortcut Control-R.  To satisfy requirements of
+the Python interpreter, Tkinter variables and callback functions have
+to be defined. These functions are to be located in the support
+module.  Skeleton functions will be satisfactory since at that state
+of development you really don’t expect the application to usefully
+function.</p>
+<p>One path for the user is to do nothing, letting PAGE create a skeleton for
+you by just noticing that the a name is specified in a binding or a command
+attribute in the support module as described in <a class="reference internal" href="rework.html#rework"><span class="std std-ref">Rework</span></a>.  This
+is the recommended approach as of version 4.2.</p>
+<p>I usually just let PAGE generate the skeleton functions, run the
+resulting code to see what my window will look like and then do the
+rest of my programming in emacs. When PAGE stores the python modules,
+several layers of backup files are retained.  If I need to regress to
+one of them, I find that <a class="reference external" href="http://meldmerge.org">Meld</a> is a
+wonderful utility for managing the differences between versions.</p>
+</div>
+<div class="section" id="viewing-callbacks">
+<h3>Viewing Callbacks<a class="headerlink" href="#viewing-callbacks" title="Permalink to this headline">¶</a></h3>
+<p>In release 4.14, a facility for listing and copying callback functions
+was added. This can be activated from the main menu - Window-&gt;Show All
+Callbacks - or from the Widget Menu, the context menu. The first will
+display in the Callback Window all callbacks defined for the GUI,
+while the latter displays only the callbacks related to the selected
+widget. A particular callback can be selected with the mouse or the
+search feature of the callback window.  Then the “Look up” button will
+find that callback in the Python Console; alternatively, hitting
+Button-3 in the callback window has the same result as selecting the
+“Look up” button.</p>
+<p>If the Python console exists it is used for the “Look up”. Otherwise,
+it is created and loaded from disk. Care needs to be exercised because
+the Python console may be differ from the disk version. Check the save
+warning at the bottom of the console.</p>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>Specifying Fonts<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>When manipulating most widgets in PAGE, the user can specify fonts to
+be used with that widget by means of the font field in the Attribute
+Editor. If one selects the ellipsis button - the small button with
+‘…’ - a font selection dialog opens and its use is straight forward. One
+may also add a font description in the entry field and that is where
+restricted to using Tk font specification formats which are
+exemplified below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">adobe</span><span class="o">-</span><span class="n">courier</span><span class="o">-</span><span class="n">bold</span><span class="o">-</span><span class="n">r</span><span class="o">-*-*-</span><span class="mi">20</span><span class="o">-*-*-*-*-*-*-*</span>
+
+<span class="p">{{</span><span class="n">deja</span> <span class="n">Vu</span><span class="p">}</span> <span class="mi">12</span> <span class="n">bold</span><span class="p">}</span>
+
+<span class="o">-</span><span class="n">family</span> <span class="p">{</span><span class="n">DejaVu</span> <span class="n">Sans</span><span class="p">}</span> <span class="o">-</span><span class="n">size</span> <span class="mi">12</span> <span class="o">-</span><span class="n">weight</span> <span class="n">bold</span> <span class="o">-</span><span class="n">slant</span> <span class="n">roman</span> <span class="o">-</span><span class="n">underline</span> <span class="mi">0</span> <span class="o">-</span><span class="n">overstrike</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>Some users need font sizes which are not included in the selection
+dialog. The user can go to the font entry field of the Attribute
+Editor and modify the -size value.  If the user expects to need such
+an exception often, he or she may add the custom sizes in the font tab of the
+preference window.</p>
+</div>
+<div class="section" id="toplevel-widget">
+<h2>Toplevel Widget<a class="headerlink" href="#toplevel-widget" title="Permalink to this headline">¶</a></h2>
+<p>A Toplevel widget is created when PAGE is invoked without
+parameters. The Toplevel widget is the main widget and the container
+for the widgets of the GUI design.  With version 7 which supports
+multiple toplevels additional Toplevel widgets can be added by
+selecting the toplevel button in the Widget Toolbar.  When an existing
+project is opened from the main menu File-&gt;Open the existing Toplevel
+widgets can be saved if modified and then replaced with the Toplevel
+widget of the opened project.</p>
+<p>Toplevel widgets don’t really have a title property. It was added in
+Visual Tcl and the Attribute Editor originally displayed it as one of
+the geometry attributes. That didn’t seem like a good place, so I moved
+it to the Attributes section.  The title is displayed at top of the
+window and previously was used to generate the class name use in the
+Python code. However the title can be an arbitrary
+string of Unicode characters, the alias will be used as the class
+name. An alias is automatically generated from the class name and, of
+course, may be changed in the Attribute Editor.</p>
+<p>Among the attributes listed for a toplevel widget is ‘menu’ which in
+PAGE allows one to easily create  a menubar at the top
+of the widget. Click on the attribute and follow the procedure below.</p>
+</div>
+<div class="section" id="relative-placement">
+<span id="relative"></span><h2>Relative Placement<a class="headerlink" href="#relative-placement" title="Permalink to this headline">¶</a></h2>
+<p>Following the paradigm I am familiar with from VB, PAGE uses the place
+window manager to fix location within the generated GUI.  Thanks to
+George Tellalov, who suggested using relative placement for widgets
+within the GUI thus allowing one to build stretchable GUI’s.  They
+allow one to grab an edge or corner of the executing Python GUI and
+change its size and while maintaining relative positions and sizes of
+the internal widgets. This is the default behavior. Keep in mind that
+with relative placement, widgets may change size as the toplevel
+window is resized, but fonts do not change size.</p>
+<p>Relative or absolute placement can be selected in the Basics tab of
+the Preferences window.</p>
+<p>Since I don’t think buttons or labels should change size in step with
+the change in size of the window, relative placement for buttons does
+not change the size of buttons but the relative placement is
+maintained. The unit of width with labels is characters,
+width does not change with the size of the toplevel widget.</p>
+<p>Relative placement has been extended to the toplevel design widget.
+Two design modes are introduced for Relative and Absolute for
+PAGE. Relative mode is new and it allows you to see how the completed
+GUI will appear as the toplevel window is resized. Absolute mode is
+the previous behavior. There is a new button in main window which
+displays the current mode and when pressed will convert to the other
+mode. The design modes are governed by the following:</p>
+<ul class="simple">
+<li>When the project top level is created the mode is determined by the
+preferences.</li>
+<li>When the project is saved the mode is determined by the preferences.</li>
+<li>When the design mode is changed, the selected widget handles are
+preserved.</li>
+<li>When the design mode is changed, multiple selections are lost. (I
+haven’t figured out a way to save them.)</li>
+<li>You can change mode repeatedly, suffering only minor rounding
+errors.</li>
+</ul>
+<p>That is, with relative mode in the preferences, the you get WYSIWYG at
+the PAGE design level. However, if sometimes, in the middle of a
+project design, a flash of inspiration comes and you need to resize
+the topmost widget to accommodate more or less space.  With the
+relative position in the designer, everything resizing or moving can
+throw off hours of work.
+This new behavior works best with newly placed widgets. However, with
+legacy projects problems may be encountered with widgets located at
+position (0,0).</p>
+<p>When you add a widget in Relative mode, it means that if you stretch,
+compress, or diagonally reshape the toplevel widget, the widgets
+inside will move around and resize proportionately.</p>
+<p>The problem associated with relative placement occurs when widgets are
+placed inside of label frames.  To make room for the label, the widget
+is taller than the frame and leads to unexpected behavior especially when
+compared with simple frames as containers. The user would like to have
+resizing and motion relative to the outline of the frame rather than
+the origin of the widget.  I have hacked an adjustment to the relative
+placement of widgets which have label frames as parent widgets. It
+helps but it is not perfect. Suggestions are most welcome.</p>
+</div>
+<div class="section" id="tkinter-variable-classes">
+<h2>Tkinter Variable Classes<a class="headerlink" href="#tkinter-variable-classes" title="Permalink to this headline">¶</a></h2>
+<p>With several of the widgets using variables to set or reflect values,
+it is necessary to have linkage between tkinter variables and Python
+variables.  For instance, when one moves a slider of a scale in the
+GUI window, he wants the value to be reflected in a Python variable or
+conversely changing that variable should change the position of the
+slider. This is done by means of the Tkinter variable classes:
+BooleanVar, DoubleVar, IntVar, and StringVar.</p>
+<p>You need an instance of one of these classes. PAGE guesses the variable
+type which you may need. You can then use the get method in Python to
+determine the value of the variable in tk and use the set method to
+set the value of the tk variable.  There are examples below.  For more
+information see the <a class="reference external" href="http://effbot.org/tkinterbook/variable.htm">Tkinter Variable Class</a> on the effbot.org web
+page.</p>
+<p>For instance if you are using a TScale widget to be coupled with the
+tk variable variable “val”, the following code is generated in the
+toplevel class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">DoubleVar</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>then you need to set the TScale attribute to “val”.  The rule is that
+the Tkinter variable must exist before it the widget class is
+instantiated. It may appear in the toplevel class definition like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">TScale1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">variable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When val is changed with a statement like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="o">.</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>in the toplevel class the TScale slider will move to that value.</p>
+<p>If the TScale is changed in the GUI, you can read the new value in the
+support module with a statement like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_w1</span><span class="o">.</span><span class="n">val</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>PAGE tries to help out by generating an instance of the appropriate
+class variables. Again, this is skeletal code to help the generated
+Python code run from within the Python Console.</p>
+<p>One point to note: Several widgets such as message, buttons, and label
+can use textvariables to set the widget displayed on the widget. If
+the variable is created but unset its value is the null string. If the
+value is “”, then the button has no text and you can’t see that there
+is a message or label present.  For that reason there is a hack which
+initializes the textvariable to the value of the text option. That
+way the widget will appear with same text in GUI execution as in GUI
+design. Obviously, the textvarialble can be set in the support
+module. In fact, if you didn’t expect to modify the textvariable in
+support module code, you would not have specified a textvariable.</p>
+<p>For more discussion of Tkinter Variable Classes see <a class="reference external" href="https://infohost.nmt.edu/tcc/help/pubs/tkinter/web/control-variables.html">Tkinter 8.5 reference</a>.</p>
+</div>
+<div class="section" id="ttk-widgets">
+<span id="id3"></span><h2>Ttk Widgets<a class="headerlink" href="#ttk-widgets" title="Permalink to this headline">¶</a></h2>
+<p>There are some aspects of the ttk widget set that have presented me
+with some significant difficulties mainly due to “styles”, it may
+be merely that I don’t understand the ttk widgets well enough or to
+problems with their implementation and documentations.  I will try to
+explain my problems below. I would welcome any suggestions.</p>
+</div>
+<div class="section" id="scrolled-widgets">
+<h2>Scrolled Widgets<a class="headerlink" href="#scrolled-widgets" title="Permalink to this headline">¶</a></h2>
+<p>For some reason that I don’t understand, the Tk folks have never seen
+fit to implement scrolled widgets such as a Scrolled Text
+widget. Rather, the user is left to deal with scrollbar widgets and
+attaching them to text or listboxes. I certainly don’t want to fuss
+around with all the separate programming tasks required for a scrolled
+widget when building a GUI.</p>
+<p>Looking at the Tk man pages, I found that only canvas,
+entry, grid, listbox, spinbox, and text tk widgets appear to support
+scrollbars. PAGE now offers scrolled versions of those widgets based
+on the approach demonstated by Guilherme Polo in his Pyttk-samples
+package which shows how to build Scrolledtext and Scrolledtreeview
+widgets. Of course, I have included Polo’s Scrolledtreeview widget. My
+version of a scrolled canvas widget is the Scrolledwindow widget
+described below.</p>
+<p>I was able to extend his package so that the scrolled widgets now
+support mouse wheel scrolling with the wheel scrolling in the y
+direction and shift-wheel scrolling in the x direction.  Y direction
+scrolling works in Linux, Windows, and OSX. However, X direction
+scrolling only works in Linux and Windows. I do not understand why it
+does not work in OSX and would welcome any insight.</p>
+<p>One can select a scrolled widget from the Widget Toolbar and place it
+in the GUI and PAGE will generate all of the Python code necessary to
+realize the scrolled widget. The scrolled widgets that I added are not
+named with an T because they are not official tk widgets ans are
+to be found in the Enhanced widgets section off the Widget Toolbar.</p>
+<p>Although Polo implemented his code with ttk widgets, I have used his
+ideas to implement scrolled tk widgets as well. In fact, where
+possible I have used tk widgets in preference to ttk widgets. For
+instance, I have based only the Scrolledtreeview and Scrolledcombobox
+on ttk widgets. I am indebted to Polo for his ideas but he bears no
+responsibility for any errors I make interpreting his ideas.</p>
+<p>The scrolled widgets are compound widgets containing as-needed
+scrollbars and an elementary widget. As such, to set attributes or
+apply bindings, first select the elementary internal widget.</p>
+<p>When the scrolled widgets are placed into a container window, the
+image shown displays vertical scroll bars to facilitate
+identification. The best is that the appearance is similar to that
+which is shown when the GUI is executed because as implemented in the
+Python code the scroll bars appear only when required. I had a lot of
+trouble with background colors in the ttk::scrollbars used in the
+Python GUI.</p>
+<p>These widgets are complex widgets, so to move or resize them, use
+Control with Button-1. The scrollbars are ttk::scrollbar widgets which
+appear only when needed, i. e., when an item extends beyond the
+allotted space.</p>
+<p>When inserting text inside a Scrolledtext widget, treat it like a text
+widget. For example, uses code like</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Scrolledtext1</span>
+<span class="n">obj</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">END</span><span class="p">,</span> <span class="s2">&quot;This is text to be inserted&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When  cutting, or copying scrolled widgets, I use the widget tree for
+easily selecting the whole widget rather than just the interior
+widget.</p>
+<p>To change attributes of the widget being scrolled, it is necessary to
+select that widget from the Widget Tree and then make the desired
+changes in the Attribute Editor. For instance, to change the
+background color of a Scrolledtext widget, select the text widget
+indented under the Scrolledtext entry in the Widget Tree and change the
+background color in the Attribute Editor.</p>
+<p>The several scrolled widgets provide auto-scaling; that is when the
+widget is actually larger than the viewing area scrollbars are
+shown. However, there is no way for the user to change any attributes
+of the scrollbars. This primarily affects the background color which is
+the GUI background color which is set in the preferences.</p>
+<div class="section" id="scrolledlistbox">
+<h3>Scrolledlistbox<a class="headerlink" href="#scrolledlistbox" title="Permalink to this headline">¶</a></h3>
+<p>There s a slight problem with the ScrolledListBox in the way in which
+the size function is invoked due to a strangeness, which I do not
+understand, with multiple inheritance in Python. One would normally
+expect to
+get the value of size of a ScrolledListBox with the following statement:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">size</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">Scrolledlistbox1</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>class inherits from two classes Autoscroll and Listbox. Both classes
+define the function “size” and the size that in invoked above is the
+one via Autoscroll.  I have been unable to find a way of define “size”
+in the ScrolledListBox class to be the one I want. So there are at
+least two way of determining the size of a ScrolledListBox in a
+support module. They are:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">size</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">Scrolledlistbox1</span><span class="o">.</span><span class="n">size_</span><span class="p">()</span>
+
+<span class="ow">or</span>
+
+<span class="n">size</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Listbox</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">Scrolledlistbox1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The first works because I have added the definition of the function
+“save_” to the ScrolledListBox class.  I do not know why I cannot add
+a similar definition of “save”.</p>
+</div>
+<div class="section" id="scrolledwindow">
+<span id="id4"></span><h3>Scrolledwindow<a class="headerlink" href="#scrolledwindow" title="Permalink to this headline">¶</a></h3>
+<p>This is my attempt to provide a scrolled canvas widget. The
+Scrolledwindow is a scrolled canvas with a single frame located in at
+position (0,0) which can contain Tk widgets. Unfortunately, PAGE does
+not give you much help in placing the widgets. And I have not been
+able to get scrolling action when using the place geometry manager
+with the widgets.</p>
+<p>I have used this widget for displaying photographs as part of a
+photography library. It worked very well but I had to load the widgets
+by adding Python code to the support module.</p>
+<p>I think that this best
+explained by example. I have included a simplified example to show
+how I loaded the scrolledwindow and connected it to the
+scrollbars. In the GUI module the following code is generated by PAGE:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">Scrolledwindow1</span> <span class="o">=</span> <span class="n">ScrolledWindow</span><span class="p">(</span><span class="n">top</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">Scrolledwindow1</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">relx</span><span class="o">=</span><span class="mf">0.217</span><span class="p">,</span> <span class="n">rely</span><span class="o">=</span><span class="mf">0.311</span><span class="p">,</span> <span class="n">relheight</span><span class="o">=</span><span class="mf">0.522</span>
+        <span class="p">,</span> <span class="n">relwidth</span><span class="o">=</span><span class="mf">0.478</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">Scrolledwindow1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="s2">&quot;#5eff8f&quot;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">Scrolledwindow1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">borderwidth</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">Scrolledwindow1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">highlightbackground</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">Scrolledwindow1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">relief</span><span class="o">=</span><span class="s2">&quot;groove&quot;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">Scrolledwindow1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">selectbackground</span><span class="o">=</span><span class="s2">&quot;#ddc8a1&quot;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Scrolledwindow1</span><span class="o">.</span><span class="n">cget</span><span class="p">(</span><span class="s2">&quot;background&quot;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">Scrolledwindow1_f</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Scrolledwindow1</span><span class="p">,</span>
+                    <span class="n">background</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">Scrolledwindow1</span><span class="o">.</span><span class="n">create_window</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;nw&#39;</span><span class="p">,</span>
+                                   <span class="n">window</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Scrolledwindow1_f</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The frame, self.Scrolledwindow1_f, is a container for tk widgets. The
+following is code for inserting an array of buttons into that frame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">gui</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">w</span><span class="p">,</span> <span class="n">top_level</span><span class="p">,</span> <span class="n">root</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">gui</span>
+    <span class="n">top_level</span> <span class="o">=</span> <span class="n">top</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">top</span>
+    <span class="n">load_canvas</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">load_canvas</span><span class="p">():</span>
+    <span class="n">inner_frame</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">Scrolledwindow1_f</span>  <span class="c1"># Rename for convenience.</span>
+    <span class="n">button</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+        <span class="n">button</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">inner_frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;VButton&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="n">button</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">sticky</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+    <span class="n">button</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">wait_visibility</span><span class="p">()</span>      <span class="c1"># Wait for widget to appear.</span>
+    <span class="n">bbox</span> <span class="o">=</span> <span class="n">inner_frame</span><span class="o">.</span><span class="n">bbox</span><span class="p">()</span>        <span class="c1"># Geometry of the frame.</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">Scrolledwindow1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">scrollregion</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>    <span class="c1"># Configure scrolling.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scrolledtreeview">
+<h3>Scrolledtreeview<a class="headerlink" href="#scrolledtreeview" title="Permalink to this headline">¶</a></h3>
+<p>There is a bug in Tcl/Tk which prevents the modification of the cursor
+in contradiction of the ttk:treeview widget.</p>
+</div>
+</div>
+<div class="section" id="ttk-notebook-and-pnotebook">
+<h2>Ttk Notebook and PNotebook<a class="headerlink" href="#ttk-notebook-and-pnotebook" title="Permalink to this headline">¶</a></h2>
+<p>If you select, place, and resize a TNotebook in
+your GUI window it will display a notebook with two pages and may look like:</p>
+<img alt="_images/notebook.jpg" src="_images/notebook.jpg" />
+<p>To change the attributes of the TNotebook, including the number pages
+(tabs), select the notebook editor either from the context menu,
+Widget –&gt; Edit tabs…) or by selecting the ellipses in the page
+attribute in the Attribute Editor. The context menu pops up when the
+notebook menu is selected with Button-3 in the Widget Tree or the GUI
+toplevel.</p>
+<img alt="edit-tabs.png" src="edit-tabs.png" />
+<p>Here you can do all sorts of interesting things like add tabs, change
+the order of the tabs, or select the tab you want to activate for
+adding widgets . If you select the menubar Item-&gt;Add, it will create a
+new page to the notebook, in the above example, as the rightmost tab.
+The Move menu as well as the up and down buttons will change the order
+of the pages.  The move operation will move the selected page one
+position up or down.  The move is circular in the sense that moving
+the bottom item down will move it to the top, etc..</p>
+<p>Finally, the tab editor allows one to put an image on the tab as
+shown.  The compound option allows the image to be placed in the
+different position of the tab relative to the text.  The relationship
+between an image and the text is governed by the compound option which
+has a default value of “none”, which displays the image but no
+text. While it is possible to enter image object names into the image
+entry box, it is a bad idea to do so. I have made the box orange as a
+warning.</p>
+<p>Another way of navigating the pages in the tab editor is the pages
+attribute in the Attribute Editor. The ellipse button invoked the tab
+editor opens the tab editor.</p>
+<p>With version 4.10, there is a variation of the Ttk Notebook called the
+PNotebook which appears below:</p>
+<img alt="_images/pnotebook.png" src="_images/pnotebook.png" />
+<p>The x’s at the right of the tabs are icons which will cause the tab
+to close when selected with Button-1.  Note that this icon uses the
+single image allowed in a tab and places it to the right.  So, the tab
+editor does not have an image field to modify. It appears like:</p>
+<img alt="_images/edit-pnotebook.jpg" src="_images/edit-pnotebook.jpg" />
+<p>When the support module is created for a GUI containing a PNotebook,
+three funtions are added - “_button_press”, “_button_release”, and
+“_mouse_over”. Those names should be distinct from names that the user
+might use in his application code. They were give the somewhat unusual
+leading “_” character to facilitate the distinction.</p>
+<p id="nbresize">When it comes to resizing notebooks, it is necessary to recognize that
+not all of the components can be resized. Consider the following
+images.</p>
+<img alt="_images/nb-selected.png" src="_images/nb-selected.png" />
+<p>Here the notebook widget is selected. Its geometry may be changed by dragging a
+handle or with the arrow keys.</p>
+<img alt="_images/nb-tab-sel.png" src="_images/nb-tab-sel.png" />
+<p>The widget selected here is an internal frame of the notebook tab and
+its geometry may not be changed. And PAGE will not alter it.</p>
+<img alt="_images/Internal-widget.png" src="_images/Internal-widget.png" />
+<p>The selection is that of an internal widget in one of the notebook
+tabs. Of course, it’s geometry may be altered.</p>
+<p>I spent a great effort trying to get tab colors right based on
+variations in the preferred GUI colors (as specified in the preference
+window) and gave up. Instead I decided on the following: the colors of
+the tab of the visible are the preferred colors, the background colors of
+other tabs are shades of gray and the foreground colors of those tabs
+is black. Fortunately, those colors can be changed by inserting code
+of following ilk in the support module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">style</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;TNotebook.Tab&#39;</span><span class="p">,</span>
+          <span class="n">background</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="s1">&#39;gray35&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;gray75&#39;</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s1">&#39;!active&#39;</span><span class="p">,</span> <span class="s1">&#39;gray89&#39;</span><span class="p">)],</span>
+          <span class="n">foreground</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s1">&#39;!active&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p>In the above code</p>
+<ul class="simple">
+<li>‘selected’ refers to the visible page,</li>
+<li>‘active’ refers a non selected tab that is under the mouse, and</li>
+<li>‘!active’ refers to any non selected not under the mouse.</li>
+</ul>
+<p>Those names are ttk states of the TNotebook widgets described in the
+ttk::widget man page. Exactly how the various states apply to
+TNotebooks is very confusing; ttk documentation strikes again.</p>
+<p>The appearance of the “!active” close image in PNotebook tabs is
+serviceable but not perfect in the case of a dark background.  But I
+think it is the best that ttk allows.</p>
+</div>
+<div class="section" id="ttk-panedwindow">
+<h2>Ttk Panedwindow<a class="headerlink" href="#ttk-panedwindow" title="Permalink to this headline">¶</a></h2>
+<p>The TPanedwindow can be added to the GUI by selecting it from the
+Widget Toolbar and then Button-1 in the container.  There are two
+entries for the TPainedwindow, one for vertical separators and another
+for horizontal, in the Widget Toolbar.  It can be moved around by
+Control-Button-1 and resized by dragging one of the handles. It is
+sometimes a bit difficult grabbing a handle unless you select the
+TPanedwindow widget from the Widget Tree window. Each pane of the
+paned window contains a TLableframe which fills the pane.  Using the
+label frame was the only way I could find to actually get the a
+TPanedwindow to appear on my screen. Again, I had few examples to work
+from. Documentation of the ttk::panedwindow is very poor, even worse
+than most other aspects of TTk.</p>
+<p>The paned window is configured by invoking Widget-&gt;Edit Panes menu
+item bringing up the following editor.</p>
+<img alt="_images/pane-editor.png" src="_images/pane-editor.png" />
+<p>This editor allows users to move among the panes, change the text in
+the label frame, and to fix the relative weights used when resizing
+the widget.  Changes made in the editor are applied to the GUI
+immediately. Selecting the check button merely closes the editor.</p>
+<p>One can select the TLableframe defining the pane and drag the edge of
+it to change the sash position. In other words, select a pane with
+Button-1 and drag one of the interior handles along the sash you want
+to modify; that will move the sash between the selected pane and the
+adjacent pane. Fine adjustment can be made using the arrow keys.</p>
+<p>The Edit panes window allows one to add additional panes to the window
+via the Item menu. The implementation of paned windows sets the
+initial size of the paned window to 200x200 pixels and the first pane
+size to 75 pixels.  Adding a new pane adds one at the end (the right
+end of a horizontal TPanedwindow or the bottom of a vertical
+TPanedwindow, in either case, taking space from prior end pane.
+Fortunately you can resize the whole TPanedwindow which changes the
+size of the end pane. Then resize the others by changing the sash
+positions as described above.</p>
+<p>Users may also forget, the term used in the tk documentation, a pane
+which removes it from the widget. There is no remember command.</p>
+<p>The weight option describes the size of the pane in the stacking
+dimension, relative to the other panes. For example, for paned windows
+where the stacking is vertical, if pane 0 has weight=1 and pane 1 has
+weight=3, initially the first pane will have 1/4 of the height and the
+second pane will have 3/4. That ration will persist as the widget is
+resized, assuming of course, relative placement.</p>
+<p>The editor, by including the Move menu and the little up and down
+arrows allows one can move the a pane to a new position. Again, the
+move operation is circular.</p>
+<p>To move a paned window select the whole window then a spot in a sash
+between panes and then you can drag the whole paned window.</p>
+</div>
+<div class="section" id="ttk-treeview">
+<h2>Ttk Treeview<a class="headerlink" href="#ttk-treeview" title="Permalink to this headline">¶</a></h2>
+<p>It was  difficult to provide reasonably good support for the
+Treeview widget. I actually do not support the ttk::treeview widget,
+rather I have gone directly to the Scrolledtreeview which embeds the
+ttk::treeview widget in a ttk::frame with auto-scrolling scrollbars.</p>
+<p>What I have been able to do is to support the placement of the widget
+in a window with a default of one column in addition to the tree
+column both columns are stretchable. By invoking the column editor you
+may change many of the characteristics of the widget such as the
+column size and heading, as well as the number of columns. It also
+allows one to reorder the columns.  Note that the column that contains
+the tree has the index of “#0” and must remain the first (left-most)
+column.  The column editor is invoked with Button-3 in the widget
+within the Widget Tree and going to Widget-&gt;Edit Columns … as shown
+below:</p>
+<img alt="_images/column-editor.png" src="_images/column-editor.png" />
+<p>If the widget were created or a column is added with the configuration
+option “stretch” is set to 0 (not stretchable), then when the
+resulting GUI is stretched then the column width will not change.  The
+enclosing widget with the scrollbars will either have a blank area to
+the right of the last column if the window is enlarged or the last
+column will not fully show.  To get the more desirable behavior, go
+into the Column Editor in the Widget menu and make at least one of the
+columns stretchable.</p>
+</div>
+<div class="section" id="entry">
+<h2>Entry<a class="headerlink" href="#entry" title="Permalink to this headline">¶</a></h2>
+<p>This widget is mostly like the simple widgets except that it supports
+validation with three special options - validate, validatecommand, and
+invalidcommand. See <a class="reference internal" href="#entrycmd"><span class="std std-ref">validation commands</span></a> for a
+description of validate command specifications.  Note that the option
+“validate” needs to be set because it defaults to “none”.</p>
+</div>
+<div class="section" id="ttk-entry">
+<h2>Ttk Entry<a class="headerlink" href="#ttk-entry" title="Permalink to this headline">¶</a></h2>
+<p>While I do support the ttk entry widget, I don’t see any reason to
+recommend using it because I am unable to change the widgets font and
+I don’t like being stuck with the TkDefaultFont. Strange to say the
+ttk Combobox, below, is rumored to be based on the TEntry widget and I
+am able to manipulate the font size using the style facility.</p>
+</div>
+<div class="section" id="ttk-combobox">
+<span id="combo"></span><h2>Ttk Combobox<a class="headerlink" href="#ttk-combobox" title="Permalink to this headline">¶</a></h2>
+<p>The combobox requires a list of selectable values to display in the
+drop-down listbox.  These are easily specified from the Set Values
+entry of the Widget menu. When invoked from the menu a scrolled text
+box appears and the values are specified by entering them one per line
+in the text box and then selecting the check mark. Each line entered
+is considered to be a string constant and will be enclosed in quotes
+in the generate Python code. If you want values to include Python
+variable then you should set the values in the support function. This
+is a change from the previous behavior. Note that the window is a
+text box and so on can use control-x, control-c, and control-v for
+cut, copy, and paste.</p>
+<img alt="_images/SetValues.png" src="_images/SetValues.png" />
+<p>Values can also be set in the support module using
+code like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">w</span><span class="o">.</span><span class="n">TCombobox1</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;USA&#39;</span><span class="p">,</span> <span class="s1">&#39;Canada&#39;</span><span class="p">,</span> <span class="s1">&#39;Australia&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>My style problem with the TCombobox is that while I can use the style
+mechanism to change the font of the entry field in the combobox I
+have not found a way to change the font of the drop down area
+containing the values. In addition, I have not found a mechanism for
+changing the values in the drop down list after initialization.</p>
+<p>Note that the TCombobox widget incorporates an automatic height
+scrollbar. Vertical scrolling should automatically enable once you
+have sufficient values to choose between.</p>
+</div>
+<div class="section" id="radiobuttons">
+<h2>Radiobuttons<a class="headerlink" href="#radiobuttons" title="Permalink to this headline">¶</a></h2>
+<p>TRadiobuttons and Radiobuttons act pretty much the same. One specifies
+several of the widgets which are linked by specifying the same Tkinter
+variable for all. It is necessary to specify a different value for
+each radiobutton. One can also specify an initial value for the group
+by setting the initial value of the Tkinter variable in the support
+routine.  For TRadiobuttons the values and variables can be specified
+with the set method of the from the Widget menu as well as in the
+Attribute editor.</p>
+<p>According to Tcl/Tk documentation, Radiobuttons have a default
+variable which is “selectedButton” but I have not gotten that to work
+in Tkinter.  So I recommend specifying your own variable in the
+Attribute Editor and avoiding “selectedButton”. I generate Python that
+will not fail with a syntax error if you do not specify a variable but
+it will not truly work. I think that the problem is in the
+implementation of tkinter.</p>
+<p>The TRadiobutton is even worse; it cannot work with the default
+variable which is “::selectedButton” because that is not a legal
+Python identifier. So I fudge it to generate legal Python, but do not
+expect it to work the same a specified variable.</p>
+<p>In the supported modules, the radio button variable is associated with
+a Tkinter Variable and its value can reasonably be either an integer
+or a string. I decide to implement the variable as a StringVar if the
+value is enclosed with the single quote character, “’”, otherwise it
+is deemed to be an integer and is implemented as an IntVar. Note that
+double quotes do not work because they do not survive saving the
+project file. Obviously, all values specified for the variable must be
+either integers or strings and of the same type.</p>
+</div>
+<div class="section" id="strangeness-with-text-and-variables">
+<span id="interact"></span><h2>Strangeness with Text and Variables<a class="headerlink" href="#strangeness-with-text-and-variables" title="Permalink to this headline">¶</a></h2>
+<p>With version 7, when a textvariable is specified, the corresponding
+widget displays the text specified in the text attribute, and in
+addition it is now possible to change the text attribute after the
+textvariable has been specified. However, there is an artifact that
+may be present. The variable displayed in as the textvariable
+attribute may have “::vTcl::” prepended. I have not been able to
+remove that artifact while still being able to change text. So just
+ignore it, live with it, and hope I experience a revelation.</p>
+</div>
+<div class="section" id="label">
+<h2>Label<a class="headerlink" href="#label" title="Permalink to this headline">¶</a></h2>
+<p>Label widgets also treat text in an unexpected way.  The justify
+attribute applies how multiple lines of text are aligned relative to
+each other, it does not set how text lines are placed relative to the
+Label widget boundaries.  Use the anchor attribute to specify if the
+text block is up against the left of the widget (anchor ‘e’) or the
+right (anchor ‘w’).</p>
+</div>
+<div class="section" id="listbox">
+<h2>Listbox<a class="headerlink" href="#listbox" title="Permalink to this headline">¶</a></h2>
+<p>The Listbox widget has the option “listvariable” which one would expect to
+behave exactly like one of the Tkinter variable classes.  However, the Tcl
+documentation specifies that the listvariable must contain a list of
+values to be displayed in the listbox and the possible Tkinter
+variable classes are BooleanVar, StringVar, IntVar, and DoubleVar.  By
+experimentation I have found that by specifying the var to be
+StringVar and setting its value to a tuple of strings will cause each
+member of the tuple to appear as an entry in the listbox.  I am rather
+surprised at this but glad to find something that works.</p>
+<p>The following code</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">set_Tk_var</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">rrr</span>
+    <span class="n">rrr</span> <span class="o">=</span> <span class="n">StringVar</span><span class="p">()</span>
+    <span class="n">rrr</span><span class="o">.</span><span class="n">set</span><span class="p">((</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">,</span><span class="s1">&#39;e&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>results in a scrolled list box looking like:</p>
+<img alt="_images/Scrolled_List_Box.png" src="_images/Scrolled_List_Box.png" />
+</div>
+<div class="section" id="spinbox">
+<h2>Spinbox<a class="headerlink" href="#spinbox" title="Permalink to this headline">¶</a></h2>
+<p>The Spinbox widget has the option values which contains a list of
+values presented in the widget as the arrows manipulated.  They are
+set using the Widget menu item “Set Values”.  When invoked from the
+menu a scrolled text box appears and the values are specified by
+entering them one per line in the text box and then selecting the
+check mark.</p>
+</div>
+<div class="section" id="scale-and-tscale">
+<span id="scale"></span><h2>Scale and TScale<a class="headerlink" href="#scale-and-tscale" title="Permalink to this headline">¶</a></h2>
+<p>Tk does strange things when one tries to modify the narrow dimension
+of a scale widget (the height of a horizontal scale or the width of a
+vertical one).  So PAGE does not allow one to modify the narrow
+dimension during the design phase and restricts the Relative Placement
+in the Python code to prevent changes in the narrow dimension.</p>
+<p>As usual the command attribute specifies the callback function invoked
+when the widget is selected. Unlike other widgets, the callback
+function is invoked whenever the scale’s value is changed via a widget
+command. So if you select the slider and drag it the callback will be
+invoked numerous times. When the callback is invoked the current value
+is passed as the first argument. If you want to pass additional
+arguments then you should use a lambda function like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">foo</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where v is the current value of the slider.</p>
+<p>This is similar to bind statements causing the passing of event objects.</p>
+</div>
+<div class="section" id="tseparator">
+<h2>TSeparator<a class="headerlink" href="#tseparator" title="Permalink to this headline">¶</a></h2>
+<p>The TSeparator widget when selected presents only three handles; one
+at each end and one in the middle. The handles at the ends change the
+length of the separator and the one in the middle moves the separator.</p>
+<p>I recommend investigating the trick by Greg Walters at
+<a class="reference external" href="http://thedesignatedgeek.xyz/python/page/2018/06/04/How-To-Page-Separators.html">http://thedesignatedgeek.xyz/python/page/2018/06/04/How-To-Page-Separators.html</a>.</p>
+</div>
+<div class="section" id="sizegrip">
+<h2>Sizegrip<a class="headerlink" href="#sizegrip" title="Permalink to this headline">¶</a></h2>
+<p>Support for the ttk::sizegrip widget was included in Version 4.0.
+Merely select the widget from the Widget Toolbar and drop it anywhere
+within the Toplevel frame but not on top of another widget; it will
+bounce to the lower right corner.  Were you to drop it on say a
+notebook widget, a weird result would occur like landing in the wrong
+place but doing the right thing.</p>
+<p>I had difficulties with using Sizegrip with PAGE windows.  It works
+fine with the Python Console and the Menu Editor, but I never got a
+truly satisfactory result with Widget Tree or or the Widget Toolbar.
+I left it with the Widget Toolbar but not with the Widget tree. To be
+revisited.</p>
+</div>
+<div class="section" id="custom-widgets">
+<h2>Custom Widgets<a class="headerlink" href="#custom-widgets" title="Permalink to this headline">¶</a></h2>
+<p>In writing a photo manager, I needed a variation of a scrolled canvas
+to display photos.  I could not find a general purpose candidate for a
+scrolled canvas widget, but a found several variations on the web that
+might work. So I implemented support of user designed Custom widgets
+that can be manipulate in PAGE but requires the user to supply the
+Python implementation. So if I have left something out and you can
+conjure a tkinter implementation of it, PAGE can handle it.</p>
+<p>PAGE shows a Custom widget as a Text widget with the caption “Custom
+widget” and which can be placed and resized like any other
+widget. However since the widget has not been defined within PAGE, it
+is meaningless to talk about modifying attributes in the Attribute
+Editor except “variant” which is new in 4.15 and described below. All other
+attributes must be handled in the widget definition code.  The
+generated Python refers to it as a class defined in the support
+module.  To allow execution of the GUI before the support module is
+completed, there is included in the support module the line:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Custom</span> <span class="o">=</span> <span class="n">Frame</span>
+</pre></div>
+</div>
+<p>The user then inserts his code for the custom widgets as a class with
+the &lt;class_name&gt; of his choosing and follows that code with the line:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Custom</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">class_name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>This is the magic that links the widget that you placed in the GUI
+with the implementing class code in the support modules. See
+<a class="reference internal" href="examples.html#custom-example"><span class="std std-ref">Custom Widgets</span></a> example.</p>
+<p>Of course, Python implementation of the custom widget may be in a
+Separate Python module which can be imported into the support module.</p>
+<p>The support of  Custom Widgets has been extended
+two ways. First it is now possible to have more than one custom widget
+in a GUI.</p>
+<p>And second, it is also possible to have more than one kind of custom
+widget in the same GUI.
+The names of the Custom widgets are “Custom” followed with a suffix
+which I call a variant. The variant is chosen by the user from the
+only attribute in the Attribute Editor. Each variation is implemented
+by a user-supplied Python class.
+The Custom widgets names are globally known across all the toplevels
+of the GUI.</p>
+<p>The variant attribute creates a separate name to be
+used in the GUI module and tied to a separate Python widget
+implementation. If the attribute is given a value (a string of
+character legal in a Python identifier) then that
+value is appended to the name ‘Custom’ and that enlarged name is used
+as the class name in generating the Python code. If the variant
+attribute is left blank, the class name is ‘Custom’ as before. For
+instance, if the widget ‘Custom1’ in project ‘d’ is given the variant
+‘p’ and the widget ‘Custom2’ is given the variant ‘q’, the following
+lines are generated in the GUI module, ‘d.py’:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">Custom1</span> <span class="o">=</span> <span class="n">d_support</span><span class="o">.</span><span class="n">Customp</span><span class="p">(</span><span class="n">top</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">Custom1</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">relx</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">rely</span><span class="o">=</span><span class="mf">0.24</span><span class="p">,</span> <span class="n">relheight</span><span class="o">=</span><span class="mf">0.16</span><span class="p">,</span> <span class="n">relwidth</span><span class="o">=</span><span class="mf">0.21</span><span class="p">)</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">Custom2</span> <span class="o">=</span> <span class="n">d_support</span><span class="o">.</span><span class="n">Customq</span><span class="p">(</span><span class="n">top</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">Custom2</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">relx</span><span class="o">=</span><span class="mf">0.42</span><span class="p">,</span> <span class="n">rely</span><span class="o">=</span><span class="mf">0.62</span><span class="p">,</span> <span class="n">relheight</span><span class="o">=</span><span class="mf">0.16</span><span class="p">,</span> <span class="n">relwidth</span><span class="o">=</span><span class="mf">0.21</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and the following is generated in the support module ‘d_support.py’:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Customp</span> <span class="o">=</span> <span class="n">Frame</span>
+
+<span class="n">Customq</span> <span class="o">=</span> <span class="n">Frame</span>
+</pre></div>
+</div>
+<p>The names “Customp” and “Customq” are changed by the user to those of
+the custom widget classes that he or she wishes to use and for which
+the user supplies Python implementations. Thus one has two different
+custom widgets in the GUI.  Obviously, the number of custom widgets is
+not limited to two.</p>
+<p>Think of it as a matter of names. In the code snippets above, Customp
+is the name, or synonym, of a Class which is defined in the support
+module, Custom1 is the name of the object or instance created by the
+execution of the class Customp. If one wishes to operate on the
+instance Customp in a toplevel window, say toplevel 1, the instance is
+referred to in the support module as _w1.Custom1.</p>
+<p>In the support module the line:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Customp</span> <span class="o">=</span> <span class="n">Frame</span>
+</pre></div>
+</div>
+<p>renames the class to Frame, so that when one generates the GUI module
+and the support module you can execute the GUI module and the Customp
+widget is a Frame. Instantiating a “Customp” thus become the
+substantiation of a Frame class. When you get down to the brass tacks of
+writing the “real” support module to use your own “Homegrown” widget
+you can replace the above line of code or follow it with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Customp</span> <span class="o">=</span> <span class="n">Homegrown</span>
+</pre></div>
+</div>
+<p>Having both lines of code is OK, it amounts to twice assigning a name
+to Customp and the last one takes. Just make sure that last line
+follows the one with Frame. The assignments are performed when the
+support module is imported which occurs before the class Customp is
+instantiated so the intended class definition, Homegrown, is used.</p>
+<p>I urge you to look carefully at the <a class="reference internal" href="examples.html#scrolledlistbox"><span class="std std-ref">ScrolledCheckedListBox</span></a> example to
+see a great example of using Custom widgets written by Greg
+Walters. There is an extensive README also written by Greg
+Walters. This example has one custom widget and several other PAGE
+widgets.</p>
+</div>
+<div class="section" id="canvas">
+<span id="generate"></span><h2>Canvas<a class="headerlink" href="#canvas" title="Permalink to this headline">¶</a></h2>
+<p>As stated on <a class="reference external" href="https://effbot.org">effbot site</a> the
+Canvas widget provides structured graphics facilities for
+Tkinter. This is a highly versatile widget which can be used to draw
+graphs and plots, create graphics editors, and implement various kinds
+of custom widgets. One can also insert Tkwidgets into a canvas
+including scrollbars. The canvas is a general purpose widget, which is
+typically used to display and edit graphs and other drawings.  Another
+common use for this widget is to implement various kinds of custom
+widgets. For example, you can use a canvas as a completion bar, by
+drawing and updating a rectangle on the canvas.</p>
+<p>PAGE support for this widget is somewhat
+limited. I claim little support for manipulating the interior of the widget.
+One can do most things with the Canvas widget that can be done with
+other widgets. The user can place, move, resize, etc.. Since the
+Canvas widget is a container widget, any of the PAGE supported widgets
+can be placed inside a Canvas widget; however, PAGE does not help yoou
+do that.</p>
+<p>A Canvas widget has a lot of capabilities which PAGE does not support
+such as drawing geometric shapes - such as lines, rectangles, circles,
+ellipses, and arcs - adding text, or drawing with a mouse, or adding
+images. Bindings to created elements is possible but are not supported by
+the bindings editor. All of this stuff
+must be manually added to the support module using tkinter
+functions. To really support these capabilities would require writing a
+entire GUI based graphical editing program as a subsystem in PAGE.</p>
+<p>The one thing that PAGE does provide is the <a class="reference internal" href="#scrolledwindow"><span class="std std-ref">Scrolledwindow</span></a>
+widget which is a canvas with a window item at the upper left corner.</p>
+</div>
+<div class="section" id="generating-inspecting-and-running-the-python-gui">
+<h2>Generating, Inspecting, and Running the Python GUI<a class="headerlink" href="#generating-inspecting-and-running-the-python-gui" title="Permalink to this headline">¶</a></h2>
+<p id="saving">Once the GUI has been defined, the next step is to generate the Python
+modules.</p>
+</div>
+<div class="section" id="creating-and-saving-code-modules">
+<h2>Creating and Saving Code Modules<a class="headerlink" href="#creating-and-saving-code-modules" title="Permalink to this headline">¶</a></h2>
+<p>This section discusses the creation and saving of the GUI module and
+the support module. I want to make saving simple and intuitive while
+reducing the probability of inadvertently overwriting hard to
+reproduce code, particularly in the support module.  At the same time
+I did not want to bombard the user with “Are you sure …”
+dialogues. These goals are somewhat contradictory. I would appreciate
+comments on this subject.  I also want to ensure that GUI modules and
+the project or tcl file are in sync. To do that I will save the tcl
+file only when the user chooses to save the generated GUI module with
+the Save button in the Python console. Note:
+selecting the Run button implies the saving of the GUI module.</p>
+<p>When one chooses to generate the GUI module (Control-P or the Gen
+Python submenu):</p>
+<ul class="simple">
+<li>The GUI is transformed into a Python module called the GUI module
+and displayed in the <a class="reference internal" href="interface.html#python-console"><span class="std std-ref">Python Console</span></a> but is not automatically
+saved. This is to allow the user to peruse the code before
+committing it to storage.  The user may even change the code since
+the Python Console code window is a Tk text widget with some
+editing capability but is not a developed IDE.</li>
+</ul>
+<ul class="simple">
+<li>From the Python Console, the user can  select the Save button and
+the GUI module will be saved if “new” or changed.  Repeatedly
+selecting the Save button without changing the code will not result
+in additional actual saves. The constructed GUI is transformed into
+a Tcl file and saved if the GUI has changed in the current session.</li>
+</ul>
+<ul class="simple">
+<li>From the Python Console, the user can select the Run button which
+provides the same function as the Save button but also attempts to
+execute the GUI module, if there is an existing support module.</li>
+</ul>
+<p>When one chooses to generate the Support module (Control-U):</p>
+<ul>
+<li><p class="first">The constructed GUI is transformed into a Tcl file and saved if the
+GUI has changed in the current session.</p>
+</li>
+<li><p class="first">If there is no existing support module, then one is generated and
+displayed in a Python Console.</p>
+</li>
+<li><p class="first">If there is an existing support module, action is a bit more
+elaborate. First, the existing support module is analyzed to see
+what Tkinter variable, functions, etc. are defined in the existing
+module and compared with those which would be required in the
+support module. Next, the user is given the choice of one of the
+following:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">use the existing support module, thereby preserving you hand written code,</p>
+</li>
+<li><p class="first">generate a new support module,</p>
+</li>
+<li><dl class="first docutils">
+<dt>update the existing support module to include the additional</dt>
+<dd><blockquote class="first">
+<div><p>Tkinter variable and skeleton functions,</p>
+</div></blockquote>
+<ul class="last simple">
+<li>cancel the whole operation.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">From the Python Console, the user can select the Save button and the
+support module will be saved if “new” or “changed”.</p>
+</li>
+<li><p class="first">From the Python Console, the user can select the Run button which
+does not save the contents of the module attempts to
+execute the GUI module and the support module from previously saved
+files.</p>
+</li>
+<li><p class="first">As stated above the project or tcl file is not saved.</p>
+</li>
+</ul>
+<p>It is important that the support file is not automatically saved when
+run is invoked.  I don’t want PAGE to inadvertently trash your
+handwritten application code.  The Python Console has a label which
+will indicate when the code window has been modified. That flag is
+turned on when any key is released over the window and that can indicate
+changes which may not actually change the text, i. e., a false positive.</p>
+<p>PAGE does not utilize tab characters when saving files. With respect
+to the ongoing controversy between tabs and spaces, PAGE is on the
+side of spaces.  For this reason PAGE expands tabs when doing a save
+from a Python Console.</p>
+</div>
+<div class="section" id="inspecting-the-generated-python-modules">
+<h2>Inspecting the Generated Python Modules<a class="headerlink" href="#inspecting-the-generated-python-modules" title="Permalink to this headline">¶</a></h2>
+<p>Often the user will want to look at the code that exists for a
+project. To do that, execute page with the project name or open the
+project and the select Gen_Python-&gt;Load Python Consoles. This will
+open two Python Consoles; one with the GUI module and the other with
+the support module. The loading of the consoles is from appropriate
+modules saved to disk. If a Python Console exists with either the GUI
+or support module, it will not be overwritten. If one or the other has
+not been saved, then nothing is done with the corresponding Python Console.</p>
+<p>My guess that this is most interesting when the user has modified the
+GUI and generated a new GUI module and wants to see what any existing
+support module looks like.  Again, in this situation, the new GUI code
+is not automatically saved.</p>
+</div>
+<div class="section" id="executing-the-python-modules">
+<span id="execute"></span><h2>Executing the Python Modules<a class="headerlink" href="#executing-the-python-modules" title="Permalink to this headline">¶</a></h2>
+<p>To see what the GUI looks like, the user can run or execute the GUI
+module. That can occur in two contexts, one is to execute the code
+from one of the Python Consoles and the other is to load the modules
+into an IDE and carry on development from there.  For execution within
+PAGE there has to be a Python Console; the user can generate either
+the GUI or the support module or load the project into the consoles
+from the Gen_Python submenu.</p>
+<p>To execute the GUI, select the Run button in a Python Console or using
+the shortcut Control-R when the cursor is over a Python
+Console. Another requirement is that an appropriate python command be
+specified as a preference. In the case of running PAGE under Linux a
+command such as “python3” works; in the case of running
+under Windows 10, one needs to specify the full path of the Python
+module such as
+C:\Users\rozen\AppData\Local\Microsoft\WndowsApps\python3.exe. This is
+the python command that I am using.</p>
+<p>Let me discuss the skeletal functions first. Function references may
+be referenced in several ways. If the function name is given the
+skeletal function will be created in the support module. An example
+would be to specify the command attribute in PAGE as “george”. In that
+case, the skeletal support function “george” would be created in the
+support module.
+If another module were specified as in “app.george”
+PAGE would not create a skeleton function at all; you are on your own to
+create and import the “app” module. From this you can see the need to
+create the support module before trying to execute the GUI module.</p>
+<p>Similarly, Tkinter variable classes are defined or the GUI class or in
+the support module depending on the presence or absence of “self.” at
+the beginning of the specification.  If specified in the support
+module, code is included to insure that the class is created before
+the GUI execution references the class.</p>
+<p>Because the use of “self.” in specifying functions and Tkinter variables
+will require use code to be added to the GUI module, I avoid them in
+my usage of PAGE.  Such specifications work against the benefits of
+the rework facilities.</p>
+<p>I frequently execute the GUI module to see how the Python version of GUI
+looks. To that end, the support module is generated with very minimal
+skeletal functions in order to check the appearance of the  GUI by
+running from the Python console. The final lines of the GUI
+module that initiates execution are:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">start_up</span><span class="p">():</span>
+        <span class="n">unknown_support</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+        <span class="n">unknown_support</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>and the final lines of the support module are:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="n">unknown</span><span class="o">.</span><span class="n">start_up</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>which will call “main” in the support module  when the either module
+is executed.</p>
+<p>When you Generate Support Module from the menu, the Python Console
+will appear, filled with the generated code for the supporting module
+named “&lt;name&gt;_support.py” - &lt;name&gt; is the project name and the root
+name of the tcl file.  This file will contain skeleton functions and
+the boiler plate code needed.  This file will contain the principal
+code for the application.  Ideally this file is generated automatically
+once per application.</p>
+<p>When you select the toplevel widget and Generate Python GUI from the
+menu, the Python Console will appear, filled with the generated
+code. You can push the run button and execution will be attempted.
+This will automatically save the generated code into a “.py” file
+where the root name matches that of the tcl file which is also
+automatically saved.  When running from the Python Window, line output
+from the GUI is directed to the lower window of the Python Console.</p>
+<p>Execution of the Python GUI is initiated by either selecting the “Run”
+button at the bottom of the Python GUI or by typing Control-R. It can
+also be run directly by the Python interpreter.</p>
+<p>The function “main” is the place to initial things after the GUI
+is mapped.</p>
+</div>
+<div class="section" id="loading-generated-python-modules-into-an-ide">
+<h2>Loading generated Python modules into an IDE<a class="headerlink" href="#loading-generated-python-modules-into-an-ide" title="Permalink to this headline">¶</a></h2>
+<p>While it is possible to edit PAGE generated files in Python Consoles
+and to execute them from there, the Python Consoles don’t really
+constitute a particularly good development environment. One should
+move into a well concieved IDE like IdleX, emacs, Geany or any of a
+host of similar programs.</p>
+<p>PAGE can start up an IDE loaded with the Python modules that have been
+saved. This is done by selecting Gen_Python-&gt;Load Project into
+IDE. This does not automatically save modules from existing Python
+Consoles.</p>
+<p>The IDE is set in the Basics page of the Preferences.  PAGE tries to
+execute a the IDE with two the two file names, &lt;name&gt;.py and
+&lt;name&gt;_support.py, as arguments.  If your favorite IDE can be so
+invoked then it should work.  When running under Linux or OSX, one can
+enter either the full path name of the IDE or a command name in the
+execution path. If you are on Windows, then the full path name takes
+the a form with double backslashes like
+“C:\Python3\Lib\idlelib\idle”. I am not an expert in
+Python IDE’s, but I have successfully tested this facility with emacs,
+vim, idle, and idlex on Linux; idlex in OSX, and idle in Windows.  For
+instance, on Linux in the IDE command field I enter the full path of
+the IDE. When I want to use IdleX under Linux I enter
+/usr/local/bin/idlex.  I also found that I could enter idlex for
+Linux.</p>
+<p>The IDE is invoked from PAGE and PAGE goes into a wait
+state until the IDE exits.</p>
+</div>
+<div class="section" id="applications-with-multiple-toplevel-windows">
+<span id="applications-with-multiple-top-level-windows"></span><h2>Applications with Multiple Toplevel Windows<a class="headerlink" href="#applications-with-multiple-toplevel-windows" title="Permalink to this headline">¶</a></h2>
+<p>Building such applications is the area of greatest change in version 7
+and sees the greatest simplification.</p>
+<p>Often the user will want to build applications which have more than
+one top level window. PAGE now allows the specification of multiple
+toplevel windows so the user defines all required toplevel windows in
+one PAGE project. Further, toplevel windows can be added at any time.
+As part of the version 7 update, a Toplevel entry has been included at
+the top of Toolbar window. When it is selected a new toplevel window
+is added to the GUI. It is offset from the central position so that
+you can readily distinguish it from existing toplevels.  Move it,
+resize it, fill it, change its attributes, and treat it just like any
+other toplevel windows. Save the project, generate the GUI module, and
+the support module just as before.  The generated GUI module will have
+separate class definitions for each toplevel window and will have a
+quite different layout from earlier GUI modules, but that is OK since
+the user should never need to edit it.</p>
+<p>The generated Python support module is quite different from before and
+is meant to be designer modified.
+The big difference is that the user’s application will begin with the
+“main” function in the support module.
+Main contains code for instantiating each class in
+the GUI module, that is for creating each window in the GUI. Since it
+is all there, one call execute setup code prior to creating the GUI as
+well as GUI initiation after creating the GUI but before the
+application use interacts with it.</p>
+<p>Again, the code for creating a toplevel window is like the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creates a toplevel widget.</span>
+<span class="k">global</span> <span class="n">_top2</span><span class="p">,</span> <span class="n">_w2</span>
+<span class="n">_top2</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Toplevel</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+<span class="n">_w2</span> <span class="o">=</span> <span class="n">unknown</span><span class="o">.</span><span class="n">Toplevel2</span><span class="p">(</span><span class="n">_top2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In practice one may not want all windows to appear when the
+application starts. The appearance may be desired as a response to an
+event in the main window or the application code. Two approaches are:</p>
+<ul class="simple">
+<li>Move the toplevel creation code from the main function to the event
+handling code, perhaps a callback function.</li>
+<li>Follow the creation code in main with a statement which hides the
+window until it is exposed by the event handler. The statements are
+of the form.</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_top2</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>  <span class="c1"># hide toplevel _top2</span>
+</pre></div>
+</div>
+<p>and</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_top2</span><span class="o">.</span><span class="n">dyiconify</span><span class="p">()</span> <span class="c1"># show toplevel _top2</span>
+</pre></div>
+</div>
+<p>Be aware that the toplevel creation code is dfferent for the root
+window than for the other toplevels. That is the nature of Tkinter.
+the line of code in “main”</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">TK</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>fires up Tkinter and is required and it creates what I think of as the
+root window and that window corresponds to the first class definition
+in the GUI and that is the first toplevel created in PAGE. Again, it
+is created when Tkinter is initiated.
+A small point is that creation of toplevel windows uses a couple of
+special PAGE variables referring to the window and to the class object,
+_top&lt;n&gt; and _w&lt;n&gt; respectively. The leading ‘_’ means use with caution
+and the ‘n’ refers to the position in the GUI module.</p>
+<p>Remember that the objective of the generation is to provide an
+executable program so you can see immediately how the GUI will appear
+on the screen. You can expect to execute the code and see all
+toplevels. However, in the finished application you may not want all
+top levels to appear at once. So move the creation code to wherever is
+appropriate.</p>
+<p>l variables across module. A
+.. good reference is <a class="reference external" href="http://effbot.org/pyfaq/how-do-i-share-global-variables-across-modules.htm">How do I share global variables across modules?
+..</a>.</p>
+</div>
+<div class="section" id="busy-cursors">
+<h2>Busy Cursors<a class="headerlink" href="#busy-cursors" title="Permalink to this headline">¶</a></h2>
+<p>This section describes how to change the cursor when in long running
+sections of an application.  Changing to a busy cursor gives some
+feedback to the application user who otherwise may think that the
+application is hung, not doing anything.</p>
+<p>One includes the following code at the module level of the support module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Code added to allow one to change default cursor to a busy cursor.</span>
+<span class="c1"># Variables added manually to indicate long processes based on code by</span>
+<span class="c1"># Greg Walters in his python programming examples. Adapted from</span>
+<span class="c1"># example in Grayson&#39;s book page 158.</span>
+<span class="n">busyCursor</span> <span class="o">=</span> <span class="s1">&#39;watch&#39;</span>
+<span class="n">preBusyCursors</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">def</span> <span class="nf">busyStart</span><span class="p">(</span><span class="n">newcursor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;We first check to see if a value was passed to newcursor. If</span>
+<span class="sd">       not, we default to the busyCursor. Then we walk through the</span>
+<span class="sd">       busyWidgets tuple and set the cursor to whatever we want.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">preBusyCursors</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">newcursor</span><span class="p">:</span>
+        <span class="n">newcursor</span> <span class="o">=</span> <span class="n">busyCursor</span>
+    <span class="n">newPreBusyCursors</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">busyWidgets</span><span class="p">:</span>
+        <span class="n">newPreBusyCursors</span><span class="p">[</span><span class="n">component</span><span class="p">]</span> <span class="o">=</span> <span class="n">component</span><span class="p">[</span><span class="s1">&#39;cursor&#39;</span><span class="p">]</span>
+        <span class="n">component</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="n">newcursor</span><span class="p">)</span>
+        <span class="n">component</span><span class="o">.</span><span class="n">update_idletasks</span><span class="p">()</span>
+    <span class="n">preBusyCursors</span> <span class="o">=</span> <span class="p">(</span><span class="n">newPreBusyCursors</span><span class="p">,</span> <span class="n">preBusyCursors</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">busyEnd</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;In this routine, we basically reset the cursor for the widgets</span>
+<span class="sd">       in our busyWidget tuple back to our default cursor.&#39;&#39;&#39;</span>
+    <span class="k">global</span> <span class="n">preBusyCursors</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">preBusyCursors</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">oldPreBusyCursors</span> <span class="o">=</span> <span class="n">preBusyCursors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">preBusyCursors</span> <span class="o">=</span> <span class="n">preBusyCursors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">busyWidgets</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">component</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="n">oldPreBusyCursors</span><span class="p">[</span><span class="n">component</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">component</span><span class="o">.</span><span class="n">update_idletasks</span><span class="p">()</span>
+<span class="c1"># End of busy cursor code.</span>
+</pre></div>
+</div>
+<p>and the following lines of code are inserted in “main” in the support module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">global</span> <span class="n">busyWidgets</span>
+<span class="n">busyWidgets</span> <span class="o">=</span> <span class="p">(</span><span class="n">_top1</span><span class="p">,</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>The first line goes in near the top of the function and the assignment
+to busyWidgets is inserted after the root object is created. In one of
+my applications the function “main” looks like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Main entry point for the application.&#39;&#39;&#39;</span>
+        <span class="k">global</span> <span class="n">root</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+        <span class="n">root</span><span class="o">.</span><span class="n">protocol</span><span class="p">(</span> <span class="s1">&#39;WM_DELETE_WINDOW&#39;</span> <span class="p">,</span> <span class="n">root</span><span class="o">.</span><span class="n">destroy</span><span class="p">)</span>
+        <span class="c1"># Creates a toplevel widget.</span>
+        <span class="k">global</span> <span class="n">_top1</span><span class="p">,</span> <span class="n">_w1</span>
+        <span class="n">_top1</span> <span class="o">=</span> <span class="n">root</span>
+        <span class="n">_w1</span> <span class="o">=</span> <span class="n">busycursor</span><span class="o">.</span><span class="n">Toplevel1</span><span class="p">(</span><span class="n">_top1</span><span class="p">)</span>
+        <span class="k">global</span> <span class="n">busyWidgets</span>
+        <span class="n">busyWidgets</span> <span class="o">=</span> <span class="p">(</span><span class="n">_top1</span><span class="p">,</span> <span class="p">)</span>
+        <span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The penultimate line above sets the global variable busyWidgets to be a
+tuple containing those widgets in which to display the busy cursor.</p>
+<p>When starting a section of code which is likely to be long running, a
+busy section, insert the following at the start:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">busyStart</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>When leaving a busy section make the following the last statement():</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">busyEnd</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Obviously, an application could have numerous busy sections and they
+might coincide with particular functions or not.</p>
+<p>This code can be generalized for usage of any of the Tkinter cursors.</p>
+</div>
+<div class="section" id="using-images">
+<span id="images"></span><h2>Using Images<a class="headerlink" href="#using-images" title="Permalink to this headline">¶</a></h2>
+<p>The use of images with PAGE can be confusing.
+Part of the confusion is the differences between the PAGE
+restrictions on images and that of the generated Python code.
+The good news is that you
+can use images with various widgets such as buttons, menus, and
+TNotebooks. You can select image files by means of the Attribute
+Editor for Buttons, and the Tab Editor for Notebooks. Similarly,
+the Menu Editor will allow you place images in menus. Lastly you can
+specify a title bar icon for your application.</p>
+<p>Images are specified by means of the image attribute in the Attribute
+Editor where the ellipses button allows one to select an image
+file. The location of the image file is retained relative to the
+project directory. For that reason, put your GUI images in the project
+directory.</p>
+<p>Now for the confusing part.
+Tcl/Tk 8.6 only supports GIF, PGM, or PNG image
+formats. When
+constructing your GUI in PAGE, you are executing PAGE which is a Tcl
+program and, therefore, you have been restricted GIF, PGM, or PNG
+images formats. However, the generated Python code will use tkinter
+and can support a wide range of image formats including JPG, by using
+PIL, the Python Imaging Library as long as Python package Pillow is
+installed.  For example, the lib_demo example included in the PAGE
+distribution does not use any images in the GUI modules but displays a
+JPEG image when the example is executed. The GUI module specifies a
+Canvas widget to which the support module adds at the tkinter level
+button widgets and places on the button widget a jpeg image using PIL.</p>
+<p>While Tcl/Tk 8.6 only supports GIF, PGM, or PNG image formats, there
+is an open source project tkImg which implements the Img package and
+supports a whole host of image formats, including BMP, GIF, ICO, JPEG,
+PCX, PNG, PPM, PS, SGI, SUN, TGA, TIFF, XBM,and XPM. The tkImg package
+can be found at www.sourceforge.net. It supports most OS’s including
+Linux, Windows, and OS X. I used the compiled files for unix (Linux),
+Windows, and OSX found on the tkImg site to make the package available
+to PAGE without requiring a user installation of the package.  However
+there is not a compiled version for the Raspberry Pi which uses the
+ARM architecture. I have not been able to compile the package using
+Raspberry Pi.  Fortunately there a package for Raspberry Pi,
+libtk-img, which the user can install using apt-get. I have no
+suggestions for OS X on a M1 chip. <strong>You can use a wide
+range of image formats provided that you are using Linux, Windows, or
+OS X as supported by this hack.</strong></p>
+<p>When PAGE includes a image, a image object is created and given a name
+based on the file name. For example, the object name based on the file
+“gimp.png” would be “gimp_png”. That object is used in widget
+configurations. It is this object creation which recognizes only
+certain image formats.  When you select an image button in the
+Attribute Editor and select an image file, an image object is
+generated and its name is displayed in the image entry field. Though
+the names could conceivably be added manually into the image entry
+fields of the attribute editor, I think that is a bad idea. You must
+make your image choices by means of the ellipsis button next to the
+entry field.  I have also colored the entry field so that you realize
+that changing its contents is a no-no.  The exception is that clearing
+the entry field will remove the image. If you want to verify the image
+filename, selecting the elipsis button will show bring up the file
+selection dialog which displays the current selected image file.
+Also, you can remove an image by invoking the widget context menu with
+Button-3 and then selecting Widget-&gt;Remove Image. The Menu Editor and
+other similar editors do allow the removal of an image by clearing the
+image entry field.</p>
+<p>The project file and generated Python code reference all image files
+images used.  Those file references are relative to the project
+directory.  It is almost a requirement that the images to be used be
+in the same directory as the one where you build the application or
+even better a subdirectory of that directory. This will facilitate
+moving the project or sharing it. So keep the images and projects
+together. See the <a class="reference internal" href="intro.html#projdir"><span class="std std-ref">Project Directory Configuration</span></a>.</p>
+<p>Also, the image option is coupled with the compound option which
+specifies the relationship of the image position with that of text.
+The Tk default value is “none”, which means that if both text and an
+image are specified then the widget will display only the image. I
+have changed the default to left so that the user will see both and
+have a better idea of what is going on. In a nutshell if “none” is
+selected then only the image appears, other wise both image and test
+appears.  For button widgets, I mostly want to select “none” for the
+compound value, but for menus and notebook widgets “left” is my usual
+choice.</p>
+<p>It is possible to cut-copy-paste widgets with images provided that the
+images are already in the destination project directory in the same
+relative location. For example, if the widget to be copied contains an
+image in location “./images” then the image must be in “./images” in
+the destination project directory prior to the paste operation. This
+is also true when the cut-copy-paste operation is part of a borrow
+operation.</p>
+<p>The iconphoto() method is used to set the titlebar icon of any
+tkinter/toplevel window. But to set any image as the icon of titlebar,
+image should be the object of PhotoImage class. The code below shows
+how this might be done:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">gui</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">global</span> <span class="n">w</span><span class="p">,</span> <span class="n">top_level</span><span class="p">,</span> <span class="n">root</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">gui</span>
+<span class="n">top_level</span> <span class="o">=</span> <span class="n">top</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">top</span>
+<span class="n">photo</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">file</span> <span class="o">=</span> <span class="s2">&quot;openfolder.gif&quot;</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">iconphoto</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">photo</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Similarly, if you distribute a application using widget images, the
+receiver must keep the application and its widget images in the same
+relative location. Obviously, if you used PIL in building your
+application the receiver will need to install Pillow.</p>
+<p>PAGE generated GUI’s containing images can be executed from arbitrary
+directories and not just the project directory. If the support module
+uses images they must be in the project directory tree just like
+images for the GUI. In order to use them you will need code similar
+to:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">location</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">_location</span>   <span class="c1"># Location of the project folder</span>
+     <span class="o">...</span>
+<span class="k">global</span> <span class="n">folderimage</span>
+<span class="n">photo_location</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_location</span><span class="p">,</span> <span class="s2">&quot;./images/icons/document.png&quot;</span><span class="p">)</span>
+<span class="n">folderimage</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">photo_location</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where “project” is the name of the PAGE project.</p>
+</div>
+<div class="section" id="dynamic-widgets">
+<span id="id5"></span><h2>Dynamic Widgets<a class="headerlink" href="#dynamic-widgets" title="Permalink to this headline">¶</a></h2>
+<p>At times the user wants widgets to display dynamic behavior.  That
+might mean changing color of a widget, the bindings of a widget, the
+visibility of a widget, or the placement of a widget.  This can all be
+done within the support module.</p>
+<p>To change an attribute of say Button1, the code would be</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_w1</span><span class="o">.</span><span class="n">Button1</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To change a binding:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">w</span><span class="o">.</span><span class="n">Button</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="o">&lt;</span><span class="n">Button</span><span class="o">-</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">foo</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To hide Button1:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b_location</span> <span class="o">=</span> <span class="n">_w1</span><span class="o">.</span><span class="n">Button1</span><span class="o">.</span><span class="n">place_info</span><span class="p">()</span>
+<span class="n">_w1</span><span class="o">.</span><span class="n">Button1</span><span class="o">.</span><span class="n">place_forget</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To restore the visibility of Button1:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_w1</span><span class="o">.</span><span class="n">Button1</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">relx</span><span class="o">=</span><span class="n">b_location</span><span class="p">[</span><span class="s1">&#39;relx&#39;</span><span class="p">],</span> <span class="n">rely</span><span class="o">=</span><span class="n">b_location</span><span class="p">[</span><span class="s1">&#39;rely&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="section" id="saving-of-page-files">
+<h1>Saving of PAGE Files<a class="headerlink" href="#saving-of-page-files" title="Permalink to this headline">¶</a></h1>
+<p>PAGE provides several mechanisms for saving the various files
+associated with a PAGE project. The primary files are:</p>
+<ul class="simple">
+<li>The tcl file which is the input to the “working” or “design” file of
+PAGE. It is called the project file. It has the form of “&lt;project name&gt;.tcl”.</li>
+<li>The Python code generated defining the GUI object. It is called the
+GUI file. The name of this file has the form “&lt;project name&gt;.py”.</li>
+<li>The Python support file containing much of the boiler plate and
+skeleton functions. Again, the form is “&lt;project name&gt;_support.py”.</li>
+</ul>
+<p>PAGE implements several mechanisms for saving these files as discussed
+below.</p>
+<p>The project name is key to the naming of all the PAGE files related to
+generating a GUI. It is the root name of project file, the tcl
+file. It is fixed when the tcl is saved.  When any of the other file
+files of the project is saved, the name of that file will incorporate
+the project name.</p>
+<p>When any of the primary files are saved, existing modules are retained
+as backups. Up to five backup modules are retained to help avoid
+inadvertent lose of application code. The number of backup files can
+selected in the Preferences window.</p>
+<p>The primary files may be saved automatically or explicitly as
+described below.  When a file is saved, the previous saved version is
+pushed unto the top of a series of backup files with suffixes “.bak1”,
+“.bak2”, …, from which an earlier version can be recovered. The
+.bak&lt;n&gt; files are a way to have explicate point of return.</p>
+<div class="section" id="save-command-in-the-menu">
+<h2>Save Command in the Menu<a class="headerlink" href="#save-command-in-the-menu" title="Permalink to this headline">¶</a></h2>
+<p>When File-&gt;Save or File-&gt;Save As is selected then the project (.tcl
+file) file is saved. The previous version of the tcl file is made a
+backup file.  It does not save either the GUI module or the support
+module.</p>
+</div>
+<div class="section" id="save-button-in-the-python-console">
+<h2>Save Button in the Python Console<a class="headerlink" href="#save-button-in-the-python-console" title="Permalink to this headline">¶</a></h2>
+<p>When the Save button in the GUI Console file is selected, the tcl file
+is saved as above if there has been a change to the GUI module. Also,
+the content of the top window of the Python GUI Console is saved if it
+is different from the last version of the code that was saved.  That
+is, if the Python console contains GUI code then the GUI module will
+be saved if it has been modified since the last save of the GUI code
+in the current PAGE invocation. By modified I mean changed via editing
+operations in the text field of the console window or regenerated by PAGE.</p>
+<p>Similarly for the case of the support module being in the
+Python Console, if:</p>
+<ul class="simple">
+<li>the user had generated a new version of the support module,</li>
+<li>had the user updated the support module, or</li>
+<li>the user had elected to use the existing support module and had
+modified it by editing the console window,</li>
+</ul>
+<p>then support module will be saved and existing support modules will be
+renamed and retained as backup files. The user will be asked
+explicitly to confirm the save.</p>
+</div>
+<div class="section" id="loading-a-saved-project-file">
+<span id="reopen-colors"></span><h2>Loading a Saved Project File<a class="headerlink" href="#loading-a-saved-project-file" title="Permalink to this headline">¶</a></h2>
+<p>Users can load an existing project when starting execution including
+the name of the project file in the page command. It is not necessary
+to include the file extension.  The other way is to use  File-&gt;”Open as
+Project” command in the main menu.</p>
+<p>When a project file is saved, it contains the color scheme of the
+project.  Thus when an existing project is loaded, the colors that
+were originally used are used for modification to the project
+independent of the current PAGE color scheme.</p>
+<p>If you wish to change the color scheme of a project you can
+edit the project file removing the lines between the two lines of
+hashes as illustrated below and save the project.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>set desc &quot;-family {DejaVu Sans} -size 12&quot;
+set vTcl(actual_gui_font_dft_desc) $desc
+set vTcl(actual_gui_font_dft_name) [font create {*}$desc]
+set desc &quot;-family {DejaVu Sans} -size 12&quot;
+set vTcl(actual_gui_font_text_desc) $desc
+set vTcl(actual_gui_font_text_name) [font create {*}$desc]
+set desc &quot;-family {DejaVu Sans Mono} -size 12&quot;
+set vTcl(actual_gui_font_fixed_desc) $desc
+set vTcl(actual_gui_font_fixed_name) [font create {*}$desc]
+set desc &quot;-family {Nimbus Sans L} -size 14&quot;
+set vTcl(actual_gui_font_menu_desc) $desc
+set vTcl(actual_gui_font_menu_name) [font create {*}$desc]
+set desc &quot;-family {DejaVu Sans} -size 12&quot;
+set vTcl(actual_gui_font_tooltip_desc) $desc
+set vTcl(actual_gui_font_tooltip_name) [font create {*}$desc]
+set vTcl(actual_gui_font_treeview_desc)  TkDefaultFont
+set vTcl(actual_gui_font_treeview_name)  TkDefaultFont
+####################################################
+set vTcl(actual_gui_bg) wheat
+set vTcl(actual_gui_fg) #000000
+set vTcl(actual_gui_analog) #f4bcb2
+set vTcl(actual_gui_menu_analog) #ececec
+set vTcl(actual_gui_menu_bg) #d9d9d9
+set vTcl(actual_gui_menu_fg) #000000
+set vTcl(complement_color) #b2c9f4
+set vTcl(analog_color_p) #eaf4b2
+set vTcl(analog_color_m) beige
+set vTcl(tabfg1) black
+set vTcl(tabfg2) black
+set vTcl(actual_gui_menu_active_bg)  #ececec
+set vTcl(actual_gui_menu_active_fg)  #000000
+####################################################
+set vTcl(pr,autoalias) 1
+set vTcl(pr,relative_placement) 0
+set vTcl(mode) Absolute
+</pre></div>
+</div>
+<p>Then set the desired GUI colors in the Preferences window and if
+changed save the preferences and exit. Finally restart page opening
+the project. Of course, if color attributes were modified for
+individual widgets then those colors will not be affected by this hack.</p>
+</div>
+<div class="section" id="run-button-in-the-python-console">
+<h2>Run Button in the Python Console<a class="headerlink" href="#run-button-in-the-python-console" title="Permalink to this headline">¶</a></h2>
+<p>When the Run button is selected the code in the Python Console
+containing the GUI module will be saved if it differs from the last
+save of the GUI module in the current invocation of PAGE.</p>
+<p>Then the GUI module is execute by invoking the Python Interpreter
+against the saved GUI.  Running the Python GUI code will show the
+actual GUI.  Obviously it will fail if there is no support module.</p>
+<p>The Run button in a Python Console displaying a support module does
+not cause the code to be saved. This is to prevent PAGE from
+automatically overwriting the support module and losing user written
+code. All that happens is that the GUI module is executed as above.</p>
+<p>Note that every time that the Python code for either the GUI or the
+support module is generated the new module will include a current
+timestamp and so comparing two generations will always differ if
+only in the timestamps. Without the timestamps I could probably reduce
+the number of saves and backup files, but I think the timestamps are
+very valuable.</p>
+</div>
+<div class="section" id="autosave">
+<span id="auto-save"></span><h2>Autosave<a class="headerlink" href="#autosave" title="Permalink to this headline">¶</a></h2>
+<p>PAGE periodically saves the project file that you are building; this
+is called auto-saving. Auto-saving helps protect users from losing
+more than a limited amount of work if PAGE or the system crashes, or if
+the user quits without saving. By default, autosaves happen around
+every 10 seconds. The save-files so generated have names based on the
+project name; If the project file is named “&lt;project&gt;.tcl”, then the
+save-file will have the name “#&lt;project&gt;.tcl#” and will be located in
+the same directory as the project file.</p>
+<p>Whenever a project file is to be loaded, PAGE will check if there is a
+corresponding save-file which is newer than the project file. If so,
+the user is asked which of the two files he wishes loaded.
+The autosave file is erased and the autosave interval is reset
+whenever the project file is either loaded or saved.</p>
+<p>This even works if PAGE terminated without a project file having been
+saved; i.e., the user may have started PAGE with the command “page
+somefile” but never did a save. In that case there will be no project
+file named “somefile.tcl” but there may an autosave file named
+“#somefile.tcl#”. In this case if the user initiates PAGE with “page
+somefile” the file “#somefile.tcl# will be loaded and treated as
+“somefile.tcl”.</p>
+<p>One requirement of autosaving is that it requires a project filename
+in order to work. If the user starts PAGE without providing a filename
+argument and builds a GUI in the toplevel window that automatically
+opens, then the save-file is named “autosave.tcl”.  In order to
+recover in that case, the user opens “autosave.tcl”. The filename
+“autosave.tcl” should be treated as a name reserved for the autosave
+function. On the other hand if the user had specified a project file
+in the invocation of PAGE, then the autosave function would be more
+transparent.</p>
+<p>When the user does a “Save” or “Save as” operation, he provides a
+project name and next autosave will use that project name. A save can
+also occurs when Python code is generated. Save actions will remove
+any “autosave.tcl” file; this means that the user has only one chance
+to recover and should do an immediate save. Initiating execution with
+a project name or doing an Open operation, of course, provides the
+filename needed for auto-saving.</p>
+<p>Another point to be noted is that save-files may be left around to be
+removed manually. A new entry in File &gt; “Remove Autosave Files”
+removes all autosave files in the current directory.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">PAGE</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interface.html">The PAGE Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preferences.html">Defaults and Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Module Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="themes.html">Styles and Themes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using PAGE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#naming-conventions">Naming Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#toplevel-geometry">Toplevel Geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aliases">Aliases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#balloon-help-tooltips">Balloon Help - Tooltips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#selecting-and-modifying-a-widget">Selecting and Modifying a Widget</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multiple-selection">Multiple Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#undo">Undo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modifying-the-geometry-of-a-widget">Modifying the Geometry of a Widget</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#locking-the-geometry-of-a-widget">Locking the Geometry of a Widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fill-container">Fill Container</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cut-copy-and-paste">Cut, Copy, and Paste</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stash-and-apply-propagate-widget-options">Stash and Apply - Propagate Widget Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#callback-functions">Callback Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#linking-events-to-callback-functions">Linking Events to Callback Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bindings-window">Bindings Window</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-bindings-for-scrolled-widgets">Creating Bindings for Scrolled Widgets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#defining-callback-functions">Defining Callback Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#viewing-callbacks">Viewing Callbacks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Specifying Fonts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#toplevel-widget">Toplevel Widget</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#relative-placement">Relative Placement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tkinter-variable-classes">Tkinter Variable Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ttk-widgets">Ttk Widgets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scrolled-widgets">Scrolled Widgets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scrolledlistbox">Scrolledlistbox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scrolledwindow">Scrolledwindow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scrolledtreeview">Scrolledtreeview</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ttk-notebook-and-pnotebook">Ttk Notebook and PNotebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ttk-panedwindow">Ttk Panedwindow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ttk-treeview">Ttk Treeview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#entry">Entry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ttk-entry">Ttk Entry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ttk-combobox">Ttk Combobox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#radiobuttons">Radiobuttons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#strangeness-with-text-and-variables">Strangeness with Text and Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#label">Label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#listbox">Listbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spinbox">Spinbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scale-and-tscale">Scale and TScale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tseparator">TSeparator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sizegrip">Sizegrip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-widgets">Custom Widgets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#canvas">Canvas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generating-inspecting-and-running-the-python-gui">Generating, Inspecting, and Running the Python GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-and-saving-code-modules">Creating and Saving Code Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspecting-the-generated-python-modules">Inspecting the Generated Python Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#executing-the-python-modules">Executing the Python Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loading-generated-python-modules-into-an-ide">Loading generated Python modules into an IDE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#applications-with-multiple-toplevel-windows">Applications with Multiple Toplevel Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#busy-cursors">Busy Cursors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-images">Using Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dynamic-widgets">Dynamic Widgets</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#saving-of-page-files">Saving of PAGE Files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#save-command-in-the-menu">Save Command in the Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#save-button-in-the-python-console">Save Button in the Python Console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loading-a-saved-project-file">Loading a Saved Project File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-button-in-the-python-console">Run Button in the Python Console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#autosave">Autosave</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="menu.html">Menus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rework.html">Rework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rework.html#reuse">Reuse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ttkwidget.html">Ttkwidgets Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="final.html">Epilogue</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="themes.html" title="previous chapter">Styles and Themes</a></li>
+      <li>Next: <a href="menu.html" title="next chapter">Menus</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2008 - 2021 Donald Rozenberg.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/use.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

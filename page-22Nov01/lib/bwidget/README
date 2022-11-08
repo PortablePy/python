@@ -1,0 +1,7 @@
+
+Rozen made two changes to bwidgets:
+
+1. Changed font.tcl to allow user to add font sizes to the font dialog.
+
+2. Added ArrowButton in arrow.tcl so that the foreground is set separately
+   from the value used in the ListBox and Entry components of the ComboBox.

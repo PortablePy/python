@@ -1,0 +1,992 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Module Structure &#8212; PAGE 7 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Styles and Themes" href="themes.html" />
+    <link rel="prev" title="Defaults and Preferences" href="preferences.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-structure">
+<span id="mod-struct"></span><h1>Module Structure<a class="headerlink" href="#module-structure" title="Permalink to this headline">¶</a></h1>
+<p>PAGE generates two modules, The GUI module, and the Support
+Module. The first contains all of the Python code necessary to plop
+the GUI window onto the computer screen. In my vision of the PAGE
+world, the GUI module is not to be edited. It contains all of the
+required linkage to the Support module.  It is generally the main
+module of the application.</p>
+<p>The Support module is generated in skeletal form and is the framework
+upon which the application is built. It is where the user written code
+resides.  As such it is infrequently generated or replaced by PAGE. In
+fact, the separation is the secret of rework; it allows changes
+to the content and appearance of the GUI window while preserving the
+user’s code.</p>
+<p>When the modules are generated they are displayed in the Python
+Console but not saved automatically. This gives the user an
+opportunity to inspect the code and decide whether to save. When PAGE
+generates a module, it uses four spaces for indentation. When PAGE
+saves a module, spaces are saved as spaces.</p>
+<div class="section" id="project-directory">
+<h2>Project Directory<a class="headerlink" href="#project-directory" title="Permalink to this headline">¶</a></h2>
+<p>The directory containing the various files associated with PAGE is
+called the project directory. It contains the project file, the
+generate Python modules, any image files used with widgets, and any
+application support modules. It should also be the current working
+directory.</p>
+<p>Let me call the project directory “proj_dir”, because it is precise
+and corresponds to an internal PAGE variable.</p>
+<p>This is important when widgets have image attributes. To keep such
+cases reasonable sane, PAGE requires that all image files associated
+with such widgets reside within the proj_dir or a subdirectory of it
+prior to the specification of the widget. The generated code for
+images contain file names and file locations. The file location are
+expressed as relative to the current working directory.</p>
+<p>I recommend that before executing PAGE, a directory be created and
+that directory be made the current working directory. Image files need
+not be included before beginning the GUI development, but need to
+included before widgets specify non-blank image attributes. Again, you
+can add a widget that might include an image but the image file must
+be included before specified the image attribute.</p>
+</div>
+<div class="section" id="gui-module">
+<h2>GUI Module<a class="headerlink" href="#gui-module" title="Permalink to this headline">¶</a></h2>
+<p>The main features of the GUI module are the class definitions, which
+defines a GUI windows.  It defines the top level windows and all of the
+contained widgets.  Note that it refers to all callback functions as
+functions in the support module and that Tk variables such as
+textvariables are referred to Tk variables in the support module.</p>
+<p>A particularly simple GUI module, example.py, which has a popup menu
+and two toplevel windows follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>  <span class="mi">1</span> <span class="c1">#! /usr/bin/env python</span>
+  <span class="mi">2</span> <span class="c1">#  -*- coding: utf-8 -*-</span>
+  <span class="mi">3</span> <span class="c1">#</span>
+  <span class="mi">4</span> <span class="c1"># GUI module generated by PAGE version 7.5d</span>
+  <span class="mi">5</span> <span class="c1">#  in conjunction with Tcl version 8.6</span>
+  <span class="mi">6</span> <span class="c1">#    May 26, 2022 07:05:58 AM PDT  platform: Linux</span>
+  <span class="mi">7</span>
+  <span class="mi">8</span> <span class="kn">import</span> <span class="nn">sys</span>
+  <span class="mi">9</span> <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+ <span class="mi">10</span> <span class="kn">import</span> <span class="nn">tkinter.ttk</span> <span class="k">as</span> <span class="nn">ttk</span>
+ <span class="mi">11</span> <span class="kn">from</span> <span class="nn">tkinter.constants</span> <span class="kn">import</span> <span class="o">*</span>
+ <span class="mi">12</span> <span class="kn">import</span> <span class="nn">os.path</span>
+ <span class="mi">13</span>
+ <span class="mi">14</span> <span class="n">_script</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+ <span class="mi">15</span> <span class="n">_location</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">_script</span><span class="p">)</span>
+ <span class="mi">16</span>
+ <span class="mi">17</span> <span class="kn">import</span> <span class="nn">b_support</span>
+ <span class="mi">18</span>
+ <span class="mi">19</span> <span class="n">_bgcolor</span> <span class="o">=</span> <span class="s1">&#39;wheat&#39;</span>  <span class="c1"># X11 color: #f5deb3</span>
+ <span class="mi">20</span> <span class="n">_fgcolor</span> <span class="o">=</span> <span class="s1">&#39;#000000&#39;</span>  <span class="c1"># X11 color: &#39;black&#39;</span>
+ <span class="mi">21</span> <span class="n">_compcolor</span> <span class="o">=</span> <span class="s1">&#39;#b2c9f4&#39;</span> <span class="c1"># Closest X11 color: &#39;SlateGray2&#39;</span>
+ <span class="mi">22</span> <span class="n">_ana1color</span> <span class="o">=</span> <span class="s1">&#39;#eaf4b2&#39;</span> <span class="c1"># Closest X11 color: &#39;{pale goldenrod}&#39;</span>
+ <span class="mi">23</span> <span class="n">_ana2color</span> <span class="o">=</span> <span class="s1">&#39;beige&#39;</span> <span class="c1"># X11 color: #f5f5dc</span>
+ <span class="mi">24</span> <span class="n">_tabfg1</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
+ <span class="mi">25</span> <span class="n">_tabfg2</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
+ <span class="mi">26</span> <span class="n">_tabbg1</span> <span class="o">=</span> <span class="s1">&#39;grey75&#39;</span>
+ <span class="mi">27</span> <span class="n">_tabbg2</span> <span class="o">=</span> <span class="s1">&#39;grey89&#39;</span>
+ <span class="mi">28</span> <span class="n">_bgmode</span> <span class="o">=</span> <span class="s1">&#39;light&#39;</span>
+ <span class="mi">29</span> <span class="n">font12</span> <span class="o">=</span> <span class="s2">&quot;-family {DejaVu Sans} -size 12&quot;</span>
+ <span class="mi">30</span> <span class="n">font15</span> <span class="o">=</span> <span class="s2">&quot;-family {Nimbus Sans L} -size 14&quot;</span>
+ <span class="mi">31</span>
+ <span class="mi">32</span> <span class="n">_style_code_ran</span> <span class="o">=</span> <span class="mi">0</span>
+ <span class="mi">33</span> <span class="k">def</span> <span class="nf">_style_code</span><span class="p">():</span>
+ <span class="mi">34</span>     <span class="k">global</span> <span class="n">_style_code_ran</span>
+ <span class="mi">35</span>     <span class="k">if</span> <span class="n">_style_code_ran</span><span class="p">:</span>
+ <span class="mi">36</span>        <span class="k">return</span>
+ <span class="mi">37</span>     <span class="n">style</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Style</span><span class="p">()</span>
+ <span class="mi">38</span>     <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
+ <span class="mi">39</span>        <span class="n">style</span><span class="o">.</span><span class="n">theme_use</span><span class="p">(</span><span class="s1">&#39;winnative&#39;</span><span class="p">)</span>
+ <span class="mi">40</span>     <span class="n">style</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">background</span><span class="o">=</span><span class="n">_bgcolor</span><span class="p">)</span>
+ <span class="mi">41</span>     <span class="n">style</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">foreground</span><span class="o">=</span><span class="n">_fgcolor</span><span class="p">)</span>
+ <span class="mi">42</span>     <span class="n">style</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">font</span><span class="o">=</span><span class="s1">&#39;-family {DejaVu Sans} -size 12&#39;</span><span class="p">)</span>
+ <span class="mi">43</span>     <span class="n">style</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">background</span> <span class="o">=</span>
+ <span class="mi">44</span>        <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="n">_compcolor</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="n">_ana2color</span><span class="p">)])</span>
+ <span class="mi">45</span>     <span class="k">if</span> <span class="n">_bgmode</span> <span class="o">==</span> <span class="s1">&#39;black&#39;</span><span class="p">:</span>
+ <span class="mi">46</span>        <span class="n">style</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">foreground</span> <span class="o">=</span>
+ <span class="mi">47</span>          <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="s1">&#39;white&#39;</span><span class="p">)])</span>
+ <span class="mi">48</span>     <span class="k">else</span><span class="p">:</span>
+ <span class="mi">49</span>        <span class="n">style</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">foreground</span> <span class="o">=</span>
+ <span class="mi">50</span>          <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="s1">&#39;black&#39;</span><span class="p">)])</span>
+ <span class="mi">51</span>     <span class="n">style</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;TNotebook.Tab&#39;</span><span class="p">,</span> <span class="n">background</span> <span class="o">=</span>
+ <span class="mi">52</span>             <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="n">_bgcolor</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="n">_tabbg1</span><span class="p">),</span>
+ <span class="mi">53</span>             <span class="p">(</span><span class="s1">&#39;!active&#39;</span><span class="p">,</span> <span class="n">_tabbg2</span><span class="p">)],</span> <span class="n">foreground</span> <span class="o">=</span>
+ <span class="mi">54</span>             <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="n">_fgcolor</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="n">_tabfg1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;!active&#39;</span><span class="p">,</span>  <span class="n">_tabfg2</span><span class="p">)])</span>
+ <span class="mi">55</span>
+ <span class="mi">56</span>     <span class="k">global</span> <span class="n">_images</span>
+ <span class="mi">57</span>     <span class="n">_images</span> <span class="o">=</span> <span class="p">(</span>
+ <span class="mi">58</span>          <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="s2">&quot;img_close&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;R0lGODlhDAAMAIQUADIyMjc3Nzk5OT09PT</span>
+<span class="s1"> 59                  8/P0JCQkVFRU1NTU5OTlFRUVZWVmBgYGF hYWlpaXt7e6CgoLm5ucLCwszMzNbW</span>
+<span class="s1"> 60                  1v//////////////////////////////////// ///////////yH5BAEKAB8ALA</span>
+<span class="s1"> 61                  AAAAAMAAwAAAUt4CeOZGmaA5mSyQCIwhCUSwEIxHHW+ fkxBgPiBDwshCWHQfc5</span>
+<span class="s1"> 62                   KkoNUtRHpYYAADs= &#39;&#39;&#39;</span><span class="p">),</span>
+ <span class="mi">63</span>          <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="s2">&quot;img_close_white&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;R0lGODlhDAAMAPQfAM3NzcjI</span>
+<span class="s1"> 64                 yMbGxsLCwsDAwL29vbq6urKysrGxsa6urqmpqZ+fn56enpaWloSEhF9fX0ZGR</span>
+<span class="s1"> 65                 j09PTMzMykpKQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///yH</span>
+<span class="s1"> 66                 5BAEKAB8ALAAAAAAMAAwAAAUt4CeOZGmaA5mSyQCIwhCUSwEIxHHW+fkxBgPi</span>
+<span class="s1"> 67                 BDwshCWHQfc5KkoNUtRHpYYAADs=&#39;&#39;&#39;</span><span class="p">),</span>
+ <span class="mi">68</span>          <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="s2">&quot;img_closeactive&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;R0lGODlhDAAMAIQcALwuEtIzFL46</span>
+<span class="s1"> 69                  INY0Fdk2FsQ8IdhAI9pAIttCJNlKLtpLL9pMMMNTP cVTPdpZQOBbQd60rN+1rf</span>
+<span class="s1"> 70                  Czp+zLxPbMxPLX0vHY0/fY0/rm4vvx8Pvy8fzy8P//////// ///////yH5BAEK</span>
+<span class="s1"> 71                  AB8ALAAAAAAMAAwAAAVHYLQQZEkukWKuxEgg1EPCcilx24NcHGYWFhx P0zANBE</span>
+<span class="s1"> 72                  GOhhFYGSocTsax2imDOdNtiez9JszjpEg4EAaA5jlNUEASLFICEgIAOw== &#39;&#39;&#39;</span><span class="p">),</span>
+ <span class="mi">73</span>          <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="s2">&quot;img_closepressed&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;R0lGODlhDAAMAIQeAJ8nD64qELE</span>
+<span class="s1"> 74                  rELMsEqIyG6cyG7U1HLY2HrY3HrhBKrlCK6pGM7lD LKtHM7pKNL5MNtiViNaon</span>
+<span class="s1"> 75                   +GqoNSyq9WzrNyyqtuzq+O0que/t+bIwubJw+vJw+vTz+zT z////////yH5BAE</span>
+<span class="s1"> 76                  KAB8ALAAAAAAMAAwAAAVJIMUMZEkylGKuwzgc0kPCcgl123NcHWYW Fs6Gp2mYB</span>
+<span class="s1"> 77                  IRgR7MIrAwVDifjWO2WwZzpxkxyfKVCpImMGAeIgQDgVLMHikmCRUpMQgA7 &#39;&#39;&#39;</span><span class="p">)</span>
+ <span class="mi">78</span>         <span class="p">)</span>
+ <span class="mi">79</span>     <span class="k">if</span> <span class="n">_bgmode</span> <span class="o">==</span> <span class="s2">&quot;dark&quot;</span><span class="p">:</span>
+ <span class="mi">80</span>         <span class="n">style</span><span class="o">.</span><span class="n">element_create</span><span class="p">(</span><span class="s2">&quot;close&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;img_close_white&quot;</span><span class="p">,</span>
+ <span class="mi">81</span>            <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;pressed&#39;</span><span class="p">,</span>  <span class="s1">&#39;img_closepressed&#39;</span><span class="p">),</span>
+ <span class="mi">82</span>            <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;alternate&#39;</span><span class="p">,</span> <span class="s1">&#39;img_closeactive&#39;</span><span class="p">),</span> <span class="n">border</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+ <span class="mi">83</span>     <span class="k">else</span><span class="p">:</span>
+ <span class="mi">84</span>         <span class="n">style</span><span class="o">.</span><span class="n">element_create</span><span class="p">(</span><span class="s2">&quot;close&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;img_close&quot;</span><span class="p">,</span>
+ <span class="mi">85</span>            <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;pressed&#39;</span><span class="p">,</span>  <span class="s1">&#39;img_closepressed&#39;</span><span class="p">),</span>
+ <span class="mi">86</span>            <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;alternate&#39;</span><span class="p">,</span> <span class="s1">&#39;img_closeactive&#39;</span><span class="p">),</span> <span class="n">border</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+ <span class="mi">87</span>
+ <span class="mi">88</span>     <span class="n">style</span><span class="o">.</span><span class="n">layout</span><span class="p">(</span><span class="s2">&quot;ClosetabNotebook&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;ClosetabNotebook.client&quot;</span><span class="p">,</span>
+ <span class="mi">89</span>                                  <span class="p">{</span><span class="s2">&quot;sticky&quot;</span><span class="p">:</span> <span class="s2">&quot;nswe&quot;</span><span class="p">})])</span>
+ <span class="mi">90</span>     <span class="n">style</span><span class="o">.</span><span class="n">layout</span><span class="p">(</span><span class="s2">&quot;ClosetabNotebook.Tab&quot;</span><span class="p">,</span> <span class="p">[</span>
+ <span class="mi">91</span>         <span class="p">(</span><span class="s2">&quot;ClosetabNotebook.tab&quot;</span><span class="p">,</span>
+ <span class="mi">92</span>           <span class="p">{</span> <span class="s2">&quot;sticky&quot;</span><span class="p">:</span> <span class="s2">&quot;nswe&quot;</span><span class="p">,</span>
+ <span class="mi">93</span>             <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span>
+ <span class="mi">94</span>                 <span class="p">(</span><span class="s2">&quot;ClosetabNotebook.padding&quot;</span><span class="p">,</span> <span class="p">{</span>
+ <span class="mi">95</span>                     <span class="s2">&quot;side&quot;</span><span class="p">:</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span>
+ <span class="mi">96</span>                     <span class="s2">&quot;sticky&quot;</span><span class="p">:</span> <span class="s2">&quot;nswe&quot;</span><span class="p">,</span>
+ <span class="mi">97</span>                     <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span>
+ <span class="mi">98</span>                         <span class="p">(</span><span class="s2">&quot;ClosetabNotebook.focus&quot;</span><span class="p">,</span> <span class="p">{</span>
+ <span class="mi">99</span>                             <span class="s2">&quot;side&quot;</span><span class="p">:</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span>
+<span class="mi">100</span>                             <span class="s2">&quot;sticky&quot;</span><span class="p">:</span> <span class="s2">&quot;nswe&quot;</span><span class="p">,</span>
+<span class="mi">101</span>                             <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="mi">102</span>                                 <span class="p">(</span><span class="s2">&quot;ClosetabNotebook.label&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;side&quot;</span><span class="p">:</span>
+<span class="mi">103</span>                                   <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;sticky&quot;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">}),</span>
+<span class="mi">104</span>                                 <span class="p">(</span><span class="s2">&quot;ClosetabNotebook.close&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;side&quot;</span><span class="p">:</span>
+<span class="mi">105</span>                                     <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;sticky&quot;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">}),]})]})]})])</span>
+<span class="mi">106</span>
+<span class="mi">107</span>     <span class="n">style</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;ClosetabNotebook.Tab&#39;</span><span class="p">,</span> <span class="n">background</span> <span class="o">=</span>
+<span class="mi">108</span>         <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="n">_bgcolor</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="n">_tabbg1</span><span class="p">),</span>
+<span class="mi">109</span>         <span class="p">(</span><span class="s1">&#39;!active&#39;</span><span class="p">,</span> <span class="n">_tabbg2</span><span class="p">)],</span> <span class="n">foreground</span> <span class="o">=</span>
+<span class="mi">110</span>         <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="n">_fgcolor</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="n">_tabfg1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;!active&#39;</span><span class="p">,</span> <span class="n">_tabfg2</span><span class="p">)])</span>
+<span class="mi">111</span>     <span class="n">_style_code_ran</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="mi">112</span>
+<span class="mi">113</span> <span class="k">def</span> <span class="nf">popup1</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="mi">114</span>         <span class="n">font15</span> <span class="o">=</span> <span class="s2">&quot;-family {Nimbus Sans L} -size 14&quot;</span>
+<span class="mi">115</span>         <span class="n">Popupmenu1</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="n">b_support</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">tearoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="mi">116</span>         <span class="n">Popupmenu1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">activebackground</span><span class="o">=</span><span class="s2">&quot;beige&quot;</span><span class="p">)</span>
+<span class="mi">117</span>         <span class="n">Popupmenu1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">disabledforeground</span><span class="o">=</span><span class="s2">&quot;#b8a786&quot;</span><span class="p">)</span>
+<span class="mi">118</span>         <span class="n">Popupmenu1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="s2">&quot;-family {Nimbus Sans L} -size 14&quot;</span><span class="p">)</span>
+<span class="mi">119</span>         <span class="n">sub_menu</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="n">Popupmenu1</span><span class="p">,</span>
+<span class="mi">120</span>                 <span class="n">activebackground</span><span class="o">=</span><span class="s2">&quot;beige&quot;</span><span class="p">,</span>
+<span class="mi">121</span>                 <span class="n">disabledforeground</span><span class="o">=</span><span class="s2">&quot;#b8a786&quot;</span><span class="p">,</span>
+<span class="mi">122</span>                 <span class="n">font</span><span class="o">=</span><span class="s2">&quot;-family {Nimbus Sans L} -size 14&quot;</span><span class="p">,</span>
+<span class="mi">123</span>                 <span class="n">tearoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="mi">124</span>         <span class="n">Popupmenu1</span><span class="o">.</span><span class="n">add_cascade</span><span class="p">(</span><span class="n">menu</span><span class="o">=</span><span class="n">sub_menu</span><span class="p">,</span>
+<span class="mi">125</span>                 <span class="n">compound</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
+<span class="mi">126</span>                 <span class="n">label</span><span class="o">=</span><span class="s2">&quot;File&quot;</span><span class="p">)</span>
+<span class="mi">127</span>         <span class="n">sub_menu</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span>
+<span class="mi">128</span>                 <span class="n">command</span><span class="o">=</span><span class="n">b_support</span><span class="o">.</span><span class="n">quit</span><span class="p">,</span>
+<span class="mi">129</span>                 <span class="n">compound</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
+<span class="mi">130</span>                 <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Quit&quot;</span><span class="p">)</span>
+<span class="mi">131</span>         <span class="n">Popupmenu1</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">x_root</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">y_root</span><span class="p">)</span>
+<span class="mi">132</span>
+<span class="mi">133</span> <span class="k">class</span> <span class="nc">Toplevel1</span><span class="p">:</span>
+<span class="mi">134</span>     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="mi">135</span>         <span class="s1">&#39;&#39;&#39;This class configures and populates the toplevel window.</span>
+<span class="s1">136            top is the toplevel containing window.&#39;&#39;&#39;</span>
+<span class="mi">137</span>
+<span class="mi">138</span>         <span class="n">top</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;758x734+660+210&quot;</span><span class="p">)</span>
+<span class="mi">139</span>         <span class="n">top</span><span class="o">.</span><span class="n">minsize</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="mi">140</span>         <span class="n">top</span><span class="o">.</span><span class="n">maxsize</span><span class="p">(</span><span class="mi">1905</span><span class="p">,</span> <span class="mi">1050</span><span class="p">)</span>
+<span class="mi">141</span>         <span class="n">top</span><span class="o">.</span><span class="n">resizable</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">)</span>
+<span class="mi">142</span>         <span class="n">top</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Toplevel 0&quot;</span><span class="p">)</span>
+<span class="mi">143</span>         <span class="n">top</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="mi">144</span>         <span class="n">top</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">highlightbackground</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="mi">145</span>         <span class="n">top</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">highlightcolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="mi">146</span>
+<span class="mi">147</span>         <span class="bp">self</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">top</span>
+<span class="mi">148</span>
+<span class="mi">149</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button1</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+<span class="mi">150</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button1</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">190</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">)</span>
+<span class="mi">151</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">activebackground</span><span class="o">=</span><span class="s2">&quot;beige&quot;</span><span class="p">)</span>
+<span class="mi">152</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="mi">153</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">borderwidth</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">)</span>
+<span class="mi">154</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">compound</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="mi">155</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">disabledforeground</span><span class="o">=</span><span class="s2">&quot;#b8a786&quot;</span><span class="p">)</span>
+<span class="mi">156</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="s2">&quot;-family {DejaVu Sans} -size 12&quot;</span><span class="p">)</span>
+<span class="mi">157</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">highlightbackground</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="mi">158</span>         <span class="n">photo_location</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_location</span><span class="p">,</span><span class="s2">&quot;./stop.png&quot;</span><span class="p">)</span>
+<span class="mi">159</span>         <span class="k">global</span> <span class="n">_img0</span>
+<span class="mi">160</span>         <span class="n">_img0</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">photo_location</span><span class="p">)</span>
+<span class="mi">161</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">_img0</span><span class="p">)</span>
+<span class="mi">162</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;Button&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="mi">163</span>
+<span class="mi">164</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button2</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+<span class="mi">165</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button2</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">310</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">83</span><span class="p">)</span>
+<span class="mi">166</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">activebackground</span><span class="o">=</span><span class="s2">&quot;beige&quot;</span><span class="p">)</span>
+<span class="mi">167</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="mi">168</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">borderwidth</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">)</span>
+<span class="mi">169</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">compound</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="mi">170</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">disabledforeground</span><span class="o">=</span><span class="s2">&quot;#b8a786&quot;</span><span class="p">)</span>
+<span class="mi">171</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="s2">&quot;-family {DejaVu Sans} -size 12&quot;</span><span class="p">)</span>
+<span class="mi">172</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">highlightbackground</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="mi">173</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;Button&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="mi">174</span>
+<span class="mi">175</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button3</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+<span class="mi">176</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button3</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">280</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">310</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">83</span><span class="p">)</span>
+<span class="mi">177</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button3</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">activebackground</span><span class="o">=</span><span class="s2">&quot;beige&quot;</span><span class="p">)</span>
+<span class="mi">178</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button3</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="mi">179</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button3</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">borderwidth</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">)</span>
+<span class="mi">180</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button3</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">compound</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="mi">181</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button3</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">disabledforeground</span><span class="o">=</span><span class="s2">&quot;#b8a786&quot;</span><span class="p">)</span>
+<span class="mi">182</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button3</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="s2">&quot;-family {DejaVu Sans} -size 12&quot;</span><span class="p">)</span>
+<span class="mi">183</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button3</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">highlightbackground</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="mi">184</span>         <span class="bp">self</span><span class="o">.</span><span class="n">Button3</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;Button&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="mi">185</span>
+<span class="mi">186</span>         <span class="bp">self</span><span class="o">.</span><span class="n">menubar</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="s2">&quot;-family {Nimbus Sans L} -size 14&quot;</span>
+<span class="mi">187</span>                 <span class="p">,</span><span class="n">bg</span><span class="o">=</span><span class="s1">&#39;#d9d9d9&#39;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="n">_fgcolor</span><span class="p">)</span>
+<span class="mi">188</span>         <span class="n">top</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">menu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">menubar</span><span class="p">)</span>
+<span class="mi">189</span>
+<span class="mi">190</span>         <span class="bp">self</span><span class="o">.</span><span class="n">sub_menu</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="n">top</span><span class="p">,</span>
+<span class="mi">191</span>                 <span class="n">activebackground</span><span class="o">=</span><span class="s2">&quot;beige&quot;</span><span class="p">,</span>
+<span class="mi">192</span>                 <span class="n">disabledforeground</span><span class="o">=</span><span class="s2">&quot;#b8a786&quot;</span><span class="p">,</span>
+<span class="mi">193</span>                 <span class="n">font</span><span class="o">=</span><span class="s2">&quot;-family {Nimbus Sans L} -size 14&quot;</span><span class="p">,</span>
+<span class="mi">194</span>                 <span class="n">tearoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="mi">195</span>         <span class="bp">self</span><span class="o">.</span><span class="n">menubar</span><span class="o">.</span><span class="n">add_cascade</span><span class="p">(</span><span class="n">menu</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sub_menu</span><span class="p">,</span>
+<span class="mi">196</span>                 <span class="n">label</span><span class="o">=</span><span class="s2">&quot;NewCascade&quot;</span><span class="p">)</span>
+<span class="mi">197</span>         <span class="n">photo_location</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_location</span><span class="p">,</span><span class="s2">&quot;./stop.png&quot;</span><span class="p">)</span>
+<span class="mi">198</span>         <span class="k">global</span> <span class="n">_img1</span>
+<span class="mi">199</span>         <span class="n">_img1</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">photo_location</span><span class="p">)</span>
+<span class="mi">200</span>         <span class="bp">self</span><span class="o">.</span><span class="n">sub_menu</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span>
+<span class="mi">201</span>                 <span class="n">image</span><span class="o">=</span><span class="n">_img1</span><span class="p">,</span>
+<span class="mi">202</span>                 <span class="n">label</span><span class="o">=</span><span class="s2">&quot;NewCommand&quot;</span><span class="p">)</span>
+<span class="mi">203</span>
+<span class="mi">204</span>         <span class="n">_style_code</span><span class="p">()</span>
+<span class="mi">205</span>         <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Notebook</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+<span class="mi">206</span>         <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">430</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">228</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">302</span><span class="p">)</span>
+<span class="mi">207</span>         <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">takefocus</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="mi">208</span>         <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1_t1</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="p">)</span>
+<span class="mi">209</span>         <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1_t1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="mi">210</span>         <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="o">.</span><span class="n">tab</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;Page 1&#39;&#39;&#39;</span><span class="p">,</span> <span class="n">compound</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
+<span class="mi">211</span>                 <span class="p">,</span><span class="n">underline</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;-1&#39;&#39;&#39;</span><span class="p">,</span> <span class="p">)</span>
+<span class="mi">212</span>         <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1_t1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="mi">213</span>         <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1_t1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">highlightbackground</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="mi">214</span>         <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1_t2</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="p">)</span>
+<span class="mi">215</span>         <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1_t2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="mi">216</span>         <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1</span><span class="o">.</span><span class="n">tab</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;Page 2&#39;&#39;&#39;</span><span class="p">,</span> <span class="n">compound</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
+<span class="mi">217</span>                 <span class="p">,</span><span class="n">underline</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;-1&#39;&#39;&#39;</span><span class="p">,</span> <span class="p">)</span>
+<span class="mi">218</span>         <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1_t2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="mi">219</span>         <span class="bp">self</span><span class="o">.</span><span class="n">TNotebook1_t2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">highlightbackground</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="mi">220</span>
+<span class="mi">221</span>         <span class="n">PNOTEBOOK</span><span class="o">=</span><span class="s2">&quot;ClosetabNotebook&quot;</span>
+<span class="mi">222</span>         <span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Notebook</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+<span class="mi">223</span>         <span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">430</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">460</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">228</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">302</span><span class="p">)</span>
+<span class="mi">224</span>         <span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">PNOTEBOOK</span><span class="p">)</span>
+<span class="mi">225</span>         <span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1_t1</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1</span><span class="p">)</span>
+<span class="mi">226</span>         <span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1_t1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="mi">227</span>         <span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1</span><span class="o">.</span><span class="n">tab</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;Page 1&#39;&#39;&#39;</span><span class="p">,</span> <span class="n">compound</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
+<span class="mi">228</span>                 <span class="p">,</span><span class="n">underline</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;-1&#39;&#39;&#39;</span><span class="p">,</span> <span class="p">)</span>
+<span class="mi">229</span>         <span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1_t1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="mi">230</span>         <span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1_t1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">highlightbackground</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="mi">231</span>         <span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1_t2</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1</span><span class="p">)</span>
+<span class="mi">232</span>         <span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1_t2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="mi">233</span>         <span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1</span><span class="o">.</span><span class="n">tab</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;Page 2&#39;&#39;&#39;</span><span class="p">,</span> <span class="n">compound</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
+<span class="mi">234</span>                 <span class="p">,</span><span class="n">underline</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;-1&#39;&#39;&#39;</span><span class="p">,</span> <span class="p">)</span>
+<span class="mi">235</span>         <span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1_t2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="mi">236</span>         <span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1_t2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">highlightbackground</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">)</span>
+<span class="mi">237</span>         <span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-1&gt;&#39;</span><span class="p">,</span><span class="n">_button_press</span><span class="p">)</span>
+<span class="mi">238</span>         <span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;ButtonRelease-1&gt;&#39;</span><span class="p">,</span><span class="n">_button_release</span><span class="p">)</span>
+<span class="mi">239</span>         <span class="bp">self</span><span class="o">.</span><span class="n">PNotebook1</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Motion&gt;&#39;</span><span class="p">,</span><span class="n">_mouse_over</span><span class="p">)</span>
+<span class="mi">240</span>
+<span class="mi">241</span> <span class="c1"># The following code is add to handle mouse events with the close icons</span>
+<span class="mi">242</span> <span class="c1"># in PNotebooks widgets.</span>
+<span class="mi">243</span> <span class="k">def</span> <span class="nf">_button_press</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+<span class="mi">244</span>     <span class="n">widget</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">widget</span>
+<span class="mi">245</span>     <span class="n">element</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">identify</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="mi">246</span>     <span class="k">if</span> <span class="s2">&quot;close&quot;</span> <span class="ow">in</span> <span class="n">element</span><span class="p">:</span>
+<span class="mi">247</span>         <span class="n">index</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;@</span><span class="si">%d</span><span class="s2">,</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+<span class="mi">248</span>         <span class="n">widget</span><span class="o">.</span><span class="n">state</span><span class="p">([</span><span class="s1">&#39;pressed&#39;</span><span class="p">])</span>
+<span class="mi">249</span>         <span class="n">widget</span><span class="o">.</span><span class="n">_active</span> <span class="o">=</span> <span class="n">index</span>
+<span class="mi">250</span>
+<span class="mi">251</span> <span class="k">def</span> <span class="nf">_button_release</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+<span class="mi">252</span>     <span class="n">widget</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">widget</span>
+<span class="mi">253</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">widget</span><span class="o">.</span><span class="n">instate</span><span class="p">([</span><span class="s1">&#39;pressed&#39;</span><span class="p">]):</span>
+<span class="mi">254</span>             <span class="k">return</span>
+<span class="mi">255</span>     <span class="n">element</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">identify</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="mi">256</span>     <span class="k">try</span><span class="p">:</span>
+<span class="mi">257</span>         <span class="n">index</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;@</span><span class="si">%d</span><span class="s2">,</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+<span class="mi">258</span>     <span class="k">except</span> <span class="n">tk</span><span class="o">.</span><span class="n">TclError</span><span class="p">:</span>
+<span class="mi">259</span>         <span class="k">pass</span>
+<span class="mi">260</span>     <span class="k">if</span> <span class="s2">&quot;close&quot;</span> <span class="ow">in</span> <span class="n">element</span> <span class="ow">and</span> <span class="n">widget</span><span class="o">.</span><span class="n">_active</span> <span class="o">==</span> <span class="n">index</span><span class="p">:</span>
+<span class="mi">261</span>         <span class="n">widget</span><span class="o">.</span><span class="n">forget</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+<span class="mi">262</span>         <span class="n">widget</span><span class="o">.</span><span class="n">event_generate</span><span class="p">(</span><span class="s2">&quot;&lt;&lt;NotebookTabClosed&gt;&gt;&quot;</span><span class="p">)</span>
+<span class="mi">263</span>
+<span class="mi">264</span>     <span class="n">widget</span><span class="o">.</span><span class="n">state</span><span class="p">([</span><span class="s1">&#39;!pressed&#39;</span><span class="p">])</span>
+<span class="mi">265</span>     <span class="n">widget</span><span class="o">.</span><span class="n">_active</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="mi">266</span>
+<span class="mi">267</span> <span class="k">def</span> <span class="nf">_mouse_over</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+<span class="mi">268</span>     <span class="n">widget</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">widget</span>
+<span class="mi">269</span>     <span class="n">element</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">identify</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="mi">270</span>     <span class="k">if</span> <span class="s2">&quot;close&quot;</span> <span class="ow">in</span> <span class="n">element</span><span class="p">:</span>
+<span class="mi">271</span>         <span class="n">widget</span><span class="o">.</span><span class="n">state</span><span class="p">([</span><span class="s1">&#39;alternate&#39;</span><span class="p">])</span>
+<span class="mi">272</span>     <span class="k">else</span><span class="p">:</span>
+<span class="mi">273</span>         <span class="n">widget</span><span class="o">.</span><span class="n">state</span><span class="p">([</span><span class="s1">&#39;!alternate&#39;</span><span class="p">])</span>
+<span class="mi">274</span>
+<span class="mi">275</span> <span class="k">def</span> <span class="nf">start_up</span><span class="p">():</span>
+<span class="mi">276</span>     <span class="n">b_support</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+<span class="mi">277</span>
+<span class="mi">278</span> <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="mi">279</span>     <span class="n">b_support</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+<span class="mi">280</span>
+</pre></div>
+</div>
+<p>Of course, this is a very simple example and does not show all the
+possibilities.</p>
+<p>Lines 1 through 12 are imports needed to execute Python. There are
+imports for  Python 3 but no longer are imports provided for Python 2.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="mi">1</span> <span class="c1">#! /usr/bin/env python</span>
+ <span class="mi">2</span> <span class="c1">#  -*- coding: utf-8 -*-</span>
+ <span class="mi">3</span> <span class="c1">#</span>
+ <span class="mi">4</span> <span class="c1"># GUI module generated by PAGE version 7l</span>
+ <span class="mi">5</span> <span class="c1">#  in conjunction with Tcl version 8.6</span>
+ <span class="mi">6</span> <span class="c1">#    Jul 24, 2021 07:23:57 PM PDT  platform: Linux</span>
+ <span class="mi">7</span>
+ <span class="mi">8</span> <span class="kn">import</span> <span class="nn">sys</span>
+ <span class="mi">9</span> <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+<span class="mi">10</span> <span class="kn">import</span> <span class="nn">tkinter.ttk</span> <span class="k">as</span> <span class="nn">ttk</span>
+<span class="mi">11</span> <span class="kn">from</span> <span class="nn">tkinter.constants</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="mi">12</span> <span class="kn">import</span> <span class="nn">os.path</span>
+</pre></div>
+</div>
+<p>Lines 14 and 15 calculate the location of the program in the users
+file system.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">14</span> <span class="n">_script</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="mi">15</span> <span class="n">_location</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">_script</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>_location is used for the creation of tkinter images used
+in the GUI module.  This was added to allow the application to run
+from within an arbitrary directory. It is available to the support
+module for the creation of tkinter images.</p>
+<p>Line 17 is the linkage to the support module, m_support.exe.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">17</span> <span class="kn">import</span> <span class="nn">m_support</span>
+</pre></div>
+</div>
+<p>Lines 19 through 30 defines various colors and fonts that may be used
+in the class definitions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">15</span> <span class="n">_bgcolor</span> <span class="o">=</span> <span class="s1">&#39;wheat&#39;</span>  <span class="c1"># X11 color: #f5deb3</span>
+<span class="mi">16</span> <span class="n">_fgcolor</span> <span class="o">=</span> <span class="s1">&#39;#000000&#39;</span>  <span class="c1"># X11 color: &#39;black&#39;</span>
+<span class="mi">17</span> <span class="n">_compcolor</span> <span class="o">=</span> <span class="s1">&#39;#b2c9f4&#39;</span> <span class="c1"># Closest X11 color: &#39;SlateGray2&#39;</span>
+<span class="mi">18</span> <span class="n">_ana1color</span> <span class="o">=</span> <span class="s1">&#39;#eaf4b2&#39;</span> <span class="c1"># Closest X11 color: &#39;{pale goldenrod}&#39;</span>
+<span class="mi">19</span> <span class="n">_ana2color</span> <span class="o">=</span> <span class="s1">&#39;beige&#39;</span> <span class="c1"># X11 color: #f5f5dc</span>
+<span class="mi">20</span> <span class="n">_tabfg1</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
+<span class="mi">21</span> <span class="n">_tabfg2</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
+<span class="mi">22</span> <span class="n">_tabbg1</span> <span class="o">=</span> <span class="s1">&#39;grey75&#39;</span>
+<span class="mi">23</span> <span class="n">_tabbg2</span> <span class="o">=</span> <span class="s1">&#39;grey89&#39;</span>
+<span class="mi">24</span> <span class="n">_bgmode</span> <span class="o">=</span> <span class="s1">&#39;light&#39;</span>
+<span class="mi">25</span> <span class="n">font12</span> <span class="o">=</span> <span class="s2">&quot;-family {DejaVu Sans} -size 12&quot;</span>
+</pre></div>
+</div>
+<p>Lines 32 through 111 define the function “_style_code” which is
+executed exactly once to define ttk styles as required for the ttk
+widgets used in the class definitions. It is a function because the
+code can only be executed after tkinter is initiated. The content of
+“_style_code” depends depends on the repertory of ttk widgets actually
+used in the GUI. In this case, considerable code is required to
+satisfy the needs of the PNotebook widget used in this example.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="mi">32</span> <span class="n">_style_code_ran</span> <span class="o">=</span> <span class="mi">0</span>
+ <span class="mi">33</span> <span class="k">def</span> <span class="nf">_style_code</span><span class="p">():</span>
+ <span class="mi">34</span>     <span class="k">global</span> <span class="n">_style_code_ran</span>
+ <span class="mi">35</span>     <span class="k">if</span> <span class="n">_style_code_ran</span><span class="p">:</span>
+ <span class="mi">36</span>        <span class="k">return</span>
+ <span class="mi">37</span>     <span class="n">style</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Style</span><span class="p">()</span>
+ <span class="mi">38</span>     <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
+ <span class="mi">39</span>        <span class="n">style</span><span class="o">.</span><span class="n">theme_use</span><span class="p">(</span><span class="s1">&#39;winnative&#39;</span><span class="p">)</span>
+ <span class="mi">40</span>     <span class="n">style</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">background</span><span class="o">=</span><span class="n">_bgcolor</span><span class="p">)</span>
+ <span class="mi">41</span>     <span class="n">style</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">foreground</span><span class="o">=</span><span class="n">_fgcolor</span><span class="p">)</span>
+ <span class="mi">42</span>     <span class="n">style</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">font</span><span class="o">=</span><span class="s1">&#39;-family {DejaVu Sans} -size 12&#39;</span><span class="p">)</span>
+ <span class="mi">43</span>     <span class="n">style</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">background</span> <span class="o">=</span>
+ <span class="mi">44</span>        <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="n">_compcolor</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="n">_ana2color</span><span class="p">)])</span>
+ <span class="mi">45</span>     <span class="k">if</span> <span class="n">_bgmode</span> <span class="o">==</span> <span class="s1">&#39;black&#39;</span><span class="p">:</span>
+ <span class="mi">46</span>        <span class="n">style</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">foreground</span> <span class="o">=</span>
+ <span class="mi">47</span>          <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="s1">&#39;white&#39;</span><span class="p">)])</span>
+ <span class="mi">48</span>     <span class="k">else</span><span class="p">:</span>
+ <span class="mi">49</span>        <span class="n">style</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">foreground</span> <span class="o">=</span>
+ <span class="mi">50</span>          <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="s1">&#39;black&#39;</span><span class="p">)])</span>
+ <span class="mi">51</span>     <span class="n">style</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;TNotebook.Tab&#39;</span><span class="p">,</span> <span class="n">background</span> <span class="o">=</span>
+ <span class="mi">52</span>             <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="n">_bgcolor</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="n">_tabbg1</span><span class="p">),</span>
+ <span class="mi">53</span>             <span class="p">(</span><span class="s1">&#39;!active&#39;</span><span class="p">,</span> <span class="n">_tabbg2</span><span class="p">)],</span> <span class="n">foreground</span> <span class="o">=</span>
+ <span class="mi">54</span>             <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="n">_fgcolor</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="n">_tabfg1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;!active&#39;</span><span class="p">,</span>  <span class="n">_tabfg2</span><span class="p">)])</span>
+ <span class="mi">55</span>
+ <span class="mi">56</span>     <span class="k">global</span> <span class="n">_images</span>
+ <span class="mi">57</span>     <span class="n">_images</span> <span class="o">=</span> <span class="p">(</span>
+ <span class="mi">58</span>          <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="s2">&quot;img_close&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;R0lGODlhDAAMAIQUADIyMjc3Nzk5OT09PT</span>
+<span class="s1"> 59                  8/P0JCQkVFRU1NTU5OTlFRUVZWVmBgYGF hYWlpaXt7e6CgoLm5ucLCwszMzNbW</span>
+<span class="s1"> 60                  1v//////////////////////////////////// ///////////yH5BAEKAB8ALA</span>
+<span class="s1"> 61                  AAAAAMAAwAAAUt4CeOZGmaA5mSyQCIwhCUSwEIxHHW+ fkxBgPiBDwshCWHQfc5</span>
+<span class="s1"> 62                   KkoNUtRHpYYAADs= &#39;&#39;&#39;</span><span class="p">),</span>
+ <span class="mi">63</span>          <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="s2">&quot;img_close_white&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;R0lGODlhDAAMAPQfAM3NzcjI</span>
+<span class="s1"> 64                 yMbGxsLCwsDAwL29vbq6urKysrGxsa6urqmpqZ+fn56enpaWloSEhF9fX0ZGR</span>
+<span class="s1"> 65                 j09PTMzMykpKQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///yH</span>
+<span class="s1"> 66                 5BAEKAB8ALAAAAAAMAAwAAAUt4CeOZGmaA5mSyQCIwhCUSwEIxHHW+fkxBgPi</span>
+<span class="s1"> 67                 BDwshCWHQfc5KkoNUtRHpYYAADs=&#39;&#39;&#39;</span><span class="p">),</span>
+ <span class="mi">68</span>          <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="s2">&quot;img_closeactive&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;R0lGODlhDAAMAIQcALwuEtIzFL46</span>
+<span class="s1"> 69                  INY0Fdk2FsQ8IdhAI9pAIttCJNlKLtpLL9pMMMNTP cVTPdpZQOBbQd60rN+1rf</span>
+<span class="s1"> 70                  Czp+zLxPbMxPLX0vHY0/fY0/rm4vvx8Pvy8fzy8P//////// ///////yH5BAEK</span>
+<span class="s1"> 71                  AB8ALAAAAAAMAAwAAAVHYLQQZEkukWKuxEgg1EPCcilx24NcHGYWFhx P0zANBE</span>
+<span class="s1"> 72                  GOhhFYGSocTsax2imDOdNtiez9JszjpEg4EAaA5jlNUEASLFICEgIAOw== &#39;&#39;&#39;</span><span class="p">),</span>
+ <span class="mi">73</span>          <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="s2">&quot;img_closepressed&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;R0lGODlhDAAMAIQeAJ8nD64qELE</span>
+<span class="s1"> 74                  rELMsEqIyG6cyG7U1HLY2HrY3HrhBKrlCK6pGM7lD LKtHM7pKNL5MNtiViNaon</span>
+<span class="s1"> 75                   +GqoNSyq9WzrNyyqtuzq+O0que/t+bIwubJw+vJw+vTz+zT z////////yH5BAE</span>
+<span class="s1"> 76                  KAB8ALAAAAAAMAAwAAAVJIMUMZEkylGKuwzgc0kPCcgl123NcHWYW Fs6Gp2mYB</span>
+<span class="s1"> 77                  IRgR7MIrAwVDifjWO2WwZzpxkxyfKVCpImMGAeIgQDgVLMHikmCRUpMQgA7 &#39;&#39;&#39;</span><span class="p">)</span>
+ <span class="mi">78</span>         <span class="p">)</span>
+ <span class="mi">79</span>     <span class="k">if</span> <span class="n">_bgmode</span> <span class="o">==</span> <span class="s2">&quot;dark&quot;</span><span class="p">:</span>
+ <span class="mi">80</span>         <span class="n">style</span><span class="o">.</span><span class="n">element_create</span><span class="p">(</span><span class="s2">&quot;close&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;img_close_white&quot;</span><span class="p">,</span>
+ <span class="mi">81</span>            <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;pressed&#39;</span><span class="p">,</span>  <span class="s1">&#39;img_closepressed&#39;</span><span class="p">),</span>
+ <span class="mi">82</span>            <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;alternate&#39;</span><span class="p">,</span> <span class="s1">&#39;img_closeactive&#39;</span><span class="p">),</span> <span class="n">border</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+ <span class="mi">83</span>     <span class="k">else</span><span class="p">:</span>
+ <span class="mi">84</span>         <span class="n">style</span><span class="o">.</span><span class="n">element_create</span><span class="p">(</span><span class="s2">&quot;close&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;img_close&quot;</span><span class="p">,</span>
+ <span class="mi">85</span>            <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;pressed&#39;</span><span class="p">,</span>  <span class="s1">&#39;img_closepressed&#39;</span><span class="p">),</span>
+ <span class="mi">86</span>            <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;alternate&#39;</span><span class="p">,</span> <span class="s1">&#39;img_closeactive&#39;</span><span class="p">),</span> <span class="n">border</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+ <span class="mi">87</span>
+ <span class="mi">88</span>     <span class="n">style</span><span class="o">.</span><span class="n">layout</span><span class="p">(</span><span class="s2">&quot;ClosetabNotebook&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;ClosetabNotebook.client&quot;</span><span class="p">,</span>
+ <span class="mi">89</span>                                  <span class="p">{</span><span class="s2">&quot;sticky&quot;</span><span class="p">:</span> <span class="s2">&quot;nswe&quot;</span><span class="p">})])</span>
+ <span class="mi">90</span>     <span class="n">style</span><span class="o">.</span><span class="n">layout</span><span class="p">(</span><span class="s2">&quot;ClosetabNotebook.Tab&quot;</span><span class="p">,</span> <span class="p">[</span>
+ <span class="mi">91</span>         <span class="p">(</span><span class="s2">&quot;ClosetabNotebook.tab&quot;</span><span class="p">,</span>
+ <span class="mi">92</span>           <span class="p">{</span> <span class="s2">&quot;sticky&quot;</span><span class="p">:</span> <span class="s2">&quot;nswe&quot;</span><span class="p">,</span>
+ <span class="mi">93</span>             <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span>
+ <span class="mi">94</span>                 <span class="p">(</span><span class="s2">&quot;ClosetabNotebook.padding&quot;</span><span class="p">,</span> <span class="p">{</span>
+ <span class="mi">95</span>                     <span class="s2">&quot;side&quot;</span><span class="p">:</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span>
+ <span class="mi">96</span>                     <span class="s2">&quot;sticky&quot;</span><span class="p">:</span> <span class="s2">&quot;nswe&quot;</span><span class="p">,</span>
+ <span class="mi">97</span>                     <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span>
+ <span class="mi">98</span>                         <span class="p">(</span><span class="s2">&quot;ClosetabNotebook.focus&quot;</span><span class="p">,</span> <span class="p">{</span>
+ <span class="mi">99</span>                             <span class="s2">&quot;side&quot;</span><span class="p">:</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span>
+<span class="mi">100</span>                             <span class="s2">&quot;sticky&quot;</span><span class="p">:</span> <span class="s2">&quot;nswe&quot;</span><span class="p">,</span>
+<span class="mi">101</span>                             <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="mi">102</span>                                 <span class="p">(</span><span class="s2">&quot;ClosetabNotebook.label&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;side&quot;</span><span class="p">:</span>
+<span class="mi">103</span>                                   <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;sticky&quot;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">}),</span>
+<span class="mi">104</span>                                 <span class="p">(</span><span class="s2">&quot;ClosetabNotebook.close&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;side&quot;</span><span class="p">:</span>
+<span class="mi">105</span>                                     <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;sticky&quot;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">}),]})]})]})])</span>
+<span class="mi">106</span>
+<span class="mi">107</span>     <span class="n">style</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s1">&#39;ClosetabNotebook.Tab&#39;</span><span class="p">,</span> <span class="n">background</span> <span class="o">=</span>
+<span class="mi">108</span>         <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="n">_bgcolor</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="n">_tabbg1</span><span class="p">),</span>
+<span class="mi">109</span>         <span class="p">(</span><span class="s1">&#39;!active&#39;</span><span class="p">,</span> <span class="n">_tabbg2</span><span class="p">)],</span> <span class="n">foreground</span> <span class="o">=</span>
+<span class="mi">110</span>         <span class="p">[(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="n">_fgcolor</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="n">_tabfg1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;!active&#39;</span><span class="p">,</span> <span class="n">_tabfg2</span><span class="p">)])</span>
+<span class="mi">111</span>     <span class="n">_style_code_ran</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Lines 113 through 131 define the popup menu.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">113</span> <span class="k">def</span> <span class="nf">popup1</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="mi">114</span>         <span class="n">font15</span> <span class="o">=</span> <span class="s2">&quot;-family {Nimbus Sans L} -size 14&quot;</span>
+<span class="mi">115</span>         <span class="n">Popupmenu1</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="n">b_support</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">tearoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="mi">116</span>         <span class="n">Popupmenu1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">activebackground</span><span class="o">=</span><span class="s2">&quot;beige&quot;</span><span class="p">)</span>
+<span class="mi">117</span>         <span class="n">Popupmenu1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">disabledforeground</span><span class="o">=</span><span class="s2">&quot;#b8a786&quot;</span><span class="p">)</span>
+<span class="mi">118</span>         <span class="n">Popupmenu1</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="s2">&quot;-family {Nimbus Sans L} -size 14&quot;</span><span class="p">)</span>
+<span class="mi">119</span>         <span class="n">sub_menu</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="n">Popupmenu1</span><span class="p">,</span>
+<span class="mi">120</span>                 <span class="n">activebackground</span><span class="o">=</span><span class="s2">&quot;beige&quot;</span><span class="p">,</span>
+<span class="mi">121</span>                 <span class="n">disabledforeground</span><span class="o">=</span><span class="s2">&quot;#b8a786&quot;</span><span class="p">,</span>
+<span class="mi">122</span>                 <span class="n">font</span><span class="o">=</span><span class="s2">&quot;-family {Nimbus Sans L} -size 14&quot;</span><span class="p">,</span>
+<span class="mi">123</span>                 <span class="n">tearoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="mi">124</span>         <span class="n">Popupmenu1</span><span class="o">.</span><span class="n">add_cascade</span><span class="p">(</span><span class="n">menu</span><span class="o">=</span><span class="n">sub_menu</span><span class="p">,</span>
+<span class="mi">125</span>                 <span class="n">compound</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
+<span class="mi">126</span>                 <span class="n">label</span><span class="o">=</span><span class="s2">&quot;File&quot;</span><span class="p">)</span>
+<span class="mi">127</span>         <span class="n">sub_menu</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span>
+<span class="mi">128</span>                 <span class="n">command</span><span class="o">=</span><span class="n">b_support</span><span class="o">.</span><span class="n">quit</span><span class="p">,</span>
+<span class="mi">129</span>                 <span class="n">compound</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
+<span class="mi">130</span>                 <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Quit&quot;</span><span class="p">)</span>
+<span class="mi">131</span>         <span class="n">Popupmenu1</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">x_root</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">y_root</span><span class="p">)</span>
+<span class="mi">132</span>
+</pre></div>
+</div>
+<p>Lines 133 through 239 define the toplevel window as the class
+Toplevel1.</p>
+<p>Lines 241 through 273 is boiler plate code generated for the PNotebook
+widget.</p>
+<p>Finally lines 275 through 279 launch the application.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">275</span> <span class="k">def</span> <span class="nf">start_up</span><span class="p">():</span>
+<span class="mi">276</span>     <span class="n">b_support</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+<span class="mi">277</span>
+<span class="mi">278</span> <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="mi">279</span>     <span class="n">b_support</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="support-module">
+<h2>Support Module<a class="headerlink" href="#support-module" title="Permalink to this headline">¶</a></h2>
+<p>Below is the support module, example_support.py, created by PAGE and
+corresponds to the GUI module, example.py, above. It is a skeleton
+module for the for the application that you are building.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="mi">1</span> <span class="c1">#! /usr/bin/env python</span>
+ <span class="mi">2</span> <span class="c1">#  -*- coding: utf-8 -*-</span>
+ <span class="mi">3</span> <span class="c1">#</span>
+ <span class="mi">4</span> <span class="c1"># Support module generated by PAGE version 7.5d</span>
+ <span class="mi">5</span> <span class="c1">#  in conjunction with Tcl version 8.6</span>
+ <span class="mi">6</span> <span class="c1">#    May 26, 2022 07:30:34 AM PDT  platform: Linux</span>
+ <span class="mi">7</span>
+ <span class="mi">8</span> <span class="kn">import</span> <span class="nn">sys</span>
+ <span class="mi">9</span> <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+<span class="mi">10</span> <span class="kn">import</span> <span class="nn">tkinter.ttk</span> <span class="k">as</span> <span class="nn">ttk</span>
+<span class="mi">11</span> <span class="kn">from</span> <span class="nn">tkinter.constants</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="mi">12</span>
+<span class="mi">13</span> <span class="kn">import</span> <span class="nn">b</span>
+<span class="mi">14</span>
+<span class="mi">15</span> <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="mi">16</span>     <span class="s1">&#39;&#39;&#39;Main entry point for the application.&#39;&#39;&#39;</span>
+<span class="mi">17</span>     <span class="k">global</span> <span class="n">root</span>
+<span class="mi">18</span>     <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+<span class="mi">19</span>     <span class="n">root</span><span class="o">.</span><span class="n">protocol</span><span class="p">(</span> <span class="s1">&#39;WM_DELETE_WINDOW&#39;</span> <span class="p">,</span> <span class="n">root</span><span class="o">.</span><span class="n">destroy</span><span class="p">)</span>
+<span class="mi">20</span>     <span class="c1"># Creates a toplevel widget.</span>
+<span class="mi">21</span>     <span class="k">global</span> <span class="n">_top1</span><span class="p">,</span> <span class="n">_w1</span>
+<span class="mi">22</span>     <span class="n">_top1</span> <span class="o">=</span> <span class="n">root</span>
+<span class="mi">23</span>     <span class="n">_w1</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">Toplevel1</span><span class="p">(</span><span class="n">_top1</span><span class="p">)</span>
+<span class="mi">24</span>     <span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+<span class="mi">25</span>
+<span class="mi">26</span> <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="mi">27</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;b_support.quit&#39;</span><span class="p">)</span>
+<span class="mi">28</span>     <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+<span class="mi">29</span>         <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;  another arg:&#39;</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
+<span class="mi">30</span>     <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="mi">31</span>
+<span class="mi">32</span> <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="mi">33</span>     <span class="n">b</span><span class="o">.</span><span class="n">start_up</span><span class="p">()</span>
+<span class="mi">34</span>
+</pre></div>
+</div>
+<p>This module will be the home of the user coded portion of the
+application.  Obviously, PAGE can only prepare a framework for the
+application. What PAGE knows about are, (1) the linkage between the
+GUI module and the support module, (2) the callback functions to be
+located in the support module,  and (3) the class names of the
+toplevel windows.</p>
+<p>The purpose of the support module skeleton is to allow the GUI to
+execute and demonstrate the generated GUI. Let me discuss the
+generated code.</p>
+<p>Lines 1 through 11 are imports needed to execute Python.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="mi">1</span> <span class="c1">#! /usr/bin/env python</span>
+ <span class="mi">2</span> <span class="c1">#  -*- coding: utf-8 -*-</span>
+ <span class="mi">3</span> <span class="c1">#</span>
+ <span class="mi">4</span> <span class="c1"># Support module generated by PAGE version 7l</span>
+ <span class="mi">5</span> <span class="c1">#  in conjunction with Tcl version 8.6</span>
+ <span class="mi">6</span> <span class="c1">#    Jul 24, 2021 07:24:31 PM PDT  platform: Linux</span>
+ <span class="mi">7</span>
+ <span class="mi">8</span> <span class="kn">import</span> <span class="nn">sys</span>
+ <span class="mi">9</span> <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+<span class="mi">10</span> <span class="kn">import</span> <span class="nn">tkinter.ttk</span> <span class="k">as</span> <span class="nn">ttk</span>
+<span class="mi">11</span> <span class="kn">from</span> <span class="nn">tkinter.constants</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>Line 11 was added because the Tk constants, such as END and NW as
+frequently used and this import statement makes it a bit easier.</p>
+<p>Line 13 imports the class definitions of GUI classes defining the
+toplevel windows. In this case b.py, the corresponding GUI file
+is imported.</p>
+<p>Lines 15 through 28 is the function main which is main entry point for
+the application.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">15</span> <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="mi">16</span>     <span class="s1">&#39;&#39;&#39;Main entry point for the application.&#39;&#39;&#39;</span>
+<span class="mi">17</span>     <span class="k">global</span> <span class="n">root</span>
+<span class="mi">18</span>     <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+<span class="mi">19</span>     <span class="n">root</span><span class="o">.</span><span class="n">protocol</span><span class="p">(</span> <span class="s1">&#39;WM_DELETE_WINDOW&#39;</span> <span class="p">,</span> <span class="n">root</span><span class="o">.</span><span class="n">destroy</span><span class="p">)</span>
+<span class="mi">20</span>     <span class="c1"># Creates a toplevel widget.</span>
+<span class="mi">21</span>     <span class="k">global</span> <span class="n">_top1</span><span class="p">,</span> <span class="n">_w1</span>
+<span class="mi">22</span>     <span class="n">_top1</span> <span class="o">=</span> <span class="n">root</span>
+<span class="mi">23</span>     <span class="n">_w1</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">Toplevel1</span><span class="p">(</span><span class="n">_top1</span><span class="p">)</span>
+<span class="mi">24</span>     <span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Lines 17 through 20 and line 24 initialize Tkinter. Any application
+code required before the GUI is created should placed before line 17.
+Line 18 creates the toplevel window which may be thought of as the
+root window of the application.</p>
+<p>Line 19</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">19</span>     <span class="n">root</span><span class="o">.</span><span class="n">protocol</span><span class="p">(</span> <span class="s1">&#39;WM_DELETE_WINDOW&#39;</span> <span class="p">,</span> <span class="n">root</span><span class="o">.</span><span class="n">destroy</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>causes the function named as the second parameter to be called when
+the ‘x’ in the corner of the main window title bar is selected. PAGE
+specifies “root.destroy” which terminates Tkinter. You should change
+it to any termination or cleanup function your application requires
+upon GUI termination.  Alternatively, cleanup code could be placed
+after line 24.  Other application windows will not have a similar
+protocol statement; hence selecting ‘x’ in one of those windows merely
+destroys that window. Line 19 is present because I did not want the
+application user to be able to close all the GUI windows and still
+have the program running with no obvious way to stop it.</p>
+<p>Lines 18 and 22 through 24 actually creates the root toplevel window
+with the first class defined in the GUI module at the same time as
+initiating Tkinter. It is treated as the main window of the GUI. As
+such the main window cannot be destroyed without terminating
+Tkinter. Terminating Tkinter does not terminate the application. That
+occurs when main is finished. Therefore, required termination code can
+be placed after in main after line</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">24</span>     <span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If you need initialization code after the GUI is created but before the
+application user interacts with the GUI, place it before line 24 which
+completes the GUI creation and the application execution is then
+controlled by the GUI.</p>
+<p>The generated code for a skeletal callback functions is very simple:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">30</span> <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="mi">31</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;m_support.quit&#39;</span><span class="p">)</span>
+<span class="mi">32</span>     <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+<span class="mi">33</span>         <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;another arg:&#39;</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
+<span class="mi">34</span>     <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The code generated as above is so generated that the GUI module and
+the support module will be an executable pair.  That is, you can
+execute the GUI module and see what it will look like even though you
+have put in no additional application code. If the GUI invokes a
+callback, say by a button select, the program will tell you that it
+was invoked and will print out any arguments passed to the
+routine. Now you have a leg up, go program.</p>
+<p>As a convenience, the following code is added at the bottom of the
+support module to aid in debugging.  If you are debugging the support
+module and want to test its execution, you can just execute it.  I
+found it particularly useful since I do my development in emacs where
+I have a key binding which will invoke python to execute the current
+buffer. Often that is the support module.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+     <span class="n">example</span><span class="o">.</span><span class="n">start_up</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Some of these features are further explored in <a class="reference internal" href="use.html#applications-with-multiple-top-level-windows"><span class="std std-ref">Applications with Multiple Toplevel Windows</span></a>.</p>
+</div>
+<div class="section" id="updating-the-support-module">
+<span id="update7"></span><h2>Updating the Support Module<a class="headerlink" href="#updating-the-support-module" title="Permalink to this headline">¶</a></h2>
+<p>You have written a substantial body of application code,
+and discover that you need an additional widget in the GUI module;
+what to do?</p>
+<p>First invoke PAGE with the project name, add the widget with all its
+configuration including callbacks and Tk variables. Then generate
+Python code for the GUI module just like before.  You sure do not want
+to rebuild the support module anew and erase all of your hand code.
+So when you tell PAGE to generate your support module, it gives you
+the option of updating the existing support module. If selected, PAGE
+will merely add skeletons for the new callbacks and add the new Tk
+variables.  In addition, it will backup the previous version of the
+modules in case of failure or PAGE bugs. etc..  PAGE will keep backups
+to a depth specified in the preferences.  See <span class="xref std std-ref">backup preferences</span>.</p>
+<p>For version 7, the automatic update function has been expanded to
+consider the addition and deletions of toplevel windows except for the
+root window, and the changing of the class names of the toplevel
+windows.</p>
+<p>The update function no longer has anything to do with Tk variables
+other than those required for popup (context) menus. There is no
+longer a function named “set_Tk_var”.</p>
+<p>Skeletal callback functions are simply added near the bottom of the support
+module. Do with them what you will.</p>
+<p>Updating the support module prior to version 7 only added code to the
+module. Doing so did not change any existing code. With version 7 and the
+capability of adding, deleting, and renaming of toplevel windows it
+becomes necessary to change code in the support module when
+executing the update function. Remember that a goal of that function is to
+allow the support module to execute showing the layout and content of
+the GUI windows.</p>
+<p>Creation of a new window is easy, updating just adds a little code
+near the bottom of main.</p>
+<p>Changing the name of the toplevel window class
+leads to changing
+the code that creates the object to a comment and following it with a
+new creation line of code like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_top3</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Toplevel</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+<span class="c1"># _w3 = unknown.Toplevel3(_top3)</span>
+<span class="n">_w3</span> <span class="o">=</span> <span class="n">unknown</span><span class="o">.</span><span class="n">Hello</span><span class="p">(</span><span class="n">_top3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this example the alias of the toplevel widget was changed from
+Toplevel3 to Hello. If this change were not made then the module would
+not execute because the toplevel class “Toplevel3” no longer
+exists. Note this substitution only applies to toplevel creation code
+that adheres to exact format of the automatically generated code. If
+you manually insert creation code in the support module you will have
+to fix it manually.</p>
+<p>With deleting toplevel windows, things are a little stickier.  A
+general rule I follow is to never remove code from the support module
+when applying updates. My first thought was to comment out the
+statement in the support module which creates the toplevel
+window. However, that statement also creates the variable _w&lt;int&gt;
+which may occur throughout the module and I am really unable to deal
+which that. There are just too many possibilities to handle. So I have
+decided that it is best if I try doing nothing. That is further
+justified by the expectation that deleting an existing top level will
+be a rare event.  However, if you attempt to execute the application
+from a Python console by selecting the run button, you will may get a
+window indicating that manual changes to the support module are
+needed.</p>
+<p>The toplevel window changes above rely on finding and modifying
+specific code patterns as generated by PAGE. It is possible that user
+code cleverly uses modified code sequences for manipulating toplevel
+windows. In such cases, all bets are off. The “clone” example is an
+example where a toplevel window is created by a non-standard code
+sequence.</p>
+</div>
+<div class="section" id="major-compatibility-issues">
+<span id="compat7"></span><h2>Major Compatibility Issues<a class="headerlink" href="#major-compatibility-issues" title="Permalink to this headline">¶</a></h2>
+<p>Version 7 of PAGE is compatible with respect to project files, mostly. This
+version does accept and can modify existing project files with only
+one problem observed. When the project file contains popup menus, it
+is necessary to run PAGE on the project file, select the popup file
+from the Widget Tree, and add the name of the popup function to the
+“proc” attribute in the Attribute Editor. With a legacy project those
+names are likely to be popup1, popup2, etc..</p>
+<p>Generated GUI modules are quite different from the old format but that
+should not be a problem because they are generated automatically and
+should not be changed by the user. The major difference is that the
+GUI modules may now contain more than one class definition each of
+which defines a separate toplevel widget allowing a simpler way to
+have multiple toplevel GUI’s. Note also that all of the Tk variables
+required by a toplevel widget are defined as instance variables inside
+the class statement.</p>
+<p>As seen above, there are significant changes to the support module which
+will affect the user. Let me elaborate.</p>
+<p>First, the support module begins execution in the “main” function of
+the support module. This allows the user to call application code
+before GUI toplevel windows are created. That is, the application can
+now execute initialization code before doing anything with the GUI or
+Tkinter.
+A lack of this has been a shortcoming
+of earlier versions. Make such calls before Tkinter is initialized
+at the line:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">TK</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Similarly, application code can be executed after Tkinter exits at
+the line:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Of course, that would require Tkinter be ended with “root.destroy()”
+rather than “sys.exit().</p>
+<p>Next, you will notice that the support module does not contain a skeletal
+init function. In earlier versions of PAGE, execution began in the GUI
+module and a call to the init function passed control to user
+generated code in the support module as well as reference variables to the
+toplevel widget and the class object which populate the toplevel
+widget. Since execution begins in “main” in the support module and
+references to toplevels and populating classes are already there,
+there is no point to build init functions.</p>
+<p>Earlier versions used the variables “top_level” and “w”. To warn users
+that the PAGE variables should be used with caution, version 7
+prepends “_” and appends an integer to these variables, so “top” and
+“w” became “_top1” and “_w1” for example. The integer is derived from
+the naming scheme used in the project module. GUI’s created with
+Version 7 will have numbers like 1, 2, 3, etc., earlier versions used
+a less transparent naming scheme.</p>
+<p>The first toplevel class encountered in the GUI becomes “root” and is
+special in the sense that the creation of the root window initiates
+Tkinter and its destruction terminates Tkinter.</p>
+<p>Earlier versions of PAGE generated a “destroy_window” function but
+version 7 does not. The reasons include</p>
+<ol class="arabic simple">
+<li>Destroying the the root window would terminate the Tkinter,
+destroying the others would not.</li>
+<li>Toplevel windows already have a destroy method. So coding
+“_top3.destroy()” is as simple as “destroy_window3()”.</li>
+<li>Toplevel windows have a number of useful methods such as withdraw,
+deiconify, and a dozen more. Clearly one does not want a host of
+such functions gratuitously added.</li>
+<li>Consistency would require functions for each toplevel and again,
+that seems excessive.</li>
+</ol>
+<p>The final compatibility issue: the facility for upgrading the support
+module will not convert an earlier support module to a version 7
+support module.</p>
+<p>The support module no longer contains the function “set_Tk_var”. Its
+former contents have been placed in the class function of the toplevel
+needing the variable. This has two benefits:
++ one does not have name collisions from using the same names across</p>
+<blockquote>
+<div>toplevel widgets.</div></blockquote>
+<ul class="simple">
+<li>the Tk variables are instance variables meaning that it is possible
+to multiple copies of the same toplevel widget each with its own
+value of the Tk variables.</li>
+</ul>
+</div>
+<div class="section" id="migrating-existing-projects">
+<h2>Migrating Existing Projects<a class="headerlink" href="#migrating-existing-projects" title="Permalink to this headline">¶</a></h2>
+<p>To approach the subject of migration, let me discuss my migration of
+some of the examples. I will start with the simplest examples where the
+project contained just one toplevel window and then a multi-widget example.</p>
+<p>With an example like “calendar”, I first opened the project file
+“cal.tcl” in PAGE and generated and saved the GUI module and the
+support module. Next I opened both the support module and the previous
+support module in my favorite editor and copied the various hand
+modified routines from the old support module into the new support
+module, placing them just above the line:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Since I had used the variable “w” to reference the top level window,
+I included the init function as well. To link between the “main”
+function and the init function, I added the function call:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">init</span><span class="p">(</span><span class="n">_top1</span><span class="p">,</span> <span class="n">_w1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>as the penultimate line of “main”.
+After that I only had to copy a couple of import statements:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">calendar</span>
+</pre></div>
+</div>
+<p>and the application ran correctly. I used the generated skeleton to
+tell me which functions to copy from the old support
+module. Obviously, I had to include the whole call tree of function
+referred to by the newly included functions. To serve as a guide,
+I left in the generated skeleton functions. They are replaced by later
+functions of the same name.</p>
+<p>Consider next the vrex example.
+Here I opened ‘vrex.tcl’ in PAGE and then used the borrow facility to
+bring in ‘help.tcl’ from which I did a copy and paste of the help
+toplevel unto the vrex toplevel. I then saved the vrex project, quit
+PAGE, and then reopened ‘vrex.tcl’ with PAGE and then generated and
+saved the GUI module and support module.</p>
+<p>Opening the support module in an editor, I then added the functions
+from the old support module including init which does significant
+post-creation initialization and so I added the line of code</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">init</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">_w1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>to “main” as in the previous example.</p>
+<p>Since I do not wish to have the help window to open until the help
+function is invoked, I moved the three creation statements for the
+help window from the main function to the help function. I then
+copied the support functions from help_support.py to
+vrex_support.py. The init function in help_support.py has only one
+operative statement:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load_vrex_help</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">TScrolledtext1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>I placed that line of code at the bottom of the help function changing
+‘w’ to ‘_w2’. Similarly, I changed ‘top’ to ‘_top2’ in the close
+function.</p>
+<p>One of the results of executing the init function is to establish global
+variables ‘w’ and ‘top’ as references to ‘_w1’ and ‘_top1’. This works
+fine for the vrex support routines and saved me from having search and
+change those variables in the vrex support routines.
+In the help support routines the variables ‘w’ and ‘top’ occurred only
+once so they were manually changed.</p>
+<p>Of course, I needed to add the following import statement:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">filedialog</span>
+</pre></div>
+</div>
+<p>In addition to the considerations above, it may be that one encounters
+a call back function which starts with the line:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">startup</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>in an earlier support module where the new callback would be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">startup</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>So modify the code to be of the form:</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">PAGE</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interface.html">The PAGE Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preferences.html">Defaults and Preferences</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Module Structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#project-directory">Project Directory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gui-module">GUI Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#support-module">Support Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#updating-the-support-module">Updating the Support Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#major-compatibility-issues">Major Compatibility Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#migrating-existing-projects">Migrating Existing Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="themes.html">Styles and Themes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use.html">Using PAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use.html#saving-of-page-files">Saving of PAGE Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="menu.html">Menus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rework.html">Rework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rework.html#reuse">Reuse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ttkwidget.html">Ttkwidgets Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="final.html">Epilogue</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="preferences.html" title="previous chapter">Defaults and Preferences</a></li>
+      <li>Next: <a href="themes.html" title="next chapter">Styles and Themes</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2008 - 2021 Donald Rozenberg.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/modules.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

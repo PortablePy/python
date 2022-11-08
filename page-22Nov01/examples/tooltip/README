@@ -1,0 +1,12 @@
+
+This example has three button widgets one of which, the Dest button
+has a tool tip.
+
+When the Change button is selected, The tooltip message is changed and
+a tooltip is added to the Quit button.
+
+The addition of the tooltip to the quit button requires access to the
+definition of the Tooltip class.  The code definition of the ToolTip
+class was added to the GUI module because I had specified a tooltip
+for the Change button. If I had not set up a tooltip in the GUI module I
+would have had to add that code manually to the support module.

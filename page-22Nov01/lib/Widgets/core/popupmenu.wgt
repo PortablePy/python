@@ -1,0 +1,337 @@
+# $Id: menu.wgt,v 1.13 2002/11/03 08:19:37 cgavin Exp $
+
+##############################################################################
+#
+# Visual TCL - A cross-platform application development environment
+#
+# Copyright (C) 2001 Damon Courtney, Donald Rozenberg 2020
+#
+# Description file for Tk Widget
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+##############################################################################
+#
+
+Class       Popupmenu
+Lib         core
+
+Icon        icon_menubutton.gif
+TreeLabel   @vTcl::widgets::core::popup::getWidgetTreeLabel
+#DefaultValues -background
+#DefaultValues -font -background -forground -activebackground activeforeground
+DefaultOptions  -font \$vTcl(actual_gui_font_menu_desc)\
+  -background \$vTcl(actual_gui_menu_bg) -foreground \$vTcl(actual_gui_menu_fg) \
+    -activebackground \$vTcl(analog_color_m) \
+    -activeforeground \$vTcl(active_fg)
+    #-proc "popup"
+    #-highlightbackground \$vTcl(actual_gui_bg)
+
+NewOption -menuspecial      "menu"          menuspecial
+NewOption -tearoff          "tearoff"       boolean "0 1"
+NewOption -postcommand      "post cmd"      command
+NewOption -tearoffcommand   "tearoff cmd"   command
+NewOption -title            "title"         type
+
+ClassOption    -proc
+NewOption      -proc "proc name" type
+
+# Since popup menus are special cases of menu widgets the Create
+# Command can be simply menu,
+CreateCmd       vTcl::widgets::core::popup::createCmd
+DoubleClickCmd  vTcl::widgets::core::popup::dblClkCmd
+#CreateCmd     menu
+DumpCmd       vTcl::widgets::core::popup::dumpCmd
+DumpInfoCmd   vTcl::widgets::core::popup::dumpInfoCmd
+DeleteCmd     vTcl::widgets::core::popup::deletePopup
+GetImagesCmd  vTcl::widgets::core::popup::getImagesCmd
+GetFontsCmd   vTcl::widgets::core::popup::getFontsCmd
+
+# The following 3 commands added for to allow  a new attribute "-proc".
+OptionConfigCmd -proc get    vTcl::widgets::core::popup::get_load_cmd
+OptionConfigCmd -proc update vTcl::widgets::core::popup::update_load_cmd
+OptionConfigCmd -proc config vTcl::widgets::core::popup::config_load_cmd
+
+Function   "Edit Menu..."        vTcl::widgets::core::popup::editMenu
+
+namespace eval vTcl::widgets::core::popup {
+
+    proc createCmd {target args} {
+        # Rozen. My attempt to support popup menus.
+        #uplevel #0 eval menu $args
+        global vTcl
+        namespace eval ::widgets::${target}::proc {}
+        namespace eval ::widgets::${target}::options {}
+        namespace eval ::widgets::${target}::save    {}
+        namespace eval ::widgets::${target}::ClassOption    {}
+        if {![info exists vTcl(no_popups)]} {set vTcl(no_popups) 0}
+        incr vTcl(no_popups)
+        set var popup$vTcl(no_popups)
+        set ::widgets::${target}::ClassOption(-proc) $var
+        set vTcl($target,-proc) $var
+        menu $target {*}$args
+    }
+
+    proc getWidgetTreeLabel {target} {
+        set components [split $target .]
+        # let's see if the parent is a menu
+        set size [llength $components]
+        # parent is at least a toplevel
+        if {$size <= 3} {
+            return "Context memu"
+        }
+        set parent [lrange $components 0 [expr $size - 2] ]
+        set parent [join $parent .]
+        if { [vTcl:get_class $parent 1] != "popup" } {
+        return "Context Menu"
+        }
+        for {set i 0} {$i <= [$parent index end]} {incr i} {
+            if { [$parent type $i] != "cascade" } {
+                continue
+            }
+            set menuwindow [$parent entrycget $i -menu]
+            if {$menuwindow == $target} {
+                return [$parent entrycget $i -label]
+            }
+        }
+        return "Pop Menu"
+    }
+
+    proc editMenu {} {
+        dblClkCmd $::vTcl(w,widget)
+    }
+    proc dblClkCmd {target} {
+        global vTcl
+        #set vTcl(w,opt,-menu) [$target cget -menu]
+        vTcl:edit_target_menu $target
+
+    # this is necessary in order for the -menu option to be set right now
+        update
+
+        vTcl:prop:save_opt $target -menu vTcl(w,opt,-menu)
+    }
+
+
+    proc deletePopup {m} {
+        # this will be used later
+        set editor [::popup_edit::is_open_existing_editor $m]
+
+        ::popup_edit::delete_popup_recurse $m
+
+        # well, this is not enough to destroy the popup itself,
+        # we better tell its parent that it's not there as well
+
+        set items [split $m .]
+        set items [lrange $items 0 [expr [llength $items] - 2] ]
+
+        set parent [join $items .]
+
+        # now, let's see if the parent contains the child menu (should)
+
+        set class [vTcl:get_class $parent]
+        if {$class == "Toplevel"} then {
+                # it's a toplevel, just removes its menu
+                $parent configure -menu ""
+
+                # closes any open menu editor for this menu
+                if {$editor != ""} {
+                destroy $editor}
+
+                return
+        }
+
+        if {$class != "Popupmenu"} then return
+
+        set last [$parent index end]
+
+        for {set i 0} {$i <= $last} {incr i} {
+                set mtype [$parent type $i]
+                if {$mtype != "cascade"} then continue
+
+                set submenu [$parent entrycget $i -menu]
+                if {$submenu == $m} then {
+                # this is the one
+                $parent delete $i
+                break
+                }
+        }
+
+        # now, we will refresh any possibly open menu editor
+
+        if {$editor != ""} {
+                ::popup_edit::refreshes_existing_editor $editor
+        }
+    }
+
+    proc getOption {target option} {
+        set result {}
+        set size [$target index end]
+        if {[vTcl:streq $size "none"]} { return {} }
+        for {set i 0} {$i <= $size} {incr i} {
+        if {![catch {$target entrycget $i $option} value]} {
+                lappend result $value
+            }
+        }
+        return $result
+    }
+
+    proc getImagesCmd {target} {
+        return [getOption $target -image]
+    }
+
+    proc getFontsCmd {target} {
+        return [getOption $target -font]
+    }
+
+    proc dumpCmd {target basename} {
+        # Important code in  vTcl:dump:widgets in dump.tcl
+        ## discard temporary items
+        global vTcl basenames
+        if {[string first .# $target] >= 0} {
+            return ""
+        }
+        #set result [vTcl:dump:widget_info $target $basename];# NEEDS WORK popup
+        ##  dump the menu widget
+        set result [vTcl:dump_widget_opt $target $basename]
+        ## any entries in the menu?
+        set entries [$target index end]
+        if {$entries == "none"} {return $result}
+        ## then all its submenus
+        for {set index 0} {$index <= $entries} {incr index} {
+            set conf [$target entryconf $index]
+            set type [$target type $index]
+            switch $type {
+                tearoff {}
+                cascade {
+                    ## to allow option translation
+                    set pairs [vTcl:get_subopts_special $conf $target]
+                    append result "$vTcl(tab)$basename add $type \\\n"
+                    append result "[vTcl:clean_pairs $pairs]\n"
+
+                    set sitevariable "site_[llength [split $target .]]_0"
+                    append result "$vTcl(tab)"
+#                    append result "set $sitevariable [vTcl:base_name $target]\n"
+                    append result "set $sitevariable \".\"\n"
+                    set basenames($target) \$$sitevariable
+
+                    ## dump menu recursively
+                    set childMenu [$target entrycget $index -menu]
+                    #set childBasename [vTcl:base_name $childMenu]
+                    set childBasename $childMenu
+                    append result [dumpCmd $childMenu $childBasename]
+                    catch {unset basenames($target)}
+                }
+                default {
+                    # to allow option translation
+                    set pairs [vTcl:get_subopts_special $conf $target]
+                    append result "$vTcl(tab)$basename add $type \\\n"
+                    append result "[vTcl:clean_pairs $pairs]\n"
+                }
+            }
+        }
+
+        return $result
+    }
+
+    proc dumpInfoCmd {target basename} {
+        ## discard temporary items
+        if {[string first .# $target] >= 0} {
+            return ""
+        }
+        global vTcl basenames classes
+        ## first dump the menu widget info
+        set result [vTcl:dump:widget_info $target $basename]
+
+        ## any entries in the menu?
+        set entries [$target index end]
+        if {$entries == "none"} {return $result}
+
+        ## then all its submenus
+        for {set index 0} {$index <= $entries} {incr index} {
+            set conf [$target entryconf $index]
+            set type [$target type $index]
+            switch $type {
+                cascade {
+                    set sitevariable "site_[llength [split $target .]]_0"
+                    append result "$vTcl(tab)"
+                    append result "set $sitevariable [vTcl:base_name $target]\n"
+                    set basenames($target) \$$sitevariable
+
+                    ## dump menu recursively
+                    set childMenu [$target entrycget $index -menu]
+                    set childBasename [vTcl:base_name $childMenu]
+                    set childClass [vTcl:get_class $childMenu]
+                    append result [$classes($childClass,dumpInfoCmd) \
+                                       $childMenu $childBasename]
+                    catch {unset basenames($target)}
+                }
+
+                default {
+                }
+            }
+        }
+        return $result
+    }
+
+    # The following 3 procs added for to allow  a new attribute "-proc".
+    proc get_load_cmd {target} { ;# NEEDS WORK popup
+        # Called by vTcl:widget:register_widget_custom in widget.tcl
+        # At this point I don't know what it should return.
+        global vTcl
+        if {[info exists vTcl($target,-proc)]} {
+            set v $vTcl($target,-proc)
+        } else {
+            set v ""
+        }
+        set vTcl(w,opt,-proc) $v
+
+        if {![info exists ::widgets::${target}::proc]} {
+            # namespace eval ::widgets::${target} {
+            #     variable proc
+            #     set proc $var
+            # }  ;# 8/26/18
+            namespace eval ::widgets::${target}:proc {}
+        }
+        set ::widgets::${target}::proc $v
+        return [set ::widgets::${target}::proc]
+    }
+
+    proc update_load_cmd {target var} {
+        global vTcl
+        # Called to load the current value into the prop manager (propmgr.tcl)
+        # What actually get stuffed in the Attribute Editor is
+        # vTcl(w,opt,-proc)
+        if {[info exists vTcl($target,-proc)]} {
+            set [set var] $vTcl($target,-proc)
+        } else {
+            set [set $var]  ""
+        }
+        set ::widgets::${target}::proc $var
+    }
+
+    proc config_load_cmd {target var} {
+        # Called when the value is changed by the prop manager.
+        global vTcl
+        # I should just store the var in the appropiate vTcl variable.
+        regsub {\.bor[1-9]+} $target "\$top" target
+        set vTcl($target,-proc) $var
+        set ::widgets::${target}::ClassOption(-proc) $var
+        set ::widgets::${target}::options(-proc) $var
+        set ::widgets::${target}::save(-proc) [expr {$var != ""}]
+        set ::widgets::${target}::proc $var
+        wm title $target $var
+        update
+    }
+}

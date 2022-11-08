@@ -1,0 +1,10 @@
+
+This example, written by Bill Roberts, employs the tksheet widget as a
+custom widget. While tksheet is quite complex, almost 1 MB in the
+install directory, very little code was required in the support module
+to build this example. The tksheet was created by ragardner and can
+be found at https://github.com/ragardner/tksheet. Unfortunately, the
+tksheet package was released with incomplete documentation.
+
+I revised it to use the new module layout.
+

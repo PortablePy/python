@@ -1,0 +1,26 @@
+To use these icons as stock images fpr the Widget Tree.
+
+1. Move icon here.
+2. Convert to jif: convert <icon name>.png <name with _'s>.gif
+3. Copy gif to ../edit
+4. Add new icon name to vTcl:init_stock.
+
+
+
+To put a smaller version on the inside of an image
+
+1. Open png in gimp.
+2. Image->Scale Image... and make image a bit smaller.
+3. Control-C to copy image.
+4. Create new image the size you want. Set the background.
+5. Control-V to paste the cut into the new image.
+6. Move it around to desired location and Control-H to freeeze location.
+
+
+buttonCloseBorrowed use "exit.gif" as its image.
+1. convert User-Interface-Exit-Icon-Fixed2.png exit.gif
+2. cp exit.gif ../edit
+
+buttonExpandShells uses "expand.gif" as its image.
+1. convert expand-square-interface-button-of-two-arrows-fixed.png expand.gif
+2 cp expand.gif ../edit

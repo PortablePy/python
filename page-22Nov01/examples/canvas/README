@@ -1,0 +1,4 @@
+
+For the version 7 release of PAGE, I rewrote the example to use the
+Scrolledwindow widget. This greately simplified the example.
+

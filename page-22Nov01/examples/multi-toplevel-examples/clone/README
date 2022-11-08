@@ -1,0 +1,6 @@
+
+	This example contains an application where the main program,
+main.py, displays a GUI with two buttons, the interesting one of which
+cause another GUI defined by the class Called to be created
+twice. Then each of those may create a clone a variable number of
+times.

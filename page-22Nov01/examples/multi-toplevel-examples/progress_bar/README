@@ -1,0 +1,13 @@
+
+	 This directory contains two examples which examplyfy progress
+bars.  The first, "one", incorporates the progress bar in the main
+toplevel.  while the other, "two", has the progress bar in a separate
+toplevel widget.
+
+
+     To run "one" use the command "python3 one .py"
+	 
+	 To run "two" use the command "python3 new.py".
+
+
+
