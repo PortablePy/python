@@ -1,0 +1,6 @@
+{{extend 'layout.html'}}
+<h1>Our First Web Page</h1>
+
+<h2>
+    {{=msg}}
+</h2>

@@ -1,0 +1,17 @@
+{{extend 'layout.html'}}
+<h1>Update</h1>
+
+{{  if isValid: }}
+{{=form }}
+{{ pass }}
+
+{{ if isValid: }}
+<p>
+    Not Authorized
+</p>
+{{ pass }}
+
+
+<br/>
+<hr/>
+| <a href='../view'>View</a> | <a href='../post'>Post</a> | <a href='../myposts'>My Post</a> |

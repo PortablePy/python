@@ -1,0 +1,16 @@
+{{extend 'layout.html'}}
+<h1>California Coast Blog</h1>
+<hr/>
+{{ for x in rows: }}
+<div class='row'>
+    <img  class='col col-lg-4 col-md-4 col-sm-4' src='{{=x.blog_image}}' alt='blog image' />
+    <div class='col col-lg-8'>
+        <p class='lead'>
+            <b><a href='{{=x.blog_url}}' target='_new'>{{=x.blog_title}}</a></b>
+        </p>
+        <p><b>Category: </b> {{=x.blog_category}}</p>
+        <p>{{=x.blog_details}}</p>
+        <p>{{=x.blog_date_posted}}</p>
+    </div>
+</div>
+{{ pass }}

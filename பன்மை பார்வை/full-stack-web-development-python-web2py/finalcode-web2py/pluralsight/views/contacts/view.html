@@ -1,0 +1,23 @@
+{{extend 'layout.html'}}
+<h1>Contacts</h1>
+    | <a href='/{{=request.application}}/{{=request.controller}}/add'>new</a>
+    | <a href='/{{=request.application}}/{{=request.controller}}/view/A'>A</a>
+    | <a href='/{{=request.application}}/{{=request.controller}}/view/B'>B</a>
+    | <a href='/{{=request.application}}/{{=request.controller}}/view/C'>C</a>
+    | <a href='/{{=request.application}}/{{=request.controller}}/view'>All</a>  
+    |
+
+<table class='table table-striped table-hover'>
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Web</th>
+    </tr>
+{{ for x in rows: }}
+    <tr>
+        <td><a href='/{{=request.application}}/{{=request.controller}}/update/{{=x.id}}'>{{=x.last_name}}, {{=x.first_name}}</a></td>
+        <td>{{=x.address}}</td>
+        <td><a href='{{=x.web}}' target='_new'>{{=x.web}}</a></td>
+    </tr>
+{{ pass }}
+</table>
