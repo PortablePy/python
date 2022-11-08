@@ -1,0 +1,27 @@
+Reference Links
+===================
+
+Wikipedia Tesla Page
+https://en.wikipedia.org/wiki/Tesla,_Inc.
+
+Jupyter & Jupyter Lab
+https://jupyter.org/
+
+Python Requests Library
+https://requests.readthedocs.io/en/master/
+
+Python Beautiful Soup Library
+https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+
+Pluralsight - Python Packages & Virtual Environments
+https://app.pluralsight.com/library/courses/managing-python-packages-virtual-environments/table-of-contents
+
+Why you should use pyenv + pipenv
+https://hackernoon.com/reaching-python-development-nirvana-bb5692adf30c
+
+Python Virtual Environments
+https://realpython.com/python-virtual-environments-a-primer/
+
+Basic Usage of pipenv
+https://pipenv.readthedocs.io/en/latest/basics/#example-pipenv-workflow
+

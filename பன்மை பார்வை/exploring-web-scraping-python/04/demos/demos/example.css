@@ -1,0 +1,59 @@
+body {
+    background-color: aliceblue;
+    margin: 0;
+    position: relative;
+}
+
+h1 {
+    background-color: rgb(0, 97, 158);
+    font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
+    color: white;
+    padding: 10px 0 10px 10px;
+    margin: 0;
+}
+
+ul {
+    display:block;
+    float:left;
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.auto-listing {
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.3);
+    background-color: #fff;
+    color: #333;
+    margin: 10px 0;
+    padding: 10px 0 10px 10px;
+    border: solid 1px gray;
+}
+
+.model {
+
+}
+
+.price {
+
+}
+
+.description {
+
+}
+
+div.scratchpad {
+    position: absolute;
+    right: 100px;
+    top: 100px;
+    width: 50%;
+    display: none;
+}
+
+textarea.edit-box {
+    font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
+    font-size: larger;
+    width:90%;
+    padding: 10px 0 10px 10px;
+    margin: 10px;
+}

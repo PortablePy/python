@@ -1,0 +1,14 @@
+Reference Links
+===================
+
+Scrapy Installation
+https://docs.scrapy.org/en/latest/intro/install.html
+
+Scrapy Tutorial
+https://docs.scrapy.org/en/latest/intro/tutorial.html
+
+Scrapy Spiders
+http://docs.scrapy.org/en/latest/topics/spiders.html
+
+Using Splash with Scrapy (JavaScript Rendering)
+https://splash.readthedocs.io/en/stable/api.html

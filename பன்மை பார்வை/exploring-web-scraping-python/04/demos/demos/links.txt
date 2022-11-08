@@ -1,0 +1,20 @@
+Reference Links
+===================
+
+Chrome Developer Tools
+https://developers.google.com/web/tools/chrome-devtools
+
+Python Requests Library
+https://requests.readthedocs.io/en/master/
+
+Python Beautiful Soup Library
+https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+
+XPath Tutorial
+https://docs.scrapy.org/en/xpath-tutorial/topics/xpath-tutorial.html
+
+Wikipedia Tesla Page
+https://en.wikipedia.org/wiki/Tesla,_Inc.
+
+Bloomberg Tesla Model 3
+https://www.bloomberg.com/graphics/2019-tesla-model-3-survey/
