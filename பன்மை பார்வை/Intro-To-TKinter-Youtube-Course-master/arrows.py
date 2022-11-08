@@ -10,7 +10,7 @@ h = 400
 x = w/2
 y = h/2
 
-my_canvas = Canvas(root, width=w, heigh=h, bg="white")
+my_canvas = Canvas(root, width=w, heigh=h, bg="red")
 my_canvas.pack(pady=20)
 
 my_circle = my_canvas.create_oval(x, y, x+20, y+20 )

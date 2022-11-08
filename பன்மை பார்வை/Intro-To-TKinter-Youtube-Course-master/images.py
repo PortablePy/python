@@ -3,7 +3,7 @@ from PIL import ImageTk,Image
 
 root = Tk()
 root.title('Learn To Code at Codemy.com')
-root.iconbitmap('c:/gui/codemy.ico')
+root.iconbitmap('codemy.ico')
 
 
 my_img = ImageTk.PhotoImage(Image.open("images/aspen.png"))

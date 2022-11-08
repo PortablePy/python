@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.ttk import *
 from datetime import datetime
 from tkinter import messagebox
 
@@ -22,13 +23,13 @@ def age():
 		# Show Error Message
 		messagebox.showerror("Error", "You forgot to enter your age!")
 
-my_label = Label(root, text="Enter Year Born", font=("Helvetica", 24))
+my_label = Label(root, text="Enter Year Born")
 my_label.pack(pady=20)
 
-my_entry = Entry(root, font=("Helvetica", 18))
+my_entry = Entry(root,)
 my_entry.pack(pady=20)
 
-my_button = Button(root, text="Calculate Age!", font=("Helvetica", 18), command=age)
+my_button = Button(root, text="Calculate Age!", command=age)
 my_button.pack(pady=20)
 
 
