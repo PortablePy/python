@@ -1,0 +1,258 @@
+2. Getting an Environment & Data: CDH + StackOverflow   
+In this module we will get the necessary environment as well as the data.
+
+*** Prerequisites & Known Issues ***
+As it is usual with any software installation, please check that you fulfill the necessary requirements. Please use the following link to be directed to Cloudera's Spark 2 Requirements page: 
+  http://tiny.bigdatainc.org/sparkreq
+
+You can also check the known issues at:
+  http://tiny.bigdatainc.org/spark2ki
+
+*** Upgrading Cloudera Manager and CDH ***
+For Spark you need Java 8 (JDK 1.8), which is supported in CDH 5.3 and higher. If your cluster has a lower version of CDH, please upgrade first. To check version please log in to your Cloudera Manager and click on the parcel icon at the top, which looks like a closed box and check which parcel version you are using. In my case I am using:
+    CDH 5       5.11.1-1.cdh5.12.1.p0.3     Distributed, Activated
+
+This version works well for our needs, however I will update to the latest CDH version. Please see the video for details on upgrading maintenance fixes and minor versions.
+
+*** Upgrading to Java 8 (JDK 1.8) ***
+Spark 2.x needs Java 8. Usually Java 7 (or JDK 1.7) is installed. The steps necessary to upgrade are included in detail in the documentation, and there are many ways of installing Java 8. Here are a few ways to upgrade your cluster's JDK version:
+- First, make sure that all services are stopped 
+Additionally, Java 8 requires at a minimum CDH 5.3, which I already briefly covered how to upgrade. 
+
+Before you upgrade the JDK, you need to:
+  > Stop Cloudera Management Service from Cloudera Manager
+  > Stop all services
+  > Stop all agents, this needs to be done in all nodes
+     # service cloudera-scm-agent stop
+  > Stop Cloudera Manager Server, only where CM is installed
+     # service cloudera-scm-server stop
+
+- Check which JDKs are currently installed from the command line. For this purpose navigate to the location where the Java runtime is installed, commonly /usr/java.
+  # cd /usr/java
+  # ls 
+
+The name of the installed version usually contains the version, in this case we can see we have Java 1.7
+  # ls /usr/java
+default  jdk1.7.0_67-cloudera  
+
+- To install Java 8 you can use Cloudera's provided installation package, which you can confirm from this location (at the time of course publishing)
+  https://github.com/cloudera/director-scripts/blob/master/java8/java8-bootstrap-script.sh
+
+The installation commands we are looking for are
+  yum remove --assumeyes *openjdk*
+  rpm -ivh "http://archive.cloudera.com/director/redhat/7/x86_64/director/2.6.0/RPMS/x86_64/oracle-j2sdk1.8-1.8.0+update121-1.x86_64.rpm"
+
+You can also download, distribute to all nodes and install locally using:
+  yum localinstall -y oracle-j2sdk1.8-1.8.0+update121-1.x86_64.rpm
+
+Note: if the previous steps did not work, there are other alternatives on how to install the JDK which you can see below
+
+- You can obtain the latest supported version of Java 8. The 'supported' part can be verified in Cloudera's documentation, to download please navigate to the 'JAVA SE 8 Download Archive', the current one is located at the time of this course in http://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase8-2177648.html (if 404, use Google please)
+
+- Obtain the location of the rpm for installation, i.e. the current latest version is located in http://download.oracle.com/otn/java/jdk/<uniquelink>/jdk-8u141-linux-x64.rpm
+
+This might be a tricky one as Oracle recently implemented a policy where you need to create an account and authenticate before downloading the JDK. You can download using a browser and then copy over. Alternatively, you can get the download link and use the following instructions if you know how to authenticate
+
+- Go to your home directory and download the rpm, and install using yum
+  # cd
+  # mkdir temp
+  # cd temp
+  # wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn/java/jdk/<uniquelink>/jdk-8u141-linux-x64.rpm"
+  # yum localinstall -y jdk-8u141-linux-x64.rpm 
+
+End of note for alternative installation steps, please continue with the other necessary steps
+
+- Configure the location of the JDK in /etc/default/cloudera-scm-server by adding the line below at the end. In this file is where you specify command line arguments for Cloudera Manager Server
+  # vi /etc/default/cloudera-scm-server
+
+And add at the end (you might also want to add the path directly to the JDK) 
+  export JAVA_HOME=/usr/java/latest
+
+Now we will confirm which is the location of the 1.8 and create a symlink
+  ls /usr/java
+  ln -s /usr/java/jdk1.8.0_121-cloudera /usr/java/latest
+  
+Please confirm the symlink exists in /usr/java 
+  # ls /usr/java/latest
+
+And that JAVA_HOME is set correctly. A good way of doing this for your session is by creating a file called java.sh in /etc/profile.d and add the export command, that way it will be set whenever you open a session. This needs to be done only on nodes where you plan to run the pyspark shell
+
+It may be necessary to uninstall an older version of Java, in all nodes, depending on whether you installed directly from Oracle or using Cloudera's provided package, the package name might vary. To determine which specific package it is, use
+  yum list installed | grep oracle
+
+Let's remove Java 7
+  yum remove oracle-j2sdk1.7.x86_64 
+
+And older versions
+  yum remove -y jdk.x86_64
+
+At this point, I will reboot before starting the services
+
+- Start Cloudera Manager Server 
+  # service cloudera-scm-server start
+
+- Start Cloudera Manager agents in all nodes
+  # service cloudera-scm-agent start
+
+- Now, once Cloudera Manager is up, locate the 'Java Home Directory' setting and set to '/usr/java/latest' or directly the JDK location '/usr/java/jdk1.8.0_121-cloudera'
+
+- Start the cluster and Management Service
+
+- Confirm Java 8 is in use by checking from Cloudera Manager Support > About
+    Java Version: 1.8.0_144
+
+Here you can also check the CDH version
+
+*** Getting Spark - There Are Several Options: 1.6 ***
+When getting Spark, there are different versions that you can use. Spark 1.6 is very straightforward as with CDH 5 it can be installed with a couple of clicks, but that is not why we are here. To get Spark 2.x it takes a few more steps.
+
+- First of all, please make sure that you satisfy all prerequisites. In this training we are using C5, which still comes by default with Spark 1.6. As a side exercise, you can install Spark on Yarn or Spark (standalone) and confirm it is version 1.6. Try it, open PySpark and see the version and the ascii art below
+
+  # pyspark
+
+    Welcome to
+          ____              __
+        / __/__  ___ _____/ /__
+        _\ \/ _ \/ _ `/ __/  '_/
+      /__ / .__/\_,_/_/ /_/\_\   version 1.6.0
+          /_/
+
+    Using Python version 2.7.5 (default, Nov  6 2016 00:28:07)
+    SparkContext available as sc, HiveContext available as sqlContext.
+
+Note: you may need to set your memory and allocation settings to at least 1.5 GB for Spark to run and may need to use a user with permission. The settings are: yarn_nodemanager_resource_memory_mb and yarn.scheduler.maximum-allocation-mb and for the user instead of root you could use hdfs or configure your user
+
+*** Getting Spark 2 Standalone ***
+- You can also install Spark standalone, for example in a Mac you use homebrew, please follow these steps
+  # /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)”
+  # brew install python
+  # brew install scala
+  # brew install apache-spark
+
+Additionally you could install IPython - more on this soon.
+
+*** Installing Spark 2 on Cloudera ***
+Here are the steps required to install Spark 2 in C5.
+
+- First, you need to get the CSD (Custom Service Descriptors). At the time of this course, the Distribution of Apache Spark 2 can be found in: https://www.cloudera.com/documentation/spark2/latest/topics/spark2_packaging.html#packaging
+
+Here we can select the release that we want, in our case Spark 2.2. Here we can find the jar file with the CSD called 'SPARK2_ON_YARN-2.2.0.cloudera1.jar' and the location of the parcels, namely http://archive.cloudera.com/spark2/parcels/2.2.0.cloudera1/. Download the jar file please, as we will upload to our cluster in the next step
+
+- Please find the location of Custom Service Descriptor files in your cluster, this can be found in Cloudera Manager in Administration > Settings > Custom Service Descriptors. We have '/opt/cloudera/csd'. Upload the jar and change ownership to cloudera-scm:cloudera-scm with permissions 644
+
+  # chown cloudera-scm:cloudera-scm /opt/cloudera/csd/SPARK2_ON_YARN-2.2.0.cloudera1.jar
+  # chmod 644 /opt/cloudera/csd/SPARK2_ON_YARN-2.2.0.cloudera1.jar
+
+And then restart Cloudera Manager Server
+
+  # service cloudera-scm-server restart
+
+As well as the Management Service, which can be done from Cloudera Manager
+
+- Now we need to add the Spark 2 parcel repository in the remote repository URLs. Click on the parcel status icon at the top in Cloudera Manager (/cmf/parcel/status#clusterId=1&remoteOnly=false) and add the URL (http://archive.cloudera.com/spark2/parcels/2.2.0.cloudera1/)
+
+Click on Download, then Distribute and finally Activate
+
+- Now add the service from Cloudera Manager. Select 'Add Service' and select 'Spark2'.
+
+- Restart services and redeploy client configuration. Spark2 should be up and running now. You can confirm by opening a terminal and running either
+
+# pyspark2
+
+    Welcome to
+          ____              __
+        / __/__  ___ _____/ /__
+        _\ \/ _ \/ _ `/ __/  '_/
+      /__ / .__/\_,_/_/ /_/\_\   version 2.2.0.cloudera1
+          /_/
+
+    Using Python version 2.7.5 (default, Nov  6 2016 00:28:07)
+    SparkSession available as 'spark'.
+    >>> sc.version
+    u'2.2.0.cloudera1'
+
+Or for Scala
+
+  #spark2-shell
+
+    Welcome to
+        ____              __
+      / __/__  ___ _____/ /__
+      _\ \/ _ \/ _ `/ __/  '_/
+    /___/ .__/\_,_/_/ /_/\_\   version 2.2.0.cloudera1
+        /_/
+
+    Using Scala version 2.11.8 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_144)
+    Type in expressions to have them evaluated.
+    Type :help for more information.
+
+    scala> sc.version
+    res0: String = 2.2.0.cloudera1
+
+You now have Spark 2 in Cloudera
+
+Just to confirm, run ls command and you will see that you cannot execute commands from pyspark2. You will soon understand why we ran this command, confirming it does NOT work.
+
+*** IPython: Supercharge Your PySpark Shell ***
+A great improvement in functionality is through the use of IPython, which gives you typeahead and the ability to run commands among other features. To install and enable IPython you can install the 5.x LTS (long term support), which can be done simpler by installing Anaconda which provides some of the most popular Python packages, including IPython. 
+
+To get Anaconda you can:
+  > Navigate to the parcel page
+  > Click on Configuration
+  > Below the cdh5 parcels insert a new row by clicking the + and Save Changes
+  > Look for the Anaconda parcel entry and click on Download. It is reasonably large, so might take some time
+  > Once it has been downloaded, click on Distribute and then Activate
+    Anaconda	4.3.1
+
+Now you need to restart stale services.
+
+
+Next, there are a couple of files that you may need to modify, namely the following: 
+vi /opt/cloudera/parcels/CDH-5.13.1-1.cdh5.13.1.p0.2/etc/spark/conf.dist/spark-env.sh
+
+And add 
+  export PYSPARK_PYTHON=/opt/cloudera/parcels/Anaconda/bin/python
+  export PYSPARK_DRIVER_PYTHON=/opt/cloudera/parcels/Anaconda/bin/ipython
+  export PATH=/opt/cloudera/parcels/Anaconda/bin:$PATH
+  export JAVA_HOME=/usr/java/jdk1.8.0_121-cloudera
+
+Modify .bashrc for your user
+  su hdfs
+  vi ~/.bashrc 
+
+  export PYSPARK_DRIVER_PYTHON=/opt/cloudera/parcels/Anaconda/bin/ipython
+  export PYSPARK_PYTHON=/opt/cloudera/parcels/Anaconda/bin/python
+  export PATH=/opt/cloudera/parcels/Anaconda/bin:$PATH
+  export JAVA_HOME=/usr/java/jdk1.8.0_121-cloudera
+
+Now open pyspark2 and confirm that you have IPython by testing autocomplete and executing a shell command directly from the REPL
+
+--> Getting the StackOverflow Data
+In this training we will use as source data the very popular question and answer site, StackOverflow. It contains close to 14 million posts which provides a nice way overview of programming history, with insights into what are the most popular technologies and the most active communities. All the site information is provided as dumps in ziped format.
+
+To download the StackOverflow data, please go to https://archive.org/download/stackexchange and look for stackoverflow.com-*.7z files, which are exported and provided as XML files. 
+
+Alternatively, if you are bound by your resources, you can pick a small dump from another site, for example vi.stackedchange.com. Also, I recommend to test first with a smaller data set, which follows the same format, so that you can use to test and process more quickly. Once you confirm your environment is fine and your applications run well, you can test with larger data sets.
+
+I will use at least StackOverflow and vi.stackexchange to demonstrate Spark applications.
+
+- I will use the downloaded files from the local filesystem, HDFS and S3 as part of my demos. We will use the following archives: (I  uploaded vi.stackexchange to HDFS to demonstrate the list)
+  #hdfs dfs -ls /user/cloudera/stackexchange
+Found 8 items
+-rw-r--r--   3 cloudera cloudera    2299255 2017-12-28 10:47 /user/cloudera/stackexchange/Badges.xml
+-rw-r--r--   3 cloudera cloudera    5024286 2017-12-28 10:47 /user/cloudera/stackexchange/Comments.xml
+-rw-r--r--   3 cloudera cloudera   31624907 2017-12-28 10:47 /user/cloudera/stackexchange/PostHistory.xml
+-rw-r--r--   3 cloudera cloudera     141128 2017-12-28 10:47 /user/cloudera/stackexchange/PostLinks.xml
+-rw-r--r--   3 cloudera cloudera   16984392 2017-12-28 10:47 /user/cloudera/stackexchange/Posts.xml
+-rw-r--r--   3 cloudera cloudera      22825 2017-12-28 10:47 /user/cloudera/stackexchange/Tags.xml
+-rw-r--r--   3 cloudera cloudera    5922818 2017-12-28 10:47 /user/cloudera/stackexchange/Users.xml
+-rw-r--r--   3 cloudera cloudera    5139277 2017-12-28 10:47 /user/cloudera/stackexchange/Votes.xml
+
+*** Preparing our Source Data in Multiple Formats ***
+There are several source files, which contain different types of data from StackOverflow/StackExchange. Given that  all files are XML, we will convert them into several different formats our demos by running Spark applications. 
+
+The commands used to prepare the data will be shown during the training, this is one example of how to submit a Spark application:
+  > Convert Posts.xml into CSV
+    spark2-submit --packages com.databricks:spark-xml_2.11:0.4.1,com.databricks:spark-csv_2.11:1.5.0 prepare_data_posts_all_csv.py
+
+This is just one example, the data required for each exercise will be specified at the time when it is needed
