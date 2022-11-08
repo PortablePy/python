@@ -1,0 +1,18 @@
+>>> def escape_unicode(f):
+...     def wrap(*args, **kwargs):
+...         x = f(*args, **kwargs)
+...         return ascii(x)
+...     return wrap
+... 
+>>> 7[1;23H[38;5;0m[48;5;214m(f)87[1;23H[0m(f)87[2;9H[38;5;0m[48;5;214mdef wrap87[2;9H[0mdef wrap87[2;18H[38;5;0m[48;5;214m*args, **kwargs87[2;18H[0m*args, **kwargs87[3;17H[38;5;0m[48;5;214mf(*args, **kwargs)87[3;17H[0mf(*args, **kwargs)87[4;13H[38;5;0m[48;5;214mreturn ascii(x)87[4;13H[0mreturn ascii(x)87[5;9H[38;5;0m[48;5;214mreturn wrap87[5;9H[0mreturn wrap8def northern_city():
+...     return 'Tromsø'
+... 
+>>> print(northern_city())
+Tromsø
+>>> @escape_unicode
+... def northern_city():
+...     return 'Tromsø'
+... 
+>>> print(northern_city())
+'Troms\xf8'
+

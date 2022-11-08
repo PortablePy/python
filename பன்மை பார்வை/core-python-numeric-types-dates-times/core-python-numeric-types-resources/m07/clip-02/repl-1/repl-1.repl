@@ -1,0 +1,38 @@
+>>> import datetime                                                             
+>>> datetime.date(2014, 1, 6)                                                   
+datetime.date(2014, 1, 6)                                                       
+>>> datetime.date(year=2014, month=1, day=6)                                    
+datetime.date(2014, 1, 6)                                                       
+>>> datetime.date.today()                                                       
+datetime.date(2020, 4, 10)                                                      
+>>> datetime.date.fromtimestamp(1000000000)                                     
+datetime.date(2001, 9, 9)                                                       
+>>> datetime.date.fromordinal(720669)                                           
+datetime.date(1974, 2, 15)                                                      
+>>> d = datetime.date.today()                                                   
+>>> d.year                                                                      
+2020                                                                            
+>>> d.month                                                                     
+4                                                                               
+>>> d.day                                                                       
+10                                                                              
+>>> d.weekday()                                                                 
+4                                                                               
+>>> d.isoweekday()                                                              
+5                                                                               
+>>> d.isoformat()                                                               
+'2020-04-10'                                                                    
+>>> d.strftime('%A %d %B %Y')                                                   
+'Friday 10 April 2020'                                                          
+>>> "The date is {:%A %d %B %Y}".format(d)                                      
+'The date is Friday 10 April 2020'                                              
+>>> d.strftime('%A %-d %B %Y')                                                  
+'Friday 10 April 2020'                                                          
+>>> "{date:%A} {date.day} {date:%B} {date.year}".format(date=d)                 
+'Friday 10 April 2020'                                                          
+>>> datetime.date.min                                                           
+datetime.date(1, 1, 1)                                                          
+>>> datetime.date.max                                                           
+datetime.date(9999, 12, 31)                                                     
+>>> datetime.date.resolution                                                    
+datetime.timedelta(days=1)                                                      

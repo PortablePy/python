@@ -1,0 +1,16 @@
+>>> from fractions import Fraction                                              
+>>> two_thirds = Fraction(2, 3)                                                 
+>>> two_thirds                                                                  
+Fraction(2, 3)                                                                  
+>>> four_fifths = Fraction(4, 5)                                                
+>>> four_fifths                                                                 
+Fraction(4, 5)                                                                  
+>>> Fraction(5, 0)                                                              
+Traceback (most recent call last):                                              
+  File "<stdin>", line 1, in <module>                                           
+  File "/Users/abingham/.pyenv/versions/3.8.0/Python.framework/Versions/3.8/lib/
+python3.8/fractions.py", line 178, in __new__                                   
+    raise ZeroDivisionError('Fraction(%s, 0)' % numerator)                      
+ZeroDivisionError: Fraction(5, 0)                                               
+>>> Fraction(933262154439441526816992388562)                                    
+Fraction(933262154439441526816992388562, 1)                                     

@@ -1,0 +1,13 @@
+>>> import decimal                                                              
+>>> decimal.getcontext()                                                        
+Context(prec=28, rounding=ROUND_HALF_EVEN, Emin=-999999, Emax=999999, capitals=1
+, clamp=0, flags=[], traps=[InvalidOperation, DivisionByZero, Overflow])        
+>>> decimal.Decimal(5)                                                          
+Decimal('5')                                                                    
+>>> from decimal import Decimal                                                 
+>>> Decimal(7)                                                                  
+Decimal('7')                                                                    
+>>> Decimal('0.8')                                                              
+Decimal('0.8')                                                                  
+>>> Decimal('0.8') - Decimal('0.7')                                             
+Decimal('0.1')                                                                  

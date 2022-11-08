@@ -1,0 +1,19 @@
+>>> def hypervolume(length, *lengths):
+...     v = length
+...     for item in lengths:
+...         v *= item
+...     return v
+... 
+>>> hypervolume(3, 5, 7, 9)
+945
+>>> hypervolume(3, 5, 7)
+105
+>>> hypervolume(3, 5)
+15
+>>> hypervolume(3)
+3
+>>> hypervolume()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: hypervolume() missing 1 required positional argument: 'length'
+

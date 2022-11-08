@@ -1,0 +1,23 @@
+>>> class CallCount:
+...     def __init__(self, f):
+...         self.f = f
+...         self.count = 0
+...     def __call__(self, *args, **kwargs):
+...         self.count += 1
+...         return self.f(*args, **kwargs)
+... 
+>>> 7[3;13H[38;5;0m[48;5;214mself.f = f87[3;13H[0mself.f = f87[4;13H[38;5;0m[48;5;214mself.count = 087[4;13H[0mself.count = 087[6;13H[38;5;0m[48;5;214mself.count += 187[6;13H[0mself.count += 187[7;13H[38;5;0m[48;5;214mreturn self.f(*args, **kwargs)87[7;13H[0mreturn self.f(*args, **kwargs)8@CallCount
+... def hello(name):
+...     print('Hello, {}!'.format(name))
+... 
+>>> hello('Fred')
+Hello, Fred!
+>>> hello('Wilma')
+Hello, Wilma!
+>>> hello('Betty')
+Hello, Betty!
+>>> hello('Barney')
+Hello, Barney!
+>>> hello.count
+4
+

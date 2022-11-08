@@ -1,0 +1,14 @@
+>>> g = 'global'
+>>> def outer(p='param'):
+...    l = 'local'
+...    def inner():
+...        print(g, p, l)
+...    inner()
+... 
+>>> outer()
+global param local
+>>> 7[4;8H[38;5;0m[48;5;214mdef inner87[4;8H[0mdef inner87[5;12H[38;5;0m[48;5;214mprint(g, p, l)87[5;12H[0mprint(g, p, l)8outer.inner()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'function' object has no attribute 'inner'
+

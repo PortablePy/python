@@ -1,0 +1,4 @@
+>>> trues = filter(None, [0, 1, False, True, [], [1, 2, 3], '', 'hello'])
+>>> list(trues)
+[1, True, [1, 2, 3], 'hello']
+

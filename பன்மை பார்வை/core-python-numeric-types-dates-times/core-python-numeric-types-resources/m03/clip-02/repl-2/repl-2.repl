@@ -1,0 +1,20 @@
+>>> b = Decimal('3.0')                                                          
+>>> c = Decimal('3.00')                                                         
+>>> a                                                                           
+Decimal('3')                                                                    
+>>> b                                                                           
+Decimal('3.0')                                                                  
+>>> c                                                                           
+Decimal('3.00')                                                                 
+>>> a * 2                                                                       
+Decimal('6')                                                                    
+>>> b * 2                                                                       
+Decimal('6.0')                                                                  
+>>> c * 2                                                                       
+Decimal('6.00')                                                                 
+>>> decimal.getcontext().prec = 6                                               
+>>> d = Decimal('1.234567')                                                     
+>>> d                                                                           
+Decimal('1.234567')                                                             
+>>> d + Decimal(1)                                                              
+Decimal('2.23457')                                                              

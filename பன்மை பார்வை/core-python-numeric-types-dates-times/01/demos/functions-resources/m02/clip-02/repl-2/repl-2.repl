@@ -1,0 +1,12 @@
+>>> from resolver import Resolver
+>>> resolve = Resolver()
+>>> resolve.has_host("pluralsight.com")
+False
+>>> resolve("pluralsight.com")
+'52.32.236.218'
+>>> resolve.has_host("pluralsight.com")
+True
+>>> resolve.clear()
+>>> resolve.has_host("pluralsight.com")
+False
+

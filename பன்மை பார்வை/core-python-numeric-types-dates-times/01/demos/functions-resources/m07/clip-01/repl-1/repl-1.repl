@@ -1,0 +1,11 @@
+>>> l = [i * 2 for i in range(10)]
+>>> 7[1;25H[38;5;0m[48;5;214mrange(10)87[1;25H[0mrange(10)87[1;10H[38;5;0m[48;5;214mi * 287[1;10H[0mi * 28d = {i: i * 2 for i in range(10)}
+>>> type(d)
+<class 'dict'>
+>>> s = {i for i in range(10)}
+>>> type(s)
+<class 'set'>
+>>> g = (i for i in range(10))
+>>> type(g)
+<class 'generator'>
+

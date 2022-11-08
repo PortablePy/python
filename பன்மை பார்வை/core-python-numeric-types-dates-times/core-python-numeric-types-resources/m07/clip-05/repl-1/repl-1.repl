@@ -1,0 +1,14 @@
+datetime.timedelta(microseconds=2000)                                           
+>>> td = datetime.timedelta(weeks=1, minutes=2, milliseconds=5500)              
+>>> td                                                                          
+datetime.timedelta(days=7, seconds=125, microseconds=500000)                    
+>>> td.days                                                                     
+7                                                                               
+>>> td.seconds                                                                  
+125                                                                             
+>>> td.microseconds                                                             
+500000                                                                          
+>>> str(td)                                                                     
+'7 days, 0:02:05.500000'                                                        
+>>> repr(td)                                                                    
+'datetime.timedelta(days=7, seconds=125, microseconds=500000)'                  

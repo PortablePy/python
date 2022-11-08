@@ -1,0 +1,5 @@
+>>> round(2.675, 2)                                                             
+2.67                                                                            
+>>> from decimal import Decimal                                                 
+>>> round(Decimal('2.675'), 2)                                                  
+Decimal('2.68')                                                                 

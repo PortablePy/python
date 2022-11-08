@@ -1,0 +1,10 @@
+>>> cet                                                                         
+datetime.timezone(datetime.timedelta(seconds=3600), 'CET')                      
+>>> departure = datetime.datetime(year=2014, month=1, day=7, hour=11, minute=30,
+ tzinfo=cet)                                                                    
+>>> arrival = datetime.datetime(year=2014, month=1, day=7, hour=13, minute=5, tz
+info=datetime.timezone.utc)                                                     
+>>> arrival - departure                                                         
+datetime.timedelta(seconds=9300)                                                
+>>> str(arrival - departure)                                                    
+'2:35:00'                                                                       

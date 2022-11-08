@@ -1,0 +1,20 @@
+>>> 2j                                                                          
+2j                                                                              
+>>> type(2j)                                                                    
+<class 'complex'>                                                               
+>>> 3 + 4j                                                                      
+(3+4j)                                                                          
+>>> type(3 + 4j)                                                                
+<class 'complex'>                                                               
+>>> complex(3)                                                                  
+(3+0j)                                                                          
+>>> complex(-2, 3)                                                              
+(-2+3j)                                                                         
+>>> complex('(-2+3j)')                                                          
+(-2+3j)                                                                         
+>>> complex('-2+3j')                                                            
+(-2+3j)                                                                         
+>>> complex('-2 + 3j')                                                          
+Traceback (most recent call last):                                              
+  File "<stdin>", line 1, in <module>                                           
+ValueError: complex() arg is a malformed string                                 

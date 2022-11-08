@@ -1,0 +1,13 @@
+>>> def trace(f, *args, **kwargs):
+...     print("args =", args)
+...     print("kwargs =", kwargs)
+...     result = f(*args, **kwargs)
+...     print("result =", result)
+...     return result
+... 
+>>> 7[1;15H[38;5;0m[48;5;214mf87[1;15H[0mf87[1;18H[38;5;0m[48;5;214m*args, **kwargs87[1;18H[0m*args, **kwargs87[4;18H[38;5;0m[48;5;214mf(*args, **kwargs)87[4;18H[0mf(*args, **kwargs)8trace(int, "ff", base=16)
+args = ('ff',)
+kwargs = {'base': 16}
+result = 255
+255
+

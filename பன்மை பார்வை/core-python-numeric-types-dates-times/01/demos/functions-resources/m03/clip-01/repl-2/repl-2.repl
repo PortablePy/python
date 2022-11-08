@@ -1,0 +1,31 @@
+>>> def hypervolume(*args):
+...     print(args)
+...     print(type(args))
+... 
+>>> 7[1;21H[38;5;0m[48;5;214m*args87[1;21H[0m*args8hypervolume(3, 4)
+(3, 4)
+<class 'tuple'>
+>>> hypervolume(3, 4, 5)
+(3, 4, 5)
+<class 'tuple'>
+>>> 7[9;1H[38;5;0m[48;5;214m(3, 4, 5)87[9;1H[0m(3, 4, 5)8def hypervolume(*lengths):
+...     i = iter(lengths)
+...     v = next(i)
+...     for length in i:
+...         v *= length
+...     return v
+... 
+>>> 7[12;9H[38;5;0m[48;5;214mi = iter(lengths)87[12;9H[0mi = iter(lengths)87[13;13H[38;5;0m[48;5;214mnext(i)87[13;13H[0mnext(i)87[14;9H[38;5;0m[48;5;214mfor length in i87[14;9H[0mfor length in i8hypervolume(2, 4)
+8
+>>> hypervolume(2, 4, 6)
+48
+>>> hypervolume(2, 4, 6, 8)
+384
+>>> hypervolume(1)
+1
+>>> hypervolume()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 3, in hypervolume
+StopIteration
+

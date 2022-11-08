@@ -1,0 +1,14 @@
+>>> def color(red, green, blue, **kwargs):
+...     print("r =", red)
+...     print("g =", green)
+...     print("b =", blue)
+...     print(kwargs)
+... 
+>>> k = {'red':21, 'green':68, 'blue':120, 'alpha':52 }
+>>> color(**k)
+r = 21
+g = 68
+b = 120
+{'alpha': 52}
+>>> 7[8;11H[38;5;0m[48;5;214m**k87[8;11H[0m**k87[1;33H[38;5;0m[48;5;214m**kwargs87[1;33H[0m**kwargs8k = dict(red=21, green=68, blue=120, alpha=52)
+

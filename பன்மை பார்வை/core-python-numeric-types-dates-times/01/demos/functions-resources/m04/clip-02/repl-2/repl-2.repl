@@ -1,0 +1,22 @@
+>>> def raise_to(exp):
+...     def raise_to_exp(x):
+...         return pow(x, exp)
+...     return raise_to_exp
+... 
+>>> 7[1;18H[38;5;0m[48;5;214mexp87[1;18H[0mexp87[4;9H[38;5;0m[48;5;214mreturn raise_to_exp87[4;9H[0mreturn raise_to_exp87[3;20H[38;5;0m[48;5;214mpow(x, exp)87[3;20H[0mpow(x, exp)8square = raise_to(2)
+>>> square.__closure__
+(<cell at 0x101b9ac70: int object at 0x101917ab0>,)
+>>> square(5)
+25
+>>> square(9)
+81
+>>> square(1234)
+1522756
+>>> cube = raise_to(3)
+>>> cube(3)
+27
+>>> cube(10)
+1000
+>>> cube(23)
+12167
+

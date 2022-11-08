@@ -1,0 +1,33 @@
+>>> from datetime import datetime as Datetime                                   
+>>> import datetime as dt                                                       
+>>> import datetime                                                             
+>>> datetime.datetime(2003, 5, 12, 14, 33, 22, 245323)                          
+datetime.datetime(2003, 5, 12, 14, 33, 22, 245323)                              
+>>> datetime.datetime.today()                                                   
+datetime.datetime(2020, 4, 10, 11, 22, 24, 426510)                              
+>>> datetime.datetime.now()                                                     
+datetime.datetime(2020, 4, 10, 11, 22, 24, 530038)                              
+>>> datetime.datetime.utcnow()                                                  
+datetime.datetime(2020, 4, 10, 9, 22, 24, 639387)                               
+>>> datetime.datetime.fromordinal(5)                                            
+datetime.datetime(1, 1, 5, 0, 0)                                                
+>>> datetime.datetime.fromtimestamp(3635352)                                    
+datetime.datetime(1970, 2, 12, 2, 49, 12)                                       
+>>> datetime.datetime.utcfromtimestamp(3635352)                                 
+datetime.datetime(1970, 2, 12, 1, 49, 12)                                       
+>>> d = datetime.date.today()                                                   
+>>> t = datetime.time(8, 15)                                                    
+>>> datetime.datetime.combine(d, t)                                             
+datetime.datetime(2020, 4, 10, 8, 15)                                           
+>>> dt = datetime.datetime.strptime("Monday 6 January 2014, 12:13:31", "%A %d %B
+ %Y, %H:%M:%S")                                                                 
+>>> dt                                                                          
+datetime.datetime(2014, 1, 6, 12, 13, 31)                                       
+>>> dt.date()                                                                   
+datetime.date(2014, 1, 6)                                                       
+>>> dt.time()                                                                   
+datetime.time(12, 13, 31)                                                       
+>>> dt.day                                                                      
+6                                                                               
+>>> dt.isoformat()                                                              
+'2014-01-06T12:13:31'                                                           

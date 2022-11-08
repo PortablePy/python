@@ -1,0 +1,22 @@
+>>> import math                                                                 
+>>> math.sqrt(-1)                                                               
+Traceback (most recent call last):                                              
+  File "<stdin>", line 1, in <module>                                           
+ValueError: math domain error                                                   
+>>> import cmath                                                                
+>>> cmath.sqrt(-1)                                                              
+1j                                                                              
+>>> cmath.phase(1+1j)                                                           
+0.7853981633974483                                                              
+>>> abs(1+1j)                                                                   
+1.4142135623730951                                                              
+>>> cmath.polar(1+1j)                                                           
+(1.4142135623730951, 0.7853981633974483)                                        
+>>> modulus, phase = cmath.polar(1+1j)                                          
+>>> modulus                                                                     
+1.4142135623730951                                                              
+>>> phase                                                                       
+0.7853981633974483                                                              
+>>> cmath.rect(modulus, phase)                                                  
+(1.0000000000000002+1j)                                                         
+>>>                                                                             

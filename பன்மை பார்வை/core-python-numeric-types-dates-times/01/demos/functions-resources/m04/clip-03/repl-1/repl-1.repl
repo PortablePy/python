@@ -1,0 +1,42 @@
+>>> import time
+>>> 
+>>> def make_timer():
+...     last_called = None # Never
+...     def elapsed():
+...         nonlocal last_called
+...         now = time.time()
+...         if last_called is None:
+...             last_called = now
+...             return None
+...         result = now - last_called
+...         last_called = now
+...         return result
+...     return elapsed
+... 
+>>> t = make_timer()
+>>> t()
+>>> t()
+0.10646700859069824
+>>> t()
+0.10985517501831055
+>>> t()
+0.10509490966796875
+>>> 7[4;9H[38;5;0m[48;5;214mlast_called = None87[4;9H[0mlast_called = None87[5;9H[38;5;0m[48;5;214mdef elapsed87[5;9H[0mdef elapsed87[6;13H[38;5;0m[48;5;214mnonlocal last_called87[6;13H[0mnonlocal last_called87[12;13H[38;5;0m[48;5;214mlast_called = now87[12;13H[0mlast_called = now8t1 = make_timer()
+>>> t2 = make_timer()
+>>> t1()
+>>> t1()
+0.10885405540466309
+>>> t2()
+>>> t2()
+0.10480880737304688
+>>> t2()
+0.10970926284790039
+>>> t2()
+0.10667967796325684
+>>> t2()
+0.10874700546264648
+>>> t1()
+0.6399099826812744
+>>> t1()
+0.1055600643157959
+

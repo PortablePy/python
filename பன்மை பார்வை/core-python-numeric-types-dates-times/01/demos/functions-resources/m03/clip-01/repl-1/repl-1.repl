@@ -1,0 +1,11 @@
+>>> print()
+
+>>> print("one")
+one
+>>> print("one", "two")
+one two
+>>> print("one", "two", "three")
+one two three
+>>> "{a}<===>{b}".format(a="Oslo", b="Stavanger")
+'Oslo<===>Stavanger'
+

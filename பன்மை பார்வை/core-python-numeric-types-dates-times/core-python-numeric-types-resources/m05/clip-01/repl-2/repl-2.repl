@@ -1,0 +1,6 @@
+>>> c.real                                                                      
+3.0                                                                             
+>>> c.imag                                                                      
+5.0                                                                             
+>>> c.conjugate()                                                               
+(3-5j)                                                                          

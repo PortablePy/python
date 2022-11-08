@@ -1,0 +1,15 @@
+>>> sizes = ['small', 'medium', 'large']
+>>> colors = ['lavender', 'teal', 'burnt orange']
+>>> animals = ['koala', 'platypus', 'salamander']
+>>> def combine(size, color, animal):
+...     return '{} {} {}'.format(size, color, animal)
+... 
+>>> list(map(combine, sizes, colors, animals))
+['small lavender koala', 'medium teal platypus', 'large burnt orange salamander']
+>>> def combine(quantity, size, color, animal):
+...     return '{} x {} {} {}'.format(quantity, size, color, animal)
+... 
+>>> import itertools
+>>> list(map(combine, itertools.count(), sizes, colors, animals))
+['0 x small lavender koala', '1 x medium teal platypus', '2 x large burnt orange salamander']
+

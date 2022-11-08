@@ -1,0 +1,33 @@
+...     return n % 2 == 1                                                       
+...                                                                             
+>>> is_odd(2)                                                                   
+False                                                                           
+>>> is_odd(3)                                                                   
+True                                                                            
+>>> is_odd(-2)                                                                  
+False                                                                           
+>>> is_odd(-3)                                                                  
+True                                                                            
+>>> is_odd(2.0)                                                                 
+False                                                                           
+>>> is_odd(3.0)                                                                 
+True                                                                            
+>>> is_odd(-2.0)                                                                
+False                                                                           
+>>> is_odd(-3.0)                                                                
+True                                                                            
+>>> is_odd(Decimal(2))                                                          
+False                                                                           
+>>> is_odd(Decimal(3))                                                          
+True                                                                            
+>>> is_odd(Decimal(-2))                                                         
+False                                                                           
+>>> is_odd(Decimal(-3))                                                         
+False                                                                           
+>>> Decimal(-3) % 2                                                             
+Decimal('-1')                                                                   
+>>> def is_odd(n):                                                              
+...     return n % 2 != 0                                                       
+...                                                                             
+>>> is_odd(Decimal(-3))                                                         
+True                                                                            

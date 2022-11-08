@@ -1,0 +1,15 @@
+>>> Decimal(0.8) - Decimal(0.7)                                                 
+Decimal('0.1000000000000000888178419700')                                       
+>>> type(0.8)                                                                   
+<class 'float'>                                                                 
+>>> type(0.7)                                                                   
+<class 'float'>                                                                 
+>>> decimal.getcontext().traps[decimal.FloatOperation] = True                   
+>>> Decimal(0.8)                                                                
+Traceback (most recent call last):                                              
+  File "<stdin>", line 1, in <module>                                           
+decimal.FloatOperation: [<class 'decimal.FloatOperation'>]                      
+>>> Decimal('0.8') > 0.7                                                        
+Traceback (most recent call last):                                              
+  File "<stdin>", line 1, in <module>                                           
+decimal.FloatOperation: [<class 'decimal.FloatOperation'>]                      

@@ -1,0 +1,3 @@
+>>> map(ord, 'The quick brown fox')
+<map object at 0x10378cc70>
+

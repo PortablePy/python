@@ -1,0 +1,6 @@
+>>> from datetime import datetime                                               
+>>> datetime                                                                    
+<class 'datetime.datetime'>                                                     
+>>> datetime.time                                                               
+<method 'time' of 'datetime.datetime' objects>                                  
+>>>                                                                             

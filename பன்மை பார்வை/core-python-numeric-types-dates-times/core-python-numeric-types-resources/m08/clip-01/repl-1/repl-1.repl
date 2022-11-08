@@ -1,0 +1,51 @@
+>>> def sign(x):                                                                
+...     if x < 0:                                                               
+...         return -1                                                           
+...     elif x > 0:                                                             
+...         return 1                                                            
+...     return 0                                                                
+...                                                                             
+>>> sign(5)                                                                     
+1                                                                               
+>>> sign(-5)                                                                    
+-1                                                                              
+>>> sign(0)                                                                     
+0                                                                               
+>>> False - False                                                               
+0                                                                               
+>>> False - True                                                                
+-1                  p, q, r  num_type=float                                     
+>>> True - False                                                                
+1                                                                               
+>>> True - True                                                                 
+0                                                                               
+>>> True == 1                                                                   
+True                                                                            
+>>> False == 0                                                                  
+True                                                                            
+>>> def sign(x):                                                                
+...     return (x > 0) - (x < 0)                                                
+...                                                                             
+>>> sign(-5)                                                                    
+-1                                                                              
+>>> sign(5)                                                                     
+1                                                                               
+>>> sign(0)                                                                     
+0                                                                               
+>>> def orientation(p, q, r, num_type=float):                                   
+...     p = tuple(map(num_type, p))                                             
+...     q = tuple(map(num_type, q))                                             
+...     r = tuple(map(num_type, r))                                             
+...     d = (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0])       
+...     return sign(d)                                                          
+...                                                                             
+>>> a = (0, 0)                                                                  
+>>> b = (4, 0)                                                                  
+>>> c = (4, 3)                                                                  
+>>> orientation(a, b, c)                                                        
+1                                                                               
+>>> orientation(a, c, b)                                                        
+-1                                                                              
+>>> d = (8, 6)                                                                  
+>>> orientation(a, c, d)                                                        
+0                                                                               

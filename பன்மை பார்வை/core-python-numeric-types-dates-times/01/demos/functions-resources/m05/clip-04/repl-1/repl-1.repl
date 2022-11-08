@@ -1,0 +1,77 @@
+>>> def hello():
+...     "Print a well-known message."
+...     print('Hello, world!')
+... 
+>>> hello.__name__
+'hello'
+>>> hello.__doc__
+'Print a well-known message.'
+>>> help(hello)
+[?1049h[?1h=Help on function hello in module __main__:[m
+[m
+[1mhello[0m()[m
+    Print a well-known message.[m
+[7m(END)[27m
+[K[K[?1l>[?1049l
+>>> def noop(f):
+...     def noop_wrapper():
+...         return f()
+...     return noop_wrapper
+... 
+>>> @noop
+... def hello():
+...     "Print a well-known message."
+...     print('hello world!')
+... 
+>>> help(hello)
+[?1049h[?1h=Help on function noop_wrapper in module __main__:[m
+[m
+[1mnoop_wrapper[0m()[m
+[7m(END)[27m
+[K[K[?1l>[?1049l
+>>> hello.__name__
+'noop_wrapper'
+>>> hello.__doc__
+>>> 7[6;9H[38;5;0m[48;5;214mdef noop_wrapper87[6;9H[0mdef noop_wrapper8def noop(f):
+...     def noop_wrapper():
+...         return f()
+...     noop_wrapper.__name__ = f.__name__
+...     noop_wrapper.__doc__ = f.__doc__
+...     return noop_wrapper
+... 
+>>> @noop
+... def hello():
+...     "Print a well-known message."
+...     print('hello world!')
+... 
+>>> help(hello)
+[?1049h[?1h=Help on function hello in module __main__:[m
+[m
+[1mhello[0m()[m
+    Print a well-known message.[m
+[7m(END)[27m
+[K[K[?1l>[?1049l
+>>> import functools
+>>> def noop(f):
+...     @functools.wraps(f)
+...     def noop_wrapper():
+...         return f()
+...     return noop_wrapper
+... 
+>>> @noop
+... def hello():
+...     "Print a well-known message."
+...     print('hello world!')
+... 
+>>> help(hello)
+[?1049h[?1h=Help on function hello in module __main__:[m
+[m
+[1mhello[0m()[m
+    Print a well-known message.[m
+[7m(END)[27m
+[K[K[?1l>[?1049l
+>>> hello.__name__
+'hello'
+>>> hello.__doc__
+'Print a well-known message.'
+

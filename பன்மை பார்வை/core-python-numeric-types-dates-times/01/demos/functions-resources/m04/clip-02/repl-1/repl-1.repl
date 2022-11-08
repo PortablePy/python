@@ -1,0 +1,12 @@
+>>> def enclosing():
+...     x = 'closed over'
+...     def local_func():
+...             print(x)
+...     return local_func
+... 
+>>> lf = enclosing()
+>>> lf()
+closed over
+>>> lf.__closure__
+(<cell at 0x1014e4b80: str object at 0x1015ed5f0>,)
+>>> 7[11;24H[38;5;0m[48;5;214mstr object87[11;24H[0mstr object87[2;9H[38;5;0m[48;5;214mx = 'closed over'87[2;9H[0mx = 'closed over'8

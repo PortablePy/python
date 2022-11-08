@@ -1,0 +1,25 @@
+>>> datetime.time(3, 1, 2, 232)                                                 
+datetime.time(3, 1, 2, 232)                                                     
+>>> datetime.time(hour=23, minute=59, second=59, microsecond=999999)            
+datetime.time(23, 59, 59, 999999)                                               
+>>> t = datetime.time(10, 32, 47, 675623)                                       
+>>> t.hour                                                                      
+10                                                                              
+>>> t.minute                                                                    
+32                                                                              
+>>> t.second                                                                    
+47                                                                              
+>>> t.microsecond                                                               
+675623                                                                          
+>>> t.isoformat()                                                               
+'10:32:47.675623'                                                               
+>>> t.strftime('%Hh%Mm%Ss')                                                     
+'10h32m47s'                                                                     
+>>> "{t.hour}h{t.minute}m{t.second}s".format(t=t)                               
+'10h32m47s'                                                                     
+>>> datetime.time.min                                                           
+datetime.time(0, 0)                                                             
+>>> datetime.time.max                                                           
+datetime.time(23, 59, 59, 999999)                                               
+>>> datetime.time.resolution                                                    
+datetime.timedelta(microseconds=1)                                              

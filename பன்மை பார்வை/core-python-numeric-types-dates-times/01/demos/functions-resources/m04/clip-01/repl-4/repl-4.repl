@@ -1,0 +1,9 @@
+>>> def enclosing():
+...     def local_func():
+...         print('local func')
+...     return local_func
+... 
+>>> lf = enclosing()
+>>> lf()
+local func
+>>> 7[2;9H[38;5;0m[48;5;214mdef local_func87[2;9H[0mdef local_func87[4;9H[38;5;0m[48;5;214mreturn local_func87[4;9H[0mreturn local_func87[6;5H[38;5;0m[48;5;214mlf = enclosing()87[6;5H[0mlf = enclosing()87[7;5H[38;5;0m[48;5;214mlf()87[7;5H[0mlf()8

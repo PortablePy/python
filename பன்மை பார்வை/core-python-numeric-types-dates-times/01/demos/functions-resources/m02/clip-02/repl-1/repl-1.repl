@@ -1,0 +1,20 @@
+>>> from resolver import Resolver
+>>> resolve = Resolver()
+>>> resolve('sixty-north.com')
+'93.93.131.30'
+>>> resolve.__call__('sixty-north.com')
+'93.93.131.30'
+>>> resolve._cache
+{'sixty-north.com': '93.93.131.30'}
+>>> resolve('pluralsight.com')
+'52.32.236.218'
+>>> resolve._cache
+{'sixty-north.com': '93.93.131.30', 'pluralsight.com': '52.32.236.218'}
+>>> from timeit import timeit
+>>> timeit(setup="from __main__ import resolve", stmt="resolve('google.com')", number=1)
+0.012501593000000089
+>>> timeit(setup="from __main__ import resolve", stmt="resolve('google.com')", number=1)
+5.332000000191073e-06
+>>> print("{:f}".format(_))
+0.000005
+

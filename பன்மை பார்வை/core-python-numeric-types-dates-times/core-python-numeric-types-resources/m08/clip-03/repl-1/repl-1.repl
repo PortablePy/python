@@ -1,0 +1,10 @@
+>>> import bmp                                                                  
+>>> color = {-1: 0, 0: 127, +1: 255}                                            
+>>> pixels = [[color[orientation((px, py), q, r, num_type=Fraction)]            
+...            for px in pys]                                                   
+...           for py in reversed(pys)]                                          
+>>> bmp.write_grayscale('above_below.bmp', pixels)                              
+>>> pixels = [[color[orientation((px, py), q, r)]                               
+...            for px in pys]                                                   
+...           for py in reversed(pys)]                                          
+>>> bmp.write_grayscale('above_below.bmp', pixels)                              

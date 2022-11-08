@@ -1,0 +1,8 @@
+>>> def sort_by_last_letter(strings):
+...     def last_letter(s):
+...        return s[-1]
+...     return sorted(strings, key=last_letter)
+... 
+>>> 7[1;5H[38;5;0m[48;5;214mdef sort_by_last_letter87[1;5H[0mdef sort_by_last_letter87[4;16H[38;5;0m[48;5;214msorted87[4;16H[0msorted87[2;9H[38;5;0m[48;5;214mdef last_letter87[2;9H[0mdef last_letter8sort_by_last_letter(['hello', 'from', 'a', 'local', 'function'])
+['a', 'local', 'from', 'function', 'hello']
+
