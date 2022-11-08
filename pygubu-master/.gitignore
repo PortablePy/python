@@ -1,0 +1,15 @@
+__pycache__/
+*~
+*.pyc
+output.tkb
+exampleui_2.tkb
+build/
+dist/
+MANIFEST
+TODO
+pygubu.nja
+pygubu.egg-info/
+myvenv*/
+pygubu-core.wpr
+pygubu-core.wpu
+*.kdev4
