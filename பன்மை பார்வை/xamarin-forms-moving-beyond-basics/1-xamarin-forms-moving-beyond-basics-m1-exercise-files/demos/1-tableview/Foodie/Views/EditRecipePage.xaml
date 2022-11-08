@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+		xmlns="http://xamarin.com/schemas/2014/forms" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+		x:Class="Foodie.EditRecipePage"
+		Title="Foodie">
+	<ContentPage.Content>
+		<TableView Intent="Form">
+			<TableView.Root>
+				<TableSection Title="Info">
+					<EntryCell Label="Recipe Name" Text="Scrambled Eggs" HorizontalTextAlignment="End"></EntryCell>
+					<EntryCell Label="Prep Time" Text="5 mins" HorizontalTextAlignment="End"></EntryCell>
+					<EntryCell Label="Cook Time" Text="2 mins" HorizontalTextAlignment="End"></EntryCell>
+					<EntryCell Label="Number of Servings" Text="2" HorizontalTextAlignment="End"></EntryCell>
+					<SwitchCell Text="Make again?" On="true"></SwitchCell>
+				</TableSection>
+				<TableSection Title="Ingredients">
+					<EntryCell Label="Ingredients" Text="8 eggs, 1/2 cup milk" />
+				</TableSection>
+				<TableSection Title="Directions">
+					<EntryCell Label="Directions" Text="Break eggs, mix in milk, pour mixture into skillet, put heat on, constant vigilance while cooking."></EntryCell>
+				</TableSection>
+			</TableView.Root>
+		</TableView>
+	</ContentPage.Content>
+</ContentPage>

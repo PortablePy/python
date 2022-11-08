@@ -1,0 +1,27 @@
+﻿<Properties StartupConfiguration="{C0915C3A-05E0-438A-8785-2ECBC61F68EF}|Default">
+  <MonoDevelop.Ide.ItemProperties.Foodie.Droid PreferredExecutionTarget="Android.Xamarin_Android_API_23_X86_google_apis" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Foodie/Views/EditRecipePage.xaml">
+    <Files>
+      <File FileName="Foodie/Views/EditRecipePage.xaml" Line="27" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Foodie" expanded="True">
+            <Node name="Foodie" expanded="True">
+              <Node name="Views" expanded="True">
+                <Node name="EditRecipePage.xaml" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Foodie.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.A7296520-052A-40B9-8158-78D51D814FEF" />
+</Properties>

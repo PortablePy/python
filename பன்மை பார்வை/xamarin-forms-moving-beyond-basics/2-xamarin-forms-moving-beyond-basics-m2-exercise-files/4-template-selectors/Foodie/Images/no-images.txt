@@ -1,0 +1,4 @@
+﻿// No images are included in this demo project due to licensing. 
+// To see the images work, add some images to the Images folder, set the build action
+// to embedded resource and update the RecipeData to have Recipes return the name (include file extension)
+// of the image.

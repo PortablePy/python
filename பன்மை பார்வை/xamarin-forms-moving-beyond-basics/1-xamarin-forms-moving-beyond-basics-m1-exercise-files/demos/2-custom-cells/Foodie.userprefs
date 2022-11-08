@@ -1,0 +1,18 @@
+﻿<Properties StartupConfiguration="{B9104242-5D3A-422A-9B6F-10A0A894D512}|Default">
+  <MonoDevelop.Ide.ItemProperties.Foodie.Droid PreferredExecutionTarget="Android.Xamarin_Android_API_23_X86_google_apis" />
+  <MonoDevelop.Ide.Workbench>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Foodie" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Foodie.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.D4525B0E-6964-4243-A354-0063BBDEB0BC" />
+</Properties>
