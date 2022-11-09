@@ -1,0 +1,10 @@
+>>> resolve = Resolver()                                                        
+>>> resolve.has_host("pluralsight.com")                                         
+False                                                                           
+>>> resolve("pluralsight.com")                                                  
+'54.148.56.39'                                                                  
+>>> resolve.has_host("pluralsight.com")                                         
+True                                                                            
+>>> resolve.clear()                                                             
+>>> resolve.has_host("pluralsight.com")                                         
+False                                                                           

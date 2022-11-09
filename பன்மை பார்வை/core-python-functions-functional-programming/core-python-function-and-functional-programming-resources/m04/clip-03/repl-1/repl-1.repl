@@ -1,0 +1,41 @@
+>>> import time                                                                 
+>>>                                                                             
+>>> def make_timer():                                                           
+...     last_called = None # Never                                              
+...     def elapsed():                                                          
+...         nonlocal last_called                                                
+...         now = time.time()                                                   
+...         if last_called is None:                                             
+...             last_called = now                                               
+...             return None                                                     
+...         result = now - last_called                                          
+...         last_called = now                                                   
+...         return result                                                       
+...     return elapsed                                                          
+...                                                                             
+>>> t = make_timer()                                                            
+>>> t()                                                                         
+>>> t()                                                                         
+0.10840821266174316                                                             
+>>> t()                                                                         
+0.11033487319946289                                                             
+>>> t()                                                                         
+0.10557293891906738                                                             
+>>> t1 = make_timer()                                                           
+>>> t2 = make_timer()                                                           
+>>> t1()                                                                        
+>>> t1()                                                                        
+0.10762977600097656                                                             
+>>> t2()                                                                        
+>>> t2()                                                                        
+0.10677790641784668                                                             
+>>> t2()                                                                        
+0.10698699951171875                                                             
+>>> t2()                                                                        
+0.10787391662597656                                                             
+>>> t2()                                                                        
+0.10452818870544434                                                             
+>>> t1()                                                                        
+0.6384401321411133                                                              
+>>> t1()                                                                        
+0.10730099678039551                                                             

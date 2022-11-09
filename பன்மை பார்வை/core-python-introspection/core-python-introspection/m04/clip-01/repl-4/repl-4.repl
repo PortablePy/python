@@ -1,0 +1,6 @@
+>>> name = "Joe Bloggs"                                                         
+>>> age = 28                                                                    
+>>> country = "New Zealand"                                                     
+>>> f"{name} is {age} years old and is from {country}"                          
+'Joe Bloggs is 28 years old and is from New Zealand'                            
+>>>                                                                             

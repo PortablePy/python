@@ -1,0 +1,14 @@
+>>> locals()                                                                    
+{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <cl
+ass '_frozen_importlib.BuiltinImporter'>, '__spec__': None, '__annotations__': {
+}, '__builtins__': <module 'builtins' (built-in)>}                              
+>>> def report_scope(arg):                                                      
+...     from pprint import pprint as pp                                         
+...     x = 496                                                                 
+...     pp(locals(), width=10)                                                  
+...                                                                             
+>>> report_scope(42)                                                            
+{'arg': 42,                                                                     
+ 'pp': <function pprint at 0x10e70bee0>,                                        
+ 'x': 496}                                                                      
+>>>                                                                             

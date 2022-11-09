@@ -1,0 +1,22 @@
+>>> def check_non_negative(index):                                              
+...     def validator(f):                                                       
+...         def wrap(*args):                                                    
+...             if args[index] < 0:                                             
+...                 raise ValueError(                                           
+...                     'Argument {} must be non-negative.'.format(index))      
+...             return f(*args)                                                 
+...         return wrap                                                         
+...     return validator                                                        
+...                                                                             
+>>> @check_non_negative(1)                                                      
+... def create_list(value, size):                                               
+...     return [value] * size                                                   
+...                                                                             
+>>> create_list('a', 3)                                                         
+['a', 'a', 'a']                                                                 
+>>> create_list(123, -6)                                                        
+Traceback (most recent call last):                                              
+  File "<stdin>", line 1, in <module>                                           
+  File "<stdin>", line 5, in wrap                                               
+ValueError: Argument 1 must be non-negative.                                    
+>>>                                                                             

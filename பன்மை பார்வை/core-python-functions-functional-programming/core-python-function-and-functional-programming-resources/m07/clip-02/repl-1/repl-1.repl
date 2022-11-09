@@ -1,0 +1,12 @@
+>>> vals = [[y * 3 for y in range(x)] for x in range(10)]                       
+>>> outer = []                                                                  
+>>> for x in range(10):                                                         
+...     inner = []                                                              
+...     for y in range(x):                                                      
+...         inner.append(y * 3)                                                 
+...     outer.append(inner)                                                     
+...                                                                             
+>>> vals                                                                        
+[[], [0], [0, 3], [0, 3, 6], [0, 3, 6, 9], [0, 3, 6, 9, 12], [0, 3, 6, 9, 12, 15
+], [0, 3, 6, 9, 12, 15, 18], [0, 3, 6, 9, 12, 15, 18, 21], [0, 3, 6, 9, 12, 15, 
+18, 21, 24]]                                                                    

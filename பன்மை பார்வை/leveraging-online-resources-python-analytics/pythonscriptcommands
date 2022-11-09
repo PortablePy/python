@@ -1,0 +1,9 @@
+python demo03-Classifier.py logistic_regression TimeSpent
+
+python demo03-Classifier.py decision_tree TimeSpent
+
+python demo03-Classifier.py decision_tree TimeSpent Age
+
+python demo03-Classifier.py decision_tree TimeSpent Age AreaIncome
+
+python demo03-Classifier.py decision_tree 

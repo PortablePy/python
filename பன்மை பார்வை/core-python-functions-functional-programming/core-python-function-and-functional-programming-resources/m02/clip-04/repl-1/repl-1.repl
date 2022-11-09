@@ -1,0 +1,15 @@
+>>> scientists = ['Marie Curie', 'Albert Einstein', 'Rosalind Franklin',        
+...               'Niels Bohr', 'Dian Fossey', 'Isaac Newton',                  
+...               'Grace Hopper', 'Charles Darwin', 'Lise Meitner']             
+>>>                                                                             
+>>> sorted(scientists, key=lambda name: name.split()[-1])                       
+['Niels Bohr', 'Marie Curie', 'Charles Darwin', 'Albert Einstein', 'Dian Fossey'
+, 'Rosalind Franklin', 'Grace Hopper', 'Lise Meitner', 'Isaac Newton']          
+>>> last_name = lambda name: name.split()[-1]                                   
+>>> last_name                                                                   
+<function <lambda> at 0x10d764ca0>                                              
+>>> last_name("Nikola Tesla")                                                   
+'Tesla'                                                                         
+>>> def first_name(name):                                                       
+...     return name.split()[0]                                                  
+...                                                                             

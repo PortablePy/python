@@ -1,0 +1,76 @@
+>>> def hello():                                                                
+...     "Print a well-known message."                                           
+...     print('Hello, world!')                                                  
+...                                                                             
+>>> hello.__name__                                                              
+'hello' def noop_wrapper                                                        
+>>> hello.__doc__                                                               
+'Print a well-known message.'                                                   
+>>> help(hello)                                                                 
+Help on function hello in module __main__:                                      
+                                                                                
+hello()                                                                         
+    Print a well-known message.                                                 
+(END)                                                                           
+                                                                                
+>>> def noop(f):                                                                
+...     def noop_wrapper():                                                     
+...         return f()                                                          
+...     return noop_wrapper                                                     
+...                                                                             
+>>> @noop                                                                       
+... def hello():                                                                
+...     "Print a well-known message."                                           
+...     print('hello world!')                                                   
+...                                                                             
+>>> help(hello)                                                                 
+Help on function noop_wrapper in module __main__:                               
+                                                                                
+noop_wrapper()                                                                  
+(END)                                                                           
+                                                                                
+>>> hello.__name__                                                              
+'noop_wrapper'                                                                  
+>>> hello.__doc__                                                               
+>>> def noop(f):                                                                
+...     def noop_wrapper():                                                     
+...         return f()                                                          
+...     noop_wrapper.__name__ = f.__name__                                      
+...     noop_wrapper.__doc__ = f.__doc__                                        
+...     return noop_wrapper                                                     
+...                                                                             
+>>> @noop                                                                       
+... def hello():                                                                
+...     "Print a well-known message."                                           
+...     print('hello world!')                                                   
+...                                                                             
+>>> help(hello)                                                                 
+Help on function hello in module __main__:                                      
+                                                                                
+hello()                                                                         
+    Print a well-known message.                                                 
+(END)                                                                           
+                                                                                
+>>> import functools                                                            
+>>> def noop(f):                                                                
+...     @functools.wraps(f)                                                     
+...     def noop_wrapper():                                                     
+...         return f()                                                          
+...     return noop_wrapper                                                     
+...                                                                             
+>>> @noop                                                                       
+... def hello():                                                                
+...     "Print a well-known message."                                           
+...     print('hello world!')                                                   
+...                                                                             
+>>> help(hello)                                                                 
+Help on function hello in module __main__:                                      
+                                                                                
+hello()                                                                         
+    Print a well-known message.                                                 
+(END)                                                                           
+                                                                                
+>>> hello.__name__                                                              
+'hello'                                                                         
+>>> hello.__doc__                                                               
+'Print a well-known message.'                                                   

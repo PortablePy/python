@@ -1,0 +1,212 @@
+﻿Creating Your Database
+
+
+- Creating MySQL Database
+# From MySQL
+mysql> SHOW DATABASES;
+
+
+# From Python
+>>> engine = db.create_engine('mysql+mysqlconnector://root:mysql@localhost:3306')
+>>> connection = engine.connect()
+
+
+# From MySQL
+mysql> SHOW DATABASES;
+
+
+# From Python
+>>> engine.execute('CREATE DATABASE test_mysql_sa;')
+
+
+# From MySQL
+mysql> SHOW DATABASES;
+
+
+- Creating SQLite Databases
+# From the terminal
+$ ls
+
+
+# From Python
+>>> engine = db.create_engine('sqlite:///new_sqlite.db')
+>>> connection = engine.connect()
+
+
+# From the terminal
+$ ls
+
+
+- Creating a Table 
+# From Python
+>>> engine = db.create_engine('mysql+mysqlconnector://root:mysql@localhost:3306/test_mysql_sa')
+>>> connection = engine.connect()
+>>> metadata = db.MetaData()
+
+
+# From MySQL
+mysql> USE test_mysql_sa;
+mysql> SHOW TABLES;
+
+
+- Creating Tables with Table
+# From Python
+>>> posts = db.Table('posts', metadata, 
+... db.Column('Id', db.Integer()),
+... db.Column('Title', db.String(255)),
+... db.Column('ViewCount', db.Integer()),
+... db.Column('Question', db.Boolean()))
+>>> metadata.create_all(engine)
+>>> posts
+>>> list(posts.c)
+>>> dir(posts)
+
+
+# From MySQL
+mysql> SHOW TABLES;
+mysql> DESCRIBE posts;
+
+
+- Insert Data
+# From MySQL
+mysql> SELECT * FROM posts;
+mysql> INSERT INTO posts (Id, Title) VALUES (0, 'Is Data Science the Future?');
+mysql> SELECT * FROM posts;
+mysql> INSERT INTO posts (Id, Title) VALUES (0, 'Is Data Science the Future?');
+mysql> SELECT * FROM posts;
+mysql> INSERT INTO posts (Title) VALUES ('Is Data Science the Future?');
+mysql> SELECT * FROM posts;
+
+
+- Constraints and Default Values
+# From Python
+>>> posts_two = db.Table('posts_two', metadata, 
+... db.Column('Id', db.Integer(), primary_key=True, unique=True),
+... db.Column('Title', db.String(255), nullable=False),
+... db.Column('ViewCount', db.Integer(), default=1000),
+... db.Column('Question', db.Boolean(), default=True))
+>>> posts_two.create(engine)
+
+
+# From MySQL
+mysql> describe posts_two;
+mysql> INSERT INTO posts_two (Id, Title) VALUES (0, 'Is Data Science the Future?’);
+mysql> INSERT INTO posts_two (Id, Title) VALUES (0, 'Is Data Science the Future?');
+mysql> SELECT * FROM posts_two;
+
+
+- Declarative Class Definitions with Constraints
+# From Python
+>>> import sqlalchemy as db
+>>> engine = db.create_engine('sqlite:///sqlalchemy_sqlite.db', echo=True)
+>>> connection = engine.connect()
+>>> from sqlalchemy.ext.declarative import declarative_base
+>>> from sqlalchemy.orm import relationship
+>>> Base = declarative_base()
+>>> class User(Base):
+...     __tablename__ = 'user'
+...     Id = db.Column(db.Integer(), primary_key=True)
+...     Name = db.Column(db.String())
+>>> class Post(Base):
+...     __tablename__ = 'post'
+...     Id = db.Column(db.Integer(), primary_key=True)
+...     Title = db.Column(db.String(255), nullable=False)
+...     ViewCount = db.Column(db.Integer(), default=1000)
+...     Question = db.Column(db.Boolean(), default=True)
+...     OwnerUserId = db.Column(db.Integer(), db.schema.ForeignKey('user.Id'), nullable=False)
+...     User = relationship('User', backref='post')
+>>> Base.metadata.create_all(engine)
+
+
+# From the terminal
+$ SQLite3 sqlalchemy_sqlite.db
+
+
+# From SQLite3
+sqlite> .tables
+sqlite> .schema post
+
+
+- Insert Using a Statement
+# From Python
+>>> engine = db.create_engine('sqlite:///sqlalchemy_sqlite.db')
+>>> connection = engine.connect()
+>>> metadata = db.MetaData()
+>>> users = db.Table('user', metadata, autoload=True, autoload_with=engine)
+>>> stmt = db.insert(users).values(Name='Xavier Morera')
+>>> result = connection.execute(stmt)
+>>> result.rowcount
+
+
+# From SQLite3
+sqlite> select * from user;
+
+
+- Insert Using Session
+# From Python
+>>> from sqlalchemy.orm import sessionmaker
+>>> session = sessionmaker()
+>>> session.configure(bind=engine)
+>>> my_session = session()
+>>> Juli = User(Name='Juli')
+>>> Luci = User(Name='Luci')
+>>> my_session.add(Juli)
+>>> my_session.add(Luci)
+>>> session.new
+>>> my_session.commit()
+
+
+# From SQLite3
+sqlite> select * from user;
+
+
+# From Python
+>>> for each_user in my_session.query(User).all():
+...     print(each_user.Name)
+
+
+- Insert Multiple Records
+# From Python
+>>> posts = db.Table('post', metadata, autoload=True, autoload_with=engine)
+>>> stmt = db.insert(posts)
+>>> values_list = [{'Title': 'Data Science Question', 'OwnerUserId':1},
+... {'Title': 'Data Science Answer', 'OwnerUserId':2]
+>>> result = connection.execute(stmt, values_list)
+
+
+# From SQLite3
+sqlite> select * from post;
+
+
+# From Python
+>>> class Post(Base):
+...     __tablename__ = 'post'
+...     Id = db.Column(db.Integer(), primary_key=True)
+...     Title = db.Column(db.String(255), nullable=False)
+...     ViewCount = db.Column(db.Integer(), default=1000)
+...     Question = db.Column(db.Boolean(), default=True)
+...     OwnerUserId = db.Column(db.Integer(), db.schema.ForeignKey('user.Id'), nullable=False)
+...     User = relationship('User', backref='post')
+
+
+>>> one_post = Post(Title='Sample question', OwnerUserId=1)
+>>> one_answer = Post(Title='Sample answer', Question=False, OwnerUserId=1)
+>>> my_session
+>>> my_session.add_all([one_post, one_answer])
+>>> my_session.commit()
+>>> engine.execute('select * from post;').fetchall()
+
+
+- Loading a CSV into a Table
+# From the terminal
+$ head tags.csv
+
+
+# From Python
+>>> engine = db.create_engine('sqlite:///sqlalchemy_csv.db')
+>>> connection = engine.connect() 
+>>> with open('tags.csv', 'r') as file:
+...     tags_df = pd.read_csv(file)
+>>> tags_df.head()
+>>> tags_df.to_sql('tags', con=engine)
+>>> engine.execute('select * from tags limit 10;').fetchall()

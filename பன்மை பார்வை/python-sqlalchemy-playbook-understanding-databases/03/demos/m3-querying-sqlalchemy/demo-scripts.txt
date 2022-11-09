@@ -1,0 +1,209 @@
+﻿Querying with SQLAlchemy
+
+- Creating an engine for different databases
+# From Python
+>>> engine_sqlite = create_engine('sqlite:///importing_sqlite.db')
+>>> engine_mysql = create_engine('mysql+mysqlconnector://root:mysql@localhost:3306/importing_mysql')
+>>> engine_postgres = create_engine('postgresql://xavier:postgres@localhost:5432/importing_postgres')
+>>> engine_sqlite.table_names()
+>>> engine_mysql.table_names()
+>>> engine_postgres.table_names()
+
+
+- A SQL Query
+#From SQLite3
+sqlite> SELECT OwnerUserId, 
+     ->	SUM(AnswerCount) AS 'TotalAnswers', 
+     ->	SUM(ViewCount) AS 'TotalViews' 
+     ->	FROM posts 
+     ->	WHERE owneruserid is not NULL 
+     ->	GROUP BY OwnerUserId 
+     ->	ORDER BY 'TotalAnswers' DESC 
+     ->	LIMIT 10;
+
+
+- Executing a SQL Query
+# From Python
+>>> result = engine.execute("""SELECT OwnerUserId, 
+...     SUM(AnswerCount) AS 'TotalAnswers',
+...     SUM(ViewCount) AS 'TotalViews' 
+...   FROM posts 
+...   WHERE owneruserid is not NULL 
+...   GROUP BY OwnerUserId 
+...   ORDER BY 'TotalAnswers' DESC 
+...   LIMIT 10;""").fetchall()
+>>> result
+
+
+-Classical Mapping
+# From Python
+>>> from sqlalchemy import Table, MetaData, Column, Integer, String
+>>> from sqlalchemy.orm import mapper 
+>>> metadata = MetaData() 
+
+
+#From MySQL
+mysql> describe Tags
+
+
+# From Python
+>>> tags = Table('Tags', metadata, 
+...   Column('Id', Integer, primary_key=True), 
+...   Column('Count', Integer), 
+...   Column('ExcerptPostId', Integer), 
+...   Column('TagName', String(255)), 
+...   Column('WikiPostId', Integer))
+>>> class Tags(object): 
+...     def __init__(self, Count, ExcerptPostId, TagName, WikiPostId): 
+...         self.Count = Count 
+...         self.ExcerptPostId = ExcerptPostId 
+...         self.TagName = TagName 
+...         self.WikiPostId = WikiPostId 
+>>> tags_mapper = mapper(Tags, tags)
+>>> larger_tags = tags.select(Tags.Count > 1000)
+>>> larger_tags
+>>> engine.execute(larger_tags).fetchall()
+
+
+- Session 
+# From Python
+>>> from sqlalchemy.orm import sessionmaker
+>>> session = sessionmaker()
+>>> session.configure(bind=engine)
+>>> my_session = session()
+>>> my_session.query(Tags).all()
+>>> len(my_session.query(Tags).all())
+>>> my_session.query(Tags).first()
+>>> my_session.query(Tags).first().TagName
+>>> my_session.query(Tags.Id, Tags.TagName).first()
+
+
+- Declarative Base
+# From Python
+>>> from sqlalchemy.ext.declarative import declarative_base
+>>> Base = declarative_base()
+
+
+- Define a Model
+# From Python
+>>> class Users(Base):
+...     __tablename__ = 'users'
+...     Id = Column(db.Integer, primary_key = True)
+...     Reputation = db.Column(db.Integer)     
+...     CreationDate = db.Column(db.DateTime) 
+...     DisplayName = db.Column(db.String(255))
+...     LastAccessDate = db.Column(db.DateTime) 
+...     WebsiteUrl = db.Column(db.String(255))
+...     Location = db.Column(db.String(4096))
+...     AboutMe = db.Column(db.String(4096))
+...     Views = db.Column(db.Integer) 
+...     UpVotes = db.Column(db.Integer) 
+...     DownVotes = db.Column(db.Integer) 
+...     AccountId = db.Column(db.Integer)       
+...     def __repr__(self):
+...         return "<{0} Id: {1} – Name: {2}>".format(self.__class__.__name__, self.Id, self.DisplayName) 
+
+
+- Querying
+# From Python
+>>> my_session.query(Users).first()
+>>> type(my_session.query(Users).first())
+>>> my_session.query(Users).first().DisplayName
+>>> for each_user in my_session.query(Users):
+...     print(each_user)
+
+
+- The Query and Echo Parameter
+# From Python
+>>> the_query = my_session.query(Users)
+>>> type(the_query)
+>>> print(the_query)
+>>> engine_echo = db.create_engine('mysql+mysqlconnector://root:mysql@localhost:3306/sqlalchemy_mysql', echo=True)
+>>> connection_echo = engine_echo.connect()
+>>> session_echo = sessionmaker(bind=engine_echo)()
+>>> session_echo.query(Users).first()
+
+
+- Filtering Results
+# From Python
+>>> my_session.query(Users).filter_by(DisplayName='Community').all()
+>>> my_session.query(Users).filter(Users.DisplayName=='Community').all()
+
+
+- ClauseElements
+# From Python
+>>> my_session.query(Users.DisplayName).filter(Users.DisplayName.like('%Comm%')).all()
+>>> my_session.query(Users.DisplayName).filter(Users.DisplayName.contains('Comm')).all()
+
+
+- Functions
+# From Python
+>>> from sqlalchemy import func
+>>> dir(func)
+>>> my_session.query(func.sum(Tags.Count)).scalar()
+
+
+- Operators and Labels
+# From Python
+>>> my_session.query(Users.DisplayName, db.cast((Users.UpVotes - Users.DownVotes), db.Numeric(12, 2)).label('vote_difference'), Users.UpVotes, Users.DownVotes).all()
+
+
+- Limiting Results
+# From Python
+>>> my_session.query(Users.DisplayName, db.cast((Users.UpVotes - Users.DownVotes), db.Numeric(12, 2)).label('vote_difference'), Users.UpVotes, Users.DownVotes).limit(5).all()
+
+
+- Ordering Results
+# From Python
+>>> my_session.query(Users.DisplayName, db.cast((Users.UpVotes - Users.DownVotes), db.Numeric(12, 2)).label('vote_difference'), Users.UpVotes, Users.DownVotes).order_by('vote_difference').limit(5).all()
+>>> my_session.query(Users.DisplayName, db.cast((Users.UpVotes - Users.DownVotes), db.Numeric(12, 2)).label('vote_difference'), Users.UpVotes, Users.DownVotes).order_by(db.desc('vote_difference')).limit(5).all()
+
+
+- Conjunctions
+# From Python
+>>> my_session.query(Users.DisplayName).filter(Users.DisplayName == 'Community', Users.DownVotes.between(300,600)).all()
+>>> my_session.query(Users.DisplayName).filter(db.or_(Users.DisplayName == 'Community', Users.DownVotes.between(300,600))).all()
+
+
+- Define Posts
+# From Python
+>>> class Posts(Base):
+...     __tablename__ = 'posts'
+...     Id = db.Column(db.Integer(), primary_key=True) 
+...     Title = db.Column(db.String(255), nullable=False)
+...     ViewCount = db.Column(db.Integer(), default=1000)  
+...     PostTypeId = db.Column(db.Integer(), default=True)
+...     OwnerUserId = db.Column(db.Integer())
+	
+
+- Implicit Join
+# From Python
+>>> my_session.query(Users, Posts).filter(Users.Id == Posts.OwnerUserId).all()
+
+
+- Explicit Join
+# From Python
+>>> my_session.query(Users, Posts).join(Posts, Users.Id == Posts.OwnerUserId).all()
+
+
+- Extending a Model
+# From Python
+>>> class Posts(Base):
+...     __tablename__ = 'posts'
+...     Id = db.Column(db.Integer(), primary_key=True) 
+...     Title = db.Column(db.String(255), nullable=False)
+...     ViewCount = db.Column(db.Integer(), default=1000)  
+...     PostTypeId = db.Column(db.Integer(), default=True)
+...     OwnerUserId = db.Column(db.Integer())
+...     __table_args__ = {'extend_existing': True} 
+...     AnswerCount = db.Column(db.Integer)
+...     ParentId = db.Column(db.Integer)
+...     Score = db.Column(db.Integer)
+
+
+- Hierarchical Tables
+# From Python
+>>> from sqlalchemy.orm import aliased
+>>> Questions = aliased(Posts)
+>>> Questions
+>>> my_session.query(Posts.Id, Questions.Id, Posts.ViewCount, Posts.Score, Questions.Score).filter(Posts.Id == Questions.ParentId).order_by(db.desc(Posts.ViewCount)).limit(10).all()

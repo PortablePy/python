@@ -1,0 +1,4 @@
+>>> age = 28                                                                    
+>>> country = "New Zealand"                                                     
+>>> "{name} is {age} years old and is from {country}".format(**locals())        
+'Joe Bloggs is 28 years old and is from New Zealand'                            

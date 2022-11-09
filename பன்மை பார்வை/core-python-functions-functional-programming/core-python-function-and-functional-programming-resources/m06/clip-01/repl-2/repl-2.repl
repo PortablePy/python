@@ -1,0 +1,47 @@
+>>> class Trace:                                                                
+...     def __init__(self):                                                     
+...         self.enabled = True                                                 
+...     def __call__(self, f):                                                  
+...         def wrap(*args, **kwargs):                                          
+...             if self.enabled:                                                
+...                 print('Calling {}'.format(f))                               
+...             return f(*args, **kwargs)                                       
+...         return wrap                                                         
+...                                                                             
+>>> result = map(Trace()(ord), 'The quick brown fox')                           
+>>> result                                                                      
+<map object at 0x105ed5a00>                                                     
+>>> next(result)                                                                
+Calling <built-in function ord>                                                 
+84                                                                              
+>>> next(result)                                                                
+Calling <built-in function ord>                                                 
+104                                                                             
+>>> next(result)                                                                
+Calling <built-in function ord>                                                 
+101                                                                             
+>>> list(map(ord, 'The quick brown fox'))                                       
+[84, 104, 101, 32, 113, 117, 105, 99, 107, 32, 98, 114, 111, 119, 110, 32, 102, 
+111, 120]                                                                       
+>>> for o in map(ord, 'The quick brown fox'):                                   
+...      print(o)                                                               
+...                                                                             
+84                                                                              
+104                                                                             
+101                                                                             
+32                                                                              
+113                                                                             
+117                                                                             
+105                                                                             
+99                                                                              
+107                                                                             
+32                                                                              
+98                                                                              
+114                                                                             
+111                                                                             
+119                                                                             
+110                                                                             
+32                                                                              
+102                                                                             
+111                                                                             
+120                                                                             

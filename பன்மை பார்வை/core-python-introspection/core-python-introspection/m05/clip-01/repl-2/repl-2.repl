@@ -1,0 +1,16 @@
+>>> def num_vowels(text: str) -> int:                                           
+...     return sum(1 if c.lower() in 'aeiou' else 0                             
+...                for c in text)                                               
+...                                                                             
+>>> import inspect                                                              
+>>> sig = inspect.signature(num_vowels)                                         
+>>> sig.parameters['text']                                                      
+<Parameter "text: str">                                                         
+>>> sig.parameters['text'].annotation                                           
+<class 'str'>                                                                   
+>>> sig                                                                         
+<Signature (text: str) -> int>                                                  
+>>> sig.return_annotation                                                       
+<class 'int'>                                                                   
+>>> num_vowels.__annotations__                                                  
+{'text': <class 'str'>, 'return': <class 'int'>}                                

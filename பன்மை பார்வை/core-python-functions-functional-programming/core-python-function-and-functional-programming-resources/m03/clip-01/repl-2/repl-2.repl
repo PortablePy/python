@@ -1,0 +1,30 @@
+>>> def hypervolume(*args):                                                     
+...     print(args)                                                             
+...     print(type(args))                                                       
+...                                                                             
+>>> hypervolume(3, 4)                                                           
+(3, 4)                                                                          
+<class 'tuple'>                                                                 
+>>> hypervolume(3, 4, 5)                                                        
+(3, 4, 5)                                                                       
+<class 'tuple'>                                                                 
+>>> def hypervolume(*lengths):                                                  
+...     i = iter(lengths)                                                       
+...     v = next(i)                                                             
+...     for length in i:                                                        
+...         v *= length                                                         
+...     return v                                                                
+...                                                                             
+>>> hypervolume(2, 4)                                                           
+8                                                                               
+>>> hypervolume(2, 4, 6)                                                        
+48                                                                              
+>>> hypervolume(2, 4, 6, 8)                                                     
+384                                                                             
+>>> hypervolume(1)                                                              
+1                                                                               
+>>> hypervolume()                                                               
+Traceback (most recent call last):                                              
+  File "<stdin>", line 1, in <module>                                           
+  File "<stdin>", line 3, in hypervolume                                        
+StopIteration                                                                   

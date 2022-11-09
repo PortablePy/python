@@ -1,0 +1,171 @@
+>>> import inspect                                                              
+>>> import batch                                                                
+>>> inspect.ismodule(batch)                                                     
+True                                                                            
+>>> inspect.getmembers(batch)                                                   
+[('Batch', <class 'batch.Batch'>), ('__builtins__', {'__name__': 'builtins', '__
+doc__': "Built-in functions, exceptions, and other objects.\n\nNoteworthy: None 
+is the `nil' object; Ellipsis represents `...' in slices.", '__package__': '', '
+__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': ModuleSpec
+(name='builtins', loader=<class '_frozen_importlib.BuiltinImporter'>), '__build_
+class__': <built-in function __build_class__>, '__import__': <built-in function 
+__import__>, 'abs': <built-in function abs>, 'all': <built-in function all>, 'an
+y': <built-in function any>, 'ascii': <built-in function ascii>, 'bin': <built-i
+n function bin>, 'breakpoint': <built-in function breakpoint>, 'callable': <buil
+t-in function callable>, 'chr': <built-in function chr>, 'compile': <built-in fu
+nction compile>, 'delattr': <built-in function delattr>, 'dir': <built-in functi
+on dir>, 'divmod': <built-in function divmod>, 'eval': <built-in function eval>,
+ 'exec': <built-in function exec>, 'format': <built-in function format>, 'getatt
+r': <built-in function getattr>, 'globals': <built-in function globals>, 'hasatt
+r': <built-in function hasattr>, 'hash': <built-in function hash>, 'hex': <built
+-in function hex>, 'id': <built-in function id>, 'input': <built-in function inp
+ut>, 'isinstance': <built-in function isinstance>, 'issubclass': <built-in funct
+ion issubclass>, 'iter': <built-in fuchainn iter>, 'len': <built-in function len
+>, 'locals': <built-in function locals>, 'max': <built-in function max>, 'min': 
+<built-in function min>, 'next': <built-in function next>, 'oct': <built-in func
+tion oct>, 'ord': <built-in function ord>, 'pow': <built-in function pow>, 'prin
+t': <built-in function print>, 'repr': <built-in function repr>, 'round': <built
+-in function round>, 'setattr': <built-in function setattr>, 'sorted': <built-in
+ function sorted>, 'sum': <built-in function sum>, 'vars': <built-in function va
+rs>, 'None': None, 'Ellipsis': Ellipsis, 'NotImplemented': NotImplemented, 'Fals
+e': False, 'True': True, 'bool': <class 'bool'>, 'memoryview': <class 'memoryvie
+w'>, 'bytearray': <class 'bytearray'>, 'bytes': <class 'bytes'>, 'classmethod': 
+<class 'classmethod'>, 'complex': <class 'complex'>, 'dict': <class 'dict'>, 'en
+umerate': <class 'enumerate'>, 'filter': <class 'filter'>, 'float': <class 'floa
+t'>, 'frozenset': <class 'frozenset'>, 'property': <class 'property'>, 'int': <c
+lass 'int'>, 'list': <class 'list'>, 'map': <class 'map'>, 'object': <class 'obj
+ect'>, 'range': <class 'range'>, 'reversed': <class 'reversed'>, 'set': <class '
+set'>, 'slice': <class 'slice'>, 'staticmethod': <class 'staticmethod'>, 'str': 
+<class 'str'>, 'super': <class 'super'>, 'tuple': <class 'tuple'>, 'type': <clas
+s 'type'>, 'zip': <class 'zip'>, '__debug__': True, 'BaseException': <class 'Bas
+eException'>, 'Exception': <class 'Exception'>, 'TypeError': <class 'TypeError'>
+, 'StopAsyncIteration': <class 'StopAsyncIteration'>, 'StopIteration': <class 'S
+topIteration'>, 'GeneratorExit': <class 'GeneratorExit'>, 'SystemExit': <class '
+SystemExit'>, 'KeyboardInterrupt': <class 'KeyboardInterrupt'>, 'ImportError': <
+class 'ImportError'>, 'ModuleNotFoundError': <class 'ModuleNotFoundError'>, 'OSE
+rror': <class 'OSError'>, 'EnvironmentError': <class 'OSError'>, 'IOError': <cla
+ss 'OSError'>, 'EOFError': <class 'EOFError'>, 'RuntimeError': <class 'RuntimeEr
+ror'>, 'RecursionError': <class 'RecursionError'>, 'NotImplementedError': <class
+ 'NotImplementedError'>, 'NameError': <class 'NameError'>, 'UnboundLocalError': 
+<class 'UnboundLocalError'>, 'AttributeError': <class 'AttributeError'>, 'Syntax
+Error': <class 'SyntaxError'>, 'IndentationError': <class 'IndentationError'>, '
+TabError': <class 'TabError'>, 'LookupError': <class 'LookupError'>, 'IndexError
+': <class 'IndexError'>, 'KeyError': <class 'KeyError'>, 'ValueError': <class 'V
+alueError'>, 'UnicodeError': <class 'UnicodeError'>, 'UnicodeEncodeError': <clas
+s 'UnicodeEncodeError'>, 'UnicodeDecodeError': <class 'UnicodeDecodeError'>, 'Un
+icodeTranslateError': <class 'UnicodeTranslateError'>, 'AssertionError': <class 
+'AssertionError'>, 'ArithmeticError': <class 'ArithmeticError'>, 'FloatingPointE
+rror': <class 'FloatingPointError'>, 'OverflowError': <class 'OverflowError'>, '
+ZeroDivisionError': <class 'ZeroDivisionError'>, 'SystemError': <class 'SystemEr
+ror'>, 'ReferenceError': <class 'ReferenceError'>, 'MemoryError': <class 'Memory
+Error'>, 'BufferError': <class 'BufferError'>, 'Warning': <class 'Warning'>, 'Us
+erWarning': <class 'UserWarning'>, 'DeprecationWarning': <class 'DeprecationWarn
+ing'>, 'PendingDeprecationWarning': <class 'PendingDeprecationWarning'>, 'Syntax
+Warning': <class 'SyntaxWarning'>, 'RuntimeWarning': <class 'RuntimeWarning'>, '
+FutureWarning': <class 'FutureWarning'>, 'ImportWarning': <class 'ImportWarning'
+>, 'UnicodeWarning': <class 'UnicodeWarning'>, 'BytesWarning': <class 'BytesWarn
+ing'>, 'ResourceWarning': <class 'ResourceWarning'>, 'ConnectionError': <class '
+ConnectionError'>, 'BlockingIOError': <class 'BlockingIOError'>, 'BrokenPipeErro
+r': <class 'BrokenPipeError'>, 'ChildProcessError': <class 'ChildProcessError'>,
+ 'ConnectionAbortedError': <class 'ConnectionAbortedError'>, 'ConnectionRefusedE
+rror': <class 'ConnectionRefusedError'>, 'ConnectionResetError': <class 'Connect
+ionResetError'>, 'FileExistsError': <class 'FileExistsError'>, 'FileNotFoundErro
+r': <class 'FileNotFoundError'>, 'IsADirectoryError': <class 'IsADirectoryError'
+>, 'NotADirectoryError': <class 'NotADirectoryError'>, 'InterruptedError': <clas
+s 'InterruptedError'>, 'PermissionError': <class 'PermissionError'>, 'ProcessLoo
+kupError': <class 'ProcessLookupError'>, 'TimeoutError': <class 'TimeoutError'>,
+ 'open': <built-in function open>, 'quit': Use quit() or Ctrl-D (i.e. EOF) to ex
+it, 'exit': Use exit() or Ctrl-D (i.e. EOF) to exit, 'copyright': Copyright (c) 
+2001-2019 Python Software Foundation.                                           
+All Rights Reserved.                                                            
+                                                                                
+Copyright (c) 2000 BeOpen.com.                                                  
+All Rights Reserved.                                                            
+                                                                                
+Copyright (c) 1995-2001 Corporation for National Research Initiatives.          
+All Rights Reserved.                                                            
+                                                                                
+Copyright (c) 1991-1995 Stichting Mathematisch Centrum, Amsterdam.              
+All Rights Reserved., 'credits':     Thanks to CWI, CNRI, BeOpen.com, Zope Corpo
+ration and a cast of thousands                                                  
+    for supporting Python development.  See www.python.org for more information.
+, 'license': Type license() to see the full license text, 'help': Type help() fo
+r interactive help, or help(object) for help about object., '_': None}), ('__cac
+hed__', '/Users/abingham/repos/sixty-north/pluralsight/core-python-introspection
+/resources/m05/visning/clip-01/batch/__pycache__/batch.cpython-38.pyc'), ('__doc
+__', None), ('__file__', '/Users/abingham/repos/sixty-north/pluralsight/core-pyt
+hon-introspection/resources/m05/visning/clip-01/batch/batch.py'), ('__loader__',
+ <_frozen_importlib_external.SourceFileLoader object at 0x10d09af10>), ('__name_
+_', 'batch'), ('__package__', ''), ('__spec__', ModuleSpec(name='batch', loader=
+<_frozen_importlib_external.SourceFileLoader object at 0x10d09af10>, origin='/Us
+ers/abingham/repos/sixty-north/pluralsight/core-python-introspection/resources/m
+05/visning/clip-01/batch/batch.py')), ('chain', <class 'itertools.chain'>)]     
+>>> dir(inspect)                                                                
+['ArgInfo', 'ArgSpec', 'Arguments', 'Attribute', 'BlockFinder', 'BoundArguments'
+, 'CORO_CLOSED', 'CORO_CREATED', 'CORO_RUNNING', 'CORO_SUSPENDED', 'CO_ASYNC_GEN
+ERATOR', 'CO_COROUTINE', 'CO_GENERATOR', 'CO_ITERABLE_COROUTINE', 'CO_NESTED', '
+CO_NEWLOCALS', 'CO_NOFREE', 'CO_OPTIMIZED', 'CO_VARARGS', 'CO_VARKEYWORDS', 'Clo
+sureVars', 'EndOfBlock', 'FrameInfo', 'FullArgSpec', 'GEN_CLOSED', 'GEN_CREATED'
+, 'GEN_RUNNING', 'GEN_SUSPENDED', 'OrderedDict', 'Parameter', 'Signature', 'TPFL
+AGS_IS_ABSTRACT', 'Traceback', '_ClassMethodWrapper', '_KEYWORD_ONLY', '_MethodW
+rapper', '_NonUserDefinedCallables', '_PARAM_NAME_MAPPING', '_POSITIONAL_ONLY', 
+'_POSITIONAL_OR_KEYWORD', '_ParameterKind', '_VAR_KEYWORD', '_VAR_POSITIONAL', '
+_WrapperDescriptor', '__author__', '__builtins__', '__cached__', '__doc__', '__f
+ile__', '__loader__', '__name__', '__package__', '__spec__', '_check_class', '_c
+heck_instance', '_empty', '_filesbymodname', '_findclass', '_finddoc', '_has_cod
+e_flag', '_is_type', '_main', '_missing_arguments', '_sentinel', '_shadowed_dict
+', '_signature_bound_method', '_signature_from_builtin', '_signature_from_callab
+le', '_signature_from_function', '_signature_fromstr', '_signature_get_bound_par
+am', '_signature_get_partial', '_signature_get_user_defined_method', '_signature
+_is_builtin', '_signature_is_functionlike', '_signature_strip_non_python_syntax'
+, '_static_getmro', '_too_many', '_void', 'abc', 'attrgetter', 'builtins', 'clas
+sify_class_attrs', 'cleandoc', 'collections', 'currentframe', 'dis', 'enum', 'fi
+ndsource', 'formatannotation', 'formatannotationrelativeto', 'formatargspec', 'f
+ormatargvalues', 'functools', 'getabsfile', 'getargs', 'getargspec', 'getargvalu
+es', 'getattr_static', 'getblock', 'getcallargs', 'getclasstree', 'getclosurevar
+s', 'getcomments', 'getcoroutinelocals', 'getcoroutinestate', 'getdoc', 'getfile
+', 'getframeinfo', 'getfullargspec', 'getgeneratorlocals', 'getgeneratorstate', 
+'getinnerframes', 'getlineno', 'getmembers', 'getmodule', 'getmodulename', 'getm
+ro', 'getouterframes', 'getsource', 'getsourcefile', 'getsourcelines', 'importli
+b', 'indentsize', 'isabstract', 'isasyncgen', 'isasyncgenfunction', 'isawaitable
+', 'isbuiltin', 'isclass', 'iscode', 'iscoroutine', 'iscoroutinefunction', 'isda
+tadescriptor', 'isframe', 'isfunction', 'isgenerator', 'isgeneratorfunction', 'i
+sgetsetdescriptor', 'ismemberdescriptor', 'ismethod', 'ismethoddescriptor', 'ism
+odule', 'isroutine', 'istraceback', 'itertools', 'k', 'linecache', 'mod_dict', '
+modulesbyfile', 'namedtuple', 'os', 're', 'signature', 'stack', 'sys', 'token', 
+'tokenize', 'trace', 'types', 'unwrap', 'v', 'walktree', 'warnings']            
+>>> inspect.getmembers(batch, inspect.isclass)                                  
+[('Batch', <class 'batch.Batch'>), ('chain', <class 'itertools.chain'>)]        
+>>> from batch import chain                                                     
+>>> list(chain([1, 2, 3], [4, 5, 6]))                                           
+[1, 2, 3, 4, 5, 6]                                                              
+>>> inspect.getmembers(batch.Batch, inspect.isfunction)                         
+[('__init__', <function Batch.__init__ at 0x10d12ec10>), ('__iter__', <function 
+Batch.__iter__ at 0x10d12ed30>), ('append', <function Batch.append at 0x10d12eca
+0>)]                                                                            
+>>> init_sig = inspect.signature(batch.Batch.__init__)                          
+>>> init_sig                                                                    
+<Signature (self, iterables=())>                                                
+>>> init_sig.parameters                                                         
+mappingproxy(OrderedDict([('self', <Parameter "self">), ('iterables', <Parameter
+ "iterables=()">)]))                                                            
+>>> repr(init_sig.parameters['iterables'].default)                              
+'()'                                                                            
+>>> str(init_sig)                                                               
+'(self, iterables=())'                                                          
+>>> inspect.signature(iter)                                                     
+Traceback (most recent call last):                                              
+  File "<stdin>", line 1, in <module>                                           
+  File "/Users/abingham/.pyenv/versions/3.8.0/Python.framework/Versions/3.8/lib/
+python3.8/inspect.py", line 3093, in signature                                  
+    return Signature.from_callable(obj, follow_wrapped=follow_wrapped)          
+  File "/Users/abingham/.pyenv/versions/3.8.0/Python.framework/Versions/3.8/lib/
+python3.8/inspect.py", line 2842, in from_callable                              
+    return _signature_from_callable(obj, sigcls=cls,                            
+  File "/Users/abingham/.pyenv/versions/3.8.0/Python.framework/Versions/3.8/lib/
+python3.8/inspect.py", line 2296, in _signature_from_callable                   
+    return _signature_from_builtin(sigcls, obj,                                 
+  File "/Users/abingham/.pyenv/versions/3.8.0/Python.framework/Versions/3.8/lib/
+python3.8/inspect.py", line 2107, in _signature_from_builtin                    
+    raise ValueError("no signature found for builtin {!r}".format(func))        
+ValueError: no signature found for builtin <built-in function iter>             

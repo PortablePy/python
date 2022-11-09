@@ -1,0 +1,86 @@
+Up and Running with SQLAlchemy
+
+- Log in to MySQL
+# From the terminal
+$ mysql -u root -p
+$ # Enter your password
+
+
+# From MySQL
+mysql> SHOW DATABASES;
+mysql> Use sqlalchemy_mysql;
+mysql> SELECT Id, Title, OwnerUserId, CommentCount FROM posts LIMIT 5;
+
+
+- Install SQLAlchemy Using pip
+# From the terminal
+$ pip install sqlalchemy
+$ pip install mysql-connector-python
+
+
+- Import SQLAlchemy
+# From Python
+>>> from sqlalchemy import create_engine, select, insert
+>>> help(create_engine)
+>>> import sqlalchemy
+>>> import sqlalchemy as db
+
+
+- Load Data Using SQL Queries 
+# From Python
+>>> import sqlalchemy as db
+>>> engine = db.create_engine('mysql+mysqlconnector://root:mysql@localhost:3306/sqlalchemy_mysql')
+>>> connection = engine.connect()
+>>> results = engine.execute('SELECT * FROM posts LIMIT 10')
+>>> first_result = results.fetchone()
+>>> type(first_result)
+>>> type(first_result.items())
+>>> first_result
+>>> results.fetchmany(2)
+>>> other_results = results.fetchall()
+>>> type(other_results)
+>>> len(other_results)
+>>> other_results
+
+
+- Loading Data with SQLAlchemy & Pandas
+# From Python
+>>> import pandas as pd
+>>> query = 'SELECT * FROM posts'
+>>> posts_df = pd.read_sql_query(query, engine)
+>>> type (posts_df)
+
+
+- Work & View your Data using Pandas
+# From Python
+>>> posts_df.columns
+>>> posts_df.dtypes
+>>> posts_df.head()
+>>> posts_df[['ViewCount', 'AnswerCount']].max()
+>>> posts_df[['ViewCount', 'AnswerCount']].min()
+>>> posts_df[['ViewCount', 'AnswerCount']].sum()
+>>> posts_df.groupby('OwnerUserId')
+>>> posts_df[['ViewCount', 'AnswerCount']].describe()
+
+
+- Why Visualizations?
+# From Python
+>>> posts_df[[�AnswerCount, �ViewCount�]].dropna()[:50]
+
+
+- Creating Visualizations with Matplotlib
+# From terminal
+$ pip install matplotlib
+
+
+# From Python
+>>> import matplotlib.pyplot as plt
+>>> x = posts_df['AnswerCount']
+>>> y = posts_df['ViewCount']
+>>> import numpy as np
+>>> colors = np.random.rand(4500)
+>>> plt.scatter(x, y, c=colors)
+>>> plt.title("Posts: Views vs. Answers")
+>>> plt.xlabel("Answers")
+>>> plt.ylabel("Views")
+>>> plt.show()

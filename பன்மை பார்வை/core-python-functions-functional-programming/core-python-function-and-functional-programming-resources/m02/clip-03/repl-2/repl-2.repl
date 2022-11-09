@@ -1,0 +1,13 @@
+>>> def sequence_class(immutable):                                              
+...     if immutable:                                                           
+...         cls = tuple                                                         
+...     else:                                                                   
+...         cls = list                                                          
+...     return cls                                                              
+...                                                                             
+>>> seq = sequence_class(immutable=True)                                        
+>>> t = seq("Timbuktu")                                                         
+>>> t                                                                           
+('T', 'i', 'm', 'b', 'u', 'k', 't', 'u')                                        
+>>> type(t)                                                                     
+<class 'tuple'>                                                                 

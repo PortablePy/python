@@ -1,0 +1,32 @@
+>>> a = 42                                                                      
+>>> dir(a)                                                                      
+['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delatt
+r__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '_
+_floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__g
+t__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__in
+vert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__ne
+g__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdiv
+mod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__
+', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '_
+_rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__',
+ '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__'
+, 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'i
+mag', 'numerator', 'real', 'to_bytes']                                          
+>>> getattr(a, 'denominator')                                                   
+1                                                                               
+>>> a.denominator                                                               
+1                                                                               
+>>> getattr(a, 'conjugate')                                                     
+<built-in method conjugate of int object at 0x10ff2cfb0>                        
+>>> callable(getattr(a, 'conjugate'))                                           
+True                                                                            
+>>> a.conjugate.__class__.__name__                                              
+'builtin_function_or_method'                                                    
+>>> getattr(a, 'index')                                                         
+Traceback (most recent call last):                                              
+  File "<stdin>", line 1, in <module>                                           
+AttributeError: 'int' object has no attribute 'index'                           
+>>> hasattr(a, 'bit_length')                                                    
+True                                                                            
+>>> hasattr(a, 'index')                                                         
+False                                                                           

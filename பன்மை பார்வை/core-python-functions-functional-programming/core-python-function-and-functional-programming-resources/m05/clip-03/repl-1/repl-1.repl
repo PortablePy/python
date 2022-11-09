@@ -1,0 +1,37 @@
+...     def wrap(*args, **kwargs):                                              
+...         x = f(*args, **kwargs)                                              
+...         return x.encode('unicode-escape').decode('ascii')                   
+...     return wrap                                                             
+...                                                                             
+>>> class Trace:                                                                
+...     def __init__(self):                                                     
+...         self.enabled = True                                                 
+...     def __call__(self, f):                                                  
+...         def wrap(*args, **kwargs):                                          
+...             if self.enabled:                                                
+...                 print('Calling {}'.format(f))                               
+...             return f(*args, **kwargs)                                       
+...         return wrap                                                         
+...                                                                             
+>>> tracer = Trace()                                                            
+>>> @tracer                                                                     
+... @escape_unicode                                                             
+... def norwegian_island_maker(name):                                           
+...     return name + 'øy'                                                      
+...                                                                             
+>>> norwegian_island_maker('Llama')                                             
+Calling <function escape_unicode.<locals>.wrap at 0x103b22ee0>                  
+'Llama\\xf8y'                                                                   
+>>> norwegian_island_maker('Python')                                            
+Calling <function escape_unicode.<locals>.wrap at 0x103b22ee0>                  
+'Python\\xf8y'                                                                  
+>>> norwegian_island_maker('Troll')                                             
+Calling <function escape_unicode.<locals>.wrap at 0x103b22ee0>                  
+'Troll\\xf8y'                                                                   
+>>> tracer.enabled = False                                                      
+>>> norwegian_island_maker('Llama')                                             
+'Llama\\xf8y'                                                                   
+>>> norwegian_island_maker('Python')                                            
+'Python\\xf8y'                                                                  
+>>> norwegian_island_maker('Troll')                                             
+'Troll\\xf8y'                                                                   

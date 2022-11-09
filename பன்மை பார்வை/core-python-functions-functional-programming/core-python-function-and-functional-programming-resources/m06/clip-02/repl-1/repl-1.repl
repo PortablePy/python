@@ -1,0 +1,5 @@
+>>> positives = filter(lambda x: x > 0, [1, -5, 0, 6, -2, 8])                   
+>>> positives                                                                   
+<filter object at 0x10f2be8b0>                                                  
+>>> list(positives)                                                             
+[1, 6, 8]                                                                       

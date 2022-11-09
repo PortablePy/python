@@ -1,0 +1,146 @@
+Manipulating Your Database
+
+- Updating Data Using SQL
+# From Python
+>>> engine = db.create_engine('sqlite:///sqlalchemy_sqlite.db')
+>>> connection = engine.connect()
+>>> engine.execute('select * from post where Id=1').fetchone()
+>>> engine.execute('select ViewCount from post where Id=1').fetchone()
+>>> engine.execute('Update post set ViewCount = 0 where Id = 1')
+>>> engine.execute('select ViewCount from post where Id=1').fetchone()
+>>> engine.execute('select * from post where Id=1').fetchone()
+
+
+- Updating Data Using Update
+# From Python
+***** steps from the previous module that are required
+>>> from sqlalchemy.orm import sessionmaker
+>>> from sqlalchemy.orm import relationship
+>>> from sqlalchemy.schema import ForeignKey
+>>> from sqlalchemy.ext.declarative import declarative_base
+>>> session = sessionmaker()
+>>> session.configure(bind=engine)
+>>> my_session = session()
+>>> Base = declarative_base()
+>>> class User(Base):
+...     __tablename__ = 'user'
+...     Id = db.Column(db.Integer(), primary_key=True)
+...     Name = db.Column(db.String())
+>>> class Post(Base):    
+...     __tablename__ = 'post'
+...     Id = db.Column(db.Integer(), primary_key=True)
+...     Title = db.Column(db.String(255), nullable=False)
+...     ViewCount = db.Column(db.Integer(), default=1000)
+...     Question = db.Column(db.Boolean(), default=True)
+...     OwnerUserId = db.Column(db.Integer(), ForeignKey('user.Id'), nullable=False)
+...     User = relationship('User', backref='post')
+*****
+
+
+>>> query = db.update(Post).where(Post.Id == 1).values(ViewCount=1)
+>>> result = connection.execute(query)
+>>> post_query = my_session.query(Post).filter(Post.Id == 1)
+>>> post_query.one.Id
+>>> post_query.one.ViewCount
+>>> post_query.one.Title
+
+
+- Updating Multiple Records
+# From SQLite3
+sqlite> select ViewCount from post;
+
+
+# From Python
+>>> query = db.update(Post).values(ViewCount = Post.ViewCount + 50)
+>>> result = connection.execute(query)
+
+
+# From SQLite3
+sqlite> select ViewCount from post;
+
+
+- Updating an Object
+# From Python
+>>> my_post = my_session.query(Post).filter(Post.Id == 1).one()
+>>> my_post.Title
+>>> my_post.Title = 'Modified Question'
+>>> my_session.dirty
+>>> my_session.commit()
+
+
+# From SQLite3
+sqlite> select Title from post where Id = 1;
+
+
+- Correlated Updates
+# From SQLite3
+sqlite> select ViewCount from post;
+sqlite> select avg(ViewCount) from post;
+
+
+# From Python
+>>> avg_views = db.select([db.func.avg(Post.ViewCount).label('Average_Views')])
+>>> query = db.update(Post).values(ViewCount=avg_views)
+>>> result = connection.execute(query)
+>>> result.rowcount
+
+
+# From SQLite3
+sqlite> select ViewCount from post;
+
+
+- Deleting a Record
+# From Python
+>>> my_session.query(Post.Id).all()
+>>> first_post = my_session.query(Post).first()
+>>> first_post.Id
+>>> my_session.delete(first_post) 
+>>> my_session.query(Post.Id).all()
+
+
+# From SQLite3
+sqlite> select * from post;
+
+
+# From Python
+>>> my_session.commit()
+
+
+# From SQLite3
+sqlite> select * from post;
+
+
+- Deleting Multiple Records
+# From Python
+>>> my_session.query(Post.Id).all()
+>>> my_session.query(Post).filter(Post.Id > 2).delete()
+
+
+# From SQLite3
+sqlite> select * from post;
+
+
+# From Python
+>>> my_session.commit()
+
+
+# From SQLite3
+sqlite> select * from post;
+
+
+# From Python
+>>> my_session.query(Post.Id).all()
+
+
+- Deleting a Table
+# From Python
+>>> metadata = db.MetaData() 
+>>> metadata.reflect(bind=engine)
+>>> metadata.tables.keys()
+>>> post_table = metadata.tables['post']
+>>> post_table
+>>> post_table.drop(bind=engine)
+
+
+# From SQLite3
+sqlite> .tables

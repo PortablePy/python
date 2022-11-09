@@ -1,0 +1,10 @@
+>>> l = [i * 2 for i in range(10)]                                              
+>>> d = {i: i * 2 for i in range(10)}                                           
+>>> type(d)                                                                     
+<class 'dict'>                                                                  
+>>> s = {i for i in range(10)}                                                  
+>>> type(s)                                                                     
+<class 'set'>                                                                   
+>>> g = (i for i in range(10))                                                  
+>>> type(g)                                                                     
+<class 'generator'>                                                             

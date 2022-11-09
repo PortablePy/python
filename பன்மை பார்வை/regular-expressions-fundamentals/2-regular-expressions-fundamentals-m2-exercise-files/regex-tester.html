@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+<head>
+<!--
+/**
+ * Simple javascript based regular expression tester.
+ * Demo file belonging with the Pluralsight Regular Expressions Fundamentals course.
+ *
+ * Author: Juliette Reinders Folmer
+ */
+-->
+	<meta http-equiv="Charset" content="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<title>Regular expression tester</title>
+
+	<meta name="description" content="Regular expression tester" />
+	<meta name="author" content="Juliette Reinders Folmer, Advies en zo" />
+	<meta name="copyright" content="Copyright Advies en zo - all rights reserved" />
+	<meta name="language" content="en" />
+	<meta name="distribution" content="global" />
+
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+			font-family: "Myriad Pro Light", Verdana, sans-serif;
+		}
+		
+		body {
+			margin: 1em 1.2em;
+		}
+
+		div.regex {
+			padding: 1em 0;
+		}
+		div.regex input {
+			padding: 3px;
+			font-weight: bold;
+			font-size: 90%;
+		}
+		div.regex input#regex {
+			width: 500px;
+			color: #4C868F;
+		}
+		div.regex input#modifiers {
+			width: 40px;
+			color: #72984B;
+		}
+		div.regex input#submit {
+			margin-left: 30px;
+			padding: 0.2em 2em;
+			background-color: #FF681D;
+			color: #FFFFFF;
+		}
+
+		h4 {
+			padding: 0 0 0.8em 0;
+		}
+		h4 #add-input {
+			display: inline-block;
+			margin-left: 2em;
+			padding: 0 0.3em;
+			background-color: #FF681D;
+			color: #FFFFFF;
+			border: 2px outset #FF681D;
+			cursor: pointer;
+		}
+
+
+		div.strings {
+			padding: 0.5em 0;
+			overflow: auto;
+		}
+
+		div.teststring {
+			float: left;
+			width: 600px;
+			margin: 0 10px 10px 0;
+			overflow: auto;
+		}
+		div.teststring:nth-child(odd) {
+			clear: left;
+		}
+
+		div.teststring textarea.inputstring {
+			float: left;
+			width: 280px;
+			height: 25px;
+			padding: 1px 2px 0px 2px;
+		}
+		div.result {
+			float: left;
+			width: 300px;
+			margin-left: 5px;
+			padding: 0 4px;
+		}
+		
+		.no-match {
+			background: #FCE0D2;
+		}
+		.match {
+			background: #EBF4D9;
+		}
+		.submatch {
+			font-style: italic;
+		}
+	</style>
+
+
+	<!-- jQuery via CDN with local fall-back -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script>(window.jQuery) || document.write('<script src="jquery-1.11.3.min.js">\x3C/script>')</script>
+
+	<link rel="shortcut icon" href="http://www.pluralsight.com/favicon.ico" />
+	<link rel="bookmark icon" href="http://www.pluralsight.com/favicon.ico" />
+	<link rel="icon" href="http://www.pluralsight.com/favicon.ico" type="image/ico" />
+
+</head>
+
+
+<body>
+<div class="head">
+	<h2>Simple Regular Expression Tester</h2>
+</div>
+<div class="main">
+	<form>
+		<div class="regex">
+			<p><strong>Pattern:</strong>
+				<strong>/</strong>
+				<input type="text" name="regex" id="regex" value="" />
+				<strong>/</strong>
+
+				<input type="text" name="modifiers" id="modifiers" value="" />
+
+				<input type="button" id="submit" value="test" />
+			</p>
+		</div>
+
+		<h4>
+			Test strings:
+			<span id="add-input">+</span>
+		</h4>
+
+		<div class="strings">
+			<div class="teststring">
+				<textarea class="inputstring"></textarea>
+
+				<div class="result">
+				</div>
+			</div>
+
+		</div>
+
+	</form>
+</div>
+
+<!-- custom js -->
+<script type="text/javascript">
+jQuery(document).ready(function() {
+
+	jQuery('#add-input').click( function() {
+		var inputSet = jQuery('.teststring:first').clone();
+		inputSet.find('.result').html('');
+		inputSet.appendTo( ".strings" );
+	});
+	
+	
+	jQuery('#submit').click( function() {
+		var theRegex = jQuery('#regex').val();
+		var theModifiers = jQuery('#modifiers').val();
+		var myRe = new RegExp( theRegex, theModifiers );
+
+		var matches, testValue, matchText;
+
+		jQuery('.teststring').each( function() {
+			testValue = jQuery( this ).find('.inputstring').val();
+
+			if( testValue !== '' ) {
+				// Get first match
+				if( theModifiers.indexOf('g') === -1 ) {
+					matches = myRe.exec( testValue );
+	
+					if( matches ) {
+						jQuery(this).find('.result').removeClass( 'no-match match' ).addClass( 'match' );
+						matchText = 'Matches found:';
+						for( var i=0; i < matches.length; i++ ) {
+							matchText += '<br />match['+i+'] = "<span class="submatch">'+matches[i]+'</span>"';
+						}
+						jQuery(this).find('.result').html( matchText );
+					}
+					else {
+						jQuery(this).find('.result').removeClass( 'no-match match' ).addClass( 'no-match' ).html('NO Match');
+					}
+				}
+				// Get all matches
+				else {
+					if( ( matches = myRe.exec(testValue) ) !== null ) {
+						jQuery(this).find('.result').removeClass( 'no-match match' ).addClass( 'match' );
+						matchText = 'Matches found:';
+						for( var i=0; i < matches.length; i++ ) {
+							matchText += '<br />match[0]['+i+'] = "<span class="submatch">'+matches[i]+'</span>"';
+						}
+						
+						var k = 1;
+
+						while( ( matches = myRe.exec(testValue) ) !== null ) {
+							for( var i=0; i < matches.length; i++ ) {
+								matchText += '<br />match['+k+']['+i+'] = "<span class="submatch">'+matches[i]+'</span>"';
+							}
+							k++;
+						}
+						jQuery(this).find('.result').html( matchText );
+					}
+					else {
+						jQuery(this).find('.result').removeClass( 'no-match match' ).addClass( 'no-match' ).html('NO Match(es)');
+					}
+				}
+			}
+			else {
+				jQuery(this).find('.result').removeClass( 'no-match match' ).html('');
+			}
+		});
+	});
+});
+</script>
+
+</body>
+</html>

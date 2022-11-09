@@ -1,0 +1,25 @@
+>>> i = 7                                                                       
+>>> type(i)                                                                     
+<class 'int'>                                                                   
+>>> int                                                                         
+<class 'int'>                                                                   
+>>> repr(int)                                                                   
+"<class 'int'>"                                                                 
+>>> type(i) is int                                                              
+True                                                                            
+>>> type(i)(78)                                                                 
+78                                                                              
+>>> type(type(i))                                                               
+<class 'type'>                                                                  
+>>> i.__class__                                                                 
+<class 'int'>                                                                   
+>>> i.__class__.__class__                                                       
+<class 'type'>                                                                  
+>>> i.__class__.__class__.__class__                                             
+<class 'type'>                                                                  
+>>> issubclass(type, object)                                                    
+True                                                                            
+>>> type(object)                                                                
+<class 'type'>                                                                  
+>>> isinstance(i, int)                                                          
+True                                                                            

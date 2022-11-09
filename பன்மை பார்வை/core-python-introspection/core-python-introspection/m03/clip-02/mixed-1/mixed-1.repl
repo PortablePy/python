@@ -1,0 +1,10 @@
+>>> from fractions import Fraction                                              
+>>> mixed_numeral(Fraction('11/10'))                                            
+(1, Fraction(1, 10))                                                            
+>>> mixed_numeral(1.7)                                                          
+Traceback (most recent call last):                                              
+  File "<stdin>", line 1, in <module>                                           
+  File "/Users/abingham/repos/sixty-north/pluralsight/core-python-introspection/
+resources/m03/visning/clip-02/mixed-1/numerals.py", line 6, in mixed_numeral    
+    raise TypeError("{} is not a rational number".format(vulgar))               
+TypeError: 1.7 is not a rational number                                         
